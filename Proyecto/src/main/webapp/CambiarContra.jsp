@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambiar contraseña</title>
+    <title>Cambiar contrasenia</title>
     <link rel="icon" href="images/IconoBat.png" />
 
     <!-- Iconos -->

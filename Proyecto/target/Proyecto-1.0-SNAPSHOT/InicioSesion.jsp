@@ -37,7 +37,7 @@
                     <input id="password" name="password" type="password" placeholder="Contraseña" required>
                 </label>
 
-                <a href="OlvidoContra.html"  class="text-dark text-decoration-none">¿Has olvidado tu contraseña?</a>
+                <a href="<%=request.getContextPath()%>/SesionServlet?action=olvido_contra"  class="text-dark text-decoration-none">¿Has olvidado tu contraseña?</a>
                 <br>
 
                 <button type="submit" class="presionar">
@@ -48,7 +48,7 @@
 
             <div>
                 <p class="d-inline-block">¿No tienes una cuenta?</p>
-                <a href="RegistroUsuario.html"  class="text-dark text-decoration-none">Regístrate</a>
+                <a href="<%=request.getContextPath()%>/SesionServlet?action=registro_usuario"  class="text-dark text-decoration-none">Regístrate</a>
             </div>
 
             <!-- Iconos de contacto -->

@@ -9,7 +9,9 @@ public class Evento {
     private String estado;
     private String foto;
     private String fechaFin;
-    private int idActividad;
+    private Actividad actividad;
+    private String lugar;
+    private String hora;
 
     public int getIdEvento() {
         return idEvento;
@@ -67,11 +69,27 @@ public class Evento {
         this.fechaFin = fechaFin;
     }
 
-    public int getIdActividad() {
-        return idActividad;
+    public Actividad getActividad() {
+        return actividad;
     }
 
-    public void setIdActividad(int idActividad) {
-        this.idActividad = idActividad;
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 }

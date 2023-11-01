@@ -1,31 +1,23 @@
 package com.example.proyecto.daos;
 
+import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.AlumnoEvento;
 import com.example.proyecto.beans.Evento;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class EventoDao {
+public class EventoDao extends DaoBase{
 
     public ArrayList<Evento> listarPorActividad(String idActividad){
 
         ArrayList<Evento> lista = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
-        String url = "jdbc:mysql://localhost:3306/basedatos";
-        String username = "root";
-        String password = "root";
-
-        String sql = "select * from evento where Actividad_idActividad = ?";
+        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where Actividad_idActividad = ?;";
 
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,idActividad);
@@ -41,7 +33,16 @@ public class EventoDao {
                     e.setEstado(rs.getString(5));
                     e.setFoto(rs.getString(6));
                     e.setFechaFin(rs.getString(7));
-                    e.setIdActividad(rs.getInt(8));
+                    e.setLugar(rs.getString(9));
+                    e.setHora(rs.getString(10));
+
+                    Actividad a = new Actividad();
+                    a.setDescripcion(rs.getString("a.descripcion"));
+                    a.setFoto(rs.getString("a.foto"));
+                    a.setFoto(rs.getString("a.estado"));
+
+                    e.setActividad(a);
+
                     lista.add(e);
                 }
             }
@@ -57,15 +58,6 @@ public class EventoDao {
 
         ArrayList<AlumnoEvento> lista = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basedatos";
-        String username = "root";
-        String password = "root";
 
         String sql = "select a.idAlumno, e.descripcion, i.descripcion, e.fechaIn \n" +
                 "from alumno a INNER JOIN alumno_evento ae ON (a.idAlumno = ae.Alumno_idAlumno)\n" +
@@ -73,7 +65,7 @@ public class EventoDao {
                 "INNER JOIN evento e ON (ae.Evento_idEvento = e.idEvento)\n" +
                 "WHERE a.idAlumno = ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,idAlumno);

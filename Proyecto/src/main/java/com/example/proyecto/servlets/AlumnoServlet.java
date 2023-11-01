@@ -24,8 +24,9 @@ public class AlumnoServlet extends HttpServlet {
 
        switch (action){
           case "main_page":
-             //saca del modelo
-             ArrayList<Evento> list = eDao.listarPorActividad("1");
+             //saca la lista de eventos según actividad
+              String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct");
+             ArrayList<Evento> list = eDao.listarPorActividad(idAct);
 
              //mandar la lista a la vista -> /MainPage.jsp
              request.setAttribute("lista",list);

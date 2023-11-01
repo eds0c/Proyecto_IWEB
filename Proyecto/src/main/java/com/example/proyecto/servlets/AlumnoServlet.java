@@ -49,6 +49,10 @@ public class AlumnoServlet extends HttpServlet {
               request.getRequestDispatcher("/Donaciones.jsp").forward(request,response);
               break;
 
+           case "info_eventos":
+               request.getRequestDispatcher("/InfoEventos.jsp").forward(request,response);
+               break;
+
            case "cerrar_sesion":
                response.sendRedirect(request.getContextPath() + "/SesionServlet");
                break;

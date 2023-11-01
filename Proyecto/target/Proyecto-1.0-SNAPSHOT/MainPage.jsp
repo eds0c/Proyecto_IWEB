@@ -186,7 +186,7 @@
                                     <p class="card-text"><%=e.getDescripcion()%></p>
                                     <p class="card-text mr-4 text-success">Fecha: <%=e.getFechaIn()%></p>
                                 </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
+                                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=info_eventos" class="card-link" data-toggle="modal" data-target="#modalId">Ver
                                     evento</a>
                             </div>
                         </div>

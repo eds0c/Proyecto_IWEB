@@ -36,7 +36,10 @@ public class DelegadoActividadServlet extends HttpServlet {
             case "mi_actividad":
                 request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request,response);
                 break;
+            case "participantes":
 
+                request.getRequestDispatcher("delegAct/Participantes.jsp").forward(request,response);
+                break;
             case "cerrar_sesion":
                 response.sendRedirect(request.getContextPath() + "/SesionServlet");
                 break;

@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donaciones</title>
-    <link rel="icon" href="../images/IconoBat.png" />
+    <link rel="icon" href="images/IconoBat.png" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- css -->
-    <link rel="stylesheet" href="../css/styleEventos.css">
+    <link rel="stylesheet" href="css/styleEventos.css">
 </head>
 
 <body>
@@ -33,7 +33,7 @@
     <nav class="navegacion">
         <ul>
             <li>
-                <a href="MainPage.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -42,13 +42,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="MisEventos.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="EventFinalizados.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -57,14 +57,14 @@
             <div class="linea"></div>
 
             <li>
-                <a id="donaciones" href="Donaciones.html">
+                <a id="donaciones" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
                 </a>
             </li>
 
             <li>
-                <a href="MiActividad.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
                     <ion-icon name="clipboard-outline"></ion-icon>
                     <span>Mi actividad</span>
                 </a>
@@ -86,7 +86,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="../InicioSesion.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>
@@ -114,7 +114,7 @@
 
 
         <div class="usuario">
-            <img src="../images/usuario.jpg">
+            <img src="images/usuario.jpg">
             <div class="info-usuario">
                 <div class="nombre-email">
                     <span class="nombre">Usuario</span>
@@ -157,13 +157,13 @@
                             <div class="row medio-pago">
                                 <div class="col text-center yape">
                                     <label for="yape"><img class="img-pago" height="300px"
-                                                           src="../images/yape.jpg" /></label><br />
+                                                           src="images/yape.jpg" /></label><br />
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
                                            id="yape" />
                                 </div>
                                 <div class="col text-center plin">
                                     <label for="plin"><img class="img-pago" height="300px"
-                                                           src="../images/plin.jpg" /></label><br />
+                                                           src="images/plin.jpg" /></label><br />
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
                                            id="plin" />
                                 </div>

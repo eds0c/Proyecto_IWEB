@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Act: Participantes</title>
     <!-- Icono de pestaña -->
-    <link rel="icon" href="../images/IconoBat.png" />
+    <link rel="icon" href="images/IconoBat.png" />
     <!-- Iconos -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- css -->
-    <link rel="stylesheet" href="../css/styleEventos.css">
+    <link rel="stylesheet" href="css/styleEventos.css">
 
 </head>
 
@@ -47,13 +47,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="MisEventos.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="EventFinalizados.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -62,7 +62,7 @@
             <div class="linea"></div>
 
             <li>
-                <a href="Donaciones.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
                 </a>
@@ -91,7 +91,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="../InicioSesion.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>

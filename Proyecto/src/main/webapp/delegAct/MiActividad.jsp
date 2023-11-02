@@ -91,7 +91,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="InicioSesion.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>
@@ -185,7 +185,7 @@
                             </button>
                             <!-- Ver participantes -->
                             <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes" class="text-dark text-decoration-none">
                                     <ion-icon name="people-outline"></ion-icon>
                                 </a>
                             </button>

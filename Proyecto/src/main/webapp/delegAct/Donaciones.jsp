@@ -86,7 +86,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="InicioSesion.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>

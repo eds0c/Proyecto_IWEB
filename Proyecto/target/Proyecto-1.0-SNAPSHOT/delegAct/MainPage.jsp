@@ -38,7 +38,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="MainPage.html">
+                <a id="inicio" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -47,13 +47,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="MisEventos.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="EventFinalizados.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -62,14 +62,14 @@
             <div class="linea"></div>
 
             <li>
-                <a href="Donaciones.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
                 </a>
             </li>
 
             <li>
-                <a href="MiActividad.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
                     <ion-icon name="clipboard-outline"></ion-icon>
                     <span>Mi actividad</span>
                 </a>
@@ -91,7 +91,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="../InicioSesion.html">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cerrar_sesion"">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>
@@ -182,7 +182,7 @@
                     <!-- Evento 1 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">
@@ -197,7 +197,7 @@
                     <!-- Evento 2 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">
@@ -212,7 +212,7 @@
                     <!-- Evento 3 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">
@@ -227,7 +227,7 @@
                     <!-- Evento 4 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">
@@ -242,7 +242,7 @@
                     <!-- Evento 5 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">
@@ -257,7 +257,7 @@
                     <!-- Evento 6 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">
@@ -272,7 +272,7 @@
                     <!-- Evento 7 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">
@@ -287,7 +287,7 @@
                     <!-- Evento 8 -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">VALORANT</h5>
                                 <div class="d-flex justify-content-between">

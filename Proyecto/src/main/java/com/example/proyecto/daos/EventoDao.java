@@ -13,13 +13,14 @@ public class EventoDao extends DaoBase{
         ArrayList<Evento> lista = new ArrayList<>();
 
 
-        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where Actividad_idActividad = ?;";
+        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where Actividad_idActividad = ? and e.estado = ?;";
 
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,idActividad);
+            pstmt.setString(2,"a");
 
             try(ResultSet rs = pstmt.executeQuery()) {
 
@@ -56,15 +57,16 @@ public class EventoDao extends DaoBase{
         ArrayList<Evento> lista = new ArrayList<>();
 
 
-        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where e.idEvento != ? limit ? offset ?";
+        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where e.idEvento != ? and e.estado = ? limit ? offset ?";
 
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,idEventoNoMostrado);
-            pstmt.setInt(2,limit);
-            pstmt.setInt(3,offset);
+            pstmt.setString(2,"a");
+            pstmt.setInt(3,limit);
+            pstmt.setInt(4,offset);
 
 
             try(ResultSet rs = pstmt.executeQuery()) {
@@ -101,7 +103,7 @@ public class EventoDao extends DaoBase{
 
         Evento evento = new Evento();
 
-        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where e.idEvento = ?;";
+        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where e.idEvento = ? ;";
 
 
         try (Connection conn = getConnection();
@@ -138,6 +140,52 @@ public class EventoDao extends DaoBase{
         return evento;
     }
 
+    public ArrayList<Evento> listarEventosSegunEstado(String estado, int limit, int offset){
+
+        ArrayList<Evento> lista = new ArrayList<>();
+
+
+        String sql = "select * from evento e inner join actividad a on e.Actividad_idActividad = a.idActividad where e.estado = ? limit ? offset ?";
+
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,estado);
+            pstmt.setInt(2,limit);
+            pstmt.setInt(3,offset);
+
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+                    Evento e = new Evento();
+                    e.setIdEvento(rs.getInt(1));
+                    e.setDescripcion(rs.getString(2));
+                    e.setFechaIn(rs.getString(3));
+                    e.setParticipantes(rs.getString(4));
+                    e.setEstado(rs.getString(5));
+                    e.setFoto(rs.getString(6));
+                    e.setFechaFin(rs.getString(7));
+                    e.setLugar(rs.getString(9));
+                    e.setHora(rs.getString(10));
+
+                    Actividad a = new Actividad();
+                    a.setDescripcion(rs.getString("a.descripcion"));
+                    a.setFoto(rs.getString("a.foto"));
+                    a.setFoto(rs.getString("a.estado"));
+
+                    e.setActividad(a);
+
+                    lista.add(e);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
+
 
 
     public ArrayList<AlumnoEvento> listarPorAlumno(String idAlumno){
@@ -150,12 +198,13 @@ public class EventoDao extends DaoBase{
                 "from alumno a INNER JOIN alumno_evento ae ON (a.idAlumno = ae.Alumno_idAlumno)\n" +
                 "INNER JOIN integrante i ON (ae.Integrante_idIntegrante = i.idIntegrante)\n" +
                 "INNER JOIN evento e ON (ae.Evento_idEvento = e.idEvento)\n" +
-                "WHERE a.idAlumno = ?;";
+                "WHERE a.idAlumno = ? and e.estado = ?;";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,idAlumno);
+            pstmt.setString(2,"a");
 
             try(ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {

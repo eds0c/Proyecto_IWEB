@@ -28,7 +28,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 request.getRequestDispatcher("delegAct/MisEventos.jsp").forward(request,response);
                 break;
             case "eventos_finalizados":
-                request.getRequestDispatcher("delegAct/EventosFinalizados.jsp").forward(request,response);
+                request.getRequestDispatcher("delegAct/EventFinalizados.jsp").forward(request,response);
                 break;
             case "donaciones":
                 request.getRequestDispatcher("delegAct/Donaciones.jsp").forward(request,response);

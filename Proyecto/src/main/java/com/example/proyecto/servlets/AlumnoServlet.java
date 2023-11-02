@@ -43,6 +43,12 @@ public class AlumnoServlet extends HttpServlet {
               request.getRequestDispatcher("/MisEventos.jsp").forward(request,response);
               break;
           case "eventos_finalizados":
+              //saca la lista de eventos finalizados
+
+              ArrayList<Evento> listaEventosFinalizados = eDao.listarEventosSegunEstado("f",100,0);
+
+              //mandar la lista a la vista -> /MainPage.jsp
+              request.setAttribute("lista_eventos_finalizados",listaEventosFinalizados);
               request.getRequestDispatcher("/EventosFinalizados.jsp").forward(request,response);
               break;
           case "donaciones":

@@ -33,10 +33,14 @@ public class DelegadoActividadServlet extends HttpServlet {
             case "donaciones":
                 request.getRequestDispatcher("delegAct/Donaciones.jsp").forward(request,response);
                 break;
+            case "mi_actividad":
+                request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request,response);
+                break;
 
             case "cerrar_sesion":
                 response.sendRedirect(request.getContextPath() + "/SesionServlet");
                 break;
+
         }
 
     }
@@ -46,4 +50,5 @@ public class DelegadoActividadServlet extends HttpServlet {
 
     }
 }
+
 

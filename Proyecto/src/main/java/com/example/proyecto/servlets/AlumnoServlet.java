@@ -50,6 +50,16 @@ public class AlumnoServlet extends HttpServlet {
               break;
 
            case "info_eventos":
+
+               String idEvento = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
+
+               Evento evento = eDao.buscarEvento(idEvento);
+               ArrayList<Evento> lista2 = eDao.listarEventos(idEvento,4,0);
+
+               //mandar la lista a la vista -> /InfoEventos.jsp
+               request.setAttribute("evento",evento);
+               request.setAttribute("lista2",lista2);
+
                request.getRequestDispatcher("/InfoEventos.jsp").forward(request,response);
                break;
 

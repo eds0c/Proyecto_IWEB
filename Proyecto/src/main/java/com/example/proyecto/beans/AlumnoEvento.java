@@ -2,42 +2,40 @@ package com.example.proyecto.beans;
 
 public class AlumnoEvento {
 
-    private int idAlumno;
-    private String descripcionIntegrante;
-    private String descripcionEvento;
-    private String fechaEvento;
+    private Alumno alumno;
+    private Integrante integrante;
+    private Evento evento;
+    private int idAlumnoEvento;
 
-
-
-    public int getIdAlumno() {
-        return idAlumno;
+    public Alumno getAlumno() {
+        return alumno;
     }
 
-    public void setIdAlumno(int idAlumno) {
-        this.idAlumno = idAlumno;
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
     }
 
-    public String getDescripcionIntegrante() {
-        return descripcionIntegrante;
+    public Integrante getIntegrante() {
+        return integrante;
     }
 
-    public void setDescripcionIntegrante(String descripcionIntegrante) {
-        this.descripcionIntegrante = descripcionIntegrante;
+    public void setIntegrante(Integrante integrante) {
+        this.integrante = integrante;
     }
 
-    public String getDescripcionEvento() {
-        return descripcionEvento;
+    public Evento getEvento() {
+        return evento;
     }
 
-    public void setDescripcionEvento(String descripcionEvento) {
-        this.descripcionEvento = descripcionEvento;
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
 
-    public String getFechaEvento() {
-        return fechaEvento;
+    public int getIdAlumnoEvento() {
+        return idAlumnoEvento;
     }
 
-    public void setFechaEvento(String fechaEvento) {
-        this.fechaEvento = fechaEvento;
+    public void setIdAlumnoEvento(int idAlumnoEvento) {
+        this.idAlumnoEvento = idAlumnoEvento;
     }
 }

@@ -145,12 +145,11 @@
 
                 <!-- Generador por bucle: ----------------------------------------------------------------------------------------------->
                 <%for (AlumnoEvento aE: lista_mis_eventos){%>
-                <%int i = 1;%>
                 <!-- Info de evento inscrito -->
                 <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
                     <div class="col">
                         <!-- Titulo del evento -->
-                        <h2 class="text-center"><strong>VALORANT <%=i%></strong></h2>
+                        <h2 class="text-center"><strong><%=aE.getEvento().getActividad().getDescripcion()%></strong></h2>
                         <div class="row">
                             <!-- Imagen del evento -->
                             <div class="col-md-5 img-event">
@@ -160,31 +159,31 @@
                             <div class="col-md-7 info-event">
                                 <div class="info-event-child">
                                     <div class="row">
-                                        <h4>Descripción:</h4>
-                                        <p><%= aE.getDescripcionEvento()%>
+                                        <h4></h4>
+                                        <p><%=aE.getEvento().getDescripcion()%>
                                         </p>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
                                             <h4>Fecha:</h4>
-                                            <p><%= aE.getFechaEvento()%></p>
+                                            <p><%=aE.getEvento().getFechaIn()%></p>
                                         </div>
                                         <div class="col">
                                             <h4>Hora:</h4>
-                                            <p>hh:mm</p>
+                                            <p><%=aE.getEvento().getHora()%></p>
                                         </div>
 
                                     </div>
 
                                     <div class="row">
                                         <h4>Lugar:</h4>
-                                        <p>Nombre del lugar</p>
+                                        <p><%=aE.getEvento().getLugar()%></p>
                                     </div>
 
                                     <div class="row">
                                         <h4>Rol:</h4>
-                                        <p><%= aE.getDescripcionIntegrante()%></p>
+                                        <p><%= aE.getIntegrante().getDescripcion()%></p>
                                     </div>
 
                                 </div>
@@ -193,7 +192,6 @@
 
                     </div>
                 </div>
-                <%i = i+1;%>
                 <%}%>
             </div>
         </div>

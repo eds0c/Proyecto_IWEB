@@ -1,5 +1,9 @@
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="evento" scope="request" type="Evento" />
+<jsp:useBean id="lista2" scope="request" type="ArrayList<Evento>" />
+
 <html lang="en">
 
 <head>
@@ -37,7 +41,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="MainPage.html">
+                <a id="inicio" href="<%=request.getContextPath()%>/AlumnoServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -46,13 +50,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="MisEventos.html">
+                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="EventFinalizados.html">
+                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -61,7 +65,7 @@
             <div class="linea"></div>
 
             <li>
-                <a href="Donaciones.html">
+                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
                 </a>
@@ -83,7 +87,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="InicioSesion.html">
+                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>
@@ -132,7 +136,7 @@
         <div class="row info rounded-4" style="background-color: #f8f8f8;">
             <div class="col">
                 <!-- Titulo del evento -->
-                <h2 class="text-center">Evento: <strong>Nombre del evento</strong></h2>
+                <h2 class="text-center"><strong><%=evento.getActividad().getDescripcion()%></strong></h2>
                 <div class="row">
                     <!-- Imagen del evento -->
                     <div class="col-md-5 img-event" >
@@ -143,28 +147,25 @@
                         <div class="info-event-child">
                             <div class="row">
                                 <h4>Descripción:</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                    adipisci alias asperiores aspernatur atque autem consequatur
-                                    cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                    esse est eum eveniet excepturi exercitationem facilis fugiat hic
+                                <p><%=evento.getDescripcion()%>
                                 </p>
                             </div>
 
                             <div class="row">
                                 <div class="col">
                                     <h4>Fecha:</h4>
-                                    <p>dd/mm/aaaa</p>
+                                    <p><%=evento.getFechaIn()%></p>
                                 </div>
                                 <div class="col">
                                     <h4>Hora:</h4>
-                                    <p>hh:mm</p>
+                                    <p><%=evento.getHora()%></p>
                                 </div>
 
                             </div>
 
                             <div class="row">
                                 <h4>Lugar:</h4>
-                                <p>Nombre del lugar</p>
+                                <p><%=evento.getLugar()%></p>
                             </div>
 
                             <div class="row">
@@ -190,68 +191,26 @@
             <div class="col">
                 <h3>Otros eventos</h3>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-4 mt-1 mb-3">
+
+                    <%for (Evento e:lista2){%>
                     <!-- Evento 1 -->
                     <div class="col event mt-3">
                         <div class="card h-100">
                             <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
+                                <h5 class="card-title"><%=e.getActividad().getDescripcion()%>: <div class="d-flex justify-content-between"><%=e.getDescripcion()%></div></h5>
                                 <!-- <div class="d-flex justify-content-between">
                                     <p class="card-text">Teleco vs. Ing electrónica</p>
                                     <p class="card-text mr-4 text-success">25 de octubre</p>
                                 </div> -->
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
+                                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="card-link" data-toggle="modal"
                                    data-target="#modalId">Ver
                                     evento</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Evento 2 -->
-                    <div class="col event mt-3">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
-                                <!-- <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div> -->
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
-                                   data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 3 -->
-                    <div class="col event mt-3">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
-                                <!-- <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div> -->
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
-                                   data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 4 -->
-                    <div class="col event mt-3">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
-                                   data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
+                    <%}%>
 
-                </div>
             </div>
         </div>
 

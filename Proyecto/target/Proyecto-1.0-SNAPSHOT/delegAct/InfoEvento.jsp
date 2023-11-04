@@ -1,5 +1,9 @@
 
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="evento" scope="request" type="Evento" />
+<jsp:useBean id="lista2" scope="request" type="ArrayList<Evento>" />
 <html lang="en">
 
 <head>
@@ -7,14 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semana Teleco</title>
     <!-- Icono de pestaña -->
-    <link rel="icon" href="../images/IconoBat.png" />
+    <link rel="icon" href="images/IconoBat.png" />
     <!-- Iconos -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- css -->
-    <link rel="stylesheet" href="../css/styleInfoEvento.css">
+    <link rel="stylesheet" href="css/styleInfoEvento.css">
 </head>
 
 <body>
@@ -37,7 +41,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="MainPage.html">
+                <a id="inicio" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -46,13 +50,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="MisEventos.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="EventFinalizados.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -61,14 +65,14 @@
             <div class="linea"></div>
 
             <li>
-                <a href="Donaciones.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
                 </a>
             </li>
 
             <li>
-                <a href="MiActividad.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
                     <ion-icon name="clipboard-outline"></ion-icon>
                     <span>Mi actividad</span>
                 </a>
@@ -118,7 +122,7 @@
 
 
         <div class="usuario">
-            <img src="../images/usuario.jpg">
+            <img src="images/usuario.jpg">
             <div class="info-usuario">
                 <div class="nombre-email">
                     <span class="nombre">Usuario</span>
@@ -143,7 +147,7 @@
                 <div class="row">
                     <!-- Imagen del evento -->
                     <div class="col-md-5 img-event" >
-                        <img src="../images/valorant.avif" class="rounded-3" width="100%">
+                        <img src="images/valorant.avif" class="rounded-3" width="100%">
                     </div>
                     <!-- Info del evento -->
                     <div class="col-md-7 info-event">
@@ -197,70 +201,28 @@
             <div class="col">
                 <h3>Otros eventos</h3>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-4 mt-1 mb-3">
+
+                    <%for (Evento e:lista2){%>
                     <!-- Evento 1 -->
                     <div class="col event mt-3">
                         <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
+                                <h5 class="card-title"><%=e.getActividad().getDescripcion()%>: <div class="d-flex justify-content-between"><%=e.getDescripcion()%></div></h5>
                                 <!-- <div class="d-flex justify-content-between">
                                     <p class="card-text">Teleco vs. Ing electrónica</p>
                                     <p class="card-text mr-4 text-success">25 de octubre</p>
                                 </div> -->
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="card-link" data-toggle="modal"
                                    data-target="#modalId">Ver
                                     evento</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Evento 2 -->
-                    <div class="col event mt-3">
-                        <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
-                                <!-- <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div> -->
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
-                                   data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 3 -->
-                    <div class="col event mt-3">
-                        <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
-                                <!-- <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div> -->
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
-                                   data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 4 -->
-                    <div class="col event mt-3">
-                        <div class="card h-100">
-                            <img src="../images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title">VALORANT</h5>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal"
-                                   data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
+                    <%}%>
 
                 </div>
             </div>
-        </div>
 
     </div>
 

@@ -1,6 +1,7 @@
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="en">
+<jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
 
 <head>
     <meta charset="UTF-8">
@@ -67,7 +68,7 @@
                     <span>Donaciones</span>
                 </a>
             </li>
-
+            <!-- Aquí hacemos CRUD -->
             <li>
                 <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
                     <ion-icon name="clipboard-outline"></ion-icon>
@@ -91,7 +92,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cerrar_sesion"">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>
@@ -156,17 +157,16 @@
                         <div class="filter-buttons" id="buttons">
                             <ion-icon name="chevron-back-outline" class="prev"></ion-icon>
                             <div class="slider">
-                                <button class="button-value">Todo</button>
-                                <button class="button-value">Actividad 1</button>
-                                <button class="button-value">Actividad 2</button>
-                                <button class="button-value">Actividad 3</button>
-                                <button class="button-value">Actividad 4</button>
-                                <button class="button-value">Actividad 5</button>
-                                <button class="button-value">Actividad 6</button>
-                                <button class="button-value">Actividad 7</button>
-                                <button class="button-value">Actividad 8</button>
-                                <button class="button-value">Actividad 9</button>
-                                <button class="button-value">Actividad 10</button>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=1" class="button-value" role="button" >Actividad 1</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=2" class="button-value" role="button" >Actividad 2</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=3" class="button-value" role="button" >Actividad 3</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=4" class="button-value" role="button" >Actividad 4</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=5" class="button-value" role="button" >Actividad 5</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=6" class="button-value" role="button" >Actividad 6</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=7" class="button-value" role="button" >Actividad 7</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=8" class="button-value" role="button" >Actividad 8</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=9" class="button-value" role="button" >Actividad 9</a>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=10" class="button-value" role="button" >Actividad 10</a>
                             </div>
                             <ion-icon name="chevron-forward-outline" class="next"></ion-icon>
                         </div>
@@ -179,126 +179,25 @@
         <div class="row content">
             <div class="col">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-4 mt-2 mb-3">
-                    <!-- Evento 1 -->
+
+                    <%for (Evento e: lista){%>
+                    <!-- Eventos -->
                     <div class="col event">
                         <div class="card h-100">
                             <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
+                                <h5 class="card-title"><%=e.getActividad().getDescripcion()%></h5>
                                 <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
+                                    <p class="card-text"><%=e.getDescripcion()%></p>
+                                    <p class="card-text mr-4 text-success">Fecha: <%=e.getFechaIn()%></p>
                                 </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="card-link" data-toggle="modal" data-target="#modalId">Ver
                                     evento</a>
                             </div>
                         </div>
                     </div>
-                    <!-- Evento 2 -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 3 -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 4 -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 5 -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 6 -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 7 -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Evento 8 -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">VALORANT</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text">Teleco vs. Ing electrónica</p>
-                                    <p class="card-text mr-4 text-success">25 de octubre</p>
-                                </div>
-                                <a href="InfoEvento.html" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
+                    <%};%>
+
                 </div>
             </div>
         </div>

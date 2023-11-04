@@ -25,8 +25,8 @@ public class AlumnoServlet extends HttpServlet {
        switch (action){
           case "main_page":
              //saca la lista de eventos según actividad
-              String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct");
-             ArrayList<Evento> list = eDao.listarPorActividad(idAct);
+              String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
+             ArrayList<Evento> list = eDao.listarPorActividad(idAct,"a");
 
              //mandar la lista a la vista -> /MainPage.jsp
              request.setAttribute("lista",list);
@@ -36,7 +36,7 @@ public class AlumnoServlet extends HttpServlet {
 
           case "mis_eventos":
               //saca del modelo
-              ArrayList<AlumnoEvento> list_mis_eventos = eDao.listarPorAlumno("1");
+              ArrayList<AlumnoEvento> list_mis_eventos = eDao.listarPorAlumno("1"); //
 
               //mandar la lista a la vista -> /MisEventos.jsp
               request.setAttribute("lista_mis_eventos",list_mis_eventos);
@@ -45,7 +45,7 @@ public class AlumnoServlet extends HttpServlet {
           case "eventos_finalizados":
               //saca la lista de eventos finalizados
 
-              ArrayList<Evento> listaEventosFinalizados = eDao.listarEventosSegunEstado("f",100,0);
+              ArrayList<Evento> listaEventosFinalizados = eDao.listarEventosSegunEstado("f",100,0); //
 
               //mandar la lista a la vista -> /MainPage.jsp
               request.setAttribute("lista_eventos_finalizados",listaEventosFinalizados);

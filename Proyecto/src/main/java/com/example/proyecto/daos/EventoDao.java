@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EventoDao extends DaoBase{
 
-    public ArrayList<Evento> listarPorActividad(String idActividad){
+    public ArrayList<Evento> listarPorActividad(String idActividad, String estado){
 
         ArrayList<Evento> lista = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class EventoDao extends DaoBase{
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,idActividad);
-            pstmt.setString(2,"a");
+            pstmt.setString(2,estado);
 
             try(ResultSet rs = pstmt.executeQuery()) {
 
@@ -52,7 +52,7 @@ public class EventoDao extends DaoBase{
         return lista;
     }
 
-    public ArrayList<Evento> listarEventos(String idEventoNoMostrado, int limit, int offset){
+    public ArrayList<Evento> listarEventos(String idEventoNoMostrado, int limit, int offset){ //evento de segundo plano
 
         ArrayList<Evento> lista = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class EventoDao extends DaoBase{
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1,idEventoNoMostrado);
+            pstmt.setString(1,idEventoNoMostrado); // evento principal
             pstmt.setString(2,"a");
             pstmt.setInt(3,limit);
             pstmt.setInt(4,offset);
@@ -99,7 +99,7 @@ public class EventoDao extends DaoBase{
         return lista;
     }
 
-    public Evento buscarEvento(String idEvento){
+    public Evento buscarEvento(String idEvento){ //devuelve el evento grande
 
         Evento evento = new Evento();
 

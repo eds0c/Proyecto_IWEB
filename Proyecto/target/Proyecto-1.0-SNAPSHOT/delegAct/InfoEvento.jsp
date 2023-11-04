@@ -154,28 +154,25 @@
                         <div class="info-event-child">
                             <div class="row">
                                 <h4>Descripción:</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                    adipisci alias asperiores aspernatur atque autem consequatur
-                                    cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                    esse est eum eveniet excepturi exercitationem facilis fugiat hic
+                                <p><%=evento.getDescripcion()%>
                                 </p>
                             </div>
 
                             <div class="row">
                                 <div class="col">
                                     <h4>Fecha:</h4>
-                                    <p>dd/mm/aaaa</p>
+                                    <p><%=evento.getFechaIn()%></p>
                                 </div>
                                 <div class="col">
                                     <h4>Hora:</h4>
-                                    <p>hh:mm</p>
+                                    <p><%=evento.getHora()%></p>
                                 </div>
 
                             </div>
 
                             <div class="row">
                                 <h4>Lugar:</h4>
-                                <p>Nombre del lugar</p>
+                                <p><%=evento.getLugar()%></p>
                             </div>
 
                             <div class="row">

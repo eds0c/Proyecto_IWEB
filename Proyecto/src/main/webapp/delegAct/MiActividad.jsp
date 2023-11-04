@@ -1,5 +1,9 @@
 
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="eevento" scope="request" type="Evento" />
+<jsp:useBean id="lista3" scope="request" type="ArrayList<Evento>" />
 <html lang="en">
 
 <head>
@@ -452,29 +456,27 @@
                                 </div>
                                 <div class="mb-3">
                                     <h5>Descripción:</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                        adipisci alias asperiores aspernatur atque autem consequatur
-                                        cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                        esse est eum eveniet excepturi exercitationem facilis fugiat hic
+                                    <p><%=eevento.getDescripcion()%>
                                     </p>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <h5>Fecha:</h5>
-                                        <p>dd/mm/aaaa</p>
+                                        <p><%=eevento.getFechaIn()%></p>
                                     </div>
                                     <div class="col">
                                         <h5>Hora:</h5>
-                                        <p>hh:mm</p>
+                                        <p><%=eevento.getHora()%></p>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <h5>Lugar:</h5>
-                                    <p>Nombre del lugar</p>
+                                    <p><%=eevento.getLugar()%></p>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                               <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button> -->
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mi_actividad" class="btn btn-danger">Cerrar</a>
                                 <button type="button" class="btn btn-primary">Editar</button>
                             </div>
 
@@ -570,7 +572,9 @@
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form>
+
+                        <!--Aquí haremos las pruebas con debug -->
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet">
 
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="nuevoModalLabel">Nuevo evento</h1>
@@ -581,36 +585,45 @@
                                 <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
                                     <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
                                          alt="Imagen de muestra" id="exampleImage" class="img-thumbnail w-50">
-                                    <label class="form-label" for="imageUpload">Subir Foto</label>
-                                    <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                                    <!--<label class="form-label" for="imageUpload">Subir Foto</label>
+                                    <input type="file" class="form-control" id="imageUpload" accept="image/*"> -->
+                                    <label>Subir Foto</label>
+                                    <input type="file" class="form-control" name="eventoFoto" accept="image/*">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleDescription" class="form-label">Descripción</label>
+                                    <!--<label for="exampleDescription" class="form-label">Descripción</label>
                                     <textarea class="form-control" id="exampleDescription" rows="4"
+                                              placeholder="Ingrese la descripción aquí"></textarea>-->
+                                    <label>Descripción</label>
+                                    <textarea class="form-control" name="eventoDescripcion" rows="4"
                                               placeholder="Ingrese la descripción aquí"></textarea>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <label for="exampleDate" class="form-label">Fecha</label>
-                                        <input type="date" class="form-control" id="exampleDate">
+                                        <!-- <label for="exampleDate" class="form-label">Fecha</label> -->
+                                        <label>Fecha</label>
+                                        <input type="date" class="form-control" name="eventoFecha">
                                     </div>
                                     <div class="col">
-                                        <label for="exampleTime" class="form-label">Hora</label>
-                                        <input type="time" class="form-control" id="exampleTime">
+                                        <!--  <label for="exampleTime" class="form-label">Hora</label> -->
+                                        <label>Hora</label>
+                                        <input type="time" class="form-control" name="eventoHora">
+                                        <!-- <input type="time" class="form-control" id="exampleTime"> -->
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleLocation" class="form-label">Lugar</label>
-                                    <input type="text" class="form-control" id="exampleLocation"
+                                    <label>Lugar</label>
+                                    <input type="text" class="form-control" name="eventoLugar"
                                            placeholder="Ingrese el lugar">
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger"
-                                        data-bs-dismiss="modal">Cancelar</button>
-
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#SaveNewEvent">Guardar Cambios</button>
+                                <!-- <button type="button" class="btn btn-danger"
+                                        data-bs-dismiss="modal">Cancelar</button>   -->
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mi_actividad" class="btn btn-danger">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#SaveNewEvent">Guardar Cambios</button> -->
                             </div>
 
                         </form>

@@ -31,10 +31,10 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString(3));
                     e.setParticipantes(rs.getString(4));
                     e.setEstado(rs.getString(5));
-                    e.setFoto(rs.getString(6));
+                    e.setFoto(rs.getBytes(6));
                     e.setFechaFin(rs.getString(7));
                     e.setLugar(rs.getString(9));
-                    e.setHora(rs.getString(10));
+                    e.setHora(rs.getTime(10));
 
                     Actividad a = new Actividad();
                     a.setDescripcion(rs.getString("a.descripcion"));
@@ -78,10 +78,10 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString(3));
                     e.setParticipantes(rs.getString(4));
                     e.setEstado(rs.getString(5));
-                    e.setFoto(rs.getString(6));
+                    e.setFoto(rs.getBytes(6));
                     e.setFechaFin(rs.getString(7));
                     e.setLugar(rs.getString(9));
-                    e.setHora(rs.getString(10));
+                    e.setHora(rs.getTime(10));
 
                     Actividad a = new Actividad();
                     a.setDescripcion(rs.getString("a.descripcion"));
@@ -120,10 +120,10 @@ public class EventoDao extends DaoBase{
                     evento.setFechaIn(rs.getString(3));
                     evento.setParticipantes(rs.getString(4));
                     evento.setEstado(rs.getString(5));
-                    evento.setFoto(rs.getString(6));
+                    evento.setFoto(rs.getBytes(6));
                     evento.setFechaFin(rs.getString(7));
                     evento.setLugar(rs.getString(9));
-                    evento.setHora(rs.getString(10));
+                    evento.setHora(rs.getTime(10));
 
                     Actividad a = new Actividad();
                     a.setDescripcion(rs.getString("a.descripcion"));
@@ -165,10 +165,10 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString(3));
                     e.setParticipantes(rs.getString(4));
                     e.setEstado(rs.getString(5));
-                    e.setFoto(rs.getString(6));
+                    e.setFoto(rs.getBytes(6));
                     e.setFechaFin(rs.getString(7));
                     e.setLugar(rs.getString(9));
-                    e.setHora(rs.getString(10));
+                    e.setHora(rs.getTime(10));
 
                     Actividad a = new Actividad();
                     a.setDescripcion(rs.getString("a.descripcion"));
@@ -232,13 +232,13 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString("e.fechaIn"));
                     e.setParticipantes(rs.getString("e.participantes"));
                     e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getString("e.foto"));
+                    e.setFoto(rs.getBytes("e.foto"));
                     e.setFechaFin(rs.getString("e.fechaFin"));
 
                     ActividadDao aDao = new ActividadDao();
                     e.setActividad(aDao.obtenerActividad(String.valueOf(rs.getInt("e.Actividad_idActividad"))));
                     e.setLugar(rs.getString("e.lugar"));
-                    e.setHora(rs.getString("e.hora"));
+                    e.setHora(rs.getTime("e.hora"));
 
                     aE.setAlumno(a);
                     aE.setEvento(e);

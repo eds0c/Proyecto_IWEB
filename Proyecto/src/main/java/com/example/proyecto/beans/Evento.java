@@ -1,5 +1,8 @@
 package com.example.proyecto.beans;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Evento {
 
     private int idEvento;
@@ -7,11 +10,11 @@ public class Evento {
     private String fechaIn;
     private String participantes;
     private String estado;
-    private String foto;
+    private byte[] foto;
     private String fechaFin;
     private Actividad actividad;
     private String lugar;
-    private String hora;
+    private Time hora;
 
     public int getIdEvento() {
         return idEvento;
@@ -53,11 +56,11 @@ public class Evento {
         this.estado = estado;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 
@@ -85,11 +88,11 @@ public class Evento {
         this.lugar = lugar;
     }
 
-    public String getHora() {
+    public Time getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(Time hora) {
         this.hora = hora;
     }
 }

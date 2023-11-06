@@ -178,10 +178,16 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <%int i=1;%>
+                    <%for (Evento e: lista3){%>
+                    <!-- Aquí-->
+
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
+
+                        <th scope="row"><%=i%></th>
+                        <td><%=e.getActividad().getDescripcion()%></td>
+                        <td><%=e.getFechaIn()%></td>
                         <td>
                             <!-- Ver evento -->
                             <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
@@ -199,203 +205,11 @@
                             </button>
 
                         </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
+                        <%i=i+1;%>
                     </tr>
 
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
+                    <%};%>
 
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>Valorant</td>
-                        <td>25 de octubre</td>
-                        <td>
-                            <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="Participantes.html" class="text-dark text-decoration-none">
-                                    <ion-icon name="people-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
 
 
                     </tbody>

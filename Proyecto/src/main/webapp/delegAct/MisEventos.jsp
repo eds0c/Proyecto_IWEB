@@ -166,7 +166,7 @@
                             <div class="col-md-7 info-event">
                                 <div class="info-event-child">
                                     <div class="row">
-                                        <h4></h4>
+                                        <h4>Descripcion</h4>
                                         <p><%=aE.getEvento().getDescripcion()%>
                                         </p>
                                     </div>

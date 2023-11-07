@@ -2,8 +2,10 @@ package com.example.proyecto.servlets;
 
 import com.example.proyecto.beans.AlumnoEvento;
 import com.example.proyecto.beans.Evento;
+import com.example.proyecto.daos.AlumnoEventoDao;
 import com.example.proyecto.daos.DelecActiDao;
 import com.example.proyecto.daos.EventoDao;
+import com.example.proyecto.daos.IntegranteDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -28,7 +30,7 @@ public class DelegadoActividadServlet extends HttpServlet {
             case "main_page":
                 //saca la lista de eventos según actividad
                 String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
-                ArrayList<Evento> list = eDao.listarPorActividad(idAct, "a");
+                ArrayList<Evento> list = eDao.listarPorActividad(idAct, "a",100,0);
 
                 //mandar la lista a la vista -> /MainPage.jsp
                 request.setAttribute("lista", list);
@@ -37,21 +39,23 @@ public class DelegadoActividadServlet extends HttpServlet {
                 break;
 
             case "mis_eventos":
+
                 //saca del modelo
-                ArrayList<AlumnoEvento> list_mis_eventos = eDao.listarPorAlumno("1"); //
+                ArrayList<AlumnoEvento> list_mis_eventos = eDao.listarPorAlumno("1","a",100,0); //
 
                 //mandar la lista a la vista -> /MisEventos.jsp
                 request.setAttribute("lista_mis_eventos", list_mis_eventos);
                 request.getRequestDispatcher("delegAct/MisEventos.jsp").forward(request, response);
                 break;
             case "eventos_finalizados":
+
                 //saca la lista de eventos finalizados
 
-                ArrayList<Evento> listaEventosFinalizados = eDao.listarEventosSegunEstado("f", 100, 0); //
+                ArrayList<AlumnoEvento> listaEventosFinalizados = eDao.listarPorAlumno("1","f",100,0); //
 
                 //mandar la lista a la vista -> /MainPage.jsp
-                request.setAttribute("lista_eventos_finalizados", listaEventosFinalizados);
-                request.getRequestDispatcher("delegAct/EventFinalizados.jsp").forward(request, response);
+                request.setAttribute("lista_eventos_finalizados",listaEventosFinalizados);
+                request.getRequestDispatcher("delegAct/EventFinalizados.jsp").forward(request,response);
                 break;
             case "donaciones":
                 request.getRequestDispatcher("delegAct/Donaciones.jsp").forward(request, response);
@@ -70,17 +74,26 @@ public class DelegadoActividadServlet extends HttpServlet {
                 request.getRequestDispatcher("delegAct/InfoEvento.jsp").forward(request,response);
                 break;
             case "mi_actividad":
-                String iddEvento = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
+                String idEvento2 = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
 
-                Evento eevento = eDao.buscarEvento(iddEvento);
-                ArrayList<Evento> lista3 = eDao.listarEventos(iddEvento,4,0);
+                Evento evento2 = eDao.buscarEvento(idEvento2);
+                String idAct2 = "1";
+                ArrayList<Evento> lista3 = eDao.listarPorActividad(idAct2,"a",100,0);
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
-                request.setAttribute("eevento",eevento);
+                request.setAttribute("evento2",evento2);
                 request.setAttribute("lista3",lista3);
                 request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
                 break;
             case "participantes":
+
+                String idEvento3 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");
+
+
+                ArrayList<AlumnoEvento> listaParticipantes = eDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
+
+                //mandar la lista a la vista -> /InfoEventos.jsp
+                request.setAttribute("lista_p",listaParticipantes);
 
                 request.getRequestDispatcher("delegAct/Participantes.jsp").forward(request, response);
                 break;
@@ -138,7 +151,20 @@ public class DelegadoActividadServlet extends HttpServlet {
                     request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
                 }
                 break;
+
+            case "cambiar_rol":
+
+                String idAE = request.getParameter("idAE") == null ? "1" : request.getParameter("idAE");
+                AlumnoEventoDao aEDao = new AlumnoEventoDao();
+                AlumnoEvento aE = aEDao.obtenerAlumnoEvento("1");
+                IntegranteDao iDao = new IntegranteDao();
+                iDao.cambiarRol(aE);
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes=1");
+
+                break;
+
         }
+
 
     }
 }

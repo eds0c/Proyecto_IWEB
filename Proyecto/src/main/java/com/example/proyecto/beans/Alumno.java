@@ -9,7 +9,7 @@ public class Alumno {
     private String correo;
     private String contrasena;
     private String egresado;
-    private String foto;
+    private byte[] foto;
     private String motivo;
     private String fechaAprobacion;
     private DelegadoActividad delegadoActividad;
@@ -73,11 +73,11 @@ public class Alumno {
         this.egresado = egresado;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 

@@ -1,5 +1,7 @@
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="lista_p" scope="request" type="ArrayList<AlumnoEvento>" />
 <html lang="en">
 
 <head>
@@ -38,7 +40,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a href="MainPage.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -47,13 +49,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mis_eventos">
+                <a id="misEventos" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=eventos_finalizados">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -62,14 +64,14 @@
             <div class="linea"></div>
 
             <li>
-                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=donaciones">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
                 </a>
             </li>
 
             <li>
-                <a id="miActividad" href="MiActividad.html">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
                     <ion-icon name="clipboard-outline"></ion-icon>
                     <span>Mi actividad</span>
                 </a>
@@ -139,7 +141,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1>Nombre del evento</strong></h1>
+                <h1><strong><%=lista_p.get(0).getEvento().getActividad().getDescripcion()%></strong></h1>
             </div>
         </div>
 
@@ -342,124 +344,23 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <%int i = 1;%>
+                    <%for (AlumnoEvento aE : lista_p){%>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Equipo</td>
+                        <th scope="row"><%=i%></th>
+                        <td><%=aE.getAlumno().getNombre() + " " + aE.getAlumno().getApellido()%></td>
+                        <td><%=aE.getAlumno().getCorreo()%></td>
+                        <td><%=aE.getIntegrante().getDescripcion()%></td>
 
                         <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
+                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRolA<%=i%>">
                                 <ion-icon name="repeat-outline"></ion-icon>
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Equipo</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Equipo</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Equipo</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Barra</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Barra</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Barra</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Barra</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Barra</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Barra</td>
-                        <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRol">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
+                    <%i++;%>
+                    <%};%>
 
 
                     </tbody>
@@ -487,8 +388,10 @@
                     </div>
                 </div>
 
+                <%int j = 1;%>
+                <%for (AlumnoEvento aE : lista_p){%>
                 <!-- Guardar cambios de rol -->
-                <div class="modal fade" id="cambiarRol" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                <div class="modal fade" id="cambiarRolA<%=j%>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
                      tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -503,13 +406,19 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary" data-bs-target="#cambiarRol2"
-                                        data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                                <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cambiar_rol">
+                                    <input type="hidden" class="form-control" name="idAE" value="<%=aE.getIdAlumnoEvento()%>">
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=aE.getEvento().getIdEvento()%>">
+                                    <button type="button" class="btn btn-primary" data-bs-target="#cambiarRolB<%=j%>"
+                                            data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                                </a>
+
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="cambiarRol2" aria-hidden="true"
+                <div class="modal fade" id="cambiarRolB<%=j%>" aria-hidden="true"
                      aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -525,6 +434,9 @@
                         </div>
                     </div>
                 </div>
+                <%j++;%>
+                <%};%>
+
                 <!-- BORRAR SI ES REDUNDANTA O NO  -->
                 <div class="row text-center">
                     <div class="col">

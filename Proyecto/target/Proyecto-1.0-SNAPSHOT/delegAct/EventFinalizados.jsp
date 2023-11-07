@@ -1,5 +1,7 @@
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="lista_eventos_finalizados" scope="request" type="ArrayList<AlumnoEvento>" />
 <html lang="en">
 
 <head>
@@ -142,14 +144,15 @@
             </div>
         </div>
 
-        <!-- Eventos inscritos -->
+        <!-- Eventos finalizados -->
         <div class="row eventos-inscritos">
             <div class="col">
-                <!-- Info de evento inscrito -->
+                <!-- Info de evento finalizado -->
+                <%for (AlumnoEvento aE: lista_eventos_finalizados){%>
                 <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
                     <div class="col">
                         <!-- Titulo del evento -->
-                        <h2 class="text-center"><strong>VALORANT</strong></h2>
+                        <h2 class="text-center"><strong><%=aE.getEvento().getActividad().getDescripcion()%></strong></h2>
                         <div class="row">
                             <!-- Imagen del evento -->
                             <div class="col-md-5 img-event">
@@ -160,33 +163,30 @@
                                 <div class="info-event-child">
                                     <div class="row">
                                         <h4>Descripción:</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                            adipisci alias asperiores aspernatur atque autem consequatur
-                                            cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                            esse est eum eveniet excepturi exercitationem facilis fugiat hic
+                                        <p><%=aE.getEvento().getDescripcion()%>
                                         </p>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <h4>Fecha:</h4>
-                                            <p>dd/mm/aaaa</p>
+                                            <h4>Fecha Fin:</h4>
+                                            <p><%=aE.getEvento().getFechaFin()%></p>
                                         </div>
                                         <div class="col">
                                             <h4>Hora:</h4>
-                                            <p>hh:mm</p>
+                                            <p><%=aE.getEvento().getHora()%></p>
                                         </div>
 
                                     </div>
 
                                     <div class="row">
-                                        <h4>Lugar:</h4>
-                                        <p>Nombre del lugar</p>
+                                        <h4>Estado</h4>
+                                        <p>Finalizado</p>
                                     </div>
 
                                     <div class="row">
                                         <h4>Rol:</h4>
-                                        <p>Barra o equipo</p>
+                                        <p><%=aE.getIntegrante().getDescripcion()%></p>
                                     </div>
 
                                 </div>
@@ -195,159 +195,9 @@
 
                     </div>
                 </div>
+                <%}%>
 
-                <!-- -->
-                <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
-                    <div class="col">
-                        <!-- Titulo del evento -->
-                        <h2 class="text-center"><strong>VALORANT</strong></h2>
-                        <div class="row">
-                            <!-- Imagen del evento -->
-                            <div class="col-md-5 img-event">
-                                <img src="images/valorant.avif" class="rounded-3" width="100%">
-                            </div>
-                            <!-- Info del evento -->
-                            <div class="col-md-7 info-event">
-                                <div class="info-event-child">
-                                    <div class="row">
-                                        <h4>Descripción:</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                            adipisci alias asperiores aspernatur atque autem consequatur
-                                            cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                            esse est eum eveniet excepturi exercitationem facilis fugiat hic
-                                        </p>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <h4>Fecha:</h4>
-                                            <p>dd/mm/aaaa</p>
-                                        </div>
-                                        <div class="col">
-                                            <h4>Hora:</h4>
-                                            <p>hh:mm</p>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <h4>Lugar:</h4>
-                                        <p>Nombre del lugar</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <h4>Rol:</h4>
-                                        <p>Barra o equipo</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!--  -->
-                <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
-                    <div class="col">
-                        <!-- Titulo del evento -->
-                        <h2 class="text-center"><strong>VALORANT</strong></h2>
-                        <div class="row">
-                            <!-- Imagen del evento -->
-                            <div class="col-md-5 img-event">
-                                <img src="images/valorant.avif" class="rounded-3" width="100%">
-                            </div>
-                            <!-- Info del evento -->
-                            <div class="col-md-7 info-event">
-                                <div class="info-event-child">
-                                    <div class="row">
-                                        <h4>Descripción:</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                            adipisci alias asperiores aspernatur atque autem consequatur
-                                            cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                            esse est eum eveniet excepturi exercitationem facilis fugiat hic
-                                        </p>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <h4>Fecha:</h4>
-                                            <p>dd/mm/aaaa</p>
-                                        </div>
-                                        <div class="col">
-                                            <h4>Hora:</h4>
-                                            <p>hh:mm</p>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <h4>Lugar:</h4>
-                                        <p>Nombre del lugar</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <h4>Rol:</h4>
-                                        <p>Barra o equipo</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!--  -->
-                <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
-                    <div class="col">
-                        <!-- Titulo del evento -->
-                        <h2 class="text-center"><strong>VALORANT</strong></h2>
-                        <div class="row">
-                            <!-- Imagen del evento -->
-                            <div class="col-md-5 img-event">
-                                <img src="images/valorant.avif" class="rounded-3" width="100%">
-                            </div>
-                            <!-- Info del evento -->
-                            <div class="col-md-7 info-event">
-                                <div class="info-event-child">
-                                    <div class="row">
-                                        <h4>Descripción:</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                            adipisci alias asperiores aspernatur atque autem consequatur
-                                            cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                            esse est eum eveniet excepturi exercitationem facilis fugiat hic
-                                        </p>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <h4>Fecha:</h4>
-                                            <p>dd/mm/aaaa</p>
-                                        </div>
-                                        <div class="col">
-                                            <h4>Hora:</h4>
-                                            <p>hh:mm</p>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <h4>Lugar:</h4>
-                                        <p>Nombre del lugar</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <h4>Rol:</h4>
-                                        <p>Barra o equipo</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
         </div>
 

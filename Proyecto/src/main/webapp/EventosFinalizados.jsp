@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto.beans.Evento" %>
+<%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="lista_eventos_finalizados" scope="request" type="ArrayList<Evento>" />
+<jsp:useBean id="lista_eventos_finalizados" scope="request" type="ArrayList<AlumnoEvento>" />
 <html lang="en">
 
 <head>
@@ -141,11 +141,11 @@
         <div class="row eventos-inscritos">
             <div class="col">
                 <!-- Info de evento finalizado -->
-                <%for (Evento eFinalizado: lista_eventos_finalizados){%>
+                <%for (AlumnoEvento aE: lista_eventos_finalizados){%>
                 <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
                     <div class="col">
                         <!-- Titulo del evento -->
-                        <h2 class="text-center"><strong><%=eFinalizado.getActividad().getDescripcion()%></strong></h2>
+                        <h2 class="text-center"><strong><%=aE.getEvento().getActividad().getDescripcion()%></strong></h2>
                         <div class="row">
                             <!-- Imagen del evento -->
                             <div class="col-md-5 img-event">
@@ -156,18 +156,18 @@
                                 <div class="info-event-child">
                                     <div class="row">
                                         <h4>Descripción:</h4>
-                                        <p><%=eFinalizado.getDescripcion()%>
+                                        <p><%=aE.getEvento().getDescripcion()%>
                                         </p>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
                                             <h4>Fecha Fin:</h4>
-                                            <p><%=eFinalizado.getFechaFin()%></p>
+                                            <p><%=aE.getEvento().getFechaFin()%></p>
                                         </div>
                                         <div class="col">
                                             <h4>Hora:</h4>
-                                            <p>hh:mm</p>
+                                            <p><%=aE.getEvento().getHora()%></p>
                                         </div>
 
                                     </div>
@@ -179,7 +179,7 @@
 
                                     <div class="row">
                                         <h4>Rol:</h4>
-                                        <p>Barra</p>
+                                        <p><%=aE.getIntegrante().getDescripcion()%></p>
                                     </div>
 
                                 </div>

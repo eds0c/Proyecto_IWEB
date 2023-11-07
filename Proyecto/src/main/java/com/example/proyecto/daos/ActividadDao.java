@@ -29,7 +29,7 @@ public class ActividadDao extends DaoBase{
                 if (rs.next()) {
                     actividad.setIdActividad(Integer.parseInt(idActividad));
                     actividad.setDescripcion(rs.getString("descripcion"));
-                    actividad.setFoto(rs.getString("foto"));
+                    actividad.setFoto(rs.getBytes("foto"));
                     actividad.setEstado(rs.getString("estado"));
 
                 }

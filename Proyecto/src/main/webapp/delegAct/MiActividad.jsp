@@ -2,7 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="eevento" scope="request" type="Evento" />
+<jsp:useBean id="evento2" scope="request" type="Evento" />
 <jsp:useBean id="lista3" scope="request" type="ArrayList<Evento>" />
 <html lang="en">
 
@@ -143,7 +143,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1>Nombre de la actividad</strong></h1>
+                <h1><strong><%=lista3.get(1).getActividad().getDescripcion()%></strong></h1>
             </div>
         </div>
 
@@ -182,20 +182,20 @@
                     <%int i=1;%>
                     <%for (Evento e: lista3){%>
                     <!-- Aquí-->
-
                     <tr>
 
                         <th scope="row"><%=i%></th>
                         <td><%=e.getActividad().getDescripcion()%></td>
                         <td><%=e.getFechaIn()%></td>
                         <td>
+
                             <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
+                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=e.getIdEvento()%>">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </button>
                             <!-- Ver participantes -->
                             <button class="opcion">
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes" class="text-dark text-decoration-none">
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=e.getIdEvento()%>" class="text-dark text-decoration-none">
                                     <ion-icon name="people-outline"></ion-icon>
                                 </a>
                             </button>
@@ -203,7 +203,6 @@
                             <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
-
                         </td>
                         <%i=i+1;%>
                     </tr>
@@ -251,15 +250,18 @@
 
             </div>
 
+            <%int j=1;%>
+            <%for (Evento e: lista3){%>
+
             <!-- Modal de Mostrar evento -->
-            <div class="modal fade" id="modalMostrar" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="modalMostrar<%=j%>" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form>
 
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="nuevoModalLabel">Nombre evento</h1>
+                                <h1 class="modal-title fs-5" id="nuevoModalLabel"><%=e.getActividad().getDescripcion()%></h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -270,26 +272,26 @@
                                 </div>
                                 <div class="mb-3">
                                     <h5>Descripción:</h5>
-                                    <p><%=eevento.getDescripcion()%>
+                                    <p><%=e.getDescripcion()%>
                                     </p>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <h5>Fecha:</h5>
-                                        <p><%=eevento.getFechaIn()%></p>
+                                        <p><%=e.getFechaIn()%></p>
                                     </div>
                                     <div class="col">
                                         <h5>Hora:</h5>
-                                        <p><%=eevento.getHora()%></p>
+                                        <p><%=e.getHora()%></p>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <h5>Lugar:</h5>
-                                    <p><%=eevento.getLugar()%></p>
+                                    <p><%=e.getLugar()%></p>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                               <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button> -->
+                                <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button> -->
                                 <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mi_actividad" class="btn btn-danger">Cerrar</a>
                                 <button type="button" class="btn btn-primary">Editar</button>
                             </div>
@@ -298,7 +300,8 @@
                     </div>
                 </div>
             </div>
-
+            <%j = j+1;%>
+            <%};%>
             <!-- Modal eliminar evento -->
             <div class="modal fade" id="eliminarEvento" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
                  tabindex="-1">
@@ -388,7 +391,7 @@
                     <div class="modal-content">
 
                         <!--Aquí haremos las pruebas con debug -->
-                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet">
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=crear">
 
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="nuevoModalLabel">Nuevo evento</h1>

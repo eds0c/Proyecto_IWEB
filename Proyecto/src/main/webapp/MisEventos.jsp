@@ -143,12 +143,14 @@
         <div class="row eventos-inscritos">
             <div class="col">
 
+
+
                 <!-- Generador por bucle: ----------------------------------------------------------------------------------------------->
                 <%for (AlumnoEvento aE: lista_mis_eventos){%>
                 <!-- Info de evento inscrito -->
                 <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
                     <div class="col">
-                        <!-- Titulo del evento -->
+                        <!-- Titulo de la actividad -->
                         <h2 class="text-center"><strong><%=aE.getEvento().getActividad().getDescripcion()%></strong></h2>
                         <div class="row">
                             <!-- Imagen del evento -->
@@ -195,6 +197,8 @@
                 <%}%>
             </div>
         </div>
+
+
 
 
 

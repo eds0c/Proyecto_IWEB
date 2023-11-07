@@ -4,7 +4,7 @@ public class Actividad {
 
     private int idActividad;
     private String descripcion;
-    private String foto;
+    private byte[] foto;
     private String estado;
 
 
@@ -24,11 +24,11 @@ public class Actividad {
         this.descripcion = descripcion;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 

@@ -190,7 +190,7 @@
                         <td>
 
                             <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=e.getIdEvento()%>">
+                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </button>
                             <!-- Ver participantes -->

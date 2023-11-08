@@ -407,7 +407,7 @@
                                 <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cancelar</button>
                                 <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cambiar_rol">
-                                    <input type="hidden" class="form-control" name="idAE" value="<%=aE.getIdAlumnoEvento()%>">
+                                    <input type="hidden" class="form-control" name="idAE" value=<%=aE.getIdAlumnoEvento()%>>
                                 <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=aE.getEvento().getIdEvento()%>">
                                     <button type="button" class="btn btn-primary" data-bs-target="#cambiarRolB<%=j%>"
                                             data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>

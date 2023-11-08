@@ -25,8 +25,10 @@ public class IntegranteDao extends DaoBase {
             else{
                 pstmt.setInt(1,1);
             }
+
             pstmt.setInt(2,aE.getIdAlumnoEvento());
 
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

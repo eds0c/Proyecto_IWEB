@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="evento2" scope="request" type="Evento" />
 <jsp:useBean id="lista3" scope="request" type="ArrayList<Evento>" />
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -143,7 +144,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1><strong><%=lista3.get(1).getActividad().getDescripcion()%></strong></h1>
+                <h1><strong><%=lista3.get(0).getActividad().getDescripcion()%></strong></h1>
             </div>
         </div>
 
@@ -185,7 +186,7 @@
                     <tr>
 
                         <th scope="row"><%=i%></th>
-                        <td><%=e.getActividad().getDescripcion()%></td>
+                        <td><%=e.getDescripcion()%></td>
                         <td><%=e.getFechaIn()%></td>
                         <td>
 
@@ -200,7 +201,7 @@
                                 </a>
                             </button>
                             <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarEvento">
+                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#eliminarEvento">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
                         </td>
@@ -293,7 +294,72 @@
                             <div class="modal-footer">
                                 <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button> -->
                                 <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mi_actividad" class="btn btn-danger">Cerrar</a>
-                                <button type="button" class="btn btn-primary">Editar</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditar<%=j%>">Editar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de Editar -->
+            <div class="modal fade" id="modalEditar<%=j%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=editar">
+
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="nuevoModalLabel">Editar evento</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                                    <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
+                                         alt="Imagen de muestra" id="exampleImage" class="img-thumbnail w-50">
+                                    <!--<label class="form-label" for="imageUpload">Subir Foto</label>
+                                    <input type="file" class="form-control" id="imageUpload" accept="image/*"> -->
+                                    <label>Subir Foto</label>
+                                    <input type="file" class="form-control" name="eventoFoto" accept="image/*" value="<%=e.getFoto()%>">
+                                </div>
+                                <div class="mb-3">
+                                    <!--<label for="exampleDescription" class="form-label">Descripción</label>
+                                    <textarea class="form-control" id="exampleDescription" rows="4"
+                                              placeholder="Ingrese la descripción aquí"></textarea>-->
+                                    <label>Descripción</label>
+                                    <textarea class="form-control" name="eventoDescripcion" rows="4"
+                                              placeholder="Ingrese la descripción aquí" value="<%=e.getDescripcion()%>"></textarea>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <!-- <label for="exampleDate" class="form-label">Fecha</label> -->
+                                        <label>Fecha</label>
+                                        <input type="date" class="form-control" name="eventoFecha" value="<%=e.getFechaIn()%>">
+                                        <input type="hidden" class="form-control" name="eventoID" value="<%=e.getIdEvento()%>">
+                                    </div>
+                                    <div class="col">
+                                        <!--  <label for="exampleTime" class="form-label">Hora</label> -->
+                                        <label>Hora</label>
+                                        <input type="time" class="form-control" name="eventoHora" value="<%=e.getHora()%>">
+                                        <!-- <input type="time" class="form-control" id="exampleTime"> -->
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Lugar</label>
+                                    <input type="text" class="form-control" name="eventoLugar" value="<%=e.getLugar()%>"
+                                           placeholder="Ingrese el lugar">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- <button type="button" class="btn btn-danger"
+                                        data-bs-dismiss="modal">Cancelar</button>   -->
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mi_actividad" class="btn btn-danger">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#SaveNewEvent">Guardar Cambios</button> -->
                             </div>
 
                         </form>
@@ -302,6 +368,18 @@
             </div>
             <%j = j+1;%>
             <%};%>
+
+            <%int k=1;%>
+            <%for (Evento e: lista3){%>
+
+
+
+            <%k = k+1;%>
+            <%};%>
+
+
+
+
             <!-- Modal eliminar evento -->
             <div class="modal fade" id="eliminarEvento" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
                  tabindex="-1">
@@ -473,7 +551,7 @@
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="../js/mainscript.js"></script>
+<script src="js/mainscript.js"></script>
 <!--Script de bootstrap  -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

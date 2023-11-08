@@ -18,6 +18,10 @@ public class AlumnoEventoDao extends DaoBase{
 
 
         String sql = "select * from alumno_evento where idAlumno_Evento = ?;";
+        IntegranteDao iDao = new IntegranteDao();
+        EventoDao eDao = new EventoDao();
+        AlumnoDao alumnoDao = new AlumnoDao();
+
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -28,11 +32,8 @@ public class AlumnoEventoDao extends DaoBase{
 
                 if (rs.next()) {
                     aE.setIdAlumnoEvento(Integer.parseInt(idAE));
-                    IntegranteDao iDao = new IntegranteDao();
                     aE.setIntegrante(iDao.otenerIntegrante(String.valueOf(rs.getInt("Integrante_idIntegrante"))));
-                    EventoDao eDao = new EventoDao();
                     aE.setEvento(eDao.buscarEvento(String.valueOf(rs.getInt("Evento_idEvento"))));
-                    AlumnoDao alumnoDao = new AlumnoDao();
                     aE.setAlumno(alumnoDao.obtenerAlumno(String.valueOf(rs.getInt("Alumno_idAlumno"))));
                 }
             }

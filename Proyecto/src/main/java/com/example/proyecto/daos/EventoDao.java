@@ -36,7 +36,7 @@ public class EventoDao extends DaoBase{
                     e.setFoto(rs.getBytes(6));
                     e.setFechaFin(rs.getString(7));
                     e.setLugar(rs.getString(9));
-                    e.setHora(rs.getTime(10));
+                    e.setHora(rs.getString(10));
 
                     Actividad a = new Actividad();
                     a.setDescripcion(rs.getString("a.descripcion"));
@@ -83,7 +83,7 @@ public class EventoDao extends DaoBase{
                     e.setFoto(rs.getBytes(6));
                     e.setFechaFin(rs.getString(7));
                     e.setLugar(rs.getString(9));
-                    e.setHora(rs.getTime(10));
+                    e.setHora(rs.getString(10));
 
                     Actividad a = new Actividad();
                     a.setDescripcion(rs.getString("a.descripcion"));
@@ -125,7 +125,7 @@ public class EventoDao extends DaoBase{
                     evento.setFoto(rs.getBytes(6));
                     evento.setFechaFin(rs.getString(7));
                     evento.setLugar(rs.getString(9));
-                    evento.setHora(rs.getTime(10));
+                    evento.setHora(rs.getString(10));
 
                     Actividad a = new Actividad();
                     a.setDescripcion(rs.getString("a.descripcion"));
@@ -196,7 +196,7 @@ public class EventoDao extends DaoBase{
                     ActividadDao aDao = new ActividadDao();
                     e.setActividad(aDao.obtenerActividad(String.valueOf(rs.getInt("e.Actividad_idActividad"))));
                     e.setLugar(rs.getString("e.lugar"));
-                    e.setHora(rs.getTime("e.hora"));
+                    e.setHora(rs.getString("e.hora"));
 
                     aE.setAlumno(a);
                     aE.setEvento(e);
@@ -265,7 +265,7 @@ public class EventoDao extends DaoBase{
                     ActividadDao aDao = new ActividadDao();
                     e.setActividad(aDao.obtenerActividad(String.valueOf(rs.getInt("e.Actividad_idActividad"))));
                     e.setLugar(rs.getString("e.lugar"));
-                    e.setHora(rs.getTime("e.hora"));
+                    e.setHora(rs.getString("e.hora"));
 
                     aE.setAlumno(a);
                     aE.setEvento(e);

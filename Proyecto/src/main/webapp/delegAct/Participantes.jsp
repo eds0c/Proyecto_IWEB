@@ -354,7 +354,7 @@
                         <td><%=aE.getIntegrante().getDescripcion()%></td>
 
                         <td>
-                            <button class="opcion" data-bs-toggle="modal" href="#cambiarRolA<%=i%>">
+                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#cambiarRolA<%=i%>">
                                 <ion-icon name="repeat-outline"></ion-icon>
                             </button>
                         </td>
@@ -388,6 +388,7 @@
                     </div>
                 </div>
 
+
                 <%int j = 1;%>
                 <%for (AlumnoEvento aE : lista_p){%>
                 <!-- Guardar cambios de rol -->
@@ -403,17 +404,15 @@
                             <div class="modal-body">
                                 ¿Estás seguro que quieres cambiar el rol del participante?
                             </div>
+                            <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cambiar_rol">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Cancelar</button>
-                                <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cambiar_rol">
                                     <input type="hidden" class="form-control" name="idAE" value=<%=aE.getIdAlumnoEvento()%>>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=aE.getEvento().getIdEvento()%>">
-                                    <button type="button" class="btn btn-primary" data-bs-target="#cambiarRolB<%=j%>"
-                                            data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
-                                </a>
 
-                                </form>
+                                    <button type="submit" class="btn btn-primary" data-bs-target="#cambiarRolB<%=j%>"
+                                            data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -434,8 +433,10 @@
                         </div>
                     </div>
                 </div>
+
                 <%j++;%>
                 <%};%>
+
 
                 <!-- BORRAR SI ES REDUNDANTA O NO  -->
                 <div class="row text-center">

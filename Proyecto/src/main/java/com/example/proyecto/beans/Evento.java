@@ -14,7 +14,7 @@ public class Evento {
     private String fechaFin;
     private Actividad actividad;
     private String lugar;
-    private Time hora;
+    private String hora;
 
     public int getIdEvento() {
         return idEvento;
@@ -88,11 +88,11 @@ public class Evento {
         this.lugar = lugar;
     }
 
-    public Time getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 }

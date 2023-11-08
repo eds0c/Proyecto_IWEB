@@ -2,10 +2,7 @@ package com.example.proyecto.servlets;
 
 import com.example.proyecto.beans.AlumnoEvento;
 import com.example.proyecto.beans.Evento;
-import com.example.proyecto.daos.AlumnoEventoDao;
-import com.example.proyecto.daos.DelecActiDao;
-import com.example.proyecto.daos.EventoDao;
-import com.example.proyecto.daos.IntegranteDao;
+import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -17,6 +14,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
 
 @WebServlet(name = "DelegadoActividadServlet", value = "/DelegadoActividadServlet")
 public class DelegadoActividadServlet extends HttpServlet {
@@ -111,6 +109,9 @@ public class DelegadoActividadServlet extends HttpServlet {
         // Request es una solicitud y response es para generar una respuesta
 
         DelecActiDao delecActiDao = new DelecActiDao();
+        AlumnoEventoDao aEDao = new AlumnoEventoDao();
+        IntegranteDao iDao = new IntegranteDao();
+        ActividadDao aDao = new ActividadDao();
 
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
 
@@ -142,6 +143,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                         // Parsear la Foto a Byte
                         byte[] eventoFoto = eventoFotoStr.getBytes();
                         int IdActividad = 1;
+
                         delecActiDao.crear(eventoFoto, eventoDescripcion, eventoFecha, eventoHora, eventoLugar,IdActividad);
                         response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad"); //Una vez creado y dado click a submit se devuelve a la página donde está la lista
                     } else {
@@ -152,14 +154,62 @@ public class DelegadoActividadServlet extends HttpServlet {
                 }
                 break;
 
+            case "editar"://voy a editar un evento
+
+                String eventoFotoStr2 = request.getParameter("eventoFoto");
+                String eventoDescripcion2 = request.getParameter("eventoDescripcion");
+                String eventoFecha2 = request.getParameter("eventoFecha");
+                String eventoID2 = request.getParameter("eventoID");
+                String eventoHora2 = request.getParameter("eventoHora");
+                String eventoLugar2 = request.getParameter("eventoLugar");
+
+
+
+
+                boolean isAllValid2 = true;
+
+                if (eventoDescripcion2.length() > 45) {
+                    isAllValid2 = false;
+                }
+
+                if (isAllValid2) {
+
+                    Evento evento = delecActiDao.buscarPorDescripcion(eventoDescripcion2); //Busca si hay un evento con el mismo nombre
+                    //Creamos Trabajador
+                    if (evento == null) {  //Se verifica que no se repita el evento
+
+                        // Parsear la Foto a Byte
+                        byte[] eventoFoto = eventoFotoStr2.getBytes();
+                        String IdActividad = "1";
+
+                        Evento e2 = new Evento();
+                        e2.setFoto(eventoFoto);
+                        e2.setActividad(aDao.obtenerActividad(IdActividad));
+                        e2.setDescripcion(eventoDescripcion2);
+                        e2.setLugar(eventoLugar2);
+                        e2.setFechaIn(eventoFecha2);
+                        e2.setHora(eventoHora2);
+                        e2.setIdEvento(Integer.parseInt(eventoID2));
+
+                        delecActiDao.actualizar(e2);
+                        response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad"); //Una vez actualizado y dado click a submit se devuelve a la página donde está la lista
+                    } else {
+                        request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
+                    }
+                } else {
+                    request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
+                }
+                break;
+
             case "cambiar_rol":
 
+
                 String idAE = request.getParameter("idAE") == null ? "1" : request.getParameter("idAE");
-                AlumnoEventoDao aEDao = new AlumnoEventoDao();
-                AlumnoEvento aE = aEDao.obtenerAlumnoEvento("1");
-                IntegranteDao iDao = new IntegranteDao();
+                System.out.println(idAE);
+                AlumnoEvento aE = aEDao.obtenerAlumnoEvento(idAE);
+                System.out.println("idInter: "+ aE.getIntegrante().getIdIntegrante());
                 iDao.cambiarRol(aE);
-                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes=1");
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ aE.getEvento().getIdEvento());
 
                 break;
 

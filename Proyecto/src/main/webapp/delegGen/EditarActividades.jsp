@@ -138,7 +138,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1>Actividades</strong></h1>
+                <h1><strong>Actividades</strong></h1>
             </div>
         </div>
 

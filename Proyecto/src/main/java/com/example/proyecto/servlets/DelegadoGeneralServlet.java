@@ -1,7 +1,11 @@
 package com.example.proyecto.servlets;
 
+import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.AlumnoEvento;
+import com.example.proyecto.beans.DelegadoActividad;
 import com.example.proyecto.beans.Evento;
+import com.example.proyecto.daos.ActividadDao;
+import com.example.proyecto.daos.DelegadoActividadDao;
 import com.example.proyecto.daos.EventoDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -20,6 +24,8 @@ public class DelegadoGeneralServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
         EventoDao eDao = new EventoDao();
+        ActividadDao aDao= new ActividadDao();
+        DelegadoActividadDao dADao = new DelegadoActividadDao();
 
         switch (action){
             case "main_page":
@@ -28,6 +34,11 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
             case "editar_actividades":
 
+                /*
+                ArrayList<DelegadoActividad> list = dADao.listarActividades("0",100,0);
+                //mandar la lista a la vista -> /MainPage.jsp
+                request.setAttribute("listaAct",list);
+                */
                 request.getRequestDispatcher("delegGen/EditarActividades.jsp").forward(request,response);
                 break;
             case "validar_donaciones":

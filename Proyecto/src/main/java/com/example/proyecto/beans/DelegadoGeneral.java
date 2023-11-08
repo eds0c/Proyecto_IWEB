@@ -8,7 +8,7 @@ public class DelegadoGeneral {
     private String codigo;
     private String correo;
     private String contrasena;
-    private String foto;
+    private byte[] foto;
 
     public int getIdDelegadoGeneral() {
         return idDelegadoGeneral;
@@ -58,11 +58,11 @@ public class DelegadoGeneral {
         this.contrasena = contrasena;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 }

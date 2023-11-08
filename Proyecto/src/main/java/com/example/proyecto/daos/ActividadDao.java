@@ -1,6 +1,7 @@
 package com.example.proyecto.daos;
 
 import com.example.proyecto.beans.Actividad;
+import com.example.proyecto.beans.DelegadoActividad;
 import com.example.proyecto.beans.Evento;
 
 import java.sql.Connection;
@@ -9,10 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ActividadDao extends DaoBase{
+public class ActividadDao extends DaoBase {
 
 
-    public Actividad obtenerActividad(String idActividad){
+    public Actividad obtenerActividad(String idActividad) {
 
         Actividad actividad = new Actividad();
 
@@ -22,9 +23,9 @@ public class ActividadDao extends DaoBase{
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1,idActividad);
+            pstmt.setString(1, idActividad);
 
-            try(ResultSet rs = pstmt.executeQuery()) {
+            try (ResultSet rs = pstmt.executeQuery()) {
 
                 if (rs.next()) {
                     actividad.setIdActividad(Integer.parseInt(idActividad));
@@ -40,10 +41,28 @@ public class ActividadDao extends DaoBase{
         return actividad;
     }
 
-    public int aa(){
+    public int aa() {
 
         Actividad a = obtenerActividad("1");
         return 1;
+    }
+
+    public void crearActividad(byte[] actividadFoto, String actividadDescripcion, String estado){
+
+        String sql = "insert into actividad (foto, descripcion, estado) values (?,?,?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setBytes(1,actividadFoto );
+            pstmt.setString(2,actividadDescripcion);
+            pstmt.setString(3,estado);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

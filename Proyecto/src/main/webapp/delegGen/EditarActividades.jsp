@@ -1,11 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ARKEL
-  Date: 7/11/2023
-  Time: 18:31
-  To change this template use File | Settings | File Templates.
---%>
+
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.proyecto.beans.Actividad" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 <html lang="en">
 
 <head>

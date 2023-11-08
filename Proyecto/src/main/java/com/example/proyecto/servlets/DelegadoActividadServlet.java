@@ -25,7 +25,7 @@ public class DelegadoActividadServlet extends HttpServlet {
         response.setContentType("text/html");
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
         EventoDao eDao = new EventoDao();
-        DelecActiDao delecActiDao1 = new DelecActiDao();
+        DelecActiDao delecActiDao = new DelecActiDao();
         switch (action) {
             case "main_page":
                 //saca la lista de eventos según actividad
@@ -97,19 +97,6 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 request.getRequestDispatcher("delegAct/Participantes.jsp").forward(request, response);
                 break;
-            case "eliminar_evento":
-                String idEventoStr = request.getParameter("id");
-                Evento evento3 = delecActiDao1.buscarPorID(Integer.parseInt(idEventoStr));
-
-                if(evento3 != null){
-                    try {
-                        delecActiDao1.borrar(Integer.parseInt(idEventoStr));
-                    } catch (SQLException e) {
-                        System.out.println("Log: excepcion: " + e.getMessage());
-                    }
-                }
-                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet");
-                break;
 
 
             case "cerrar_sesion":
@@ -129,6 +116,7 @@ public class DelegadoActividadServlet extends HttpServlet {
         AlumnoEventoDao aEDao = new AlumnoEventoDao();
         IntegranteDao iDao = new IntegranteDao();
         ActividadDao aDao = new ActividadDao();
+        EventoDao eDao = new EventoDao();
 
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
 
@@ -228,6 +216,21 @@ public class DelegadoActividadServlet extends HttpServlet {
                 iDao.cambiarRol(aE);
                 response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ aE.getEvento().getIdEvento());
 
+                break;
+
+
+            case "eliminar_evento":
+                String idEventoStr = request.getParameter("idEventoEliminar");
+                Evento evento3 = eDao.buscarEvento(idEventoStr);
+
+                if(evento3 != null){
+                    try {
+                        delecActiDao.borrar(Integer.parseInt(idEventoStr));
+                    } catch (SQLException e) {
+                        System.out.println("Log: excepcion: " + e.getMessage());
+                    }
+                }
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
                 break;
 
         }

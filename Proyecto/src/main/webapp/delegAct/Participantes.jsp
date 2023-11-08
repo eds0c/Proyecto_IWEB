@@ -412,8 +412,8 @@
 
                                     <button type="submit" class="btn btn-primary" data-bs-target="#cambiarRolB<%=j%>"
                                             data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
-                            </form>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -99,34 +99,7 @@ public class DelecActiDao extends DaoBase{
             throw new RuntimeException(e);
         }
     }
-    public Evento buscarPorID(int idEventoo){
 
-        Evento evento = null;
-
-        String sql = "select * from evento where idEvento = ?";
-
-
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1,idEventoo);
-
-            try(ResultSet rs = pstmt.executeQuery()){
-                while (rs.next()) {
-                    evento = new Evento();
-                    evento.setDescripcion(rs.getString(2));
-                    evento.setFechaIn(rs.getString(3));
-                    evento.setFoto(rs.getBytes(6));
-                    evento.setLugar(rs.getString(9));
-                    evento.setHora(rs.getString(10));
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return evento;
-    }
     public void borrar(int idEventoo) throws SQLException {
 
 

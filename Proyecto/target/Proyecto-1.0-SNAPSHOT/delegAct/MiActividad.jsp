@@ -2,7 +2,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="evento2" scope="request" type="Evento" />
 <jsp:useBean id="lista3" scope="request" type="ArrayList<Evento>" />
 <!DOCTYPE html>
 <html lang="en">
@@ -201,7 +200,7 @@
                                 </a>
                             </button>
                             <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#eliminarEvento">
+                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#eliminarEvento<%=i%>">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
 
@@ -251,6 +250,8 @@
                 </div>
 
             </div>
+
+            <!------------- MODALS OPCIONES EVENTO-------------------->
 
             <%int j=1;%>
             <%for (Evento e: lista3){%>
@@ -331,8 +332,9 @@
                                     <textarea class="form-control" id="exampleDescription" rows="4"
                                               placeholder="Ingrese la descripción aquí"></textarea>-->
                                     <label>Descripción</label>
+
                                     <textarea class="form-control" name="eventoDescripcion" rows="4"
-                                              placeholder="Ingrese la descripción aquí" value="<%=e.getDescripcion()%>"></textarea>
+                                              placeholder="Ingrese la descripción aquí"><%=e.getDescripcion()%></textarea>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
@@ -353,6 +355,7 @@
                                     <input type="text" class="form-control" name="eventoLugar" value="<%=e.getLugar()%>"
                                            placeholder="Ingrese el lugar">
                                 </div>
+
                             </div>
                             <div class="modal-footer">
                                 <!-- <button type="button" class="btn btn-danger"
@@ -364,6 +367,48 @@
                             </div>
 
                         </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal eliminar evento -->
+            <div class="modal fade" id="eliminarEvento<%=j%>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                 tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="eliminarEvento">Eliminar evento</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estás seguro que deseas eliminar este evento?
+                        </div>
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=eliminar_evento">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <input type="hidden" class="form-control" name="idEventoEliminar" value="<%=e.getIdEvento()%>">
+                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminarConfirmado<%=j%>"
+                                    data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="eliminarConfirmado<%=j%>" aria-hidden="true"
+                 aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="eliminarConfirmado">Evento eliminado</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Se eliminó el evento exitosamente.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -381,47 +426,6 @@
 
 
 
-            <!-- Modal eliminar evento -->
-            <div class="modal fade" id="eliminarEvento" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-                 tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="eliminarEvento">Eliminar evento</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Estás seguro que deseas eliminar este evento?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" data-bs-target="#eliminarConfirmado"
-                            data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>-->
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="eliminarConfirmado" aria-hidden="true"
-                 aria-labelledby="exampleModalToggleLabel2" tabindex="-1" href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=eliminar_evento&id=<%= evento2.getIdEvento() %>">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="eliminarConfirmado">Evento eliminado</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Se eliminó el evento exitosamente.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Modal finalizar -->
             <div class="modal fade" id="exampleModalToggle" aria-hidden="true"

@@ -204,6 +204,7 @@
                             <button class="opcion" data-bs-toggle="modal" data-bs-target="#eliminarEvento">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
+
                         </td>
                         <%i=i+1;%>
                     </tr>
@@ -396,8 +397,10 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             <button type="button" class="btn btn-primary" data-bs-target="#eliminarConfirmado"
-                                    data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+
                         </div>
+                        <!--Por aquí debe ir el href -->
                     </div>
                 </div>
             </div>

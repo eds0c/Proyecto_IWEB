@@ -30,7 +30,7 @@ CREATE TABLE `actividad` (
   `foto` blob,
   `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idActividad`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `actividad` (
 
 LOCK TABLES `actividad` WRITE;
 /*!40000 ALTER TABLE `actividad` DISABLE KEYS */;
-INSERT INTO `actividad` VALUES (1,'VALORANT',NULL,'a'),(2,'LOL',NULL,'a'),(3,'DOTA 2',NULL,'a'),(4,'AJEDREZ',NULL,'a'),(5,'DANZA',NULL,'a');
+INSERT INTO `actividad` VALUES (1,'VALORANT',NULL,'a'),(2,'LOL',NULL,'a'),(3,'DOTA 2',NULL,'a'),(4,'AJEDREZ',NULL,'a'),(5,'DANZA',NULL,'a'),(6,'VOLEY',NULL,'a');
 /*!40000 ALTER TABLE `actividad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +112,7 @@ CREATE TABLE `alumno_evento` (
 
 LOCK TABLES `alumno_evento` WRITE;
 /*!40000 ALTER TABLE `alumno_evento` DISABLE KEYS */;
-INSERT INTO `alumno_evento` VALUES (1,1,1,1),(2,1,1,2),(3,1,1,3),(1,1,2,4),(1,1,3,5),(1,2,4,6);
+INSERT INTO `alumno_evento` VALUES (1,2,1,1),(2,1,1,2),(3,1,1,3),(1,2,2,4),(1,1,3,5),(1,2,4,6);
 /*!40000 ALTER TABLE `alumno_evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,17 +274,17 @@ CREATE TABLE `evento` (
   `idEvento` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) NOT NULL,
   `fechaIn` date NOT NULL,
-  `participantes` int NOT NULL,
-  `estado` varchar(45) NOT NULL,
+  `participantes` int DEFAULT NULL,
+  `estado` varchar(45) NOT NULL DEFAULT 'a',
   `foto` blob,
-  `fechaFin` date NOT NULL,
+  `fechaFin` date DEFAULT NULL,
   `Actividad_idActividad` int NOT NULL,
   `lugar` varchar(45) NOT NULL,
   `hora` time NOT NULL,
   PRIMARY KEY (`idEvento`),
   KEY `fk_Evento_Actividad1_idx` (`Actividad_idActividad`),
   CONSTRAINT `fk_Evento_Actividad1` FOREIGN KEY (`Actividad_idActividad`) REFERENCES `actividad` (`idActividad`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +293,7 @@ CREATE TABLE `evento` (
 
 LOCK TABLES `evento` WRITE;
 /*!40000 ALTER TABLE `evento` DISABLE KEYS */;
-INSERT INTO `evento` VALUES (1,'Fibra Tóxica vs Huascaminas','2023-10-15',1,'a',NULL,'2023-10-31',1,'Cancha de Minas','10:00:00'),(2,'Hormigón Armado vs Fibra Tóxica','2023-10-16',1,'a',NULL,'2023-10-31',1,'Lab V307','09:00:00'),(3,'Descontrol Automático vs PXO Industrial','2023-10-17',1,'a',NULL,'2023-10-31',1,'Lab V307','10:00:00'),(4,'Naranja Mecánica vs Fibra Tóxica','2023-10-18',1,'a',NULL,'2023-10-31',1,'Lab V307','11:00:00'),(5,'Descontrol Automático vs PXO Industrial','2023-10-19',1,'a',NULL,'2023-10-31',1,'Lab V307','12:00:00'),(6,'Hormigón Armado vs Fibra Tóxica','2023-10-21',1,'a',NULL,'2023-10-31',2,'Lab V305','08:00:00'),(7,'Descontrol Automático vs PXO Industrial','2023-10-22',1,'a',NULL,'2023-10-31',2,'Lab V306','15:00:00'),(8,'Fibra Tóxica vs Huascaminas','2023-10-23',1,'a',NULL,'2023-10-31',2,'Lab V306','17:00:00'),(9,'Hormigón Armado vs Fibra Tóxica','2023-10-23',1,'a',NULL,'2023-10-31',3,'Lab V306','08:00:00'),(10,'Descontrol Automático vs PXO Industrial','2023-10-17',1,'a',NULL,'2023-10-31',3,'Lab V306','12:00:00'),(11,'Naranja Mecánica vs Fibra Tóxica','2023-10-18',1,'a',NULL,'2023-10-31',3,'Lab V305','12:00:00'),(12,'Hormigón Armado vs Fibra Tóxica','2023-10-16',1,'f',NULL,'2023-10-31',2,'2023-10-31','11:00:00');
+INSERT INTO `evento` VALUES (1,'Fibra Tóxica vs Huascaminas','2023-10-15',1,'a',NULL,'2023-10-31',1,'Cancha de Minas','10:00:00'),(2,'Hormigón Armado vs Fibra Tóxica','2023-10-16',1,'a',NULL,'2023-10-31',1,'Lab V307','09:00:00'),(3,'Descontrol Automático vs PXO Industrial','2023-10-17',1,'a',NULL,'2023-10-31',1,'Lab V307','10:00:00'),(4,'Naranja Mecánica vs Fibra Tóxica','2023-10-18',1,'a',NULL,'2023-10-31',1,'Lab V307','11:00:00'),(5,'Descontrol Automático vs PXO Industrial','2023-10-19',1,'a',NULL,'2023-10-31',1,'Lab V307','12:00:00'),(6,'Hormigón Armado vs Fibra Tóxica','2023-10-21',1,'a',NULL,'2023-10-31',2,'Lab V305','08:00:00'),(7,'Descontrol Automático vs PXO Industrial','2023-10-22',1,'a',NULL,'2023-10-31',2,'Lab V306','15:00:00'),(8,'Fibra Tóxica vs Huascaminas','2023-10-23',1,'a',NULL,'2023-10-31',2,'Lab V306','17:00:00'),(9,'Hormigón Armado vs Fibra Tóxica','2023-10-23',1,'a',NULL,'2023-10-31',3,'Lab V306','08:00:00'),(10,'Descontrol Automático vs PXO Industrial','2023-10-17',1,'a',NULL,'2023-10-31',3,'Lab V306','12:00:00'),(11,'Naranja Mecánica vs Fibra Tóxica','2023-10-18',1,'a',NULL,'2023-10-31',3,'Lab V305','12:00:00'),(12,'Hormigón Armado vs Fibra Tóxica','2023-10-16',1,'f',NULL,'2023-10-31',2,'2023-10-31','11:00:00'),(13,'fewe','2023-12-07',NULL,'\"a\"','',NULL,1,'aqui','19:30:00'),(14,'dsadsadas','2023-12-07',NULL,'\"a\"','',NULL,1,'dsadsad','19:32:00'),(16,'David vs Goliath','2023-11-16',NULL,'a','',NULL,1,'Jerusalén','00:39:00'),(17,'Fibra Tóxica vs Hormigón Armado hh','2023-11-16',NULL,'a','',NULL,1,'V307','17:22:00'),(18,'Perú vs Brasil','2023-10-29',NULL,'a','',NULL,1,'Marte','17:54:00'),(22,'rerrr','2023-11-10',NULL,'a','',NULL,1,'yyyyyyyyyy','20:51:00'),(23,'hhhhhhh','2023-11-30',NULL,'a','',NULL,1,'ffffffffff','00:47:00');
 /*!40000 ALTER TABLE `evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-01 21:09:29
+-- Dump completed on 2023-11-08 20:54:36

@@ -3,6 +3,7 @@ package com.example.proyecto.daos;
 import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.AlumnoEvento;
 import com.example.proyecto.beans.Integrante;
+import com.mysql.cj.xdevapi.DeleteStatementImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +23,7 @@ public class IntegranteDao extends DaoBase {
             if(aE.getIntegrante().getIdIntegrante() == 1){
                 pstmt.setInt(1,2);
             }
-            else{
+            if(aE.getIntegrante().getIdIntegrante() == 2){
                 pstmt.setInt(1,1);
             }
 
@@ -57,6 +58,32 @@ public class IntegranteDao extends DaoBase {
         }
 
         return i;
+    }
+
+
+    public void asignarRol(AlumnoEvento aE, String Rol){
+
+        String sql = "update alumno_evento set Integrante_idIntegrante = ? where idAlumno_Evento = ?;";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            if(Rol != null) {
+
+                if (Rol.equalsIgnoreCase("equipo")) {
+                    pstmt.setInt(1, 1);
+                } else if (Rol.equalsIgnoreCase("barra")) {
+                    pstmt.setInt(1, 2);
+                }
+            }
+            else {
+                pstmt.setInt(1, 3);
+            }
+            pstmt.setInt(2,aE.getIdAlumnoEvento());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

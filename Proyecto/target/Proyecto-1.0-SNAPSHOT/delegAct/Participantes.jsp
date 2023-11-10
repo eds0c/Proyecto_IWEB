@@ -1,7 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="lista_p" scope="request" type="ArrayList<AlumnoEvento>" />
+<jsp:useBean id="lista_participantes" scope="request" type="ArrayList<AlumnoEvento>" />
+<jsp:useBean id="lista_participantes_pendientes" scope="request" type="ArrayList<AlumnoEvento>" />
+<%int idEvento = Integer.parseInt((String) request.getAttribute("idE"));%>
 <html lang="en">
 
 <head>
@@ -141,7 +143,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1><strong><%=lista_p.get(0).getEvento().getActividad().getDescripcion()%></strong></h1>
+                <h1><strong>ACTIVIDAD</strong></h1>
             </div>
         </div>
 
@@ -163,6 +165,7 @@
                         </form>
                     </div>
                 </div>
+                <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=asignar_rol">
                 <!-- Tabla de participantes -->
                 <table class="table table-hover">
                     <thead>
@@ -175,17 +178,25 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <%int p = 1;%>
+                    <%for (AlumnoEvento aE: lista_participantes_pendientes){%>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
+                        <th scope="row"><%=p%></th>
+                        <td><%=aE.getAlumno().getNombre() + " " +aE.getAlumno().getApellido()%></td>
+                        <td><%=aE.getAlumno().getCorreo()%></td>
+
                         <td>
+                            <!-- Parámetros necesarios para el servlet-asignar rol -->
+                            <input type="hidden" class="form-control" name="cantidad" value=<%=lista_participantes_pendientes.size()%>>
+                            <input type="hidden" class="form-control" name="idE" value=<%=aE.getEvento().getIdEvento()%>>
+                            <input type="hidden" class="form-control" name="idPendiente<%=p%>" value=<%=aE.getIdAlumnoEvento()%>>
                             <!-- Asignar roles -->
-                            <input type="radio" name="flexRadioDefault" id="Equipo" />
+                            <input type="radio" name="rolAsignar<%=p%>" value="equipo" id="Equipo" />
                             <label for="Equipo">Equipo</label>
 
-                            <input type="radio" name="flexRadioDefault" id="Barra" />
+                            <input type="radio" name="rolAsignar<%=p%>" value = "barra" id="Barra" />
                             <label for="Barra">Barra</label>
+
                         </td>
                         <td>
                             <!-- Enviar Notificación -->
@@ -197,50 +208,10 @@
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>
-                            <!-- Asignar roles -->
-                            <input type="radio" name="flexRadioDefault" id="Equipo" />
-                            <label for="Equipo">Equipo</label>
 
-                            <input type="radio" name="flexRadioDefault" id="Barra" />
-                            <label for="Barra">Barra</label>
-                        </td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>
-                            <!-- Asignar roles -->
-                            <input type="radio" name="flexRadioDefault" id="Equipo" />
-                            <label for="Equipo">Equipo</label>
 
-                            <input type="radio" name="flexRadioDefault" id="Barra" />
-                            <label for="Barra">Barra</label>
-                        </td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                    </tr>
+                    <%p++;%>
+                    <%};%>
 
 
                     </tbody>
@@ -255,9 +226,9 @@
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <%for(int i=0;i<=lista_participantes_pendientes.size()/5;i++){%>
+                                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&id_EventoParticipantes=<%=idEvento%>&offset_pendientes=<%=i*5%>"><%=i+1%></a></li>
+                                <%};%>
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -298,17 +269,20 @@
                                 Se guardaron los cambios exitosamente.
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="row text-center">
                     <div class="col">
                         <a class="btn btn-dark" data-bs-toggle="modal" href="#guardarNuevos" role="button">Guardar
                             cambios</a>
                     </div>
                 </div>
+                </form>
+
 
             </div>
 
@@ -346,7 +320,7 @@
                     <tbody>
 
                     <%int i = 1;%>
-                    <%for (AlumnoEvento aE : lista_p){%>
+                    <%for (AlumnoEvento aE : lista_participantes){%>
                     <tr>
                         <th scope="row"><%=i%></th>
                         <td><%=aE.getAlumno().getNombre() + " " + aE.getAlumno().getApellido()%></td>
@@ -390,7 +364,7 @@
 
 
                 <%int j = 1;%>
-                <%for (AlumnoEvento aE : lista_p){%>
+                <%for (AlumnoEvento aE : lista_participantes){%>
                 <!-- Guardar cambios de rol -->
                 <div class="modal fade" id="cambiarRolA<%=j%>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
                      tabindex="-1">
@@ -426,7 +400,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                                    <a href="mailto:nombre_apellido@pucp.edu.pe"
+                                    <a href="<%=aE.getAlumno().getCorreo()%>"
                                        class="text-light text-decoration-none" target="_blank">Enviar correo</a>
                                 </button>
                             </div>

@@ -32,6 +32,7 @@ public class ActividadDao extends DaoBase {
                     actividad.setDescripcion(rs.getString("descripcion"));
                     actividad.setFoto(rs.getBytes("foto"));
                     actividad.setEstado(rs.getString("estado"));
+                    actividad.setTitulo(rs.getString("titulo"));
 
                 }
             }
@@ -41,15 +42,10 @@ public class ActividadDao extends DaoBase {
         return actividad;
     }
 
-    public int aa() {
 
-        Actividad a = obtenerActividad("1");
-        return 1;
-    }
+    public void crearActividad(byte[] actividadFoto, String actividadDescripcion, String estado, String titulo){
 
-    public void crearActividad(byte[] actividadFoto, String actividadDescripcion, String estado){
-
-        String sql = "insert into actividad (foto, descripcion, estado) values (?,?,?)";
+        String sql = "insert into actividad (foto, descripcion, estado, titulo) values (?,?,?,?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -57,6 +53,7 @@ public class ActividadDao extends DaoBase {
             pstmt.setBytes(1,actividadFoto );
             pstmt.setString(2,actividadDescripcion);
             pstmt.setString(3,estado);
+            pstmt.setString(4,titulo);
 
             pstmt.executeUpdate();
 

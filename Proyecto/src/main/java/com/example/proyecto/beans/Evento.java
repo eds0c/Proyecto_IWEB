@@ -15,6 +15,7 @@ public class Evento {
     private Actividad actividad;
     private String lugar;
     private String hora;
+    private String titulo;
 
     public int getIdEvento() {
         return idEvento;
@@ -95,4 +96,13 @@ public class Evento {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
 }

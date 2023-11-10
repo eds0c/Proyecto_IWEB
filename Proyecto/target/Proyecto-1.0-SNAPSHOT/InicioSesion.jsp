@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body  style="background-color: rgb(90, 124, 124);">
 <div class="container-form">
     <div class="header-information"></div>
     <div class="form-information">

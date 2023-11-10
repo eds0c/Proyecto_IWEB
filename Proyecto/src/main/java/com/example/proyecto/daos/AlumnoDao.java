@@ -13,6 +13,10 @@ public class AlumnoDao extends DaoBase{
     public Alumno obtenerAlumno(String idAlumno){
 
         Alumno a = new Alumno();
+        EstadoAlumnoDao estadoAlumnoDao = new EstadoAlumnoDao();
+        DelegadoGeneralDao delegadoGeneralDao = new DelegadoGeneralDao();
+        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
 
 
         String sql = "select * from alumno a where a.idAlumno = ?;";
@@ -35,6 +39,10 @@ public class AlumnoDao extends DaoBase{
                     a.setFoto(rs.getBytes("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
+                    a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));
+                    a.setEstadoAlumno(estadoAlumnoDao.obtenerEstadoAlumno(rs.getString("Estado_Alumno_idEstado_Alumno")));
+                    a.setDelegadoActividad(delegadoActividadDao.obtenerDelegadoActividad(rs.getString("Delegado_Actividad_idDelegado_Actividad")));
+
                 }
             }
         } catch (SQLException e) {

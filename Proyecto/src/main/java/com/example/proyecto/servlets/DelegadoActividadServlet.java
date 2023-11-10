@@ -87,13 +87,16 @@ public class DelegadoActividadServlet extends HttpServlet {
                 break;
             case "participantes":
 
+                String offetParticipantesPendientes =  request.getParameter("offset_pendientes") == null ? "0" : request.getParameter("offset_pendientes");
                 String idEvento3 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");
 
-
+                ArrayList<AlumnoEvento> listaParticipantesPendientes = eDao.listarAlumnosPendientesPorEvento(idEvento3,"a",5,Integer.parseInt(offetParticipantesPendientes)*3);
                 ArrayList<AlumnoEvento> listaParticipantes = eDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
-                request.setAttribute("lista_p",listaParticipantes);
+                request.setAttribute("idE",idEvento3);
+                request.setAttribute("lista_participantes",listaParticipantes);
+                request.setAttribute("lista_participantes_pendientes",listaParticipantesPendientes);
 
                 request.getRequestDispatcher("delegAct/Participantes.jsp").forward(request, response);
                 break;
@@ -210,9 +213,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
 
                 String idAE = request.getParameter("idAE") == null ? "1" : request.getParameter("idAE");
-                System.out.println(idAE);
                 AlumnoEvento aE = aEDao.obtenerAlumnoEvento(idAE);
-                System.out.println("idInter: "+ aE.getIntegrante().getIdIntegrante());
                 iDao.cambiarRol(aE);
                 response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ aE.getEvento().getIdEvento());
 
@@ -231,6 +232,21 @@ public class DelegadoActividadServlet extends HttpServlet {
                     }
                 }
                 response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
+                break;
+
+            case "asignar_rol":
+
+                String idEvento = request.getParameter("idE") == null ? "1" : request.getParameter("idE");
+                int cantidadAlumnosPendientes = Integer.parseInt(request.getParameter("cantidad"));
+
+                for(int i = 1; i<=cantidadAlumnosPendientes;i++){
+
+                    String idPendienteN = request.getParameter("idPendiente"+ i) == null ? "0" : request.getParameter("idPendiente"+i);
+                    String rolAsignarN = request.getParameter("rolAsignar"+i);
+                    AlumnoEvento alumnoN = aEDao.obtenerAlumnoEvento(idPendienteN);
+                    iDao.asignarRol(alumnoN,rolAsignarN);
+                }
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
                 break;
 
         }

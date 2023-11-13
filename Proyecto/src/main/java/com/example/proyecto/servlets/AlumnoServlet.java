@@ -1,7 +1,10 @@
 package com.example.proyecto.servlets;
 
 import com.example.proyecto.beans.AlumnoEvento;
+import com.example.proyecto.beans.DelegadoActividad;
 import com.example.proyecto.beans.Evento;
+import com.example.proyecto.daos.AlumnoEventoDao;
+import com.example.proyecto.daos.DelegadoActividadDao;
 import com.example.proyecto.daos.EventoDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -15,21 +18,31 @@ public class AlumnoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //Sesion datos:
+
+        String idAlumno = "1";
+
 
        response.setContentType("text/html");
 
        String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
        EventoDao eDao = new EventoDao();
+       AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
 
        switch (action){
           case "main_page":
              //saca la lista de eventos según actividad
               String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
              ArrayList<Evento> list = eDao.listarPorActividad(idAct,"a",100,0);
+              //saca la lista de actividades
+              ArrayList<DelegadoActividad> listDelegadoActividad = delegadoActividadDao.listarActividades(100,0);
 
-             //mandar la lista a la vista -> /MainPage.jsp
+
+             //mandar las listas a la vista -> /MainPage.jsp
              request.setAttribute("lista",list);
+             request.setAttribute("listaActividades", listDelegadoActividad);
              RequestDispatcher rd = request.getRequestDispatcher("/MainPage.jsp");
              rd.forward(request,response);
              break;
@@ -65,6 +78,7 @@ public class AlumnoServlet extends HttpServlet {
                //mandar la lista a la vista -> /InfoEventos.jsp
                request.setAttribute("evento",evento);
                request.setAttribute("lista2",lista2);
+               request.setAttribute("participando",alumnoEventoDao.comprobarParticipacionEvento(idAlumno,idEvento));
 
                request.getRequestDispatcher("/InfoEventos.jsp").forward(request,response);
                break;
@@ -80,6 +94,25 @@ public class AlumnoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Daos
+
+        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+
+
+        String action = request.getParameter("action") == null ? "" : request.getParameter("action");
+
+        switch (action){
+            case "apoyar_evento":
+                //saca el id del evento a apoyar
+                String idEventoApoyar = request.getParameter("idEventoApoyar") == null ? "" : request.getParameter("idEventoApoyar");
+                String idAlumno = "2";
+                alumnoEventoDao.apoyarEvento(idAlumno,idEventoApoyar);
+
+                response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=info_eventos");
+                break;
+
+        }
+
 
     }
 }

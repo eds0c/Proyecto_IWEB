@@ -1,7 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Evento" %>
+<%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
+<jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
 
 <head>
     <meta charset="UTF-8">
@@ -157,16 +159,9 @@
                         <div class="filter-buttons" id="buttons">
                             <ion-icon name="chevron-back-outline" class="prev"></ion-icon>
                             <div class="slider">
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=1" class="button-value" role="button" >Actividad 1</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=2" class="button-value" role="button" >Actividad 2</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=3" class="button-value" role="button" >Actividad 3</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=4" class="button-value" role="button" >Actividad 4</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=5" class="button-value" role="button" >Actividad 5</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=6" class="button-value" role="button" >Actividad 6</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=7" class="button-value" role="button" >Actividad 7</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=8" class="button-value" role="button" >Actividad 8</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=9" class="button-value" role="button" >Actividad 9</a>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=10" class="button-value" role="button" >Actividad 10</a>
+                                <%for (DelegadoActividad dA : listaActividades){%>
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=<%=dA.getActividad().getIdActividad()%>" class="button-value" role="button" ><%=dA.getActividad().getTitulo()%></a>
+                                <%};%>
                             </div>
                             <ion-icon name="chevron-forward-outline" class="next"></ion-icon>
                         </div>
@@ -186,9 +181,9 @@
                         <div class="card h-100">
                             <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title"><%=e.getActividad().getDescripcion()%></h5>
+                                <h5 class="card-title"><%=e.getActividad().getTitulo()%></h5>
                                 <div class="d-flex justify-content-between">
-                                    <p class="card-text"><%=e.getDescripcion()%></p>
+                                    <p class="card-text"><%=e.getTitulo()%></p>
                                     <p class="card-text mr-4 text-success">Fecha: <%=e.getFechaIn()%></p>
                                 </div>
                                 <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="card-link" data-toggle="modal" data-target="#modalId">Ver

@@ -8,9 +8,9 @@ import java.text.SimpleDateFormat;
 
 public class DelecActiDao extends DaoBase{
 
-    public void crear(byte[] eventoFoto, String eventoDescripcion, String eventoFecha, String eventoHora, String eventoLugar, int IdActividad){
+    public void crear(byte[] eventoFoto, String eventoDescripcion, String eventoFecha, String eventoHora, String eventoLugar, String eventoTitulo, int IdActividad){
 
-        String sql = "insert into evento (foto, descripcion, fechaIn, hora, lugar, Actividad_idActividad) values (?,?,?,?,?,?)";
+        String sql = "insert into evento (foto, descripcion, fechaIn, hora, lugar, titulo, Actividad_idActividad) values (?,?,?,?,?,?,?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -20,7 +20,8 @@ public class DelecActiDao extends DaoBase{
             pstmt.setString(3,eventoFecha);
             pstmt.setString(4,eventoHora);
             pstmt.setString(5,eventoLugar);
-            pstmt.setInt(6,IdActividad);
+            pstmt.setString(6,eventoTitulo);
+            pstmt.setInt(7,IdActividad);
 
             pstmt.executeUpdate();
 

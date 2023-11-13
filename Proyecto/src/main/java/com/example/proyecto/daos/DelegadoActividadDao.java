@@ -12,22 +12,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DelegadoActividadDao extends DaoBase {
-    public ArrayList<DelegadoActividad> listarActividades(String idActividadNoMostrada, int limit, int offset){ //actividades de segundo plano
+    public ArrayList<DelegadoActividad> listarActividades(int limit, int offset){
 
         ArrayList<DelegadoActividad> lista = new ArrayList<>();
         DelegadoGeneralDao delGenDao = new DelegadoGeneralDao();
         ActividadDao aDao = new ActividadDao();
 
 
-        String sql = "select * from delegado_actividad da where Actividad_idActividad != ? limit = ? offset = ?";
+        String sql = "select * from delegado_actividad da limit ? offset ?";
 
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1,idActividadNoMostrada); // actividad no mostrada
-            pstmt.setInt(2,limit);
-            pstmt.setInt(3,offset);
+            pstmt.setInt(1,limit);
+            pstmt.setInt(2,offset);
 
 
             try(ResultSet rs = pstmt.executeQuery()) {

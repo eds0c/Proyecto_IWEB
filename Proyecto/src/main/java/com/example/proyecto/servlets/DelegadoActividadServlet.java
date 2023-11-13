@@ -1,6 +1,7 @@
 package com.example.proyecto.servlets;
 
 import com.example.proyecto.beans.AlumnoEvento;
+import com.example.proyecto.beans.DelegadoActividad;
 import com.example.proyecto.beans.Evento;
 import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
@@ -24,16 +25,29 @@ public class DelegadoActividadServlet extends HttpServlet {
 
         response.setContentType("text/html");
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
+
+        //Daos:
         EventoDao eDao = new EventoDao();
         DelecActiDao delecActiDao = new DelecActiDao();
+        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
+        //Datos de sesión:
+        String idAlumno = "2";
+
+
         switch (action) {
             case "main_page":
                 //saca la lista de eventos según actividad
                 String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
                 ArrayList<Evento> list = eDao.listarPorActividad(idAct, "a",100,0);
 
+                //saca la lista de actividades
+                ArrayList<DelegadoActividad> listDelegadoActividad = delegadoActividadDao.listarActividades(100,0);
+
                 //mandar la lista a la vista -> /MainPage.jsp
                 request.setAttribute("lista", list);
+                request.setAttribute("listaActividades", listDelegadoActividad);
                 RequestDispatcher rd = request.getRequestDispatcher("delegAct/MainPage.jsp");
                 rd.forward(request, response);
                 break;
@@ -70,6 +84,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("evento",evento);
                 request.setAttribute("lista2",lista2);
+                request.setAttribute("participando",alumnoEventoDao.comprobarParticipacionEvento(idAlumno,idEvento));
 
                 request.getRequestDispatcher("delegAct/InfoEvento.jsp").forward(request,response);
                 break;
@@ -129,7 +144,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 String eventoFotoStr = request.getParameter("eventoFoto");
                 String eventoDescripcion = request.getParameter("eventoDescripcion");
                 String eventoFecha = request.getParameter("eventoFecha");
-
+                String eventoTitulo = request.getParameter("titulo");
                 String eventoHora = request.getParameter("eventoHora");
                 String eventoLugar = request.getParameter("eventoLugar");
 
@@ -145,14 +160,14 @@ public class DelegadoActividadServlet extends HttpServlet {
                 if (isAllValid) {
 
                     Evento evento = delecActiDao.buscarPorDescripcion(eventoDescripcion); //Busca si hay un evento con el mismo nombre
-                    //Creamos Trabajador
+                    //Creamos Evento
                     if (evento == null) {  //Se verifica que no se repita el evento
 
                         // Parsear la Foto a Byte
                         byte[] eventoFoto = eventoFotoStr.getBytes();
                         int IdActividad = 1;
 
-                        delecActiDao.crear(eventoFoto, eventoDescripcion, eventoFecha, eventoHora, eventoLugar,IdActividad);
+                        delecActiDao.crear(eventoFoto, eventoDescripcion, eventoFecha, eventoHora, eventoLugar, eventoTitulo, IdActividad);
                         response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad"); //Una vez creado y dado click a submit se devuelve a la página donde está la lista
                     } else {
                         request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
@@ -248,10 +263,23 @@ public class DelegadoActividadServlet extends HttpServlet {
                 }
                 response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
                 break;
+            case "apoyar_evento":
+                //saca el id del evento a apoyar
+                String idEventoApoyar = request.getParameter("idEventoApoyar") == null ? "" : request.getParameter("idEventoApoyar");
+                String idAlumno = "2";
+                aEDao.apoyarEvento(idAlumno,idEventoApoyar);
+                response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=info_eventos");
+                break;
 
         }
 
 
-    }
+
+
+
+        }
+
+
+
 }
 

@@ -1,8 +1,10 @@
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Actividad" %>
+<%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
+<jsp:useBean id="listaAlumnos_DelegadosActividad" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
 
 <html lang="en">
 
@@ -172,14 +174,17 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <%int i = 1;%>
+                    <%for (DelegadoActividad delegadoActividad: listaActividades){%>
+
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
+                        <th scope="row"><%=i%></th>
+                        <td><%=delegadoActividad.getActividad().getTitulo()%></td>
+                        <td><%=listaAlumnos_DelegadosActividad.get(i-1).getNombre() +" " + listaAlumnos_DelegadosActividad.get(i-1).getApellido()%></td>
                         <td>
                             <!-- Enviar Notificación -->
                             <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
+                                <a href="<%=listaAlumnos_DelegadosActividad.get(i-1).getCorreo()%>"
                                    class="text-dark text-decoration-none" target="_blank">
                                     <ion-icon name="mail-outline"></ion-icon>
                                 </a>
@@ -187,249 +192,113 @@
                         </td>
                         <td>
                             <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
+                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </button>
                             <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
+                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad<%=i%>">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
 
                         </td>
                     </tr>
 
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
 
-                        </td>
-                    </tr>
+                    <!------------------------------------------------ Modals ---------------------------------------------->
 
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
+                    <!-- Modal de Mostrar actividad -->
+                    <div class="modal fade" id="modalMostrar<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
 
-                        </td>
-                    </tr>
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="nuevoModalLabel"><%=delegadoActividad.getActividad().getTitulo()%></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                                            <img src="images/deportes.jpg" alt="Imagen de evento" id="eventImage"
+                                                 class="img-thumbnail w-70">
+                                        </div>
+                                        <div class="mb-3">
+                                            <h5>Descripción:</h5>
+                                            <p><%=delegadoActividad.getActividad().getDescripcion()%>
+                                            </p>
+                                        </div>
+                                        <!-- Creo que es innecesario para actividad
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <h5>Fecha:</h5>
+                                                <p>dd/mm/aaaa</p>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Hora:</h5>
+                                                <p>hh:mm</p>
+                                            </div>
+                                        </div>
+                                        ------------------------------------------------>
+                                        
+                                        <div class="mb-3">
+                                            <h5>Estado:</h5>
+                                            <p><%=delegadoActividad.getActividad().getEstado()%></p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary">Editar</button>
+                                    </div>
 
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
-                        </td>
-                    </tr>
+                    <!-- Modal eliminar actividad -->
+                    <div class="modal fade" id="eliminarActividad<%=i%>" aria-hidden="true"
+                         aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eliminarActividad">Eliminar actividad</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Estás seguro que deseas eliminar esta actividad?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" data-bs-target="#eliminarConfirmado"
+                                            data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="eliminarConfirmado" aria-hidden="true"
+                         aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eliminarConfirmado">Actividad eliminada</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Se eliminó la actividad exitosamente.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
 
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>Deportes</td>
-                        <td>Nombre Apellido</td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-
-                        </td>
-                    </tr>
-
+                    <%i++;%>
+                    <%}%>
 
                     </tbody>
                 </table>
@@ -511,95 +380,7 @@
 
             </div>
 
-            <!-- Modal de Mostrar actividad -->
-            <div class="modal fade" id="modalMostrar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form>
 
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="nuevoModalLabel">Nombre actividad</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                    <img src="images/deportes.jpg" alt="Imagen de evento" id="eventImage"
-                                         class="img-thumbnail w-70">
-                                </div>
-                                <div class="mb-3">
-                                    <h5>Descripción:</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium,
-                                        adipisci alias asperiores aspernatur atque autem consequatur
-                                        cumque cupiditate delectus doloribus ea earum eligendi eos error
-                                        esse est eum eveniet excepturi exercitationem facilis fugiat hic
-                                    </p>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <h5>Fecha:</h5>
-                                        <p>dd/mm/aaaa</p>
-                                    </div>
-                                    <div class="col">
-                                        <h5>Hora:</h5>
-                                        <p>hh:mm</p>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <h5>Lugar:</h5>
-                                    <p>Nombre del lugar</p>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary">Editar</button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal eliminar actividad -->
-            <div class="modal fade" id="eliminarActividad" aria-hidden="true"
-                 aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="eliminarActividad">Eliminar actividad</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Estás seguro que deseas eliminar esta actividad?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" data-bs-target="#eliminarConfirmado"
-                                    data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="eliminarConfirmado" aria-hidden="true"
-                 aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="eliminarConfirmado">Actividad eliminada</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Se eliminó la actividad exitosamente.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <!-- Modal de NUEVO -->

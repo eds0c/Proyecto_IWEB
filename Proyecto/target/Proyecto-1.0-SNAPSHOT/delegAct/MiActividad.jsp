@@ -143,7 +143,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1><strong><%=lista3.get(0).getActividad().getDescripcion()%></strong></h1>
+                <h1><strong><%=lista3.get(0).getActividad().getTitulo() == null ? "Actividad" : lista3.get(0).getActividad().getTitulo()%></strong></h1>
             </div>
         </div>
 
@@ -185,7 +185,7 @@
                     <tr>
 
                         <th scope="row"><%=i%></th>
-                        <td><%=e.getDescripcion()%></td>
+                        <td><%=e.getTitulo()%></td>
                         <td><%=e.getFechaIn()%></td>
                         <td>
 
@@ -264,7 +264,7 @@
                         <form>
 
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="nuevoModalLabel"><%=e.getActividad().getDescripcion()%></h1>
+                                <h1 class="modal-title fs-5" id="nuevoModalLabel"><%=e.getTitulo()%></h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -326,6 +326,11 @@
                                     <input type="file" class="form-control" id="imageUpload" accept="image/*"> -->
                                     <label>Subir Foto</label>
                                     <input type="file" class="form-control" name="eventoFoto" accept="image/*" value="<%=e.getFoto()%>">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Título</label>
+                                    <input type="text" class="form-control" name="titulo" value="<%=e.getTitulo()%>"
+                                           placeholder="Ingrese el título del evento">
                                 </div>
                                 <div class="mb-3">
                                     <!--<label for="exampleDescription" class="form-label">Descripción</label>
@@ -415,17 +420,6 @@
             <%j = j+1;%>
             <%};%>
 
-            <%int k=1;%>
-            <%for (Evento e: lista3){%>
-
-
-
-            <%k = k+1;%>
-            <%};%>
-
-
-
-
 
             <!-- Modal finalizar -->
             <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
@@ -493,9 +487,11 @@
                                     <input type="file" class="form-control" name="eventoFoto" accept="image/*">
                                 </div>
                                 <div class="mb-3">
-                                    <!--<label for="exampleDescription" class="form-label">Descripción</label>
-                                    <textarea class="form-control" id="exampleDescription" rows="4"
-                                              placeholder="Ingrese la descripción aquí"></textarea>-->
+                                    <label>Título</label>
+                                    <input type="text" class="form-control" name="titulo"
+                                           placeholder="Ingrese el título del evento">
+                                </div>
+                                <div class="mb-3">
                                     <label>Descripción</label>
                                     <textarea class="form-control" name="eventoDescripcion" rows="4"
                                               placeholder="Ingrese la descripción aquí"></textarea>

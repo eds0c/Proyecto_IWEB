@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="evento" scope="request" type="Evento" />
 <jsp:useBean id="lista2" scope="request" type="ArrayList<Evento>" />
+<%boolean participando = (Boolean) request.getAttribute("participando");%>
 
 <html lang="en">
 
@@ -136,13 +137,14 @@
         <div class="row info rounded-4" style="background-color: #f8f8f8;">
             <div class="col">
                 <!-- Titulo del evento -->
-                <h2 class="text-center"><strong><%=evento.getActividad().getDescripcion()%></strong></h2>
+                <h2 class="text-center"><strong><%=evento.getActividad().getTitulo()%>: <%=evento.getTitulo()%></strong></h2>
                 <div class="row">
                     <!-- Imagen del evento -->
                     <div class="col-md-5 img-event" >
                         <img src="images/valorant.avif" class="rounded-3" width="100%">
                     </div>
                     <!-- Info del evento -->
+
                     <div class="col-md-7 info-event">
                         <div class="info-event-child">
                             <div class="row">
@@ -168,13 +170,22 @@
                                 <p><%=evento.getLugar()%></p>
                             </div>
 
+
+
                             <div class="row">
                                 <div class="col event_button">
-                                    <button type="button" id="button-help" class="btn btn-dark mx-auto"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Apoyar al
-                                        evento</button>
+                                    <%if (!participando){%>
+                                    <button type="button" id="button-help"  class="btn btn-dark mx-auto"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Apoyar al evento</button>
+                                    <%}%>
+
+                                    <%if(participando){%>
+                                    <button type="button" aria-label="Close" id="button-help" class="btn btn-dark mx-auto disabled"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">Inscrito</button>
+                                    <%};%>
                                 </div>
                             </div>
+
 
 
                         </div>
@@ -198,7 +209,7 @@
                         <div class="card h-100">
                             <img src="images/valorant.avif" class="card-img-top" alt="...">
                             <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title"><%=e.getActividad().getDescripcion()%>: <div class="d-flex justify-content-between"><%=e.getDescripcion()%></div></h5>
+                                <h5 class="card-title"><%=e.getActividad().getTitulo()%>: <div class="d-flex justify-content-between"><%=e.getTitulo()%></div></h5>
                                 <!-- <div class="d-flex justify-content-between">
                                     <p class="card-text">Teleco vs. Ing electrónica</p>
                                     <p class="card-text mr-4 text-success">25 de octubre</p>
@@ -227,9 +238,12 @@
                 <div class="modal-body">
                     <p>Espere a que el delegado confirme su solicitud de registro</p>
                 </div>
+                <form method="post" action="<%=request.getContextPath()%>/AlumnoServlet?action=apoyar_evento">
+                    <input type="hidden" class="form-control" name="idEventoApoyar" value=<%=evento.getIdEvento()%>>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

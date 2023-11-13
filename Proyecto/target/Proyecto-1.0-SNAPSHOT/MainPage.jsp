@@ -89,9 +89,9 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=cerrar_sesion">
+                <a href="<%=request.getContextPath()%>/SesionServlet?action=inicio_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
-                    <span>Cerrar sesión</span>
+                    <span>Iniciar sesión</span>
                 </a>
             </li>
         </ul>

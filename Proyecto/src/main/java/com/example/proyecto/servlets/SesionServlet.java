@@ -22,17 +22,17 @@ public class SesionServlet extends HttpServlet {
         switch (action){
             case "inicio_sesion":
 
-                request.getRequestDispatcher("/InicioSesion.jsp").forward(request,response);
+                request.getRequestDispatcher("login/InicioSesion.jsp").forward(request,response);
                 break;
 
             case "olvido_contra":
-                request.getRequestDispatcher("/OlvidoContra.jsp").forward(request,response);
+                request.getRequestDispatcher("login/OlvidoContra.jsp").forward(request,response);
                 break;
             case "registro_usuario":
-                request.getRequestDispatcher("/RegistroUsuario.jsp").forward(request,response);
+                request.getRequestDispatcher("login/RegistroUsuario.jsp").forward(request,response);
                 break;
             case "cambio_contra":
-                request.getRequestDispatcher("/CambiarContra.jsp").forward(request,response);
+                request.getRequestDispatcher("login/CambiarContra.jsp").forward(request,response);
                 break;
 
         }
@@ -41,7 +41,9 @@ public class SesionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        System.out.println("username: " + username + "| password: " + password );
     }
 }
 

@@ -240,7 +240,7 @@
                                             </div>
                                         </div>
                                         ------------------------------------------------>
-                                        
+
                                         <div class="mb-3">
                                             <h5>Estado:</h5>
                                             <p><%=delegadoActividad.getActividad().getEstado()%></p>

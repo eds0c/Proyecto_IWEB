@@ -28,9 +28,10 @@ CREATE TABLE `actividad` (
   `idActividad` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) NOT NULL,
   `foto` blob,
-  `estado` varchar(45) DEFAULT NULL,
+  `estado` varchar(45) DEFAULT 'activa',
+  `titulo` varchar(45) NOT NULL,
   PRIMARY KEY (`idActividad`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +40,7 @@ CREATE TABLE `actividad` (
 
 LOCK TABLES `actividad` WRITE;
 /*!40000 ALTER TABLE `actividad` DISABLE KEYS */;
-INSERT INTO `actividad` VALUES (1,'VALORANT',NULL,'a'),(2,'LOL',NULL,'a'),(3,'DOTA 2',NULL,'a'),(4,'AJEDREZ',NULL,'a'),(5,'DANZA',NULL,'a'),(6,'VOLEY',NULL,'a');
+INSERT INTO `actividad` VALUES (1,'VALORANT des',NULL,'activa','VALORANT'),(2,'LOL des',NULL,'activa','LOL'),(3,'DOTA 2 des',NULL,'activa','DOTA 2'),(4,'AJEDREZ des',NULL,'activa','AJEDREZ'),(5,'DANZA des',NULL,'activa','DANZA');
 /*!40000 ALTER TABLE `actividad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,17 +62,18 @@ CREATE TABLE `alumno` (
   `foto` blob,
   `motivo` varchar(45) NOT NULL,
   `fecha_aprob` date NOT NULL,
-  `Delegado_Actvidad_idDelegado_Actvidad` int NOT NULL,
+  `Delegado_Actividad_idDelegado_Actividad` int DEFAULT NULL,
   `Estado_Alumno_idEstado_Alumno` int NOT NULL,
-  `Delegado_General_idDelegado_General` int NOT NULL,
+  `Delegado_General_idDelegado_General` int DEFAULT NULL,
   PRIMARY KEY (`idAlumno`),
-  KEY `fk_Alumno_Delegado_Actvidad1_idx` (`Delegado_Actvidad_idDelegado_Actvidad`),
+  UNIQUE KEY `Delegado_Actividad_idDelegado_Actividad_UNIQUE` (`Delegado_Actividad_idDelegado_Actividad`),
+  KEY `fk_Alumno_Delegado_Actvidad1_idx` (`Delegado_Actividad_idDelegado_Actividad`),
   KEY `fk_Alumno_Estado_Alumno1_idx` (`Estado_Alumno_idEstado_Alumno`),
   KEY `fk_Alumno_Delegado_General1_idx` (`Delegado_General_idDelegado_General`),
-  CONSTRAINT `fk_Alumno_Delegado_Actvidad1` FOREIGN KEY (`Delegado_Actvidad_idDelegado_Actvidad`) REFERENCES `delegado_actvidad` (`idDelegado_Actvidad`),
+  CONSTRAINT `fk_Alumno_Delegado_Actvidad1` FOREIGN KEY (`Delegado_Actividad_idDelegado_Actividad`) REFERENCES `delegado_actividad` (`idDelegado_Actividad`),
   CONSTRAINT `fk_Alumno_Delegado_General1` FOREIGN KEY (`Delegado_General_idDelegado_General`) REFERENCES `delegado_general` (`idDelegado_General`),
   CONSTRAINT `fk_Alumno_Estado_Alumno1` FOREIGN KEY (`Estado_Alumno_idEstado_Alumno`) REFERENCES `estado_alumno` (`idEstado_Alumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +82,7 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES (1,'Juan','Perez','20201001','1@gmail.com','1','n',NULL,'motivo 1','2023-10-10',1,1,1),(2,'Pedro','Flores','20201002','2@gmail.com','2','n',NULL,'motivo 2','2023-10-12',2,1,1),(3,'Hugo','Cespedes','20201003','3@gmail.com','3','n',NULL,'motivo 2','2023-10-12',2,1,2);
+INSERT INTO `alumno` VALUES (1,'Juan','Perez','20201001','1@gmail.com','1','n',NULL,'motivo 1','2023-10-10',1,1,1),(2,'Pedro','Flores','20201002','2@gmail.com','2','n',NULL,'motivo 2','2023-10-12',2,1,1),(3,'Hugo','Cespedes','20201003','3@gmail.com','3','n',NULL,'motivo 2','2023-10-12',3,1,2),(4,'Pancho','Gonzales','20000000','4@gmail.com','4','n',NULL,'dd','2023-10-12',4,1,NULL),(5,'Antony','Benito','20212020','5@gmail.com','5','n',NULL,'ttttt','2023-10-12',5,1,NULL);
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,18 +94,19 @@ DROP TABLE IF EXISTS `alumno_evento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alumno_evento` (
+  `idAlumno_Evento` int NOT NULL AUTO_INCREMENT,
   `Alumno_idAlumno` int NOT NULL,
   `Integrante_idIntegrante` int NOT NULL,
   `Evento_idEvento` int NOT NULL,
-  `idAlumno_Evento` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idAlumno_Evento`),
+  PRIMARY KEY (`Alumno_idAlumno`,`Integrante_idIntegrante`,`Evento_idEvento`),
+  UNIQUE KEY `idAlumno_Evento_UNIQUE` (`idAlumno_Evento`),
   KEY `fk_Alumno_evento_Alumno_idx` (`Alumno_idAlumno`),
   KEY `fk_Alumno_evento_Integrante1_idx` (`Integrante_idIntegrante`),
   KEY `fk_Alumno_evento_Evento1_idx` (`Evento_idEvento`),
   CONSTRAINT `fk_Alumno_evento_Alumno` FOREIGN KEY (`Alumno_idAlumno`) REFERENCES `alumno` (`idAlumno`),
   CONSTRAINT `fk_Alumno_evento_Evento1` FOREIGN KEY (`Evento_idEvento`) REFERENCES `evento` (`idEvento`),
   CONSTRAINT `fk_Alumno_evento_Integrante1` FOREIGN KEY (`Integrante_idIntegrante`) REFERENCES `integrante` (`idIntegrante`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,39 +115,39 @@ CREATE TABLE `alumno_evento` (
 
 LOCK TABLES `alumno_evento` WRITE;
 /*!40000 ALTER TABLE `alumno_evento` DISABLE KEYS */;
-INSERT INTO `alumno_evento` VALUES (1,2,1,1),(2,1,1,2),(3,1,1,3),(1,2,2,4),(1,1,3,5),(1,2,4,6);
+INSERT INTO `alumno_evento` VALUES (1,1,2,1),(3,3,2,1),(6,1,2,4),(7,2,3,7),(19,2,1,1),(22,2,3,2),(23,2,3,5),(24,2,3,4),(25,2,3,3),(27,2,3,9);
 /*!40000 ALTER TABLE `alumno_evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `delegado_actvidad`
+-- Table structure for table `delegado_actividad`
 --
 
-DROP TABLE IF EXISTS `delegado_actvidad`;
+DROP TABLE IF EXISTS `delegado_actividad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `delegado_actvidad` (
-  `idDelegado_Actvidad` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `delegado_actividad` (
+  `idDelegado_Actividad` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   `fecha_aprob` date DEFAULT NULL,
   `Actividad_idActividad` int NOT NULL,
   `Delegado_General_idDelegado_General` int NOT NULL,
-  PRIMARY KEY (`idDelegado_Actvidad`),
+  PRIMARY KEY (`idDelegado_Actividad`),
   KEY `fk_Delegado_Actvidad_Actividad1_idx` (`Actividad_idActividad`),
   KEY `fk_Delegado_Actvidad_Delegado_General1_idx` (`Delegado_General_idDelegado_General`),
   CONSTRAINT `fk_Delegado_Actvidad_Actividad1` FOREIGN KEY (`Actividad_idActividad`) REFERENCES `actividad` (`idActividad`),
   CONSTRAINT `fk_Delegado_Actvidad_Delegado_General1` FOREIGN KEY (`Delegado_General_idDelegado_General`) REFERENCES `delegado_general` (`idDelegado_General`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `delegado_actvidad`
+-- Dumping data for table `delegado_actividad`
 --
 
-LOCK TABLES `delegado_actvidad` WRITE;
-/*!40000 ALTER TABLE `delegado_actvidad` DISABLE KEYS */;
-INSERT INTO `delegado_actvidad` VALUES (1,'111','2023-10-10',1,1),(2,'222','2023-10-10',2,1);
-/*!40000 ALTER TABLE `delegado_actvidad` ENABLE KEYS */;
+LOCK TABLES `delegado_actividad` WRITE;
+/*!40000 ALTER TABLE `delegado_actividad` DISABLE KEYS */;
+INSERT INTO `delegado_actividad` VALUES (1,'111','2023-10-10',1,1),(2,'222','2023-10-10',2,1),(3,'333','2023-10-10',3,1),(4,'444','2023-10-10',4,1),(5,'555','2023-10-10',5,1);
+/*!40000 ALTER TABLE `delegado_actividad` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -248,9 +251,9 @@ DROP TABLE IF EXISTS `estado_alumno`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estado_alumno` (
   `idEstado_Alumno` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) NOT NULL,
   PRIMARY KEY (`idEstado_Alumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +262,7 @@ CREATE TABLE `estado_alumno` (
 
 LOCK TABLES `estado_alumno` WRITE;
 /*!40000 ALTER TABLE `estado_alumno` DISABLE KEYS */;
-INSERT INTO `estado_alumno` VALUES (1,'Activo'),(2,'Baneado');
+INSERT INTO `estado_alumno` VALUES (1,'Activo'),(2,'Baneado'),(3,'Pendiente'),(4,'Rechazado');
 /*!40000 ALTER TABLE `estado_alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,10 +284,11 @@ CREATE TABLE `evento` (
   `Actividad_idActividad` int NOT NULL,
   `lugar` varchar(45) NOT NULL,
   `hora` time NOT NULL,
+  `titulo` varchar(45) NOT NULL,
   PRIMARY KEY (`idEvento`),
   KEY `fk_Evento_Actividad1_idx` (`Actividad_idActividad`),
   CONSTRAINT `fk_Evento_Actividad1` FOREIGN KEY (`Actividad_idActividad`) REFERENCES `actividad` (`idActividad`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +297,7 @@ CREATE TABLE `evento` (
 
 LOCK TABLES `evento` WRITE;
 /*!40000 ALTER TABLE `evento` DISABLE KEYS */;
-INSERT INTO `evento` VALUES (1,'Fibra Tóxica vs Huascaminas','2023-10-15',1,'a',NULL,'2023-10-31',1,'Cancha de Minas','10:00:00'),(2,'Hormigón Armado vs Fibra Tóxica','2023-10-16',1,'a',NULL,'2023-10-31',1,'Lab V307','09:00:00'),(3,'Descontrol Automático vs PXO Industrial','2023-10-17',1,'a',NULL,'2023-10-31',1,'Lab V307','10:00:00'),(4,'Naranja Mecánica vs Fibra Tóxica','2023-10-18',1,'a',NULL,'2023-10-31',1,'Lab V307','11:00:00'),(5,'Descontrol Automático vs PXO Industrial','2023-10-19',1,'a',NULL,'2023-10-31',1,'Lab V307','12:00:00'),(6,'Hormigón Armado vs Fibra Tóxica','2023-10-21',1,'a',NULL,'2023-10-31',2,'Lab V305','08:00:00'),(7,'Descontrol Automático vs PXO Industrial','2023-10-22',1,'a',NULL,'2023-10-31',2,'Lab V306','15:00:00'),(8,'Fibra Tóxica vs Huascaminas','2023-10-23',1,'a',NULL,'2023-10-31',2,'Lab V306','17:00:00'),(9,'Hormigón Armado vs Fibra Tóxica','2023-10-23',1,'a',NULL,'2023-10-31',3,'Lab V306','08:00:00'),(10,'Descontrol Automático vs PXO Industrial','2023-10-17',1,'a',NULL,'2023-10-31',3,'Lab V306','12:00:00'),(11,'Naranja Mecánica vs Fibra Tóxica','2023-10-18',1,'a',NULL,'2023-10-31',3,'Lab V305','12:00:00'),(12,'Hormigón Armado vs Fibra Tóxica','2023-10-16',1,'f',NULL,'2023-10-31',2,'2023-10-31','11:00:00'),(13,'fewe','2023-12-07',NULL,'\"a\"','',NULL,1,'aqui','19:30:00'),(14,'dsadsadas','2023-12-07',NULL,'\"a\"','',NULL,1,'dsadsad','19:32:00'),(16,'David vs Goliath','2023-11-16',NULL,'a','',NULL,1,'Jerusalén','00:39:00'),(17,'Fibra Tóxica vs Hormigón Armado hh','2023-11-16',NULL,'a','',NULL,1,'V307','17:22:00'),(18,'Perú vs Brasil','2023-10-29',NULL,'a','',NULL,1,'Marte','17:54:00'),(22,'rerrr','2023-11-10',NULL,'a','',NULL,1,'yyyyyyyyyy','20:51:00'),(23,'hhhhhhh','2023-11-30',NULL,'a','',NULL,1,'ffffffffff','00:47:00');
+INSERT INTO `evento` VALUES (1,'descripcion','2023-11-04',1,'a','','2023-10-31',1,'v307','07:37:00','Fibra Toxica vs Hormigon Armado'),(2,'descripcion','2023-11-04',1,'f','','2023-10-31',1,'v307','04:37:00','Fibra Toxica vs Hormigon Armado'),(3,'descripcion','2023-11-04',1,'a','','2023-10-31',1,'v307','04:37:00','Fibra Toxica vs Hormigon Armado'),(4,'descripcion','2023-11-04',1,'a','','2023-10-31',1,'v307','04:37:00','Fibra Toxica vs Hormigon Armado'),(5,'descripcion','2023-11-04',1,'f','','2023-10-31',1,'lugar 2','04:37:00','Fibra Toxica vs Hormigon Armado'),(7,'descripcion','2023-11-04',1,'a','','2023-10-31',1,'lugar 2','04:37:00','Fibra Toxica vs Hormigon Armado'),(9,'descripcion','2023-11-04',1,'a','','2023-10-31',2,'lugar 2','04:37:00','Fibra Toxica vs Hormigon Armado'),(12,'descripcion','2023-11-04',1,'f','','2023-10-31',1,'lugar 2','04:37:00','Huascaminas vs '),(13,'descripcion','2023-11-04',NULL,'a','','2023-10-31',2,'lugar 2','04:37:00','Descontrol Automático vs Memoria Caché'),(14,'descripcion','2023-11-04',NULL,'f','','2023-10-31',1,'lugar 2','04:37:00','Fibra Toxica vs Hormigon Armado'),(15,'descripcion','2023-11-04',NULL,'f','','2023-10-31',1,'lugar 2','04:37:00','Descontrol Automático vs Memoria Caché'),(16,'descripcion','2023-11-04',NULL,'f','','2023-10-31',1,'lugar 2','04:37:00','Descontrol Automático vs Hormigón Armado'),(18,'descripcion','2023-11-04',NULL,'a','','2023-10-31',2,'lugar 3','04:37:00','Descontrol Automático vs Memoria Caché'),(19,'descripcion','2023-11-04',NULL,'f','','2023-10-31',2,'lugar 4','04:37:00','Armado'),(20,'descripcion','2023-11-04',NULL,'a','','2023-10-31',2,'lugar 2','04:37:00','Armado'),(23,'adsadas','2023-11-04',NULL,'a',NULL,'2023-10-31',2,'aqui','04:37:00','yo vs yo'),(24,'WW3','2023-11-23',NULL,'a','',NULL,1,'CIA','23:32:00','America vs Europa'),(25,'ddedede','2023-11-17',NULL,'a',_binary 'league-of-legends-01.jpg',NULL,1,'aaaa','23:33:00','aaaaaaaa'),(26,'ffff','2023-11-24',NULL,'a','',NULL,1,'Marte','06:24:00','USA vs Haytii');
 /*!40000 ALTER TABLE `evento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,7 +312,7 @@ CREATE TABLE `integrante` (
   `idIntegrante` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) NOT NULL,
   PRIMARY KEY (`idIntegrante`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +321,7 @@ CREATE TABLE `integrante` (
 
 LOCK TABLES `integrante` WRITE;
 /*!40000 ALTER TABLE `integrante` DISABLE KEYS */;
-INSERT INTO `integrante` VALUES (1,'Equipo'),(2,'Barra');
+INSERT INTO `integrante` VALUES (1,'Equipo'),(2,'Barra'),(3,'Pendiente');
 /*!40000 ALTER TABLE `integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,7 +334,7 @@ DROP TABLE IF EXISTS `tipo_donacion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipo_donacion` (
   `idTipo_Donacion` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) NOT NULL,
   PRIMARY KEY (`idTipo_Donacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -353,4 +357,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-08 20:54:36
+-- Dump completed on 2023-11-13  1:34:31

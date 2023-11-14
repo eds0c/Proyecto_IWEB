@@ -147,7 +147,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col p-5">
+            <div class="col box-form">
                 <form class="p-4 mb-4 bg-body-secondary rounded-4">
                     <!-- Medio de pago -->
                     <div class="row paso">

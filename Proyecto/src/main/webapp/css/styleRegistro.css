@@ -1,63 +1,42 @@
 /* Google Fonts - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
-*{
-    padding:0;
+* {
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
 
-body{
-    display: flex; 
-    align-items: center; /*centra verticalmente*/
-    justify-content: center; /*centra horizontalmente*/
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100dvh;
-    background-image: url(../images/celeste.avif);
+    background-color: rgb(52, 107, 132);
 }
 
-/* la caja de esquinas curvas*/
-.container-form2{
+.container {
     border-radius: 20px;
-    box-shadow: 0 5px 7px rgba(0, 0, 0, .1); 
-    height: 90%; 
+    box-shadow: 0 5px 7px rgba(0, 0, 0, .1);
     width: 70%;
-    /*max-width: 1100px; /*se ajusta con el contenido hasta el maximo de 1100*/
-    margin: 10px; 
+    height: 90%;
     background-color: #f8f8f8;
+    padding: 1em;
+    /* margin: 1em; */
 }
 
-.container-form2 p{
-    margin: 5px 0;
-    color: #555;
+.form {
+    padding: 1em 0;
 }
 
-/*titulo*/
-.title{
-    margin: 20px 0 20px;
-}
 
-.title h2{
-    color: #333;
-    font-size: 2rem;
-    text-align: center;
-}
 
-/*Datos*/
-
-.ingreso-datos{
-    margin: 20px 0;
-}
-
-.ingreso-datos label{
-    color: #555;
-}
-
-.datos{
+form .field {
     margin: 20px 20px;
 }
 
-.datos label{
+.field label{
     display: flex;
     align-items: center;
     margin-bottom: 15px;
@@ -67,7 +46,8 @@ body{
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
 }
 
-.datos label input{
+.field label input{
+    height: 50px;
     width: 100%;
     padding: 10px;
     background-color: #fff;
@@ -75,37 +55,62 @@ body{
     outline: none;
     border-radius: 20px;
     color: #333;
+
 }
 
-.datos label i{
-    color: #a7a7a7;
+.field label i{
+    color: #919191
 }
 
-/*iconos*/
-.icons{
-    margin: 5px 0;
+form .input-field {
+    position: relative;
+    height: 50px;
+    width: 100%;
 }
 
-.icons i{
-    border-radius: 20%;
-    padding: 5px;
+
+.invalid input {
+    border-color: #d93025;
+}
+
+.input-field .show-hide {
+    position: absolute;
+    right: 13px;
+    top: 45%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #919191;
     cursor: pointer;
-    margin: 0 5px;
-    color: #9191bd;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
-    border: solid thin #9191bd;
-}
-.icons i:hover{
-    background-color: #9191bd;
-    color: #fff;
+    padding: 3px;
 }
 
-.icons a{
-    cursor: pointer;
+.field .error {
+    display: flex;
+    margin-top: 6px;
+    color: #d93025;
+    font-size: 13px;
+    display: none;
 }
+
+.invalid .error {
+    display: flex;
+}
+
+.error .error-icon {
+    margin-right: 6px;
+    font-size: 15px;
+}
+
+.create-password .error {
+    align-items: flex-start;
+}
+
+.error-icon {
+    margin-top: 4px;
+}
+
 .presionar{
-    background-color: #4494bd;
+    background-color: rgb(52,107,132);
     color: #fff;
     border-radius: 20px;
     border: none;
@@ -116,19 +121,13 @@ body{
 }
 
 .presionar:hover{
-    background-color: #2c5d75;
+    background-color: #102129;
 }
 
-/* RESPONSIVE */
-@media screen and (max-width:850px){
-    html{
-        font-size:12px;
-    }
+.container.overflow-auto::-webkit-scrollbar {
+    width: 5px;
 }
-
-@media screen and (max-width:580px){
-    html{
-        font-size:10px;
-    }
+.container.overflow-auto::-webkit-scrollbar-thumb {
+    background-color: rgb(134,134,134);
+    border-radius: 5px;
 }
-

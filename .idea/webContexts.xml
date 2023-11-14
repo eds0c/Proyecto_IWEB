@@ -4,6 +4,8 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/Proyecto/src/main/webapp/delegAct/MiActividad.jsp" value="file://$PROJECT_DIR$/Proyecto/src/main/webapp/delegAct" />
+        <entry key="file://$PROJECT_DIR$/Proyecto/src/main/webapp/login/OlvidoContra.jsp" value="file://$PROJECT_DIR$/Proyecto/src/main/webapp/login" />
+        <entry key="file://$PROJECT_DIR$/Proyecto/src/main/webapp/login/RegistroUsuario.jsp" value="file://$PROJECT_DIR$/Proyecto/src/main/webapp/login" />
       </map>
     </option>
   </component>

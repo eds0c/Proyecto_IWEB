@@ -18,10 +18,10 @@
 
 </head>
 
-<body  style="background-color: rgb(90, 124, 124);">
+<body>
 <div class="container-form">
     <div class="header-information"></div>
-    <div class="form-information">
+    <div class="form-information overflow-auto">
         <div class="form-information-childs">
             <h2>Bienvenido a la Semana de Ingeniería</h2>
             <p>Ingrese sus datos para iniciar sesión</p>

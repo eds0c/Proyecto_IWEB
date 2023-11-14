@@ -19,7 +19,7 @@
 <body>
 <div class="container-form">
     <div class="header-information"></div>
-    <div class="form-information">
+    <div class="form-information overflow-auto">
         <div class="form-information-childs">
             <div class="mb-3">
                 <img src="images/candado.png" width="80px">
@@ -29,16 +29,14 @@
             <p>Introduce tu correo PUCP y te enviaremos un enlace para restablecer tu contraseña.</p>
 
             <!-- Recuperar Contraseña -->
-            <form class="form">
+            <form class="form" id="EmailForm">
                 <label class="mb-1">
                     <i class='bx bx-envelope'></i>
-                    <input id="email" type="email" placeholder="Correo PUCP">
+                    <input id="email" type="email" placeholder="Correo PUCP" required>
                 </label>
 
                 <!-- Button trigger modal -->
-                <button class="presionar" type="button" data-bs-toggle="modal" data-bs-target="#AvisoModal">
-                    Enviar enlace
-                </button>
+                <button class="presionar" type="submit">Enviar enlace</button>
 
             </form>
 
@@ -55,8 +53,8 @@
     </div>
 </div>
 
-<!-- Modales -->
-<div class="modal fade" id="AvisoModal" data-bs-backdrop="static">
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmacionModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
@@ -79,6 +77,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous">
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var formulario = document.getElementById('EmailForm');
+        var confirmacionModal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
+
+        formulario.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar el envío del formulario
+
+            // Realizar la lógica de validación del formulario aquí
+            // Mostrar el modal de confirmación después de validar el formulario
+            confirmacionModal.show();
+        });
+    });
 </script>
 </body>
 </html>

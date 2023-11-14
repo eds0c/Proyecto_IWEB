@@ -1,9 +1,11 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="evento" scope="request" type="Evento" />
 <jsp:useBean id="lista2" scope="request" type="ArrayList<Evento>" />
 <%boolean participando = (Boolean) request.getAttribute("participando");%>
+
 
 <html lang="en">
 
@@ -88,7 +90,7 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=cerrar_sesion">
+                <a href="<%=request.getContextPath()%>/SesionServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
                     <span>Cerrar sesión</span>
                 </a>
@@ -120,7 +122,13 @@
             <div class="info-usuario">
                 <div class="nombre-email">
                     <span class="nombre">Usuario</span>
+                    <!--<span class="email">codigo@pucp.edu.com</span>-->
+                    <%if(session.getAttribute("usuariologueado")==null) {%>
                     <span class="email">codigo@pucp.edu.com</span>
+                    <%}else{%>
+                    <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                    <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                    <%}%>
                 </div>
                 <!-- Colocarle función cambiar foto de perfil -->
                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>

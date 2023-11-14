@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Evento" %>
+<%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -113,7 +114,13 @@
             <div class="info-usuario">
                 <div class="nombre-email">
                     <span class="nombre">Usuario</span>
+                    <!--<span class="email">codigo@pucp.edu.com</span>-->
+                    <%if(session.getAttribute("usuariologueado")==null) {%>
                     <span class="email">codigo@pucp.edu.com</span>
+                    <%}else{%>
+                    <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                    <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                    <%}%>
                 </div>
                 <!-- Colocarle función cambiar foto de perfil -->
                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>

@@ -28,9 +28,13 @@
 
             <!-- Login -->
             <form method="post" class="form" action="<%=request.getContextPath()%>/SesionServlet">
+                <%if (request.getAttribute("err")!=null) {%>
+                <div class="alert alert-danger" role="alert"><%=request.getAttribute("err")%>
+                </div>
+                <% } %>
                 <label>
                     <i class='bx bx-user' ></i>
-                    <input id="email" name="username" type="email" placeholder="Correo PUCP" required>
+                    <input id="username" name="username" type="text" placeholder="Correo PUCP" required>
                 </label>
                 <label class="mb-1">
                     <i class='bx bx-lock-alt' ></i>

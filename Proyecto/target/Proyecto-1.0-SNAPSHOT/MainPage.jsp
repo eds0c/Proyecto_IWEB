@@ -1,10 +1,11 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
+<%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
-
+<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
 <html>
 
 <head>
@@ -89,10 +90,17 @@
             </li>
             <div class="linea"></div>
             <li>
-                <a href="<%=request.getContextPath()%>/SesionServlet?action=inicio_sesion">
+                <!--Este ejemplo iría a una vista cuando se visite la pagina web-->
+                <%if(usuariologueado.getIdAlumno()==0) {%>
+                <span>Iniciar sesión</span>
+                <%}else{%>
+
+                <a href="<%=request.getContextPath()%>/SesionServlet?action=cerrar_sesion">
                     <ion-icon name="log-out-outline"></ion-icon>
-                    <span>Iniciar sesión</span>
+                    <span>Cerrar sesión</span>
                 </a>
+                <%}%>
+
             </li>
         </ul>
     </nav>
@@ -121,7 +129,13 @@
             <div class="info-usuario">
                 <div class="nombre-email">
                     <span class="nombre">Usuario</span>
+                    <!--<span class="email">codigo@pucp.edu.com</span>-->
+                    <%if(usuariologueado.getIdAlumno()==0) {%>
                     <span class="email">codigo@pucp.edu.com</span>
+                    <%}else{%>
+
+                    <span class="email"><%=usuariologueado.getNombre() + " " + usuariologueado.getApellido()%></span>
+                    <%}%>
                 </div>
                 <!-- Colocarle función cambiar foto de perfil -->
                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>

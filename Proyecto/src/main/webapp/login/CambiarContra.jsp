@@ -20,7 +20,7 @@
 <body>
 <div class="container-form">
     <div class="header-information"></div>
-    <div class="form-information">
+    <div class="form-information overflow-auto">
         <div class="form-information-childs">
             <div class="mb-3">
                 <img src="images/candado.png" width="80px">

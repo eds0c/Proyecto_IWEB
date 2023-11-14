@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class CredentialsDao extends DaoBase{
     public boolean validarUsusarioPassword(String correo, String password){
-        String sql = "SELECT * FROM alumno where correo= ? and contrasena= ?";
+        String sql = "SELECT * FROM alumno where correo= ? and contrasena= SHA2(?,256)";
 
         boolean exito = false; //voy a asumir primero que nunca entra (false)
         try(Connection connection = getConnection();

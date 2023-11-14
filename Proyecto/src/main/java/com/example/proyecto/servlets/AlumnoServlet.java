@@ -1,5 +1,6 @@
 package com.example.proyecto.servlets;
 
+import com.example.proyecto.beans.Alumno;
 import com.example.proyecto.beans.AlumnoEvento;
 import com.example.proyecto.beans.DelegadoActividad;
 import com.example.proyecto.beans.Evento;
@@ -13,13 +14,17 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 @WebServlet(name = "AlumnoServlet", value = "/AlumnoServlet")
 public class AlumnoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //Sesion datos:
-
+        //Alumno alumno = (Alumno) request.getAttribute("usuariologueado");
+        Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
+        String IdAlumno = String.valueOf(alumno.getIdAlumno());
+        System.out.println("Id Alumno: " + IdAlumno);
         String idAlumno = "1";
 
 
@@ -30,6 +35,7 @@ public class AlumnoServlet extends HttpServlet {
        EventoDao eDao = new EventoDao();
        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
         DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
 
        switch (action){
           case "main_page":
@@ -48,8 +54,9 @@ public class AlumnoServlet extends HttpServlet {
              break;
 
           case "mis_eventos":
-              //saca del modelo
-              ArrayList<AlumnoEvento> list_mis_eventos = eDao.listarPorAlumno("1","a",100,0); //
+              //saca del modelo"
+
+              ArrayList<AlumnoEvento> list_mis_eventos = eDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"a",100,0); //
 
               //mandar la lista a la vista -> /MisEventos.jsp
               request.setAttribute("lista_mis_eventos",list_mis_eventos);

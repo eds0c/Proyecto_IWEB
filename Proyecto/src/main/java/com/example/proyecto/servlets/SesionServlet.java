@@ -57,6 +57,7 @@ public class SesionServlet extends HttpServlet {
         CredentialsDao credentialsDao = new CredentialsDao();
         if(credentialsDao.validarUsusarioPassword(correo,password)){
             Alumno alumno = credentialsDao.obtenerAlumno(correo); //Obtener al alumno por el correo. Este es el alumno logueado
+            System.out.println(alumno.getIdAlumno());
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("usuariologueado",alumno); //Guardo el alumno que acaba de iniciar sesion
             System.out.println("usuario y password válidos");

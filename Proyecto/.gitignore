@@ -13,9 +13,6 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
-/target/
-.idea/
-.idea
 *.iws
 *.iml
 *.ipr

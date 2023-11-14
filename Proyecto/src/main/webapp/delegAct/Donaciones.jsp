@@ -135,12 +135,12 @@
 </div>
 
 
-<main style="background-color: #c6e2e4;">
+<main>
     <div class="container-fluid">
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1>Donación a AITEL</strong></h1>
+                <h1>Donación a AITEL</h1>
             </div>
         </div>
         <!-- Contenido donaciones -->
@@ -159,19 +159,20 @@
                     <div class="row paso">
                         <div class="col">
                             <h2>Paso 1:</h2>
+                            <hr>
                             <p>Escanea el QR según tu medio de pago.</p>
                             <div class="row medio-pago">
                                 <div class="col text-center yape">
                                     <label for="yape"><img class="img-pago" height="300px"
                                                            src="images/yape.jpg" /></label><br />
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                           id="yape" />
+                                           id="yape" required/>
                                 </div>
                                 <div class="col text-center plin">
                                     <label for="plin"><img class="img-pago" height="300px"
                                                            src="images/plin.jpg" /></label><br />
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                           id="plin" />
+                                           id="plin" required/>
                                 </div>
                             </div>
                         </div>
@@ -181,12 +182,13 @@
                     <div class="row paso">
                         <div class="col">
                             <h2>Paso 2:</h2>
+                            <hr>
                             <p>Ingrese el monto de donación.</p>
                             <div class="row monto">
                                 <div class="col">
                                     <label class="mb-2">Monto (S/.):</label>
                                     <input id="monto" name="monto" class="form-control" placeholder="Monto en soles"
-                                           type="Text" />
+                                           type="Text" required/>
                                 </div>
                             </div>
                         </div>
@@ -196,10 +198,11 @@
                     <div class="row paso">
                         <div class="col">
                             <h2>Paso 3:</h2>
+                            <hr>
                             <p>Sube tu comprobante de pago:</p>
                             <div class="row comprobante">
-                                <div class="col">
-                                    <input id="comprobante" type="file" />
+                                <div class="col field">
+                                    <input class="form-control" type="file" id="comprobante" required>
                                 </div>
                             </div>
                         </div>
@@ -208,34 +211,36 @@
                     <!-- Botón envío -->
                     <div class="row send-button">
                         <div class="col text-center">
-                            <button type="button" class="btn btn-dark mb-3" data-bs-toggle="modal"
+                            <button type="submit" class="btn btn-dark mb-3" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                 Enviar Donación
                             </button>
                         </div>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Aviso</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    Se le enviará la confirmación al correo PUCP después de ser validada la
-                                    donación.
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
 
                 </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmacionModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5">Aviso</h5>
+                </div>
+
+                <div class="modal-body">
+                    <p>Se le enviará la confirmación al correo PUCP después de ser validada la
+                        donación.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            aria-label="Close">Entendido</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -250,6 +255,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var formulario = document.getElementById('EmailForm');
+        var confirmacionModal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
+
+        formulario.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar el envío del formulario
+
+            // Realizar la lógica de validación del formulario aquí
+            // Mostrar el modal de confirmación después de validar el formulario
+            confirmacionModal.show();
+        });
+    });
+</script>
 </body>
 
 </html>

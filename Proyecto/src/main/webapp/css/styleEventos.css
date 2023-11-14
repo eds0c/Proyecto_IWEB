@@ -50,7 +50,7 @@
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
 }
-body{
+body {
     height: 100vh;
     width: 100%;
 }
@@ -288,6 +288,7 @@ main{
     margin-left: 250px;
     padding: 0 0;
     transition: margin-left 0.5s ease;
+    background-color: #c6e2e4;
 }
 main.min-main{
     margin-left: 80px;
@@ -366,5 +367,5 @@ main.min-main{
 }
 
 .paso{
-    margin-bottom: 40px;
+    margin-bottom:4em;
 }

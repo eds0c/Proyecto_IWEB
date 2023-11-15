@@ -17,6 +17,11 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
         response.setContentType("text/html");
 
+        //VALIDAR SESIÓN
+        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=3){
+            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
+        }
+
         //Datos de sesión:
         DelegadoGeneral delegadoGeneral = (DelegadoGeneral) request.getSession().getAttribute("usuariologueado");
 
@@ -52,7 +57,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 break;
 
             case "cerrar_sesion":
-                response.sendRedirect(request.getContextPath() + "/SesionServlet");
+                response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
                 break;
         }
 
@@ -60,6 +65,12 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //VALIDAR SESIÓN
+        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=3){
+            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
+        }
+
 
         //Datos de sesión:
         DelegadoGeneral delegadoGeneral = (DelegadoGeneral) request.getSession().getAttribute("usuariologueado");

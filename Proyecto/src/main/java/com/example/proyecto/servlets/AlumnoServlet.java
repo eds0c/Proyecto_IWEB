@@ -20,8 +20,17 @@ public class AlumnoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+        //VALIDAR SESIÓN
+        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=1){
+            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
+        }
+
+
+
         //Sesion datos:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
+
 
 
        response.setContentType("text/html");
@@ -87,7 +96,7 @@ public class AlumnoServlet extends HttpServlet {
                break;
 
            case "cerrar_sesion":
-               response.sendRedirect(request.getContextPath() + "/SesionServlet");
+               response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_Sesion");
                break;
        }
 
@@ -97,6 +106,11 @@ public class AlumnoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //VALIDAR SESIÓN
+        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=1){
+            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
+        }
+
         //Sesion datos:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
 

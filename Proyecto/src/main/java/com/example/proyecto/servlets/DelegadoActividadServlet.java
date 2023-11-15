@@ -24,6 +24,13 @@ public class DelegadoActividadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //VALIDAR SESIÓN
+        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=2){
+            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
+        }
+
+
+
         response.setContentType("text/html");
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
@@ -119,7 +126,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
 
             case "cerrar_sesion":
-                response.sendRedirect(request.getContextPath() + "/SesionServlet");
+                response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
                 break;
 
         }
@@ -129,6 +136,12 @@ public class DelegadoActividadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+
+        //VALIDAR SESIÓN
+        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=2){
+            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
+        }
+
 
         //Datos de sesión:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");

@@ -83,6 +83,7 @@ public class SesionServlet extends HttpServlet {
                         System.out.println(alumno.getIdAlumno());
                         httpSession.setAttribute("usuariologueado",alumno); //Guardo el alumno que acaba de iniciar sesion
                         System.out.println("usuario y password válidos- caso alumno");
+                        httpSession.setAttribute("tipoUsuario",1); //Para validar después en los servlets (anti copiar urls)
                         response.sendRedirect(request.getContextPath() + "/AlumnoServlet");
                         break;
                     case 2:
@@ -92,6 +93,7 @@ public class SesionServlet extends HttpServlet {
                         httpSession.setAttribute("usuariologueado",alumno2); //Guardo el alumno que acaba de iniciar sesion
                         httpSession.setAttribute("DelegadoActividad",delegadoActividad); //Guardo la tabla que relaciona al alumno con la actividad
                         System.out.println("usuario y password válidos- caso delegado actividad");
+                        httpSession.setAttribute("tipoUsuario",2); //Para validar después en los servlets (anti copiar urls)
                         response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet");
                         break;
                     case 3:
@@ -100,6 +102,7 @@ public class SesionServlet extends HttpServlet {
                         System.out.println(delegadoGeneral.getIdDelegadoGeneral());
                         httpSession.setAttribute("usuariologueado",delegadoGeneral); //Guardo el alumno que acaba de iniciar sesion
                         System.out.println("usuario y password válidos- caso delegado general");
+                        httpSession.setAttribute("tipoUsuario",3); //Para validar después en los servlets (anti copiar urls)
                         response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet");
                         break;
 

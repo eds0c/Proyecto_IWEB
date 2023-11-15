@@ -26,12 +26,14 @@
             <h2>Bienvenido a la Semana de Ingeniería</h2>
             <p>Ingrese sus datos para iniciar sesión</p>
 
+            <!-- Alerta de error -->
+            <%if (request.getAttribute("err")!=null) {%>
+            <div class="alert alert-danger" role="alert"><%=request.getAttribute("err")%>
+            </div>
+            <%session.removeAttribute("err");%>
+            <% } %>
             <!-- Login -->
-            <form method="post" class="form" action="<%=request.getContextPath()%>/SesionServlet">
-                <%if (request.getAttribute("err")!=null) {%>
-                <div class="alert alert-danger" role="alert"><%=request.getAttribute("err")%>
-                </div>
-                <% } %>
+            <form method="post" class="form" action="<%=request.getContextPath()%>/SesionServlet?action=inicio_sesion">
                 <label>
                     <i class='bx bx-user' ></i>
                     <input id="username" name="username" type="text" placeholder="Correo PUCP" required>

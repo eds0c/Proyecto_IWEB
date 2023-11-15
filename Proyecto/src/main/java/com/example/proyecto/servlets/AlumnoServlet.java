@@ -21,11 +21,7 @@ public class AlumnoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //Sesion datos:
-        //Alumno alumno = (Alumno) request.getAttribute("usuariologueado");
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
-        String IdAlumno = String.valueOf(alumno.getIdAlumno());
-        System.out.println("Id Alumno: " + IdAlumno);
-        String idAlumno = "1";
 
 
        response.setContentType("text/html");
@@ -34,7 +30,7 @@ public class AlumnoServlet extends HttpServlet {
 
        EventoDao eDao = new EventoDao();
        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
-        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+       DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
 
 
        switch (action){
@@ -65,7 +61,7 @@ public class AlumnoServlet extends HttpServlet {
           case "eventos_finalizados":
               //saca la lista de eventos finalizados
 
-              ArrayList<AlumnoEvento> listaEventosFinalizados = eDao.listarPorAlumno("1","f",100,0); //
+              ArrayList<AlumnoEvento> listaEventosFinalizados = eDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"f",100,0); //
 
               //mandar la lista a la vista -> /MainPage.jsp
               request.setAttribute("lista_eventos_finalizados",listaEventosFinalizados);
@@ -85,7 +81,7 @@ public class AlumnoServlet extends HttpServlet {
                //mandar la lista a la vista -> /InfoEventos.jsp
                request.setAttribute("evento",evento);
                request.setAttribute("lista2",lista2);
-               request.setAttribute("participando",alumnoEventoDao.comprobarParticipacionEvento(idAlumno,idEvento));
+               request.setAttribute("participando",alumnoEventoDao.comprobarParticipacionEvento(String.valueOf(alumno.getIdAlumno()),idEvento));
 
                request.getRequestDispatcher("/InfoEventos.jsp").forward(request,response);
                break;
@@ -101,8 +97,10 @@ public class AlumnoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Daos
+        //Sesion datos:
+        Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
 
+        //Daos
         AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
 
 
@@ -112,7 +110,7 @@ public class AlumnoServlet extends HttpServlet {
             case "apoyar_evento":
                 //saca el id del evento a apoyar
                 String idEventoApoyar = request.getParameter("idEventoApoyar") == null ? "" : request.getParameter("idEventoApoyar");
-                String idAlumno = "2";
+                String idAlumno = String.valueOf(alumno.getIdAlumno());
                 alumnoEventoDao.apoyarEvento(idAlumno,idEventoApoyar);
 
                 response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=info_eventos");

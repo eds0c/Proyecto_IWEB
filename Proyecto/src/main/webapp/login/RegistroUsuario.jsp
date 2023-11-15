@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col">
             <!-- FORMULARIO PARA LOS DATOS Y EL BOTÓN DE ENVÍO -->
-            <form class="form" id="Registro">
+            <form class="form" id="Registro" method="post" action="<%=request.getContextPath()%>/SesionServlet?action=registro_usuario">
                 <ul>
                     <!-- INGRESO DE DATOS -->
                     <div class="row">
@@ -39,7 +39,7 @@
                             <li>Sube una foto de perfil para que los delegados te reconozcan:</li>
                             <!-- <p>Sube una foto de perfil para que los delegados te reconozcan:</p> -->
                             <div class="field">
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="formFile" name="foto">
                             </div>
 
                             <li>Ingresa tus datos personales:</li>
@@ -48,7 +48,15 @@
                             <div class="field">
                                 <label>
                                     <i class='bx bx-user'></i>
-                                    <input id="nombre" name="nombre" type="text" placeholder="Nombre Apellido"
+                                    <input id="nombre" name="nombre" type="text" placeholder="Nombre"
+                                           required>
+                                </label>
+                            </div>
+                            <!-- apellido -->
+                            <div class="field">
+                                <label>
+                                    <i class='bx bx-user'></i>
+                                    <input id="apellido" name="apellido" type="text" placeholder="Apellido"
                                            required>
                                 </label>
                             </div>
@@ -81,7 +89,7 @@
                                 <div class="input-field">
                                     <label>
                                         <i class='bx bx-lock-alt'></i>
-                                        <input type="password" placeholder="Nueva contraseña" class="password" required />
+                                        <input name="password" type="password" placeholder="Nueva contraseña" class="password" required />
                                         <i class="bx bx-hide show-hide"></i>
                                     </label>
 
@@ -117,13 +125,13 @@
                                 <!-- <p>Marca según tu estado:</p> -->
                                 <div class="row mt-3">
                                     <div class="col-sm text-center">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        <input class="form-check-input" type="radio" name="estadoAcademico" value="Estudiante"
                                                id="estudiante" style="cursor: pointer;" required />
                                         <label>Estudiante</label>
                                     </div>
 
                                     <div class="col-sm text-center">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        <input class="form-check-input" type="radio" name="estadoAcademico" value="Egresado"
                                                id="egresado" style="cursor: pointer;" required />
                                         <label>Egresado</label>
                                     </div>
@@ -136,9 +144,30 @@
                 <!-- BOTON DE ENVÍO -->
                 <div class="row">
                     <div class="col text-center">
-                        <button type="submit" class="presionar">Registrarse</button>
+                        <button type="button" class="presionar" data-bs-toggle="modal" data-bs-target="#confirmacionModal">Registrarse</button>
                     </div>
                 </div>
+
+
+                <!-- Modal de Confirmación -->
+                <div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Registro enviado</h1>
+                            </div>
+
+                            <div class="modal-body">
+                                Se le enviará la confirmación del registro a su correo PUCP después de ser validados sus datos por el delegado general.
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="presionar">Entendido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </form>
             <!-- FIN DEL FORM -->
@@ -154,24 +183,7 @@
     </div>
 </div>
 
-<!-- Modal de Confirmación -->
-<div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Registro enviado</h1>
-            </div>
 
-            <div class="modal-body">
-                Se le enviará la confirmación del registro a su correo PUCP después de ser validados sus datos por el delegado general.
-            </div>
-
-            <div class="modal-footer">
-                <a href="<%=request.getContextPath()%>/SesionServlet?action=inicio_sesion" class="btn btn-success">Entendido</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!--Script de bootstrap  -->
@@ -180,9 +192,10 @@
 </script>
 
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
         var formulario = document.getElementById('Registro');
-        var confirmacionModal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
+        //var confirmacionModal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
 
 
 // Esconder y mostrar contraseña
@@ -200,6 +213,7 @@
             });
         });
 
+        /*
         formulario.addEventListener('submit', function (event) {
             event.preventDefault(); // Evitar el envío del formulario
 
@@ -228,7 +242,10 @@
                 }
                 cPassField.classList.remove("invalid");
             }
-            // Mostrar el modal de confirmación después de validar el formulario
+
+         */
+            //Mostrar el modal de confirmación después de validar el formulario
+            /*
             form.addEventListener("submit", (e) => {
                 e.preventDefault();
                 createPass();
@@ -244,11 +261,15 @@
                     confirmacionModal.show();
 
                 }
+
+
             });
 
-        });
+        });*/
     });
+
 </script>
+
 </body>
 
 </html>

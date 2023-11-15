@@ -85,6 +85,40 @@ public class DelegadoActividadDao extends DaoBase {
         return delegadoActividad;
     }
 
+    public void crearDelegadoActividad(String idActividad){
+
+        String sql = "insert into delegado_actividad (Actividad_idActividad) values (?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,Integer.parseInt(idActividad));
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int obtenerUltimoId(){
+
+        int ultimoId = 0;
+
+        String sql = "select max(idDelegado_Actividad) from delegado_actividad";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    ultimoId = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ultimoId;
+    }
+
 
 
 

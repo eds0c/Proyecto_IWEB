@@ -1,4 +1,3 @@
-
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -6,6 +5,8 @@
 <jsp:useBean id="evento" scope="request" type="Evento" />
 <jsp:useBean id="lista2" scope="request" type="ArrayList<Evento>" />
 <%boolean participando = (Boolean) request.getAttribute("participando");%>
+
+
 <html lang="en">
 
 <head>
@@ -43,7 +44,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page">
+                <a id="inicio" href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -52,13 +53,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -67,16 +68,9 @@
             <div class="linea"></div>
 
             <li>
-                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=donaciones">
+                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
-                    <ion-icon name="clipboard-outline"></ion-icon>
-                    <span>Mi actividad</span>
                 </a>
             </li>
 
@@ -158,6 +152,7 @@
                         <img src="images/valorant.avif" class="rounded-3" width="100%">
                     </div>
                     <!-- Info del evento -->
+
                     <div class="col-md-7 info-event">
                         <div class="info-event-child">
                             <div class="row">
@@ -183,6 +178,8 @@
                                 <p><%=evento.getLugar()%></p>
                             </div>
 
+
+
                             <div class="row">
                                 <div class="col event_button">
                                     <%if (!participando){%>
@@ -196,6 +193,7 @@
                                     <%};%>
                                 </div>
                             </div>
+
 
 
                         </div>
@@ -235,28 +233,28 @@
                 </div>
             </div>
 
-    </div>
+        </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Solicitud enviada</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Espere a que el delegado confirme su solicitud de registro</p>
-                </div>
-                <form method="post" action="<%=request.getContextPath()%>/AlumnoServlet?action=apoyar_evento">
-                    <input type="hidden" class="form-control" name="idEventoApoyar" value=<%=evento.getIdEvento()%>>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Solicitud enviada</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </form>
+                    <div class="modal-body">
+                        <p>Espere a que el delegado confirme su solicitud de registro</p>
+                    </div>
+                    <form method="post" action="<%=request.getContextPath()%>/AlumnoServlet?action=apoyar_evento">
+                        <input type="hidden" class="form-control" name="idEventoApoyar" value=<%=evento.getIdEvento()%>>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
 </main>
 

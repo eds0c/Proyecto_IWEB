@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
+<%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 <html lang="en">
 
 <head>
@@ -127,8 +128,8 @@
                     <%if(session.getAttribute("usuariologueado")==null) {%>
                     <span class="email">codigo@pucp.edu.com</span>
                     <%}else{%>
-                    <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
-                    <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                    <%DelegadoGeneral delegadoGenerallogueado = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
+                    <span class="email"><%=delegadoGenerallogueado.getNombre() + " " + delegadoGenerallogueado.getApellido()%></span>
                     <%}%>
                 </div>
                 <!-- Colocarle función cambiar foto de perfil -->

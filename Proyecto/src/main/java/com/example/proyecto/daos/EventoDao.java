@@ -190,6 +190,7 @@ public class EventoDao extends DaoBase{
                     e.setEstado(rs.getString("e.estado"));
                     e.setFoto(rs.getBytes("e.foto"));
                     e.setFechaFin(rs.getString("e.fechaFin"));
+                    e.setTitulo(rs.getString("e.titulo"));
 
                     ActividadDao aDao = new ActividadDao();
                     e.setActividad(aDao.obtenerActividad(String.valueOf(rs.getInt("e.Actividad_idActividad"))));

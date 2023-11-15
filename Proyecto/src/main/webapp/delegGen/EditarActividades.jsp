@@ -6,6 +6,7 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
 <jsp:useBean id="listaAlumnos_DelegadosActividad" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
+<%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 
 <html lang="en">
 
@@ -127,8 +128,8 @@
                     <%if(session.getAttribute("usuariologueado")==null) {%>
                     <span class="email">codigo@pucp.edu.com</span>
                     <%}else{%>
-                    <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
-                    <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                    <%DelegadoGeneral delegadoGenerallogueado = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
+                    <span class="email"><%=delegadoGenerallogueado.getNombre() + " " + delegadoGenerallogueado.getApellido()%></span>
                     <%}%>
                 </div>
                 <!-- Colocarle función cambiar foto de perfil -->

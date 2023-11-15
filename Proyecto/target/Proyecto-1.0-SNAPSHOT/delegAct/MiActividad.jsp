@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="lista3" scope="request" type="ArrayList<Evento>" />
+<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -150,7 +151,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1><strong><%=lista3.get(0).getActividad().getTitulo() == null ? "Actividad" : lista3.get(0).getActividad().getTitulo()%></strong></h1>
+                <h1><strong><%=usuariologueado.getDelegadoActividad().getActividad().getTitulo() == null ? "Actividad" : usuariologueado.getDelegadoActividad().getActividad().getTitulo()%></strong></h1>
             </div>
         </div>
 

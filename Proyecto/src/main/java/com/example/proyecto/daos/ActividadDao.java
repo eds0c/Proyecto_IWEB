@@ -43,23 +43,45 @@ public class ActividadDao extends DaoBase {
     }
 
 
-    public void crearActividad(byte[] actividadFoto, String actividadDescripcion, String estado, String titulo){
+    public void crearActividad(Actividad actividad){
 
         String sql = "insert into actividad (foto, descripcion, estado, titulo) values (?,?,?,?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setBytes(1,actividadFoto );
-            pstmt.setString(2,actividadDescripcion);
-            pstmt.setString(3,estado);
-            pstmt.setString(4,titulo);
+            pstmt.setBytes(1,actividad.getFoto());
+            pstmt.setString(2,actividad.getDescripcion());
+            pstmt.setString(3,actividad.getEstado());
+            pstmt.setString(4,actividad.getTitulo());
 
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public int obtenerUltimoId(){
+
+        int ultimoId = 0;
+
+        String sql = "select max(idActividad) from actividad";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    ultimoId = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return ultimoId;
     }
 
 

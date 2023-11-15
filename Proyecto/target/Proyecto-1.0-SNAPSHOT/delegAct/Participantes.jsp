@@ -5,6 +5,7 @@
 <jsp:useBean id="lista_participantes" scope="request" type="ArrayList<AlumnoEvento>" />
 <jsp:useBean id="lista_participantes_pendientes" scope="request" type="ArrayList<AlumnoEvento>" />
 <%int idEvento = Integer.parseInt((String) request.getAttribute("idE"));%>
+<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno"/>
 <html lang="en">
 
 <head>
@@ -124,7 +125,7 @@
 
 
         <div class="usuario">
-            <img src="../images/usuario.jpg">
+            <img src="images/usuario.jpg">
             <div class="info-usuario">
                 <div class="nombre-email">
                     <span class="nombre">Usuario</span>
@@ -150,7 +151,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1><strong>ACTIVIDAD</strong></h1>
+                <h1><strong><%=usuariologueado.getDelegadoActividad().getActividad().getTitulo()+": "%></strong></h1>
             </div>
         </div>
 
@@ -253,8 +254,11 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="guardarNuevosLabel">Guardar cambios</h5>
+
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
+
+
                             </div>
                             <div class="modal-body">
                                 ¿Estás seguro que quieres guardar los cambios?
@@ -284,8 +288,14 @@
 
                 <div class="row text-center">
                     <div class="col">
+                        <%if (lista_participantes_pendientes.isEmpty()){%>
+                        <a class="btn btn-dark disabled" data-bs-toggle="modal" href="#guardarNuevos" role="button">Guardar
+                            cambios</a>
+                        <%};%>
+                        <%if (!lista_participantes_pendientes.isEmpty()){%>
                         <a class="btn btn-dark" data-bs-toggle="modal" href="#guardarNuevos" role="button">Guardar
                             cambios</a>
+                        <%};%>
                     </div>
                 </div>
                 </form>
@@ -421,9 +431,16 @@
 
                 <!-- BORRAR SI ES REDUNDANTA O NO  -->
                 <div class="row text-center">
+
                     <div class="col">
+                        <%if (lista_participantes.isEmpty()){%>
+                        <a class="btn btn-dark disabled" data-bs-toggle="modal" href="#guardarNuevos" role="button">Guardar
+                            cambios</a>
+                        <%};%>
+                        <%if (!lista_participantes.isEmpty()){%>
                         <a class="btn btn-dark" data-bs-toggle="modal" href="#guardarNuevos" role="button">Guardar
                             cambios</a>
+                        <%};%>
                     </div>
                 </div>
 

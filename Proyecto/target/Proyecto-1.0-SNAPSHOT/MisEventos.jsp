@@ -161,7 +161,7 @@
                 <div class="row box-info rounded-4" style="background-color: #f8f8f8;">
                     <div class="col">
                         <!-- Titulo de la actividad -->
-                        <h2 class="text-center"><strong><%=aE.getEvento().getActividad().getDescripcion()%></strong></h2>
+                        <h2 class="text-center"><strong><%=aE.getEvento().getActividad().getTitulo()+": "+aE.getEvento().getTitulo()%></strong></h2>
                         <div class="row">
                             <!-- Imagen del evento -->
                             <div class="col-md-5 img-event">

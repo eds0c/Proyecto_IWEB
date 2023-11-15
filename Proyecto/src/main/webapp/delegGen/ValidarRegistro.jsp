@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
-<<html lang="en">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -45,7 +45,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=main_page">
+                <a  href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -54,7 +54,7 @@
             <div class="linea"></div>
 
             <li>
-                <a href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=validar_registro">
+                <a id="validarRegistro" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=validar_registro">
                     <ion-icon name="people-outline"></ion-icon>
                     <span>Validar registro</span>
                 </a>
@@ -145,12 +145,12 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1>Registro de usuarios</strong></h1>
+                <h1>Registro de usuarios</h1>
             </div>
         </div>
 
-        <!-- Nuevos Participantes -->
-        <div class="row participantes">
+        <!-- Nuevos Solicitudes -->
+        <div class="row box">
             <div class="col p-4 participantes rounded-4" style="background-color: #ffffff">
                 <div class="row search">
                     <div class="col">
@@ -158,8 +158,8 @@
                     </div>
 
                     <div class="col">
-                        <form class="search-form" id="search-container">
-                            <input type="search" placeholder="Buscar participante..." id="search-input">
+                        <form class="search-form" id="search2-container">
+                            <input type="search" placeholder="Buscar participante..." id="search2-input">
                             <button class="btn-search">
                                 <ion-icon name="search-outline"></ion-icon>
                             </button>
@@ -198,61 +198,9 @@
                         </td>
                         <td>
                             <!-- Enviar Notificación -->
-                            <button class="opcion">
+                            <button class="opcion btn btn-secondary">
                                 <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>
-                            <input type="radio" name="flexRadioDefault" id="Aceptado" />
-                            <label for="Alumno">Aceptado</label>
-
-                            <input type="radio" name="flexRadioDefault" id="Denegado" />
-                            <label for="barra">Denegado</label>
-                        </td>
-                        <td>
-                            <!-- averiguar como desmarcar -->
-                            <input type="radio" id="barra" />
-                            <label for="Alumno">Delegado</label>
-                        </td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>
-                            <input type="radio" name="flexRadioDefault" id="Aceptado" />
-                            <label for="Alumno">Aceptado</label>
-
-                            <input type="radio" name="flexRadioDefault" id="Denegado" />
-                            <label for="barra">Denegado</label>
-                        </td>
-                        <td>
-                            <!-- averiguar como desmarcar -->
-                            <input type="radio" id="barra" />
-                            <label for="Alumno">Delegado</label>
-                        </td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
+                                   class="text-light text-decoration-none" target="_blank">
                                     <ion-icon name="mail-outline"></ion-icon>
                                 </a>
                             </button>
@@ -332,7 +280,7 @@
         </div>
 
         <!-- Participantes  -->
-        <div class="row participantes">
+        <div class="row box">
             <div class="col p-4 rounded-4" style="background-color: #ffffff">
                 <div class="row search">
                     <div class="col">
@@ -369,237 +317,22 @@
 
                         <td>
                             <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
+                            <button class="opcion btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMostrar">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </button>
                             <!-- Enviar Notificación -->
-                            <button class="opcion">
+                            <button class="opcion btn btn-secondary">
                                 <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
+                                   class="text-light text-decoration-none" target="_blank">
                                     <ion-icon name="mail-outline"></ion-icon>
                                 </a>
                             </button>
                             <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
+                            <button class="opcion btn btn-danger" data-bs-toggle="modal" href="#eliminarAlumno">
                                 <ion-icon name="ban-outline"></ion-icon>
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Alumno</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Alumno</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Alumno</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Delegado</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Alumno</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Delegado</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Delegado</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Delegado</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>Delegado</td>
-                        <td>
-                            <!-- Ver alumno -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar">
-                                <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
-                            <!-- Banear alumno -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarAlumno">
-                                <ion-icon name="ban-outline"></ion-icon>
-                            </button>
-                        </td>
-                    </tr>
-
 
                     </tbody>
                 </table>

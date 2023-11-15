@@ -149,7 +149,7 @@
             </div>
         </div>
 
-        <div class="row p-5">
+        <div class="row box">
             <div class="col p-4 mb-4 rounded-4" style="background-color: #ffffff">
                 <!-- <h2>Lista de eventos:</h2> -->
                 <div class="row search">
@@ -192,18 +192,18 @@
                             <!-- Enviar Notificación -->
                             <button class="opcion btn btn-secondary">
                                 <a href="<%=listaAlumnos_DelegadosActividad.get(i-1).getCorreo()%>"
-                                   class="text-dark text-decoration-none" target="_blank">
+                                   class="text-light text-decoration-none" target="_blank">
                                     <ion-icon name="mail-outline"></ion-icon>
                                 </a>
                             </button>
                         </td>
                         <td>
                             <!-- Ver actividad -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
+                            <button class="opcion btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </button>
                             <!-- Eliminar actividad -->
-                            <button class="opcion" data-bs-toggle="modal" href="#eliminarActividad<%=i%>">
+                            <button class="opcion btn btn-danger" data-bs-toggle="modal" href="#eliminarActividad<%=i%>">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
 

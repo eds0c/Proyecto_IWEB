@@ -46,7 +46,7 @@
     <ul>
       <li>
         <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-        <a id="inicio" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=main_page">
+        <a href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=main_page">
           <ion-icon name="home-outline"></ion-icon>
           <span>Inicio</span>
         </a>
@@ -62,7 +62,7 @@
       </li>
 
       <li>
-        <a href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=validar_donaciones">
+        <a id="validarDonaciones" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=validar_donaciones">
           <ion-icon name="heart-outline"></ion-icon>
           <span>Validar donaciones</span>
         </a>
@@ -149,7 +149,7 @@
       </div>
     </div>
 
-    <div class="row p-5">
+    <div class="row box">
       <div class="col p-4 mb-4 rounded-4" style="background-color: #ffffff">
         <div class="row search">
           <div class="col">
@@ -194,7 +194,7 @@
                 </td>
                 <td class="text-center">
                   <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
+                  <button class="opcion btn btn-primary" data-bs-toggle="modal"
                           data-bs-target="#modalMostrar">
                     <ion-icon name="eye-outline"></ion-icon>
                   </button>
@@ -208,109 +208,9 @@
                 </td>
                 <td>
                   <!-- Enviar Notificación -->
-                  <button class="opcion">
+                  <button class="opcion btn btn-secondary">
                     <a href="mailto:nombre_apellido@pucp.edu.pe"
-                       class="text-dark text-decoration-none" target="_blank">
-                      <ion-icon name="mail-outline"></ion-icon>
-                    </a>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/plin_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-                <td>
-                  <input type="radio" name="flexRadioDefault" id="Aceptado" />
-                  <label for="Equipo">Aceptado</label>
-
-                  <input type="radio" name="flexRadioDefault" id="Denegado" />
-                  <label for="Barra">Denegado</label>
-                </td>
-                <td>
-                  <!-- Enviar Notificación -->
-                  <button class="opcion">
-                    <a href="mailto:nombre_apellido@pucp.edu.pe"
-                       class="text-dark text-decoration-none" target="_blank">
-                      <ion-icon name="mail-outline"></ion-icon>
-                    </a>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/yape_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-                <td>
-                  <input type="radio" name="flexRadioDefault" id="Aceptado" />
-                  <label for="Equipo">Aceptado</label>
-
-                  <input type="radio" name="flexRadioDefault" id="Denegado" />
-                  <label for="Barra">Denegado</label>
-                </td>
-                <td>
-                  <!-- Enviar Notificación -->
-                  <button class="opcion">
-                    <a href="mailto:nombre_apellido@pucp.edu.pe"
-                       class="text-dark text-decoration-none" target="_blank">
-                      <ion-icon name="mail-outline"></ion-icon>
-                    </a>
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <th scope="row">4</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/plin_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-                <td>
-                  <input type="radio" name="flexRadioDefault" id="Aceptado" />
-                  <label for="Equipo">Aceptado</label>
-
-                  <input type="radio" name="flexRadioDefault" id="Denegado" />
-                  <label for="Barra">Denegado</label>
-                </td>
-                <td>
-                  <!-- Enviar Notificación -->
-                  <button class="opcion">
-                    <a href="mailto:nombre_apellido@pucp.edu.pe"
-                       class="text-dark text-decoration-none" target="_blank">
+                       class="text-light text-decoration-none" target="_blank">
                       <ion-icon name="mail-outline"></ion-icon>
                     </a>
                   </button>
@@ -429,7 +329,7 @@
     </div>
 
     <!-- Donaciones comprobadas -->
-    <div class="row p-5">
+    <div class="row box">
       <div class="col p-4 mb-4 rounded-4" style="background-color: #ffffff">
         <div class="row search">
           <div class="col">
@@ -472,7 +372,7 @@
                 </td>
                 <td class="text-center">
                   <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
+                  <button class="opcion btn btn-primary" data-bs-toggle="modal"
                           data-bs-target="#modalMostrar">
                     <ion-icon name="eye-outline"></ion-icon>
                   </button>
@@ -513,95 +413,6 @@
                 </td>
               </tr>
 
-              <tr>
-                <th scope="row">4</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/plin_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <th scope="row">5</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/yape_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <th scope="row">6</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/yape_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <th scope="row">7</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/plin_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <th scope="row">8</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/plin_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-              </tr>
 
               </tbody>
             </table>

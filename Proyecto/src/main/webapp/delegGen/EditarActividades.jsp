@@ -45,7 +45,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=main_page">
+                <a href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -69,7 +69,7 @@
 
 
             <li>
-                <a href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=editar_actividades">
+                <a id="editarActividades" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=editar_actividades">
                     <ion-icon name="clipboard-outline"></ion-icon>
                     <span>Editar actividades</span>
                 </a>
@@ -190,7 +190,7 @@
                         <td><%=listaAlumnos_DelegadosActividad.get(i-1).getNombre() +" " + listaAlumnos_DelegadosActividad.get(i-1).getApellido()%></td>
                         <td>
                             <!-- Enviar Notificación -->
-                            <button class="opcion">
+                            <button class="opcion btn btn-secondary">
                                 <a href="<%=listaAlumnos_DelegadosActividad.get(i-1).getCorreo()%>"
                                    class="text-dark text-decoration-none" target="_blank">
                                     <ion-icon name="mail-outline"></ion-icon>

@@ -145,7 +145,7 @@
 </div>
 
 
-<main style="background-color: #c6e2e4;">
+<main>
     <div class="container-fluid">
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
@@ -154,7 +154,7 @@
             </div>
         </div>
 
-        <div class="row p-5">
+        <div class="row box-form">
             <div class="col p-4 mb-4 rounded-4" style="background-color: #ffffff">
                 <!-- <h2>Lista de eventos:</h2> -->
                 <div class="row search">
@@ -197,17 +197,17 @@
                         <td>
 
                             <!-- Ver evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
+                            <button class="opcion btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </button>
                             <!-- Ver participantes -->
-                            <button class="opcion">
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=e.getIdEvento()%>" class="text-dark text-decoration-none">
+                            <button class="opcion btn btn-success">
+                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=e.getIdEvento()%>" class="text-light text-decoration-none">
                                     <ion-icon name="people-outline"></ion-icon>
                                 </a>
                             </button>
                             <!-- Eliminar evento -->
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#eliminarEvento<%=i%>">
+                            <button class="opcion btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarEvento<%=i%>">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
 

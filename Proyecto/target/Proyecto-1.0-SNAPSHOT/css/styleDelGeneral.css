@@ -422,13 +422,11 @@ main.min-main{
 }
 
 .opcion{
-    border: none;
-    background-color: transparent;
-    color: #000;
+    align-items: center;
     font-size: 18px;
     margin-right: 20px;
 }
 
 .participantes {
-    padding: 3em 3em 2em;
+    padding: 3em 6em 2em;
 }

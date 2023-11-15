@@ -147,7 +147,7 @@
         <!-- header -->
         <div class="row header" style="background-color: #7c9da0;">
             <div class="col">
-                <h1>Eventos inscritos</strong></h1>
+                <h1>Eventos inscritos</h1>
             </div>
         </div>
 
@@ -237,7 +237,7 @@
 
 
     </div>
-
+</main>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

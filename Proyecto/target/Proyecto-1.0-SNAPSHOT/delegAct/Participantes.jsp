@@ -52,7 +52,7 @@
             <div class="linea"></div>
 
             <li>
-                <a id="misEventos" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
+                <a  href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
@@ -74,7 +74,7 @@
             </li>
 
             <li>
-                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
+                <a id="miActividad" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
                     <ion-icon name="clipboard-outline"></ion-icon>
                     <span>Mi actividad</span>
                 </a>
@@ -165,7 +165,7 @@
                     <div class="col">
                         <form class="search-form" id="search-container">
                             <input type="search" placeholder="Buscar participante..." id="search-input">
-                            <button class="btn-search">
+                            <button class="btn btn-search">
                                 <ion-icon name="search-outline"></ion-icon>
                             </button>
 
@@ -207,9 +207,9 @@
                         </td>
                         <td>
                             <!-- Enviar Notificación -->
-                            <button class="opcion">
+                            <button class="opcion btn btn-secondary">
                                 <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-dark text-decoration-none" target="_blank">
+                                   class="text-light text-decoration-none" target="_blank">
                                     <ion-icon name="mail-outline"></ion-icon>
                                 </a>
                             </button>
@@ -304,9 +304,9 @@
                     </div>
 
                     <div class="col">
-                        <form class="search-form" id="search-container">
-                            <input type="search" placeholder="Buscar participante..." id="search-input">
-                            <button class="btn-search">
+                        <form class="search-form" id="search2-container">
+                            <input type="search" placeholder="Buscar participante..." id="search2-input">
+                            <button class="btn btn-search">
                                 <ion-icon name="search-outline"></ion-icon>
                             </button>
 
@@ -335,7 +335,7 @@
                         <td><%=aE.getIntegrante().getDescripcion()%></td>
 
                         <td>
-                            <button class="opcion" data-bs-toggle="modal" data-bs-target="#cambiarRolA<%=i%>">
+                            <button class="opcion btn btn-warning" data-bs-toggle="modal" data-bs-target="#cambiarRolA<%=i%>">
                                 <ion-icon name="repeat-outline"></ion-icon>
                             </button>
                         </td>

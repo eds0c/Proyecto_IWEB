@@ -284,6 +284,11 @@ body {
     color: var(--color-menu-hover-texto);
 }
 
+#miActividad{
+    background-color: var(--color-menu-hover);
+    color: var(--color-menu-hover-texto);
+}
+
 main{
     margin-left: 250px;
     padding: 0 0;
@@ -372,4 +377,62 @@ main.min-main{
 
 .paso{
     margin-bottom:4em;
+}
+
+.search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    float: right;
+    border: 2px solid #777;
+    border-radius: 2rem;
+    background-color: #fff;
+    height: 2rem;
+    overflow: hidden;
+    width: 60%;
+}
+
+.search-form input {
+    outline: none;
+    font-family: inherit;
+    border: none;
+    width: 90%;
+
+    font-size: 1rem;
+    padding: 0 1rem;
+    color: #777;
+    cursor: pointer;
+    display: flex;
+}
+
+.search-form input::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+.search-form .btn-search {
+    border: none;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 1rem;
+}
+
+.btn-search i {
+    font-size: 2rem;
+    color: #fff;
+}
+
+.opcion{
+    /*border: none;
+    background-color: transparent;
+    color: #000;*/
+    align-items: center;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.participantes{
+    padding: 3em 6em 2em;
 }

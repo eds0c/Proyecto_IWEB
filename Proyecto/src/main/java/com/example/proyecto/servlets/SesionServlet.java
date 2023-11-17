@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "SesionServlet", value = "/SesionServlet")
+@WebServlet(name = "SesionServlet", value = {"/SesionServlet",""})
 public class SesionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

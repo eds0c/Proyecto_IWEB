@@ -38,7 +38,7 @@ public class AlumnoDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
                     a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));
@@ -79,7 +79,7 @@ public class AlumnoDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
                     a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));
@@ -120,7 +120,7 @@ public class AlumnoDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
                     a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));
@@ -164,7 +164,7 @@ public class AlumnoDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
                     a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));
@@ -212,7 +212,7 @@ public class AlumnoDao extends DaoBase{
             pstmt.setString(4,alumno.getCorreo());
             pstmt.setString(5,alumno.getContrasena());
             pstmt.setString(6,alumno.getEgresado());
-            pstmt.setBytes(7,alumno.getFoto());
+            pstmt.setBlob(7,alumno.getFoto());
             pstmt.setInt(8,alumno.getEstadoAlumno().getIdEstadoAlumno());
 
             pstmt.executeUpdate();

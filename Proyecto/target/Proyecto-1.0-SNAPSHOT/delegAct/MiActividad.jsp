@@ -278,8 +278,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                    <img src="images/valorant.avif" alt="Imagen de evento" id="eventImage"
-                                         class="img-thumbnail w-70">
+                                    <img src="<%=request.getContextPath()%>/ImgServlet?id=<%=e.getIdEvento()%>" width="250" height="230">
                                 </div>
                                 <div class="mb-3">
                                     <h5>Descripción:</h5>
@@ -319,7 +318,7 @@
                     <div class="modal-content">
 
 
-                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=editar">
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=editar" enctype="multipart/form-data">
 
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="nuevoModalLabel">Editar evento</h1>
@@ -478,7 +477,7 @@
                     <div class="modal-content">
 
                         <!--Aquí haremos las pruebas con debug -->
-                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=crear">
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=crear" enctype="multipart/form-data"> <!--Agregando el enctype para la foto-->
 
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="nuevoModalLabel">Nuevo evento</h1>

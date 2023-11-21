@@ -1,8 +1,13 @@
 package com.example.proyecto.daos;
 
 import com.example.proyecto.beans.*;
+import jakarta.servlet.http.HttpServletResponse;
 
 import javax.swing.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -36,7 +41,7 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString("e.fechaIn"));
                     e.setParticipantes(rs.getString("e.participantes"));
                     e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBytes("e.foto"));
+                    e.setFoto(rs.getBinaryStream("e.foto"));
                     e.setFechaFin(rs.getString("e.fechaFin"));
                     e.setLugar(rs.getString("e.lugar"));
                     e.setHora(rs.getString("e.hora"));
@@ -82,7 +87,7 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString("fechaIn"));
                     e.setParticipantes(rs.getString("participantes"));
                     e.setEstado(rs.getString("estado"));
-                    e.setFoto(rs.getBytes("foto"));
+                    e.setFoto(rs.getBinaryStream("foto"));
                     e.setFechaFin(rs.getString("fechaFin"));
                     e.setLugar(rs.getString("lugar"));
                     e.setHora(rs.getString("hora"));
@@ -97,6 +102,35 @@ public class EventoDao extends DaoBase{
             throw new RuntimeException(e);
         }
         return lista;
+    }
+    public void listarImg(int idEvento, HttpServletResponse response){
+        String sql = "Select * from evento where idEvento=?";
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            outputStream = response.getOutputStream();
+            pstmt.setInt(1,idEvento);
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    inputStream = rs.getBinaryStream(6);
+                }
+                bufferedInputStream = new BufferedInputStream(inputStream);
+                bufferedOutputStream = new BufferedOutputStream(outputStream);
+                int i = 0;
+                while ((i=bufferedInputStream.read())!=-1){
+                    bufferedOutputStream.write(i);
+                }
+            }
+
+
+        }catch (Exception e){
+
+        }
     }
 
     public Evento buscarEvento(String idEvento){ //devuelve el evento grande
@@ -123,7 +157,7 @@ public class EventoDao extends DaoBase{
                     evento.setFechaIn(rs.getString("fechaIn"));
                     evento.setParticipantes(rs.getString("participantes"));
                     evento.setEstado(rs.getString("estado"));
-                    evento.setFoto(rs.getBytes("foto"));
+                    evento.setFoto(rs.getBinaryStream("foto"));
                     evento.setFechaFin(rs.getString("fechaFin"));
                     evento.setLugar(rs.getString("lugar"));
                     evento.setHora(rs.getString("hora"));
@@ -174,7 +208,7 @@ public class EventoDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
 
@@ -188,7 +222,7 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString("e.fechaIn"));
                     e.setParticipantes(rs.getString("e.participantes"));
                     e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBytes("e.foto"));
+                    e.setFoto(rs.getBinaryStream("e.foto"));
                     e.setFechaFin(rs.getString("e.fechaFin"));
                     e.setTitulo(rs.getString("e.titulo"));
 
@@ -244,7 +278,7 @@ public class EventoDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
 
@@ -258,7 +292,7 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString("e.fechaIn"));
                     e.setParticipantes(rs.getString("e.participantes"));
                     e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBytes("e.foto"));
+                    e.setFoto(rs.getBinaryStream("e.foto"));
                     e.setFechaFin(rs.getString("e.fechaFin"));
 
                     ActividadDao aDao = new ActividadDao();
@@ -313,7 +347,7 @@ public class EventoDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
 
@@ -327,7 +361,7 @@ public class EventoDao extends DaoBase{
                     e.setFechaIn(rs.getString("e.fechaIn"));
                     e.setParticipantes(rs.getString("e.participantes"));
                     e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBytes("e.foto"));
+                    e.setFoto(rs.getBinaryStream("e.foto"));
                     e.setFechaFin(rs.getString("e.fechaFin"));
 
                     ActividadDao aDao = new ActividadDao();

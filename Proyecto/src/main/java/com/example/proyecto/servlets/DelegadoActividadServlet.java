@@ -141,10 +141,6 @@ public class DelegadoActividadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        //VALIDAR SESIÓN
-        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=2){
-            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
-        }
 
 
         //Datos de sesión:

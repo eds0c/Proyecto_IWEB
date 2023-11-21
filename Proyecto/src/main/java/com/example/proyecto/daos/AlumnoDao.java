@@ -4,10 +4,7 @@ import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.Alumno;
 import com.example.proyecto.beans.Evento;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class AlumnoDao extends DaoBase{
@@ -188,8 +185,17 @@ public class AlumnoDao extends DaoBase{
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1,Integer.parseInt(idDelegadoActividad));
+            if(idDelegadoActividad.equalsIgnoreCase("eliminar")){
+                pstmt.setNull(1,Types.INTEGER);
+                //pstmt.setString(1, "NULL");
+            }
+            else{
+                pstmt.setInt(1,Integer.parseInt(idDelegadoActividad));
+            }
             pstmt.setInt(2, Integer.parseInt(idAlumno));
+
+            System.out.println("idDeleg Act: " + idDelegadoActividad);
+            System.out.println("idAlumno Act: " + idAlumno);
 
             pstmt.executeUpdate();
 

@@ -119,6 +119,23 @@ public class DelegadoActividadDao extends DaoBase {
         return ultimoId;
     }
 
+    public void eliminar(String idDelegadoActividad) {
+
+        String sql = "delete from delegado_actividad where idDelegado_Actividad = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,Integer.parseInt(idDelegadoActividad));
+            pstmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 
 
 

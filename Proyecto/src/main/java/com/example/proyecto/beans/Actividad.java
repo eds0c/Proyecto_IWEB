@@ -1,11 +1,13 @@
 package com.example.proyecto.beans;
 
+import java.io.InputStream;
+
 public class Actividad {
 
     private int idActividad;
     private String descripcion;
     private String titulo;
-    private byte[] foto;
+    private InputStream foto;
     private String estado;
 
     public String getTitulo() {
@@ -32,11 +34,11 @@ public class Actividad {
         this.descripcion = descripcion;
     }
 
-    public byte[] getFoto() {
+    public InputStream getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(InputStream foto) {
         this.foto = foto;
     }
 

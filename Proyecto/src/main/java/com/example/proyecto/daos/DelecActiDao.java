@@ -102,7 +102,7 @@ public class DelecActiDao extends DaoBase{
         }
     }
 
-    public void borrar(int idEventoo) throws SQLException {
+    public void borrar(int idEvento) throws SQLException {
 
 
 
@@ -111,7 +111,7 @@ public class DelecActiDao extends DaoBase{
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1,idEventoo);
+            pstmt.setInt(1,idEvento);
             pstmt.executeUpdate();
 
         }

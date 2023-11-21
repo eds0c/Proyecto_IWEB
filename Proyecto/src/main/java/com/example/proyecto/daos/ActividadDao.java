@@ -30,7 +30,7 @@ public class ActividadDao extends DaoBase {
                 if (rs.next()) {
                     actividad.setIdActividad(Integer.parseInt(idActividad));
                     actividad.setDescripcion(rs.getString("descripcion"));
-                    actividad.setFoto(rs.getBytes("foto"));
+                    actividad.setFoto(rs.getBinaryStream("foto"));
                     actividad.setEstado(rs.getString("estado"));
                     actividad.setTitulo(rs.getString("titulo"));
 
@@ -50,10 +50,11 @@ public class ActividadDao extends DaoBase {
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setBytes(1,actividad.getFoto());
+            pstmt.setBlob(1,actividad.getFoto());
             pstmt.setString(2,actividad.getDescripcion());
             pstmt.setString(3,actividad.getEstado());
             pstmt.setString(4,actividad.getTitulo());
+
 
             pstmt.executeUpdate();
 
@@ -82,6 +83,23 @@ public class ActividadDao extends DaoBase {
         }
 
         return ultimoId;
+    }
+
+    public void eliminar(String idActividad){
+
+
+        String sql = "delete from actividad where idActividad = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,Integer.parseInt(idActividad));
+            pstmt.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

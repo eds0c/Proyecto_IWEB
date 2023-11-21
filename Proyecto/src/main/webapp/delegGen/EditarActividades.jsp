@@ -6,6 +6,7 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
 <jsp:useBean id="listaAlumnos_DelegadosActividad" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
+<jsp:useBean id="listaAlumnosCandidatos" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 
 <html lang="en">
@@ -277,15 +278,20 @@
                                 <div class="modal-body">
                                     ¿Estás seguro que deseas eliminar esta actividad?
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary" data-bs-target="#eliminarConfirmado"
-                                            data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
-                                </div>
+                                <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=eliminar_actividad">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                        <input type="hidden" class="form-control" name="idAlumnoDelegadoActividadEliminar" value="<%=listaAlumnos_DelegadosActividad.get(i-1).getIdAlumno()%>">
+                                        <input type="hidden" class="form-control" name="idDelegadoActividadEliminar" value="<%=delegadoActividad.getIdDelegadoActividad()%>">
+                                        <input type="hidden" class="form-control" name="idActividadEliminar" value="<%=delegadoActividad.getActividad().getIdActividad()%>">
+                                        <button type="submit" class="btn btn-primary" data-bs-target="#eliminarConfirmado<%=i%>"
+                                                data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="eliminarConfirmado" aria-hidden="true"
+                    <div class="modal fade" id="eliminarConfirmado<%=i%>" aria-hidden="true"
                          aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -396,10 +402,10 @@
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form>
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=crear" enctype="multipart/form-data">
 
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="nuevoModalLabel">Nuevo actividad</h1>
+                                <h1 class="modal-title fs-5" id="nuevoModalLabel">Nueva actividad</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -408,34 +414,35 @@
                                     <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
                                          alt="Imagen de muestra" id="exampleImage" class="img-thumbnail w-50">
                                     <label class="form-label" for="imageUpload">Subir Foto</label>
-                                    <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                                    <input type="file" class="form-control" id="imageUpload" accept="image/*" name="fotoActividad">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="tituloActividad">Título</label>
+                                    <input type="text" class="form-control form-control-sm" name="tituloActividad" id="tituloActividad">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleDescription" class="form-label">Descripción</label>
-                                    <textarea class="form-control" id="exampleDescription" rows="4"
+                                    <label for="descripcionActividad" class="form-label">Descripción</label>
+                                    <textarea class="form-control" id="descripcionActividad" rows="4" name="descripcionActividad"
                                               placeholder="Ingrese la descripción aquí"></textarea>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <label for="exampleDate" class="form-label">Fecha</label>
-                                        <input type="date" class="form-control" id="exampleDate">
-                                    </div>
-                                    <div class="col">
-                                        <label for="exampleTime" class="form-label">Hora</label>
-                                        <input type="time" class="form-control" id="exampleTime">
-                                    </div>
-                                </div>
                                 <div class="mb-3">
-                                    <label for="exampleLocation" class="form-label">Lugar</label>
-                                    <input type="text" class="form-control" id="exampleLocation"
-                                           placeholder="Ingrese el lugar">
+                                    <label for="idAlumnoDelegadoActividad">Delegado de Actividad</label>
+                                    <select name="idAlumnoDelegadoActividad" class="form-select" id="idAlumnoDelegadoActividad">
+                                        <option value="0">-- Sin Posibles Candidatos --</option>
+                                        <% for(Alumno alumno: listaAlumnosCandidatos){ %>
+                                        <option value="<%=alumno.getIdAlumno()%>"> <%=alumno.getNombre()+" "+alumno.getApellido()%> </option>
+                                        <% } %>
+                                    </select>
                                 </div>
+
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger"
                                         data-bs-dismiss="modal">Cancelar</button>
 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type=submit class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#SaveNewEvent">Guardar Cambios</button>
                             </div>
 

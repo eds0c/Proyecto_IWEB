@@ -65,7 +65,6 @@ public class SesionServlet extends HttpServlet {
 
 
         String action = request.getParameter("action");
-        System.out.println("aaaa"+action);
 
 
         switch (action){
@@ -76,34 +75,27 @@ public class SesionServlet extends HttpServlet {
 
                 switch (tipoUsuario){
                     case 0:
-                        System.out.println("usuario o password incorrectos");
                         request.setAttribute("err","Usuario o password incorrectos "); //Va a mandar este mensaje a login/InicioSesion.jsp
                         request.getRequestDispatcher("login/InicioSesion.jsp").forward(request,response);
                         break;
                     case 1:
                         Alumno alumno = credentialsDao.obtenerAlumno(correo); //Obtener al alumno por el correo. Este es el alumno logueado
-                        System.out.println(alumno.getIdAlumno());
                         httpSession.setAttribute("usuariologueado",alumno); //Guardo el alumno que acaba de iniciar sesion
-                        System.out.println("usuario y password válidos- caso alumno");
                         httpSession.setAttribute("tipoUsuario",1); //Para validar después en los servlets (anti copiar urls)
                         response.sendRedirect(request.getContextPath() + "/AlumnoServlet");
                         break;
                     case 2:
                         Alumno alumno2 = credentialsDao.obtenerAlumno(correo); //Obtener al alumno por el correo. Este es el alumno logueado
                         DelegadoActividad delegadoActividad = alumno2.getDelegadoActividad();
-                        System.out.println(alumno2.getIdAlumno());
                         httpSession.setAttribute("usuariologueado",alumno2); //Guardo el alumno que acaba de iniciar sesion
                         httpSession.setAttribute("DelegadoActividad",delegadoActividad); //Guardo la tabla que relaciona al alumno con la actividad
-                        System.out.println("usuario y password válidos- caso delegado actividad");
                         httpSession.setAttribute("tipoUsuario",2); //Para validar después en los servlets (anti copiar urls)
                         response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet");
                         break;
                     case 3:
 
                         DelegadoGeneral delegadoGeneral = credentialsDao.obtenerDelegadoGeneral(correo);
-                        System.out.println(delegadoGeneral.getIdDelegadoGeneral());
                         httpSession.setAttribute("usuariologueado",delegadoGeneral); //Guardo el alumno que acaba de iniciar sesion
-                        System.out.println("usuario y password válidos- caso delegado general");
                         httpSession.setAttribute("tipoUsuario",3); //Para validar después en los servlets (anti copiar urls)
                         response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet");
                         break;

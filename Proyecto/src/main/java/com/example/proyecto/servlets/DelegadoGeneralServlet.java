@@ -5,10 +5,14 @@ import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.MultipartConfig;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
+@MultipartConfig
 
 @WebServlet(name = "DelegadoGeneralServlet", value = "/DelegadoGeneralServlet")
 public class DelegadoGeneralServlet extends HttpServlet {
@@ -66,11 +70,6 @@ public class DelegadoGeneralServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //VALIDAR SESIÓN
-        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=3){
-            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
-        }
-
 
         //Datos de sesión:
         DelegadoGeneral delegadoGeneral = (DelegadoGeneral) request.getSession().getAttribute("usuariologueado");
@@ -88,34 +87,42 @@ public class DelegadoGeneralServlet extends HttpServlet {
         //Validarcorrectos parámetros: (Aún no implementado)
 
 
-        String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
+        String action = request.getParameter("action");
 
-        //creamos la actividad (tabla actividad)
-        Actividad actividad = new Actividad();
-        actividad.setTitulo(request.getParameter("tituloActividad"));
-        actividad.setEstado("activa");
-        actividad.setDescripcion(request.getParameter("descripcionActividad"));
-        actividad.setFoto(request.getParameter("actividadFoto").getBytes());
 
-        //vinculamos al delegado_actividad(tabla) con la actividad
-        DelegadoActividad delegadoActividad = new DelegadoActividad();
-        delegadoActividad.setIdDelegadoActividad(actividadDao.obtenerUltimoId());
-
-        //vinculamos al alumno con el id de delegado_actividad(tabla)
-        alumnoDao.actualizarIdDelegadoActividad(request.getParameter("idAlumnoDelegadoActividad"),String.valueOf(delegadoActividadDao.obtenerUltimoId()));
 
         switch (action) {
             case "crear"://voy a crear una nueva Actividad
 
-                actividadDao.crearActividad(actividad);
-                delegadoActividadDao.crearDelegadoActividad(String.valueOf(delegadoActividad.getIdDelegadoActividad()));
-                alumnoDao.actualizarIdDelegadoActividad(request.getParameter("idAlumnoDelegadoActividad"),String.valueOf(delegadoActividadDao.obtenerUltimoId()));
+                //creamos la actividad (tabla actividad)
+                Actividad actividad = new Actividad();
+                actividad.setTitulo(request.getParameter("tituloActividad"));
+                actividad.setEstado("activa");
+                actividad.setDescripcion(request.getParameter("descripcionActividad"));
+                actividad.setFoto(request.getPart("fotoActividad").getInputStream());
 
+
+                actividadDao.crearActividad(actividad);
+                //vinculamos al delegado_actividad(tabla) con la actividad
+                delegadoActividadDao.crearDelegadoActividad(String.valueOf(actividadDao.obtenerUltimoId()));
+                alumnoDao.actualizarIdDelegadoActividad(String.valueOf(delegadoActividadDao.obtenerUltimoId()),request.getParameter("idAlumnoDelegadoActividad"));
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
             case "editar"://voy a editar una actividad
 
 
                 break;
+            case "eliminar_actividad":
 
+                //Parámetros:
+                String idAlumnoDelegadoActividadEliminar = request.getParameter("idAlumnoDelegadoActividadEliminar");
+                String idDelegadoActividadEliminar = request.getParameter("idDelegadoActividadEliminar");
+                String idActividadEliminar = request.getParameter("idActividadEliminar");
+
+                alumnoDao.actualizarIdDelegadoActividad("eliminar",idAlumnoDelegadoActividadEliminar);
+                delegadoActividadDao.eliminar(idDelegadoActividadEliminar);
+                actividadDao.eliminar(idActividadEliminar);
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
+                break;
 
 
         }

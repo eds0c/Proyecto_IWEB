@@ -44,7 +44,7 @@
         <ul>
             <li>
                 <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=main_page">
+                <a id="inicio" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>Inicio</span>
                 </a>
@@ -53,13 +53,13 @@
             <div class="linea"></div>
 
             <li>
-                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=mis_eventos">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                     <span>Mis eventos</span>
                 </a>
             </li>
             <li>
-                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=eventos_finalizados">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados">
                     <ion-icon name="medal-outline"></ion-icon>
                     <span>Finalizados</span>
                 </a>
@@ -68,9 +68,16 @@
             <div class="linea"></div>
 
             <li>
-                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=donaciones">
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=donaciones">
                     <ion-icon name="heart-outline"></ion-icon>
                     <span>Donaciones</span>
+                </a>
+            </li>
+            <!-- Aquí hacemos CRUD -->
+            <li>
+                <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">
+                    <ion-icon name="clipboard-outline"></ion-icon>
+                    <span>Mi actividad</span>
                 </a>
             </li>
 

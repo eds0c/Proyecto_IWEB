@@ -1,10 +1,12 @@
 package com.example.proyecto.beans;
 
+import java.io.InputStream;
+
 public class Donacion {
 
     private int idDonacion;
     private String monto;
-    private byte[] captura;
+    private InputStream captura;
     private String estado;
     private String fecha;
     private String motivo;
@@ -28,11 +30,11 @@ public class Donacion {
         this.monto = monto;
     }
 
-    public byte[] getCaptura() {
+    public InputStream getCaptura() {
         return captura;
     }
 
-    public void setCaptura(byte[] captura) {
+    public void setCaptura(InputStream captura) {
         this.captura = captura;
     }
 

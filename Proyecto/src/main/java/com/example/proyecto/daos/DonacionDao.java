@@ -31,7 +31,7 @@ public class DonacionDao extends DaoBase{
 
                     d.setIdDonacion(rs.getInt("d.idDonacion"));
                     d.setMonto(rs.getString("d.monto"));
-                    d.setCaptura(rs.getBytes("d.captura"));
+                    d.setCaptura(rs.getBinaryStream("d.captura"));
                     d.setEstado(rs.getString("d.estado"));
                     d.setFecha(rs.getString("d.fecha"));
                     d.setMotivo(rs.getString("d.motivo"));
@@ -76,7 +76,7 @@ public class DonacionDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
 
@@ -140,7 +140,7 @@ public class DonacionDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
 

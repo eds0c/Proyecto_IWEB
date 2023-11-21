@@ -2,7 +2,6 @@ package com.example.proyecto.beans;
 
 public class Donacion {
 
-
     private int idDonacion;
     private String monto;
     private byte[] captura;

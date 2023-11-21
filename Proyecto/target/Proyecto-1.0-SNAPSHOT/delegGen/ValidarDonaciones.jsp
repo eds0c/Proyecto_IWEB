@@ -1,13 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ARKEL
-  Date: 7/11/2023
-  Time: 18:32
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
+<%@ page import="com.example.proyecto.beans.Donacion" %>
+<jsp:useBean id="lista2" scope="request" type="ArrayList<Donacion>" />
+<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno"/>
 
 <html lang="en">
 
@@ -202,10 +199,10 @@
                 </td>
                 <td>
                   <input type="radio" name="flexRadioDefault" id="Aceptado" />
-                  <label for="Equipo">Aceptado</label>
+                  <label for="Aceptado">Aceptado</label>
 
                   <input type="radio" name="flexRadioDefault" id="Denegado" />
-                  <label for="Barra">Denegado</label>
+                  <label for="Denegado">Denegado</label>
                 </td>
                 <td>
                   <!-- Enviar Notificación -->
@@ -362,11 +359,13 @@
               </tr>
               </thead>
               <tbody>
+              <%int i=1;%>
+              <%for (Donacion d: lista2){%>
               <tr>
-                <th scope="row">1</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
+                <th scope="row"><%=i%></th>
+                <td><%=d.getAlumno().getNombre()+" "+d.getAlumno().getApellido()%></td>
+                <td><%=d.getAlumno().getCorreo()%>></td>
+                <td><%=d.getFecha()%></td>
                 <td class="text-center">
                   <img src="images/yape_logo.jpg" alt="Pago" width="32px"
                        style="border-radius: 25%;">
@@ -379,40 +378,9 @@
                   </button>
                 </td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/plin_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Nombre Apellido</td>
-                <td>nombre@pucp.edu.pe</td>
-                <td>dd/mm/aaaa</td>
-                <td class="text-center">
-                  <img src="images/yape_logo.jpg" alt="Pago" width="32px"
-                       style="border-radius: 25%;">
-                </td>
-                <td class="text-center">
-                  <!-- Ver comprobante -->
-                  <button class="opcion" data-bs-toggle="modal"
-                          data-bs-target="#modalMostrar">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </button>
-                </td>
-              </tr>
+
+              <%i++;%>
+              <%};%>
 
 
               </tbody>

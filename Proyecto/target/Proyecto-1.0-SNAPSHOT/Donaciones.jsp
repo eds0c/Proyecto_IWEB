@@ -141,9 +141,7 @@
         <div class="row mt-3 ">
             <div class="col">
                 <p style="text-align: justify;">En caso de ser egresado de la facultad de Telecomunicaciones,
-                    el monto mínimo de pago será de 100 soles, debido a la entrega de un kit teleco
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Minima nobis hic laborum pariatur natus minus neque a dolorum</p>
+                    el monto mínimo de pago será de 100 soles, debido a la entrega de un kit teleco.</p>
             </div>
         </div>
         <div class="row">
@@ -182,7 +180,7 @@
                                 <div class="col">
                                     <label class="mb-2">Monto (S/.):</label>
                                     <input id="monto" name="monto" class="form-control" placeholder="Monto en soles"
-                                           type="Text" required/>
+                                           type="" required/>
                                 </div>
                             </div>
                         </div>

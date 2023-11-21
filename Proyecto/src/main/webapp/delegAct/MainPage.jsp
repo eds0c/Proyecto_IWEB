@@ -186,7 +186,7 @@
                     <!-- Eventos -->
                     <div class="col event">
                         <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="<%=request.getContextPath()%>/ImgServlet?id=<%=e.getIdEvento()%>" width="291" height="230">
                             <div class="card-body">
                                 <h5 class="card-title"><%=e.getActividad().getTitulo()%></h5>
                                 <div class="d-flex justify-content-between">

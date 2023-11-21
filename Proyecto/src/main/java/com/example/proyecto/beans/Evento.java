@@ -1,5 +1,6 @@
 package com.example.proyecto.beans;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -10,7 +11,7 @@ public class Evento {
     private String fechaIn;
     private String participantes;
     private String estado;
-    private byte[] foto;
+    private InputStream foto;
     private String fechaFin;
     private Actividad actividad;
     private String lugar;
@@ -57,11 +58,11 @@ public class Evento {
         this.estado = estado;
     }
 
-    public byte[] getFoto() {
+    public InputStream getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(InputStream foto) {
         this.foto = foto;
     }
 
@@ -104,5 +105,4 @@ public class Evento {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
 }

@@ -84,7 +84,7 @@ public class CredentialsDao extends DaoBase{
                     a.setCorreo(rs.getString("a.correo"));
                     a.setContrasena(rs.getString("a.contrasena"));
                     a.setEgresado(rs.getString("a.egresado"));
-                    a.setFoto(rs.getBytes("a.foto"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
                     a.setMotivo(rs.getString("a.motivo"));
                     a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
                     a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));

@@ -2,20 +2,21 @@ package com.example.proyecto.daos;
 
 import com.example.proyecto.beans.Evento;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class DelecActiDao extends DaoBase{
 
-    public void crear(byte[] eventoFoto, String eventoDescripcion, String eventoFecha, String eventoHora, String eventoLugar, String eventoTitulo, int IdActividad){
+    public void crear(InputStream eventoFoto, String eventoDescripcion, String eventoFecha, String eventoHora, String eventoLugar, String eventoTitulo, int IdActividad){
 
         String sql = "insert into evento (foto, descripcion, fechaIn, hora, lugar, titulo, Actividad_idActividad) values (?,?,?,?,?,?,?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setBytes(1,eventoFoto );
+            pstmt.setBlob(1,eventoFoto );
             pstmt.setString(2,eventoDescripcion);
             pstmt.setString(3,eventoFecha);
             pstmt.setString(4,eventoHora);
@@ -43,7 +44,7 @@ public class DelecActiDao extends DaoBase{
             try(ResultSet rs = pstmt.executeQuery()){
                 while (rs.next()) {
                     evento = new Evento();
-                    evento.setFoto(rs.getBytes(6));
+                    evento.setFoto(rs.getBinaryStream(6));
                     evento.setDescripcion(rs.getString(2));
                     evento.setFechaIn(rs.getString(3));
                     evento.setHora(rs.getString(10));
@@ -86,7 +87,7 @@ public class DelecActiDao extends DaoBase{
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setBytes(1,evento.getFoto());
+            pstmt.setBlob(1,evento.getFoto());
             pstmt.setString(2, evento.getDescripcion());
             pstmt.setString(3, evento.getFechaIn());
             pstmt.setString(4, evento.getHora());

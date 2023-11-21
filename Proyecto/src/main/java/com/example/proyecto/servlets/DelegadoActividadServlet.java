@@ -8,6 +8,7 @@ import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.MultipartConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.SimpleTimeZone;
-
+@MultipartConfig
 @WebServlet(name = "DelegadoActividadServlet", value = "/DelegadoActividadServlet")
 public class DelegadoActividadServlet extends HttpServlet {
     @Override
@@ -133,7 +134,10 @@ public class DelegadoActividadServlet extends HttpServlet {
 
     }
 
+
+
     @Override
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
@@ -152,12 +156,15 @@ public class DelegadoActividadServlet extends HttpServlet {
         ActividadDao aDao = new ActividadDao();
         EventoDao eDao = new EventoDao();
 
+
+
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
 
         switch (action) {
             case "crear"://voy a crear un nuevo evento
 
-                String eventoFotoStr = request.getParameter("eventoFoto");
+                Part part = request.getPart("eventoFoto");
+                InputStream eventoFoto = part.getInputStream();
                 String eventoDescripcion = request.getParameter("eventoDescripcion");
                 String eventoFecha = request.getParameter("eventoFecha");
                 String eventoTitulo = request.getParameter("titulo");
@@ -180,7 +187,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                     if (evento == null) {  //Se verifica que no se repita el evento
 
                         // Parsear la Foto a Byte
-                        byte[] eventoFoto = eventoFotoStr.getBytes();
+
                         int IdActividad = alumno.getDelegadoActividad().getActividad().getIdActividad();
 
                         delecActiDao.crear(eventoFoto, eventoDescripcion, eventoFecha, eventoHora, eventoLugar, eventoTitulo, IdActividad);
@@ -195,7 +202,8 @@ public class DelegadoActividadServlet extends HttpServlet {
 
             case "editar"://voy a editar un evento
 
-                String eventoFotoStr2 = request.getParameter("eventoFoto");
+                Part part1 = request.getPart("eventoFoto");
+                InputStream eventoFoto2 = part1.getInputStream();
                 String eventoDescripcion2 = request.getParameter("eventoDescripcion");
                 String eventoFecha2 = request.getParameter("eventoFecha");
                 String eventoID2 = request.getParameter("eventoID");
@@ -218,11 +226,11 @@ public class DelegadoActividadServlet extends HttpServlet {
                     if (evento == null) {  //Se verifica que no se repita el evento
 
                         // Parsear la Foto a Byte
-                        byte[] eventoFoto = eventoFotoStr2.getBytes();
+
                         String IdActividad = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
 
                         Evento e2 = new Evento();
-                        e2.setFoto(eventoFoto);
+                        e2.setFoto(eventoFoto2);
                         e2.setActividad(aDao.obtenerActividad(IdActividad));
                         e2.setDescripcion(eventoDescripcion2);
                         e2.setLugar(eventoLugar2);

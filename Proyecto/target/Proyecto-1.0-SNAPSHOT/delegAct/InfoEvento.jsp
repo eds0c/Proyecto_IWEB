@@ -149,7 +149,8 @@
                 <div class="row">
                     <!-- Imagen del evento -->
                     <div class="col-md-5 img-event" >
-                        <img src="images/valorant.avif" class="rounded-3" width="100%">
+                        <!--<img src="images/valorant.avif" class="rounded-3" width="100%">-->
+                        <img src="<%=request.getContextPath()%>/ImgServlet?id=<%=evento.getIdEvento()%>" width="100%" height="230">
                     </div>
                     <!-- Info del evento -->
 
@@ -215,7 +216,7 @@
                     <!-- Evento 1 -->
                     <div class="col event mt-3">
                         <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
+                            <img src="<%=request.getContextPath()%>/ImgServlet?id=<%=e.getIdEvento()%>" width="250" height="230">
                             <div class="card-body d-flex justify-content-between">
                                 <h5 class="card-title"><%=e.getActividad().getTitulo()%>: <div class="d-flex justify-content-between"><%=e.getTitulo()%></div></h5>
                                 <!-- <div class="d-flex justify-content-between">

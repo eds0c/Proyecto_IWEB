@@ -1,5 +1,7 @@
 package com.example.proyecto.beans;
 
+import java.io.InputStream;
+
 public class Alumno {
 
     private int idAlumno;
@@ -9,7 +11,7 @@ public class Alumno {
     private String correo;
     private String contrasena;
     private String egresado;
-    private byte[] foto;
+    private InputStream foto;
     private String motivo;
     private String fechaAprobacion;
     private DelegadoActividad delegadoActividad;
@@ -73,11 +75,11 @@ public class Alumno {
         this.egresado = egresado;
     }
 
-    public byte[] getFoto() {
+    public InputStream getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(InputStream foto) {
         this.foto = foto;
     }
 

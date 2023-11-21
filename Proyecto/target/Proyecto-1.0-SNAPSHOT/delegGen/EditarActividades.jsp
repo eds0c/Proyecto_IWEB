@@ -6,6 +6,7 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
 <jsp:useBean id="listaAlumnos_DelegadosActividad" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
+<jsp:useBean id="listaAlumnosCandidatos" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 
 <html lang="en">
@@ -251,7 +252,7 @@
 
                                         <div class="mb-3">
                                             <h5>Estado:</h5>
-                                            <p><%=delegadoActividad.getActividad().getEstado()%></p>
+                                            <p class="text-uppercase"><%=delegadoActividad.getActividad().getEstado()%></p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -396,10 +397,10 @@
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form>
+                        <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=crear">
 
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="nuevoModalLabel">Nuevo actividad</h1>
+                                <h1 class="modal-title fs-5" id="nuevoModalLabel">Nueva actividad</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -408,27 +409,26 @@
                                     <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
                                          alt="Imagen de muestra" id="exampleImage" class="img-thumbnail w-50">
                                     <label class="form-label" for="imageUpload">Subir Foto</label>
-                                    <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                                    <input type="file" class="form-control" id="imageUpload" name = "fotoActividad" accept="image/*">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="tituloActividad">Título</label>
+                                    <input type="text" class="form-control form-control-sm" name="tituloActividad" id="tituloActividad">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleDescription" class="form-label">Descripción</label>
-                                    <textarea class="form-control" id="exampleDescription" rows="4"
+                                    <label for="descripcionActividad" class="form-label">Descripción</label>
+                                    <textarea class="form-control" id="descripcionActividad" name = "descripcionActividad" rows="4"
                                               placeholder="Ingrese la descripción aquí"></textarea>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <label for="exampleDate" class="form-label">Fecha</label>
-                                        <input type="date" class="form-control" id="exampleDate">
-                                    </div>
-                                    <div class="col">
-                                        <label for="exampleTime" class="form-label">Hora</label>
-                                        <input type="time" class="form-control" id="exampleTime">
-                                    </div>
-                                </div>
                                 <div class="mb-3">
-                                    <label for="exampleLocation" class="form-label">Lugar</label>
-                                    <input type="text" class="form-control" id="exampleLocation"
-                                           placeholder="Ingrese el lugar">
+                                    <label for="delegadoActividad">Manager</label>
+                                    <select name="idDelegadoActividad" class="form-select" id="delegadoActividad">
+                                        <option value="0">-- Sin Alumnos Disponibles --</option>
+                                        <% for(Alumno alumno: listaAlumnosCandidatos){ %>
+                                        <option value="<%=alumno.getIdAlumno()%>"> <%=alumno.getNombre()+" "+alumno.getApellido()%> </option>
+                                        <% } %>
+                                    </select>
                                 </div>
                             </div>
                             <div class="modal-footer">

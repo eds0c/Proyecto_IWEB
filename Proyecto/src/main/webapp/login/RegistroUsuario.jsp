@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col">
             <!-- FORMULARIO PARA LOS DATOS Y EL BOTÓN DE ENVÍO -->
-            <form class="form" id="Registro" method="post" action="<%=request.getContextPath()%>/SesionServlet?action=registro_usuario">
+            <form class="form" id="Registro" method="post" action="<%=request.getContextPath()%>/SesionServlet?action=registro_usuario" enctype="multipart/form-data">
                 <ul>
                     <!-- INGRESO DE DATOS -->
                     <div class="row">
@@ -39,7 +39,8 @@
                             <li>Sube una foto de perfil para que los delegados te reconozcan:</li>
                             <!-- <p>Sube una foto de perfil para que los delegados te reconozcan:</p> -->
                             <div class="field">
-                                <input class="form-control" type="file" id="formFile" name="foto">
+
+                                <input class="form-control" type="file"  accept="image/*" name="foto">
                             </div>
 
                             <li>Ingresa tus datos personales:</li>

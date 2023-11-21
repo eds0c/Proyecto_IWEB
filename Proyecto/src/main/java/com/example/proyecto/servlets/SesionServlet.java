@@ -5,6 +5,7 @@ import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.MultipartConfig;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,8 @@ import java.time.LocalDateTime;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+@MultipartConfig
 
 @WebServlet(name = "SesionServlet", value = {"/SesionServlet",""})
 public class SesionServlet extends HttpServlet {
@@ -116,9 +119,7 @@ public class SesionServlet extends HttpServlet {
                 alumnoRegistrar.setCorreo(request.getParameter("correo"));
                 alumnoRegistrar.setContrasena(request.getParameter("password"));
                 alumnoRegistrar.setEgresado(request.getParameter("estadoAcademico"));
-                Part part1 = request.getPart("foto");
-                InputStream eventoFoto = part1.getInputStream();
-                alumnoRegistrar.setFoto(eventoFoto);
+                alumnoRegistrar.setFoto(request.getPart("foto").getInputStream());
                 alumnoRegistrar.setEstadoAlumno(estadoAlumnoDao.obtenerEstadoAlumno("3")); // se le asigna el estado de pendiente (luego será revisado por el delegado general)
 
                 alumnoDao.crearAlumno(alumnoRegistrar); //crear el alumno en la base de datos

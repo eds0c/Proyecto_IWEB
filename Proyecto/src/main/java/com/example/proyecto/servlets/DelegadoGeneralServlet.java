@@ -173,6 +173,19 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                 break;
 
+            case "validar_registro":
+
+                int cantidadAlumnosPendientes = Integer.parseInt(request.getParameter("cantidad"));
+
+                for(int i = 1; i<=cantidadAlumnosPendientes;i++){
+
+                    String idPendiente = request.getParameter("idPendiente"+i) == null ? "0" : request.getParameter("idPendiente"+i);
+                    String estadoAsignar = request.getParameter("estadoAsignar"+i);
+                    alumnoDao.actualizarEstado(estadoAsignar,idPendiente);
+                }
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=validar_registro");
+                break;
+
 
         }
 

@@ -269,4 +269,35 @@ public class AlumnoDao extends DaoBase{
     }
 
 
+    public void actualizarEstado(String estado, String idAlumno){ //para banear, rechazar o aceptar registro
+
+        String sql = "update alumno set Estado_Alumno_idEstado_Alumno = ? where idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            switch (estado){
+                case "Activo":
+                    pstmt.setInt(1, 1);
+                    break;
+                case "Baneado":
+                    pstmt.setInt(1, 2);
+                    break;
+                case "Pendiente":
+                    pstmt.setInt(1, 3);
+                    break;
+                case "Rechazado":
+                    pstmt.setInt(1, 4);
+                    break;
+            }
+            pstmt.setInt(2, Integer.parseInt(idAlumno));
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

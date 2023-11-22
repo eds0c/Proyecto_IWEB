@@ -3,8 +3,9 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 <%@ page import="com.example.proyecto.beans.Donacion" %>
-<jsp:useBean id="lista2" scope="request" type="ArrayList<Donacion>" />
-<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno"/>
+<%@ page import="java.util.ArrayList" %>
+<jsp:useBean id="lista2" scope="request" type="ArrayList<com.example.proyecto.beans.Donacion>" />
+
 
 <html lang="en">
 

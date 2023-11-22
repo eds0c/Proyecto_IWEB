@@ -102,5 +102,26 @@ public class ActividadDao extends DaoBase {
         }
     }
 
+    public void actualizar(Actividad actividad){
+
+        String sql = "update actividad set descripcion = ?,  foto = ?, estado = ?, titulo = ? where idActividad = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,actividad.getDescripcion());
+            pstmt.setBlob(2,actividad.getFoto());
+            pstmt.setString(3,actividad.getEstado());
+            pstmt.setString(4,actividad.getTitulo());
+            pstmt.setInt(5,actividad.getIdActividad());
+
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

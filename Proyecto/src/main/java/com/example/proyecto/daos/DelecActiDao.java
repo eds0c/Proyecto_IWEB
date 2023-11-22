@@ -104,8 +104,6 @@ public class DelecActiDao extends DaoBase{
 
     public void borrar(int idEvento) throws SQLException {
 
-
-
         String sql = "delete from evento where idEvento = ?";
 
         try (Connection conn = getConnection();

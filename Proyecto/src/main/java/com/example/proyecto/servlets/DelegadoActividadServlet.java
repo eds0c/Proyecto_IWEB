@@ -147,10 +147,10 @@ public class DelegadoActividadServlet extends HttpServlet {
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
 
         DelecActiDao delecActiDao = new DelecActiDao();
-        AlumnoEventoDao aEDao = new AlumnoEventoDao();
-        IntegranteDao iDao = new IntegranteDao();
-        ActividadDao aDao = new ActividadDao();
-        EventoDao eDao = new EventoDao();
+        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+        IntegranteDao integranteDao = new IntegranteDao();
+        ActividadDao actividadDao = new ActividadDao();
+        EventoDao eventoDao = new EventoDao();
 
 
 
@@ -227,7 +227,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                         Evento e2 = new Evento();
                         e2.setFoto(eventoFoto2);
-                        e2.setActividad(aDao.obtenerActividad(IdActividad));
+                        e2.setActividad(actividadDao.obtenerActividad(IdActividad));
                         e2.setDescripcion(eventoDescripcion2);
                         e2.setLugar(eventoLugar2);
                         e2.setFechaIn(eventoFecha2);
@@ -248,8 +248,8 @@ public class DelegadoActividadServlet extends HttpServlet {
 
 
                 String idAE = request.getParameter("idAE") == null ? "1" : request.getParameter("idAE");
-                AlumnoEvento aE = aEDao.obtenerAlumnoEvento(idAE);
-                iDao.cambiarRol(aE);
+                AlumnoEvento aE = alumnoEventoDao.obtenerAlumnoEvento(idAE);
+                integranteDao.cambiarRol(aE);
                 response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ aE.getEvento().getIdEvento());
 
                 break;
@@ -257,10 +257,11 @@ public class DelegadoActividadServlet extends HttpServlet {
 
             case "eliminar_evento":
                 String idEventoStr = request.getParameter("idEventoEliminar");
-                Evento evento3 = eDao.buscarEvento(idEventoStr);
+                Evento evento3 = eventoDao.buscarEvento(idEventoStr);
 
                 if(evento3 != null){
                     try {
+                        alumnoEventoDao.eliminar(idEventoStr);
                         delecActiDao.borrar(Integer.parseInt(idEventoStr));
                     } catch (SQLException e) {
                         System.out.println("Log: excepcion: " + e.getMessage());
@@ -278,8 +279,8 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                     String idPendienteN = request.getParameter("idPendiente"+ i) == null ? "0" : request.getParameter("idPendiente"+i);
                     String rolAsignarN = request.getParameter("rolAsignar"+i);
-                    AlumnoEvento alumnoN = aEDao.obtenerAlumnoEvento(idPendienteN);
-                    iDao.asignarRol(alumnoN,rolAsignarN);
+                    AlumnoEvento alumnoN = alumnoEventoDao.obtenerAlumnoEvento(idPendienteN);
+                    integranteDao.asignarRol(alumnoN,rolAsignarN);
                 }
                 response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
                 break;
@@ -287,7 +288,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 //saca el id del evento a apoyar
                 String idEventoApoyar = request.getParameter("idEventoApoyar") == null ? "" : request.getParameter("idEventoApoyar");
                 String idAlumno = String.valueOf(alumno.getIdAlumno());
-                aEDao.apoyarEvento(idAlumno,idEventoApoyar);
+                alumnoEventoDao.apoyarEvento(idAlumno,idEventoApoyar);
                 response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=info_eventos");
                 break;
 

@@ -237,33 +237,81 @@
                                             <p><%=delegadoActividad.getActividad().getDescripcion()%>
                                             </p>
                                         </div>
-                                        <!-- Creo que es innecesario para actividad
-                                        <div class="row mb-3">
-                                            <div class="col">
-                                                <h5>Fecha:</h5>
-                                                <p>dd/mm/aaaa</p>
-                                            </div>
-                                            <div class="col">
-                                                <h5>Hora:</h5>
-                                                <p>hh:mm</p>
-                                            </div>
-                                        </div>
-                                        ------------------------------------------------>
 
                                         <div class="mb-3">
                                             <h5>Estado:</h5>
-                                            <p><%=delegadoActividad.getActividad().getEstado()%></p>
+                                            <p class="text-uppercase"><%=delegadoActividad.getActividad().getEstado()%></p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary">Editar</button>
+                                        <button type="button" class="btn btn-primary"  data-bs-toggle="modal"  data-bs-target="#modalEditar<%=i%>"     >Editar</button>
                                     </div>
 
                                 </form>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal de Editar actividad -->
+                    <div class="modal fade" id="modalEditar<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=editar" enctype="multipart/form-data">
+
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="nuevoModalLabel"><%=delegadoActividad.getActividad().getTitulo()%></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                                            <img src="images/deportes.jpg" alt="Imagen de evento" id="eventImage"
+                                                 class="img-thumbnail w-70">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tituloActividad">Título</label>
+                                            <input type="text" class="form-control form-control-sm" name="tituloActividad" id="tituloActividad" value="<%=delegadoActividad.getActividad().getTitulo()%>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="descripcionActividad" class="form-label">Descripción</label>
+                                            <textarea class="form-control" id="descripcionActividad" rows="4" name="descripcionActividad"
+                                                      placeholder="Ingrese la descripción aquí"><%=delegadoActividad.getActividad().getDescripcion()%></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="idAlumnoDelegadoActividad">Delegado de Actividad</label>
+                                            <select name="idAlumnoDelegadoActividad" class="form-select" id="idAlumnoDelegadoActividad">
+
+                                                <option value="0">-- Mantener Delegado de Actividad</option>
+                                                <% for(Alumno alumno: listaAlumnosCandidatos){ %>
+                                                <option value="<%=alumno.getIdAlumno()%>" <%=listaAlumnos_DelegadosActividad.get(i-1).getDelegadoActividad().getIdDelegadoActividad()==delegadoActividad.getIdDelegadoActividad()?"selected":""%>> <%=alumno.getNombre()+" "+alumno.getApellido()%> </option>
+                                                <% } %>
+
+                                            </select>
+                                            <input type="hidden" class="form-control" name="idAlumnoDelegadoActividadActual" value="<%=listaAlumnos_DelegadosActividad.get(i-1).getIdAlumno()%>">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <p>Estado:</p>
+                                            <input type="radio" name="estadoActividad" value="activa" id="activa" />
+                                            <label for="activa">Activa</label>
+
+                                            <input type="radio" name="estadoActividad" value = "finalizada" id="finalizada" />
+                                            <label for="finalizada">Finalizada</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=editar_actividades" class="btn btn-danger">Cancelar</a>
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <!-- Modal eliminar actividad -->
                     <div class="modal fade" id="eliminarActividad<%=i%>" aria-hidden="true"
@@ -429,10 +477,14 @@
                                 <div class="mb-3">
                                     <label for="idAlumnoDelegadoActividad">Delegado de Actividad</label>
                                     <select name="idAlumnoDelegadoActividad" class="form-select" id="idAlumnoDelegadoActividad">
+                                        <%if(listaAlumnosCandidatos.isEmpty()){%>
                                         <option value="0">-- Sin Posibles Candidatos --</option>
+                                        <%} else {%>
                                         <% for(Alumno alumno: listaAlumnosCandidatos){ %>
                                         <option value="<%=alumno.getIdAlumno()%>"> <%=alumno.getNombre()+" "+alumno.getApellido()%> </option>
                                         <% } %>
+                                        <%}%>
+
                                     </select>
                                 </div>
 

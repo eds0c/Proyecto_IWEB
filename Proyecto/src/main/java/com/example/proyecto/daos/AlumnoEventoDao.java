@@ -87,4 +87,20 @@ public class AlumnoEventoDao extends DaoBase{
         return participando;
     }
 
+
+    public void eliminar(String idEvento){
+
+        String sql = "delete from alumno_evento where Evento_idEvento = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,Integer.parseInt(idEvento));
+            pstmt.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

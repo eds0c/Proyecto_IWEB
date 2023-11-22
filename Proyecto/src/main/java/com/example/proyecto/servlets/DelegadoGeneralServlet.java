@@ -31,10 +31,11 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
-        EventoDao eDao = new EventoDao();
-        ActividadDao aDao= new ActividadDao();
-        DelegadoActividadDao dADao = new DelegadoActividadDao();
+        EventoDao eventoDao= new EventoDao();
+        ActividadDao actividadDao= new ActividadDao();
+        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
         AlumnoDao alumnoDao = new AlumnoDao();
+        DonacionDao donacionDao = new DonacionDao();
 
         switch (action){
             case "main_page":
@@ -44,7 +45,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
             case "editar_actividades":
 
 
-                ArrayList<DelegadoActividad> list = dADao.listarActividades(100,0);
+                ArrayList<DelegadoActividad> list = delegadoActividadDao.listarActividades(100,0);
                 ArrayList<Alumno> listaAlumnosCandidatos = alumnoDao.listarAlumnosQueNoSonDelegadosDeActividad();
                 //mandar las lista a la vista -> /MainPage.jsp
                 request.setAttribute("listaAlumnos_DelegadosActividad",alumnoDao.listarDelegadosDeActividad());
@@ -54,6 +55,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 break;
             case "validar_donaciones":
 
+                request.setAttribute("lista2",new ArrayList<Donacion>() );
                 request.getRequestDispatcher("delegGen/ValidarDonaciones.jsp").forward(request,response);
                 break;
             case "validar_registro":
@@ -88,29 +90,70 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
 
         String action = request.getParameter("action");
-
+        Actividad actividad = new Actividad();
 
 
         switch (action) {
             case "crear"://voy a crear una nueva Actividad
 
                 //creamos la actividad (tabla actividad)
-                Actividad actividad = new Actividad();
+
                 actividad.setTitulo(request.getParameter("tituloActividad"));
                 actividad.setEstado("activa");
                 actividad.setDescripcion(request.getParameter("descripcionActividad"));
-                actividad.setFoto(request.getPart("fotoActividad").getInputStream());
+                if(request.getPart("fotoActividad")!=null){
+                    actividad.setFoto(request.getPart("fotoActividad").getInputStream());
+                }
+
+                boolean isAllValid = actividad.getDescripcion().length() <= 45 && actividad.getTitulo().length() <= 35;
+
+                if (isAllValid) {
+                    actividadDao.crearActividad(actividad);
+                    //vinculamos al delegado_actividad(tabla) con la actividad
+                    delegadoActividadDao.crearDelegadoActividad(String.valueOf(actividadDao.obtenerUltimoId()));
+                    alumnoDao.actualizarIdDelegadoActividad(String.valueOf(delegadoActividadDao.obtenerUltimoId()),request.getParameter("idAlumnoDelegadoActividad"));
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
+                }
+                break;
 
 
-                actividadDao.crearActividad(actividad);
-                //vinculamos al delegado_actividad(tabla) con la actividad
-                delegadoActividadDao.crearDelegadoActividad(String.valueOf(actividadDao.obtenerUltimoId()));
-                alumnoDao.actualizarIdDelegadoActividad(String.valueOf(delegadoActividadDao.obtenerUltimoId()),request.getParameter("idAlumnoDelegadoActividad"));
-                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
             case "editar"://voy a editar una actividad
 
 
+                actividad.setTitulo(request.getParameter("tituloActividad"));
+                actividad.setEstado(request.getParameter("estadoActividad"));
+                actividad.setDescripcion(request.getParameter("descripcionActividad"));
+                if(request.getPart("fotoActividad")!=null){
+                    actividad.setFoto(request.getPart("fotoActividad").getInputStream());
+                }
+
+                Alumno alumnoDelegadoActividadActual = alumnoDao.obtenerAlumno(request.getParameter("idAlumnoDelegadoActividadActual"));
+                actividad.setIdActividad(alumnoDelegadoActividadActual.getDelegadoActividad().getActividad().getIdActividad());
+
+
+                boolean isAllValid2 = actividad.getDescripcion().length() <= 45 && actividad.getTitulo().length() <= 35;
+
+                if (isAllValid2) {
+
+                    if (request.getParameter("idAlumnoDelegadoActividad").equalsIgnoreCase("0")) {  //Caso de mantener Delegado de Actividad
+
+                        actividadDao.actualizar(actividad);
+                        response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
+                    } else {
+                        actividadDao.actualizar(actividad);
+                        alumnoDao.actualizarIdDelegadoActividad("eliminar",String.valueOf(alumnoDelegadoActividadActual.getIdAlumno()));
+                        alumnoDao.actualizarIdDelegadoActividad(String.valueOf(alumnoDelegadoActividadActual.getDelegadoActividad().getIdDelegadoActividad()),request.getParameter("idAlumnoDelegadoActividad"));
+                        response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
+                    }
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
+                }
                 break;
+
+
+
             case "eliminar_actividad":
 
                 //Parámetros:

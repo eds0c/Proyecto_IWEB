@@ -59,6 +59,9 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getRequestDispatcher("delegGen/ValidarDonaciones.jsp").forward(request,response);
                 break;
             case "validar_registro":
+
+                request.setAttribute("listaAlumnosPendientes",alumnoDao.listarAlumnosSegunEstado(3));
+                request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunEstado(1));
                 request.getRequestDispatcher("delegGen/ValidarRegistro.jsp").forward(request,response);
                 break;
 
@@ -123,7 +126,9 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
 
                 actividad.setTitulo(request.getParameter("tituloActividad"));
-                actividad.setEstado(request.getParameter("estadoActividad"));
+                if(request.getParameter("estadoActividad")!=null){
+                    actividad.setEstado(request.getParameter("estadoActividad"));
+                }
                 actividad.setDescripcion(request.getParameter("descripcionActividad"));
                 if(request.getPart("fotoActividad")!=null){
                     actividad.setFoto(request.getPart("fotoActividad").getInputStream());
@@ -163,6 +168,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
                 alumnoDao.actualizarIdDelegadoActividad("eliminar",idAlumnoDelegadoActividadEliminar);
                 delegadoActividadDao.eliminar(idDelegadoActividadEliminar);
+                eventoDao.eliminarPorActividad(idActividadEliminar);
                 actividadDao.eliminar(idActividadEliminar);
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                 break;

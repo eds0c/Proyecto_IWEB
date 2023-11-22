@@ -384,6 +384,22 @@ public class EventoDao extends DaoBase{
     }
 
 
+    public void eliminarPorActividad(String idActividad){
+
+
+        String sql = "delete from evento where Actividad_idActividad = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,Integer.parseInt(idActividad));
+            pstmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 }

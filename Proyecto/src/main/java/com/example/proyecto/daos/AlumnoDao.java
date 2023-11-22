@@ -100,7 +100,7 @@ public class AlumnoDao extends DaoBase{
 
 
 
-        String sql = "select * from alumno a where a.Delegado_Actividad_idDelegado_Actividad is not null order by a.Delegado_Actividad_idDelegado_Actividad;";
+        String sql = "select * from alumno a where a.Delegado_Actividad_idDelegado_Actividad is not null and a.Estado_Alumno_idEstado_Alumno = 1 order by a.Delegado_Actividad_idDelegado_Actividad;";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -144,7 +144,7 @@ public class AlumnoDao extends DaoBase{
 
 
 
-        String sql = "select * from alumno a where a.Delegado_Actividad_idDelegado_Actividad is null order by a.idAlumno;";
+        String sql = "select * from alumno a where a.Delegado_Actividad_idDelegado_Actividad is null and a.Estado_Alumno_idEstado_Alumno = 1 order by a.idAlumno;";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -226,6 +226,46 @@ public class AlumnoDao extends DaoBase{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ArrayList<Alumno> listarAlumnosSegunEstado(int estado){   //Para validar registros
+
+        ArrayList<Alumno> lista = new ArrayList<>();
+        EstadoAlumnoDao estadoAlumnoDao = new EstadoAlumnoDao();
+        DelegadoGeneralDao delegadoGeneralDao = new DelegadoGeneralDao();
+        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
+
+
+        String sql = "select * from alumno a where a.Estado_Alumno_idEstado_Alumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,estado);
+            try(ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Alumno a = new Alumno();
+                    a.setIdAlumno(rs.getInt("a.idAlumno"));
+                    a.setNombre(rs.getString("a.nombre"));
+                    a.setApellido(rs.getString("a.apellido"));
+                    a.setCodigo(rs.getString("a.codigo"));
+                    a.setCorreo(rs.getString("a.correo"));
+                    a.setContrasena(rs.getString("a.contrasena"));
+                    a.setEgresado(rs.getString("a.egresado"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
+                    a.setMotivo(rs.getString("a.motivo"));
+                    a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
+                    a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));
+                    a.setEstadoAlumno(estadoAlumnoDao.obtenerEstadoAlumno(rs.getString("a.Estado_Alumno_idEstado_Alumno")));
+                    a.setDelegadoActividad(delegadoActividadDao.obtenerDelegadoActividad(rs.getString("a.Delegado_Actividad_idDelegado_Actividad")));
+                    lista.add(a);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
     }
 
 

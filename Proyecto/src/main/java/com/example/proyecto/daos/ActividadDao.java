@@ -111,7 +111,12 @@ public class ActividadDao extends DaoBase {
 
             pstmt.setString(1,actividad.getDescripcion());
             pstmt.setBlob(2,actividad.getFoto());
-            pstmt.setString(3,actividad.getEstado());
+            if(actividad.getEstado()!=null){
+                pstmt.setString(3,actividad.getEstado());
+            }
+            else{
+                pstmt.setString(3,obtenerActividad(String.valueOf(actividad.getIdActividad())).getEstado());
+            }
             pstmt.setString(4,actividad.getTitulo());
             pstmt.setInt(5,actividad.getIdActividad());
 

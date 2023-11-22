@@ -103,6 +103,7 @@ public class AlumnoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //VALIDAR SESIÓN
+
         if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=1){
             response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
         }

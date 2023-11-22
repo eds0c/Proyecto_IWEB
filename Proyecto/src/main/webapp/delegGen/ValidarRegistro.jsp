@@ -1,13 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ARKEL
-  Date: 7/11/2023
-  Time: 18:31
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
+<jsp:useBean id="listaAlumnosPendientes" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
+<jsp:useBean id="listaAlumnosActivos" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>" />
 <html lang="en">
 
 <head>
@@ -176,26 +172,23 @@
                         <th scope="col">Nombre </th>
                         <th scope="col">Correo</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Rol</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
-                        <td>
-                            <input type="radio" name="flexRadioDefault" id="Aceptado" />
-                            <label for="Alumno">Aceptado</label>
+                    <%int i = 1;%>
+                    <%for (Alumno alumno: listaAlumnosPendientes){%>
 
-                            <input type="radio" name="flexRadioDefault" id="Denegado" />
-                            <label for="barra">Denegado</label>
-                        </td>
+                    <tr>
+                        <th scope="row"><%=i%></th>
+                        <td><%=alumno.getNombre()+" "+alumno.getApellido()%></td>
+                        <td><%=alumno.getCorreo()%></td>
                         <td>
-                            <!-- averiguar como desmarcar -->
-                            <input type="radio" id="barra" />
-                            <label for="Alumno">Delegado</label>
+                            <input type="radio" name="estadoAlumno" id="Aceptado" value="Aceptado"/>
+                            <label for="Aceptado">Aceptado</label>
+
+                            <input type="radio" name="estadoAlumno" id="Denegado" value="Denegado"/>
+                            <label for="Denegado">Denegado</label>
                         </td>
                         <td>
                             <!-- Enviar Notificación -->
@@ -207,7 +200,7 @@
                             </button>
                         </td>
                     </tr>
-
+                    <%i++;}%>
 
                     </tbody>
                 </table>
@@ -310,15 +303,20 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <%int j = 1;%>
+                    <%for (Alumno alumno: listaAlumnosActivos){%>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Nombre Apellido</td>
-                        <td>nombre_apellidop@pucp.edu.pe</td>
+                        <th scope="row"><%=j%></th>
+                        <td><%=alumno.getNombre()+" "+alumno.getApellido()%></td>
+                        <td><%=alumno.getCorreo()%></td>
+                        <%if(alumno.getDelegadoActividad().getActividad()==null){%>
                         <td>Alumno</td>
-
+                        <%} else{%>
+                        <td>Delegado de Actividad</td>
+                        <%}%>
                         <td>
                             <!-- Ver alumno -->
-                            <button class="opcion btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMostrar">
+                            <button class="opcion btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=j%>">
                                 <ion-icon name="eye-outline"></ion-icon>
                             </button>
                             <!-- Enviar Notificación -->
@@ -334,7 +332,68 @@
                             </button>
                         </td>
                     </tr>
+                    <!------------------------------------ MODALS ---------------------------->
 
+                    <!-- Modal de Mostrar Alumno -->
+                    <div class="modal fade" id="modalMostrar<%=j%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="nuevoModalLabel">Alumno</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                                            <img src="images/usuario.jpg" alt="Imagen del usuario" id="userImage"
+                                                 class="img-thumbnail w-50">
+                                        </div>
+
+                                        <div class="row mb-2">
+                                            <div class="col">
+                                                <h5>Nombre:</h5>
+                                                <p><%=alumno.getNombre()%></p>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Apellido:</h5>
+                                                <p><%=alumno.getApellido()%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col">
+                                                <h5>Rol:</h5>
+                                                <%if(alumno.getDelegadoActividad().getActividad()==null){%>
+                                                <p>Alumno</p>
+                                                <%} else{%>
+                                                <p>Delegado de  <%=alumno.getDelegadoActividad().getActividad().getTitulo()%></p>
+                                                <%}%>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Código:</h5>
+                                                    <p><%=alumno.getCodigo()%></p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <h5>Correo:</h5>
+                                            <p><%=alumno.getCorreo()%></p>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <%j++;}%>
                     </tbody>
                 </table>
                 <!-- Footer -->
@@ -360,61 +419,7 @@
                     </div>
                 </div>
 
-                <!-- Modal de Mostrar actividad -->
-                <div class="modal fade" id="modalMostrar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form>
 
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="nuevoModalLabel">Nombre actividad</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                        <img src="images/usuario.jpg" alt="Imagen del usuario" id="userImage"
-                                             class="img-thumbnail w-50">
-                                    </div>
-
-                                    <div class="row mb-2">
-                                        <div class="col">
-                                            <h5>Nombre:</h5>
-                                            <p>Juan</p>
-                                        </div>
-                                        <div class="col">
-                                            <h5>Apellido:</h5>
-                                            <p>Perez</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col">
-                                            <h5>Rol:</h5>
-                                            <p>Delegado de deportes</p>
-                                        </div>
-                                        <div class="col">
-                                            <h5>Código:</h5>
-                                            <p>20201234</p>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="mb-3">
-                                        <h5>Correo:</h5>
-                                        <p>20201234@pucp.edu.pe</p>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger"
-                                            data-bs-dismiss="modal">Cerrar</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
 
 
 

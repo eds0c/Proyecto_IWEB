@@ -4,9 +4,7 @@ import com.example.proyecto.beans.Alumno;
 import com.example.proyecto.beans.AlumnoEvento;
 import com.example.proyecto.beans.DelegadoActividad;
 import com.example.proyecto.beans.Evento;
-import com.example.proyecto.daos.AlumnoEventoDao;
-import com.example.proyecto.daos.DelegadoActividadDao;
-import com.example.proyecto.daos.EventoDao;
+import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -33,6 +31,8 @@ public class AlumnoServlet extends HttpServlet {
 
        String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
+       AlumnoDao alumnoDao = new AlumnoDao();
+       EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
        EventoDao eDao = new EventoDao();
        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();

@@ -185,19 +185,11 @@
                         <td><%=alumno.getCorreo()%></td>
                         <td>
                             <input type="radio" name="estadoAlumno" id="Aceptado" value="Aceptado"/>
-                            <label for="Aceptado">Aceptado</label>
+                            <label href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=baneo&id1=<%=alumno.getIdAlumno()%>" for="Aceptado">Aceptado</label>
 
                             <input type="radio" name="estadoAlumno" id="Denegado" value="Denegado"/>
-                            <label for="Denegado">Denegado</label>
-                        </td>
-                        <td>
-                            <!-- Enviar Notificación -->
-                            <button class="opcion btn btn-secondary">
-                                <a href="mailto:nombre_apellido@pucp.edu.pe"
-                                   class="text-light text-decoration-none" target="_blank">
-                                    <ion-icon name="mail-outline"></ion-icon>
-                                </a>
-                            </button>
+                            <label href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=desbaneo&id2=<%=alumno.getIdAlumno()%>" for="Denegado">Denegado</label>
+
                         </td>
                     </tr>
                     <%i++;}%>

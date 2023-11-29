@@ -299,5 +299,62 @@ public class AlumnoDao extends DaoBase{
         }
     }
 
+    public void deshabilitarCuenta(String id) {
+
+        String sql = "UPDATE alumno SET Estado_Alumno_idEstado_Alumno = 2 WHERE idCuenta = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void habilitarCuenta(String id) {
+
+        String sql = "UPDATE alumno SET Estado_Alumno_idEstado_Alumno = 1 WHERE idCuenta = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Alumno correo(String id) {
+        Alumno alumno = null;
+
+
+        String sql = "select correo , nombre, apellido from cuenta \n" +
+                "where idCuenta= ?";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    alumno = new Alumno();
+                    alumno.setCorreo(rs.getString(1));
+                    alumno.setNombre(rs.getString(2));
+                    alumno.setApellido(rs.getString(3));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return alumno;
+    }
+
 
 }

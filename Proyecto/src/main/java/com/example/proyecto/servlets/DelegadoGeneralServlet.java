@@ -36,6 +36,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
         DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
         AlumnoDao alumnoDao = new AlumnoDao();
         DonacionDao donacionDao = new DonacionDao();
+        EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
 
         switch (action){
             case "main_page":
@@ -63,6 +64,36 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.setAttribute("listaAlumnosPendientes",alumnoDao.listarAlumnosSegunEstado(3));
                 request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunEstado(1));
                 request.getRequestDispatcher("delegGen/ValidarRegistro.jsp").forward(request,response);
+                break;
+
+            case "acepto-registro":
+
+                String id1 = request.getParameter("id1");
+                alumnoDao.habilitarCuenta(id1);
+                request.getSession().setAttribute("info","Usuario Aceptado");
+                // envio de correo
+                Alumno alumno1 = alumnoDao.correo(id1);
+                String asunto = "Has sido aceptado a TeleWeek ";
+                String contenido = "Hola," + alumno1.getNombre() + " " + alumno1.getApellido() + ", has sido aceptado en TeleWeek, para que puedas participar y donar a la Aitel en esta semana de Ingeniería.";
+                String correo = alumno1.getCorreo();
+                envioCorreosDaos.createEmail(correo,asunto,contenido);
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=main_page");
+                envioCorreosDaos.sendEmail();
+                break;
+
+            case "rechazo-registro":
+
+                String id2 = request.getParameter("id2");
+                alumnoDao.deshabilitarCuenta(id2);
+                request.getSession().setAttribute("info","Usuario Rechazado");
+                // envio de correo
+                Alumno alumno2 = alumnoDao.correo(id2);
+                asunto = "Has sido rechazdo";
+                contenido = "Hola," + alumno2.getNombre() + " " + alumno2.getApellido() + ", has sido rechazado de participar de la semana de Ingeniería.";
+                correo = alumno2.getCorreo();
+                envioCorreosDaos.createEmail(correo,asunto,contenido);
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=main_page");
+                envioCorreosDaos.sendEmail();
                 break;
 
             case "cerrar_sesion":

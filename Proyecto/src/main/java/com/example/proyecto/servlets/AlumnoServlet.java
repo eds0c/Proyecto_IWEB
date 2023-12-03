@@ -92,7 +92,7 @@ public class AlumnoServlet extends HttpServlet {
                break;
 
            case "cerrar_sesion":
-               response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_Sesion");
+               response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
                break;
        }
 

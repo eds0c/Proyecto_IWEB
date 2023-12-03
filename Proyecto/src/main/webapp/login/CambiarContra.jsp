@@ -63,7 +63,7 @@
 
             <!-- Se cambió la contraseña exitosamente -->
             <div id="passwordChangeSuccess" style="display: none;">
-                <a class="presionar text-decoration-none" href="InicioSesion.html" role="button">Iniciar sesión</a>
+                <a class="presionar text-decoration-none" href="<%=request.getContextPath()%>/SesionServlet" role="button">Iniciar sesión</a>
             </div>
 
         </div>

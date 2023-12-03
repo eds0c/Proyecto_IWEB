@@ -43,6 +43,10 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getRequestDispatcher("delegGen/MainPage.jsp").forward(request,response);
                 break;
 
+            case "perfil":
+                request.getRequestDispatcher("delegGen/Perfil.jsp").forward(request,response);
+                break;
+
             case "editar_actividades":
 
 
@@ -59,11 +63,21 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.setAttribute("lista2",new ArrayList<Donacion>() );
                 request.getRequestDispatcher("delegGen/ValidarDonaciones.jsp").forward(request,response);
                 break;
+
+            case "lista_donaciones":
+                request.getRequestDispatcher("delegGen/ListaDonaciones.jsp").forward(request,response);
+                break;
+
             case "validar_registro":
 
                 request.setAttribute("listaAlumnosPendientes",alumnoDao.listarAlumnosSegunEstado(3));
-                request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunEstado(1));
+                //request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunEstado(1));
                 request.getRequestDispatcher("delegGen/ValidarRegistro.jsp").forward(request,response);
+                break;
+
+            case "lista_usuarios":
+                request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunEstado(1));
+                request.getRequestDispatcher("delegGen/ListaUsuarios.jsp").forward(request,response);
                 break;
 
             case "acepto-registro":

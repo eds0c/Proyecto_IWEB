@@ -30,33 +30,38 @@ public class EventoDao extends DaoBase{
             pstmt.setInt(3,limit);
             pstmt.setInt(4,offset);
 
-            try(ResultSet rs = pstmt.executeQuery()) {
-
-                while (rs.next()) {
-                    Actividad a = aDao.obtenerActividad(rs.getString("Actividad_idActividad"));
-
-                    Evento e = new Evento();
-                    e.setIdEvento(rs.getInt("e.idEvento"));
-                    e.setDescripcion(rs.getString("e.descripcion"));
-                    e.setFechaIn(rs.getString("e.fechaIn"));
-                    e.setParticipantes(rs.getString("e.participantes"));
-                    e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBinaryStream("e.foto"));
-                    e.setFechaFin(rs.getString("e.fechaFin"));
-                    e.setLugar(rs.getString("e.lugar"));
-                    e.setHora(rs.getString("e.hora"));
-                    e.setTitulo(rs.getString("e.titulo"));
-
-                    e.setActividad(a);
-
-                    lista.add(e);
-                }
-            }
+            recuperarEvento(lista, aDao, pstmt);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return lista;
     }
+
+    public ArrayList<Evento> buscarEventosPorNombre(String idActividad, String estado,String filtro, int limit, int offset) {
+        ArrayList<Evento> lista = new ArrayList<>();
+        ActividadDao aDao = new ActividadDao();
+
+        String sql = "SELECT * FROM evento e WHERE Actividad_idActividad = ? AND e.estado = ? AND (e.titulo LIKE ? OR e.descripcion LIKE ?) limit ? offset ?";
+        String filtroLike = "%" + filtro + "%";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, idActividad);
+            pstmt.setString(2, estado);
+            pstmt.setString(3, filtroLike);
+            pstmt.setString(4, filtroLike);
+            pstmt.setInt(5, limit);
+            pstmt.setInt(6, offset);
+
+            recuperarEvento(lista, aDao, pstmt);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
+    }
+
 
     public ArrayList<Evento> listarEventos(String idEventoNoMostrado, int limit, int offset){ //evento de segundo plano
 
@@ -173,6 +178,34 @@ public class EventoDao extends DaoBase{
     }
 
 
+    private void recuperarEvento(ArrayList<Evento> lista, ActividadDao aDao, PreparedStatement pstmt) throws SQLException {
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Actividad a = aDao.obtenerActividad(rs.getString("Actividad_idActividad"));
+
+                Evento e = new Evento();
+                parseoEvento(rs, e);
+                e.setLugar(rs.getString("e.lugar"));
+                e.setHora(rs.getString("e.hora"));
+                e.setTitulo(rs.getString("e.titulo"));
+
+                e.setActividad(a);
+
+                lista.add(e);
+            }
+        }
+    }
+
+    private void parseoEvento(ResultSet rs, Evento e) throws SQLException {
+        e.setIdEvento(rs.getInt("e.idEvento"));
+        e.setDescripcion(rs.getString("e.descripcion"));
+        e.setFechaIn(rs.getString("e.fechaIn"));
+        e.setParticipantes(rs.getString("e.participantes"));
+        e.setEstado(rs.getString("e.estado"));
+        e.setFoto(rs.getBinaryStream("e.foto"));
+        e.setFechaFin(rs.getString("e.fechaFin"));
+    }
+
 
     public ArrayList<AlumnoEvento> listarPorAlumno(String idAlumno, String estado, int limit, int offset){
 
@@ -217,13 +250,7 @@ public class EventoDao extends DaoBase{
                     i.setDescripcion(rs.getString("i.descripcion"));
 
                     Evento e = new Evento();
-                    e.setIdEvento(rs.getInt("e.idEvento"));
-                    e.setDescripcion(rs.getString("e.descripcion"));
-                    e.setFechaIn(rs.getString("e.fechaIn"));
-                    e.setParticipantes(rs.getString("e.participantes"));
-                    e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBinaryStream("e.foto"));
-                    e.setFechaFin(rs.getString("e.fechaFin"));
+                    parseoEvento(rs, e);
                     e.setTitulo(rs.getString("e.titulo"));
 
                     ActividadDao aDao = new ActividadDao();
@@ -287,13 +314,7 @@ public class EventoDao extends DaoBase{
                     i.setDescripcion(rs.getString("i.descripcion"));
 
                     Evento e = new Evento();
-                    e.setIdEvento(rs.getInt("e.idEvento"));
-                    e.setDescripcion(rs.getString("e.descripcion"));
-                    e.setFechaIn(rs.getString("e.fechaIn"));
-                    e.setParticipantes(rs.getString("e.participantes"));
-                    e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBinaryStream("e.foto"));
-                    e.setFechaFin(rs.getString("e.fechaFin"));
+                    parseoEvento(rs, e);
 
                     ActividadDao aDao = new ActividadDao();
                     e.setActividad(aDao.obtenerActividad(String.valueOf(rs.getInt("e.Actividad_idActividad"))));
@@ -356,13 +377,7 @@ public class EventoDao extends DaoBase{
                     i.setDescripcion(rs.getString("i.descripcion"));
 
                     Evento e = new Evento();
-                    e.setIdEvento(rs.getInt("e.idEvento"));
-                    e.setDescripcion(rs.getString("e.descripcion"));
-                    e.setFechaIn(rs.getString("e.fechaIn"));
-                    e.setParticipantes(rs.getString("e.participantes"));
-                    e.setEstado(rs.getString("e.estado"));
-                    e.setFoto(rs.getBinaryStream("e.foto"));
-                    e.setFechaFin(rs.getString("e.fechaFin"));
+                    parseoEvento(rs, e);
 
                     ActividadDao aDao = new ActividadDao();
                     e.setActividad(aDao.obtenerActividad(String.valueOf(rs.getInt("e.Actividad_idActividad"))));

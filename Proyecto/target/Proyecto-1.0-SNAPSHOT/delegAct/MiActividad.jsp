@@ -166,12 +166,12 @@
 
 
                     <div class="col">
-                        <form class="search-form" id="search-container">
-                            <input type="search" placeholder="Buscar evento..." id="search-input">
-                            <button class="btn-search">
+                        <form method="GET" action="<%=request.getContextPath()%>/DelegadoActividadServlet" class="search-form" id="search-container">
+                            <input aria-label="action" type="hidden" name="action" value="buscarEvento">
+                            <input aria-label="Buscar evento..." name="evento" type="search" placeholder="Buscar evento..." id="search-input">
+                            <button type="submit" class="btn-search">
                                 <ion-icon name="search-outline"></ion-icon>
                             </button>
-
                         </form>
                     </div>
                 </div>

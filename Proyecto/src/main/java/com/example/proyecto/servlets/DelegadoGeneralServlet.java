@@ -80,6 +80,13 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getRequestDispatcher("delegGen/ListaUsuarios.jsp").forward(request,response);
                 break;
 
+            case "buscarUsuario":
+                String filtroBusqueda = request.getParameter("usuario");
+                request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunBusqueda(filtroBusqueda, 1));
+
+                request.getRequestDispatcher("delegGen/ListaUsuarios.jsp").forward(request,response);
+                break;
+
             case "acepto-registro":
 
                 String id1 = request.getParameter("id1");

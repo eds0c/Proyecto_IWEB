@@ -152,19 +152,19 @@
             </div>
             <% } %>
             <!-- BUSCAR ALUMNO IMPLEMENTAR EN EL SERVLET Y DAO -->
-            <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
+            <form method="GET" action="<%=request.getContextPath()%>/DelegadoGeneralServlet">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar por nombre" name="textoBuscar"
-                           value="<%=textoBusqueda%>"/>
+                    <input type="hidden" name="action" value="buscarUsuario">
+                    <input type="text" class="form-control" aria-label="Buscar por nombre" placeholder="Buscar por nombre" name="usuario" />
                     <button class="input-group-text" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
-                    <a class="input-group-text"
-                       href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=lista_usuarios">
+                    <a class="input-group-text" href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=lista_usuarios">
                         <i class="bi bi-x-circle"></i>
                     </a>
                 </div>
             </form>
+
             <!-- LISTA DE USUARIOS -->
             <div class="row">
                 <div class="col-sm-12">

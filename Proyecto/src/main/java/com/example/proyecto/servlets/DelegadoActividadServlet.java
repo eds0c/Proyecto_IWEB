@@ -104,11 +104,20 @@ public class DelegadoActividadServlet extends HttpServlet {
                 String idAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
                 ArrayList<Evento> lista3 = eDao.listarPorActividad(idAct2,"a",100,0);
 
-                //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("evento2",evento2);
                 request.setAttribute("lista3",lista3);
                 request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
                 break;
+            case "buscarEvento":
+                String filtroBusqueda = request.getParameter("evento");
+
+                String idAct3 = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
+                ArrayList<Evento> listaEventosBusqueda = eDao.buscarEventosPorNombre(idAct3,"a",filtroBusqueda, 100,0);
+
+                request.setAttribute("lista3", listaEventosBusqueda);
+                request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
+                break;
+
             case "participantes":
 
                 String offsetParticipantesPendientes =  request.getParameter("offset_pendientes") == null ? "0" : request.getParameter("offset_pendientes");
@@ -124,8 +133,6 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 request.getRequestDispatcher("delegAct/Participantes.jsp").forward(request, response);
                 break;
-
-
             case "cerrar_sesion":
                 response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
                 break;

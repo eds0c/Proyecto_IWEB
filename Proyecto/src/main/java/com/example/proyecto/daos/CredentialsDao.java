@@ -14,7 +14,8 @@ public class CredentialsDao extends DaoBase{
         int tipoUsuario = 0;//1: alumno | 2: delegado de actividad | 3: delegado general | 0:no encontrado
 
 
-        String sql = "SELECT * FROM alumno where correo= ? and contrasena= SHA2(?,256) and Delegado_Actividad_idDelegado_Actividad is null and Estado_Alumno_idEstado_Alumno = 1";
+//        String sql = "SELECT * FROM alumno where correo= ? and contrasena= SHA2(?,256) and Delegado_Actividad_idDelegado_Actividad is null and Estado_Alumno_idEstado_Alumno = 1";
+        String sql = "SELECT * FROM alumno where correo= ? and contrasena= ? and Delegado_Actividad_idDelegado_Actividad is null and Estado_Alumno_idEstado_Alumno = 1";
         try(Connection connection = getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql)){
                 pstmt.setString(1,correo);
@@ -28,7 +29,8 @@ public class CredentialsDao extends DaoBase{
             throw new RuntimeException(e);
         }
 
-        String sql2 = "SELECT * FROM alumno where correo= ? and contrasena= SHA2(?,256) and Delegado_Actividad_idDelegado_Actividad is not null and Estado_Alumno_idEstado_Alumno = 1";
+//        String sql2 = "SELECT * FROM alumno where correo= ? and contrasena= SHA2(?,256) and Delegado_Actividad_idDelegado_Actividad is not null and Estado_Alumno_idEstado_Alumno = 1";
+        String sql2 = "SELECT * FROM alumno where correo= ? and contrasena= ? and Delegado_Actividad_idDelegado_Actividad is not null and Estado_Alumno_idEstado_Alumno = 1";
         try(Connection connection = getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql2)){
             pstmt.setString(1,correo);
@@ -43,7 +45,8 @@ public class CredentialsDao extends DaoBase{
 
         }
 
-        String sql3 = "SELECT * FROM delegado_general where correo= ? and contrasena= SHA2(?,256)";
+//        String sql3 = "SELECT * FROM delegado_general where correo= ? and contrasena= SHA2(?,256)";
+        String sql3 = "SELECT * FROM delegado_general where correo= ? and contrasena= ?";
         try(Connection connection = getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql3)){
             pstmt.setString(1,correo);

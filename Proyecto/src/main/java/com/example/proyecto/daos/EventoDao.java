@@ -384,8 +384,9 @@ public class EventoDao extends DaoBase{
     }
 
 
-    public void eliminarPorActividad(String idActividad){
+    public void eliminarrPorActividad(String idActividad){
 
+        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
 
         String sql = "delete from evento where Actividad_idActividad = ?";
 
@@ -399,6 +400,49 @@ public class EventoDao extends DaoBase{
         }
     }
 
+    public void eliminarPorActividad(String idActividad){
+
+        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+        ActividadDao aDao = new ActividadDao();
+
+
+        String sql = "select * from evento where Actividad_idActividad = ? ;";
+
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,idActividad);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+                    alumnoEventoDao.eliminar(String.valueOf(rs.getInt("idEvento")));
+                    eliminarEvento(rs.getInt("idEvento"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    public void eliminarEvento(int idEvento) {
+
+        String sql = "delete from evento where idEvento = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,idEvento);
+            pstmt.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 

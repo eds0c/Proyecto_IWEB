@@ -16,6 +16,17 @@ import java.util.SimpleTimeZone;
 
 @WebServlet(name = "DelegadoGeneralServlet", value = "/DelegadoGeneralServlet")
 public class DelegadoGeneralServlet extends HttpServlet {
+
+
+    //Daos
+    EventoDao eventoDao= new EventoDao();
+    ActividadDao actividadDao= new ActividadDao();
+    DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+    AlumnoDao alumnoDao = new AlumnoDao();
+    DonacionDao donacionDao = new DonacionDao();
+    EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
+    AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -31,12 +42,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
-        EventoDao eventoDao= new EventoDao();
-        ActividadDao actividadDao= new ActividadDao();
-        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
-        AlumnoDao alumnoDao = new AlumnoDao();
-        DonacionDao donacionDao = new DonacionDao();
-        EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
+
 
         switch (action){
             case "main_page":
@@ -125,14 +131,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
         DelegadoGeneral delegadoGeneral = (DelegadoGeneral) request.getSession().getAttribute("usuariologueado");
 
 
-        //Daos:
-        DelecActiDao delecActiDao = new DelecActiDao();
-        AlumnoDao alumnoDao = new AlumnoDao();
-        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
-        IntegranteDao integranteDao = new IntegranteDao();
-        ActividadDao actividadDao = new ActividadDao();
-        EventoDao eventoDao = new EventoDao();
-        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
 
         //Validarcorrectos parámetros: (Aún no implementado)
 

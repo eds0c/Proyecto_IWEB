@@ -169,7 +169,7 @@
                             <ion-icon name="chevron-back-outline" class="prev"></ion-icon>
                             <div class="slider">
                                 <%for (DelegadoActividad dA : listaActividades){%>
-                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=<%=dA.getActividad().getIdActividad()%>" class="button-value" role="button" ><%=dA.getActividad().getTitulo()%></a>
+                                <a href="<%=request.getContextPath()%>/AlumnoServlet?idAct=<%=dA.getActividad().getIdActividad()%>" class="button-value" role="button" ><%=dA.getActividad().getTitulo()%></a>
                                 <%};%>
                             </div>
                             <ion-icon name="chevron-forward-outline" class="next"></ion-icon>

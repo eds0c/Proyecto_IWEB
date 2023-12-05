@@ -296,11 +296,10 @@
                                                                         class="form-select"
                                                                         id="idAlumnoDelegadoActividad">
 
-                                                                    <option value="0">-- Mantener Delegado de Actividad
-                                                                        --
+                                                                    <option value="0" <%="selected"%>>-- Mantener Delegado de Actividad--
                                                                     </option>
                                                                     <% for (Alumno alumno : listaAlumnosCandidatos) { %>
-                                                                    <option value="<%=alumno.getIdAlumno()%>" <%=listaAlumnos_DelegadosActividad.get(i - 1).getDelegadoActividad().getIdDelegadoActividad() == delegadoActividad.getIdDelegadoActividad() ? "selected" : ""%>><%=alumno.getNombre() + " " + alumno.getApellido()%>
+                                                                    <option value="<%=alumno.getIdAlumno()%>"><%=alumno.getNombre() + " " + alumno.getApellido()%>
                                                                     </option>
                                                                     <% } %>
 

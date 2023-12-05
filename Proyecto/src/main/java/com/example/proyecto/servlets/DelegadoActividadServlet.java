@@ -22,6 +22,15 @@ import java.util.SimpleTimeZone;
 @MultipartConfig
 @WebServlet(name = "DelegadoActividadServlet", value = "/DelegadoActividadServlet")
 public class DelegadoActividadServlet extends HttpServlet {
+
+    //Daos
+    DelecActiDao delecActiDao = new DelecActiDao();
+    AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+    IntegranteDao integranteDao = new IntegranteDao();
+    ActividadDao actividadDao = new ActividadDao();
+    EventoDao eventoDao = new EventoDao();
+    DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,11 +44,7 @@ public class DelegadoActividadServlet extends HttpServlet {
         response.setContentType("text/html");
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
-        //Daos:
-        EventoDao eDao = new EventoDao();
-        DelecActiDao delecActiDao = new DelecActiDao();
-        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
-        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
 
         //Datos de sesión:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
@@ -49,7 +54,7 @@ public class DelegadoActividadServlet extends HttpServlet {
             case "main_page":
                 //saca la lista de eventos según actividad
                 String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
-                ArrayList<Evento> list = eDao.listarPorActividad(idAct, "a",100,0);
+                ArrayList<Evento> list = eventoDao.listarPorActividad(idAct, "a",100,0);
 
                 //saca la lista de actividades
                 ArrayList<DelegadoActividad> listDelegadoActividad = delegadoActividadDao.listarActividades(100,0);
@@ -64,7 +69,7 @@ public class DelegadoActividadServlet extends HttpServlet {
             case "mis_eventos":
 
                 //saca del modelo
-                ArrayList<AlumnoEvento> list_mis_eventos = eDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"a",100,0); //
+                ArrayList<AlumnoEvento> list_mis_eventos = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"a",100,0); //
 
                 //mandar la lista a la vista -> /MisEventos.jsp
                 request.setAttribute("lista_mis_eventos", list_mis_eventos);
@@ -74,7 +79,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 //saca la lista de eventos finalizados
 
-                ArrayList<AlumnoEvento> listaEventosFinalizados = eDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"f",100,0); //
+                ArrayList<AlumnoEvento> listaEventosFinalizados = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"f",100,0); //
 
                 //mandar la lista a la vista -> /MainPage.jsp
                 request.setAttribute("lista_eventos_finalizados",listaEventosFinalizados);
@@ -87,8 +92,8 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 String idEvento = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
 
-                Evento evento = eDao.buscarEvento(idEvento);
-                ArrayList<Evento> lista2 = eDao.listarEventos(idEvento,4,0);
+                Evento evento = eventoDao.buscarEvento(idEvento);
+                ArrayList<Evento> lista2 = eventoDao.listarEventos(idEvento,4,0);
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("evento",evento);
@@ -100,9 +105,9 @@ public class DelegadoActividadServlet extends HttpServlet {
             case "mi_actividad":
                 String idEvento2 = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
 
-                Evento evento2 = eDao.buscarEvento(idEvento2);
+                Evento evento2 = eventoDao.buscarEvento(idEvento2);
                 String idAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
-                ArrayList<Evento> lista3 = eDao.listarPorActividad(idAct2,"a",100,0);
+                ArrayList<Evento> lista3 = eventoDao.listarPorActividad(idAct2,"a",100,0);
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("evento2",evento2);
@@ -114,8 +119,8 @@ public class DelegadoActividadServlet extends HttpServlet {
                 String offsetParticipantesPendientes =  request.getParameter("offset_pendientes") == null ? "0" : request.getParameter("offset_pendientes");
                 String idEvento3 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");
 
-                ArrayList<AlumnoEvento> listaParticipantesPendientes = eDao.listarAlumnosPendientesPorEvento(idEvento3,"a",5,Integer.parseInt(offsetParticipantesPendientes)*3);
-                ArrayList<AlumnoEvento> listaParticipantes = eDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
+                ArrayList<AlumnoEvento> listaParticipantesPendientes = eventoDao.listarAlumnosPendientesPorEvento(idEvento3,"a",5,Integer.parseInt(offsetParticipantesPendientes)*3);
+                ArrayList<AlumnoEvento> listaParticipantes = eventoDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("idE",idEvento3);
@@ -146,11 +151,7 @@ public class DelegadoActividadServlet extends HttpServlet {
         //Datos de sesión:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
 
-        DelecActiDao delecActiDao = new DelecActiDao();
-        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
-        IntegranteDao integranteDao = new IntegranteDao();
-        ActividadDao actividadDao = new ActividadDao();
-        EventoDao eventoDao = new EventoDao();
+
 
 
 
@@ -289,7 +290,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 String idEventoApoyar = request.getParameter("idEventoApoyar") == null ? "" : request.getParameter("idEventoApoyar");
                 String idAlumno = String.valueOf(alumno.getIdAlumno());
                 alumnoEventoDao.apoyarEvento(idAlumno,idEventoApoyar);
-                response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=info_eventos");
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=info_eventos");
                 break;
 
         }

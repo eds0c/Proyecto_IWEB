@@ -254,7 +254,7 @@
                     <div class="modal-body">
                         <p>Espere a que el delegado confirme su solicitud de registro</p>
                     </div>
-                    <form method="post" action="<%=request.getContextPath()%>/AlumnoServlet?action=apoyar_evento">
+                    <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=apoyar_evento">
                         <input type="hidden" class="form-control" name="idEventoApoyar" value=<%=evento.getIdEvento()%>>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>

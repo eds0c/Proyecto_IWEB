@@ -35,8 +35,6 @@ public class AlumnoServlet extends HttpServlet {
         //Sesion datos:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
 
-
-
        response.setContentType("text/html");
 
        String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");

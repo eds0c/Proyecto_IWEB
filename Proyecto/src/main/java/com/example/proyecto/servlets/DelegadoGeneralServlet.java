@@ -32,10 +32,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
         response.setContentType("text/html");
 
-        //VALIDAR SESIÓN
-        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=3){
-            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
-        }
+
 
         //Datos de sesión:
         DelegadoGeneral delegadoGeneral = (DelegadoGeneral) request.getSession().getAttribute("usuariologueado");
@@ -131,9 +128,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
         DelegadoGeneral delegadoGeneral = (DelegadoGeneral) request.getSession().getAttribute("usuariologueado");
 
 
-
-
-        //Validarcorrectos parámetros: (Aún no implementado)
+        //Valida rcorrectos parámetros: (Aún no implementado)
 
 
         String action = request.getParameter("action");

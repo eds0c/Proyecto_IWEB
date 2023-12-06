@@ -43,7 +43,6 @@ public class SesionServlet extends HttpServlet {
             case "cerrar_sesion":
                 HttpSession httpSession = request.getSession();
                 httpSession.invalidate(); //Lo que hace invalidate es borrar todos los atributos y la sesion la deja en blanco
-                request.getRequestDispatcher("login/InicioSesion.jsp").forward(request,response);
                 response.sendRedirect(request.getContextPath() + "/SesionServlet");
                 break;
 

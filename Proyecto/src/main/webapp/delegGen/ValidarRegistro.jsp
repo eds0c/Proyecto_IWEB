@@ -185,6 +185,10 @@
                                     </tr>
                                     </thead>
 
+                                    <%if (listaAlumnosPendientes.isEmpty()){%>
+                                    <p class="lead">No existen nuevas solicitudes</p>
+                                    <%}%>
+
                                     <tbody>
                                     <%int i = 1;%>
                                     <%for (Alumno alumno : listaAlumnosPendientes) {%>

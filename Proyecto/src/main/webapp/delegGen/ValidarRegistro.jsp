@@ -286,8 +286,12 @@
                                                         <button type="button" class="btn btn-light active"
                                                                 data-bs-dismiss="modal">Cancelar
                                                         </button>
-                                                        <button type="button" class="btn btn-primary" id="Aceptado">Aceptar alumno
+                                                        <form method="post"
+                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=acepto_registro">
+                                                            <input type="hidden" class="form-control" name="idAlumnoAceptado" value=<%=alumno.getIdAlumno()%>>
+                                                        <button type="submit" class="btn btn-primary" id="Aceptado">Aceptar alumno
                                                         </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,8 +330,12 @@
                                                         <button type="button" class="btn btn-light active"
                                                                 data-bs-dismiss="modal">Cancelar
                                                         </button>
-                                                        <button type="button" class="btn btn-danger" id="Denegado">Rechazar alumno
+                                                        <form method="post"
+                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazo_registro">
+                                                        <input type="hidden" class="form-control" name="idAlumnoRechazado" value=<%=alumno.getIdAlumno()%>>
+                                                        <button type="submit" class="btn btn-danger" id="Denegado">Rechazar alumno
                                                         </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

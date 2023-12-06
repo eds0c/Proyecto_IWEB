@@ -271,12 +271,12 @@
                                         <!-- BANEAR -->
                                         <td>
                                             <button class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#eliminarAlumno">
+                                                    data-bs-target="#eliminarAlumno<%=i%>">
                                                 <i class="bi bi-person-x-fill"></i>
                                             </button>
                                         </td>
                                         <!-- MODAL BANEAR FALTA REALIZAR EL FORM CON LA ITERACION <i> -->
-                                        <div class="modal fade" id="eliminarAlumno" aria-hidden="true">
+                                        <div class="modal fade" id="eliminarAlumno<%=i%>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -291,8 +291,14 @@
                                                         <button type="button" class="btn btn-danger"
                                                                 data-bs-dismiss="modal">Cancelar
                                                         </button>
-                                                        <button type="button" class="btn btn-primary">Sí
+
+
+                                                        <form method="post"
+                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=baneo_alumno">
+                                                        <input type="hidden" class="form-control" name="idAlumnoBaneado" value=<%=alumno.getIdAlumno()%>>
+                                                        <button type="submit" class="btn btn-primary">Sí
                                                         </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

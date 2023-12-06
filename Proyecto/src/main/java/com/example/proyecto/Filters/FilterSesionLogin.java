@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "FilterSesionLogin", servletNames = {"SesionServlet"})
+@WebFilter(filterName = "FilterSesionLogin", servletNames = {"SesionServlet",""})
 public class FilterSesionLogin implements Filter {
 
     @Override
@@ -19,7 +19,9 @@ public class FilterSesionLogin implements Filter {
 
 
         if(request.getParameter("action") == null || request.getParameter("action").equalsIgnoreCase("inicio_sesion")){
-
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+            response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+            response.setDateHeader("Expires", 0);
             if (request.getSession().getAttribute("usuariologueado") == null) {
                 chain.doFilter(request, response);
             } else {

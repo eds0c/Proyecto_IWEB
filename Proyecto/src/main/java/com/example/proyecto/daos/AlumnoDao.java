@@ -275,7 +275,7 @@ public class AlumnoDao extends DaoBase{
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+            pstmt.setInt(1, Integer.parseInt(estado));
             switch (estado){
                 case "Activo":
                     pstmt.setInt(1, 1);

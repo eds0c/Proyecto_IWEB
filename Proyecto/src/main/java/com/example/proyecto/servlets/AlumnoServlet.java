@@ -124,6 +124,9 @@ public class AlumnoServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=main_page");
                 break;
 
+            case "agregar-donacion":
+
+
         }
 
 

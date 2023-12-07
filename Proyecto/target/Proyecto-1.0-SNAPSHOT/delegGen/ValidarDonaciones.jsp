@@ -174,13 +174,15 @@
                   </thead>
 
                   <tbody>
-                  <%-- FALTA IMPLEMENTAR DAO--%>
+
+                  <%int i=1;%>
+                  <%for (Donacion d: lista2){%>
 
                   <tr>
-                    <th>1</th>
-                    <td>Nombre Apellido</td>
-                    <td>nombre@pucp.edu.pe</td>
-                    <td>dd/mm/aaaa</td>
+                    <th><%=i%></th>
+                    <td><%=d.getAlumno().getNombre()+" "+d.getAlumno().getApellido()%></td>
+                    <td><%=d.getAlumno().getCorreo()%></td>
+                    <td><%=d.getFecha()%></td>
                     <td>
                       <img src="images/yape_logo.jpg" alt="Pago" width="32px"
                            style="border-radius: 25%;">
@@ -211,7 +213,7 @@
                               <div class="mb-3">
                                 <h6 class="fw-bold">Monto ingresado:</h6>
                                 <!-- IMPLEMENTAR EL DAO -->
-                                <p class="form-control">S/. 100
+                                <p class="form-control">S/. <%=d.getMonto()%>
                                 </p>
                               </div>
 
@@ -290,6 +292,8 @@
                     </div>
                     <!-- FIN MODAL CONFIRMACION DE NO VALIDAR-->
                   </tr>
+                  <%i++;%>
+                  <%};%>
                   </tbody>
                 </table>
                 <!-- FIN LISTA DE NUEVAS DONACIONES -->

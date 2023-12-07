@@ -63,11 +63,14 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 break;
             case "validar_donaciones":
 
-                request.setAttribute("lista2",new ArrayList<Donacion>() );
+                request.setAttribute("lista2",donacionDao.listarDonacionesporEstado("pendiente") );
                 request.getRequestDispatcher("delegGen/ValidarDonaciones.jsp").forward(request,response);
                 break;
 
             case "lista_donaciones":
+                System.out.println("Viendo");
+                System.out.println(donacionDao.listarDonacionesporEstado("aprobado").get(0));
+                request.setAttribute("lista1",donacionDao.listarDonacionesporEstado("aprobado"));
                 request.getRequestDispatcher("delegGen/ListaDonaciones.jsp").forward(request,response);
                 break;
 

@@ -3,6 +3,7 @@
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 <%@ page import="com.example.proyecto.beans.Donacion" %>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
+<jsp:useBean id="lista1" scope="request" type="ArrayList<com.example.proyecto.beans.Donacion>" />
 <%@ page import="java.util.ArrayList" %>
 
 <html lang="en">
@@ -169,20 +170,28 @@
                                     </thead>
 
                                     <tbody>
-                                    <%-- FALTA IMPLEMENTAR DAO--%>
+                                    <%int i=1;%>
+                                    <%for (Donacion d: lista1){%>
 
                                     <tr>
-                                        <th>1</th>
-                                        <td>Nombre Apellido</td>
-                                        <td>nombre@pucp.edu.pe</td>
-                                        <td>dd/mm/aaaa</td>
+                                        <th><%=i%></th>
+                                        <td><%=d.getAlumno().getNombre()+" "+d.getAlumno().getApellido()%></td>
+                                        <td><%=d.getAlumno().getCorreo()%></td>
+                                        <td><%=d.getFecha()%></td>
                                         <td>
-                                            <img src="images/yape_logo.jpg" alt="Pago" width="32px"
+                                            <%if(d.getTipoDonacion().getIdTipoDonacion()==1){%>
+                                                <img src="images/yape_logo.jpg" alt="Pago" width="32px"
+                                                     style="border-radius: 25%;">
+                                            <%} else if(d.getTipoDonacion().getIdTipoDonacion()==2){%>
+                                            <img src="images/plin_logo.jpg" alt="Pago" width="32px"
                                                  style="border-radius: 25%;">
+                                            <%}%>
                                         </td>
-                                        <td>S/. 100</td>
+                                        <td>S/. <%=d.getMonto()%></td>
 
                                     </tr>
+                                    <%i++;%>
+                                    <%};%>
                                     </tbody>
                                 </table>
 

@@ -248,7 +248,7 @@
                                                                 <p class="form-control"><%=e.getLugar()%>
                                                                 </p>
                                                             </div>
-                                                            
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger"

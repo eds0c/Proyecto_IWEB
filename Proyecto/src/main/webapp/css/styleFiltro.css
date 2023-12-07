@@ -1,0 +1,48 @@
+/* Filtro */
+.filter{
+    padding: 5px 0 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.filter-buttons{
+    display: flex;
+    padding: 0 0.5em;
+    /* horizontal: */
+    justify-content: center;
+    /* vertical */
+    align-items: center;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    height: 50px;
+
+}
+
+.slider{
+    display: flex;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    height: 50px;
+}
+
+.button-value{
+    display: flex;
+    align-items: center;
+    flex: 1 0 auto;
+    border: none;
+    padding: 0.25em 0.5em;
+    margin: 0 5px;
+    border-radius: 0.5em;
+    background-color: #dae0e5;
+    color: black;
+    cursor: pointer;
+}
+
+
+.prev , .next{
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+
+

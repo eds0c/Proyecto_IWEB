@@ -6,245 +6,181 @@
 <jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana Teleco</title>
-    <!-- Icono de pestaña -->
-    <link rel="icon" href="images/IconoBat.png" />
-    <!-- Iconos -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>TELEWEEK</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/IconoBat.png">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/feathericon.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- css -->
-    <link rel="stylesheet" href="css/styleMain.css">
-
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/styleFiltro.css">
 </head>
 
 <body>
-<div class="menu">
-    <ion-icon name="menu-outline"></ion-icon>
-    <ion-icon name="close-outline"></ion-icon>
-</div>
-
-<div class="barra-lateral">
-    <div>
-        <div class="nombre-pagina">
-            <ion-icon id="menubar" name="menu-outline"></ion-icon>
-            <span>Semana Teleco</span>
-
+<div class="main-wrapper">
+    <!-- CABECERA -->
+    <div class="header">
+        <!-- CABECERA DE LA BARRA LATERAL -->
+        <div class="header-left">
+            <a href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page" class="logo text-decoration-none"> <img
+                    src="assets/img/IconoBat.png" width="30" height="50" alt="logo"> <span
+                    class="logoclass">TELEWEEK</span> </a>
         </div>
-
-    </div>
-
-    <nav class="navegacion">
-        <ul>
-            <li>
-                <!-- Se coloca id para que cuando estemos en esa opción del menú este icono esté seleccionado -->
-                <a id="inicio" href="<%=request.getContextPath()%>/AlumnoServlet?action=main_page">
-                    <ion-icon name="home-outline"></ion-icon>
-                    <span>Inicio</span>
-                </a>
-            </li>
-
-            <div class="linea"></div>
-
-            <li>
-                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=mis_eventos">
-                    <ion-icon name="calendar-clear-outline"></ion-icon>
-                    <span>Mis eventos</span>
-                </a>
-            </li>
-            <li>
-                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=eventos_finalizados">
-                    <ion-icon name="medal-outline"></ion-icon>
-                    <span>Finalizados</span>
-                </a>
-            </li>
-
-            <div class="linea"></div>
-
-            <li>
-                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=donaciones">
-                    <ion-icon name="heart-outline"></ion-icon>
-                    <span>Donaciones</span>
-                </a>
-            </li>
-
-            <div class="linea"></div>
-
-            <li>
-                <a href="https://www.instagram.com/aitel.pucp/" target="_blank">
-                    <ion-icon name="logo-instagram"></ion-icon>
-                    <span>Instagram</span>
-                </a>
-            </li>
-            <li>
-                <a href="mailto:aitel@pucp.pe" target="_blank">
-                    <ion-icon name="mail-outline"></ion-icon>
-                    <span>Gmail</span>
-                </a>
-            </li>
-            <div class="linea"></div>
-            <li>
-                <!--Este ejemplo iría a una vista cuando se visite la pagina web-->
-                <%if(usuariologueado.getIdAlumno()==0) {%>
-                <span>Iniciar sesión</span>
-                <%}else{%>
-
-                <a href="<%=request.getContextPath()%>/SesionServlet?action=cerrar_sesion">
-                    <ion-icon name="log-out-outline"></ion-icon>
-                    <span>Cerrar sesión</span>
-                </a>
-                <%}%>
-
+        <a class="text-decoration-none" href="javascript:void(0);" id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
+        <a class="mobile_btn text-decoration-none" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
+        <!-- NAVBAR -->
+        <ul class="nav user-menu">
+            <!-- FOTO DE PERFIL CON LAS OPCIONES DE EDITAR PERFIL Y DEMAS -->
+            <li class="nav-item dropdown has-arrow">
+                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><img
+                        class="rounded-circle" src="assets/img/profiles/usuario.jpg" width="50"></span> </a>
+                <!-- MENU DESPLEGABLE DE LA FLECHITA DE LA FOTO DE PERFIL -->
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <!-- nombre y rol del usuario -->
+                        <div class="user-text">
+                            <%if(session.getAttribute("usuariologueado")==null) {%>
+                            <span class="email">codigo@pucp.edu.com</span>
+                            <%}else{%>
+                            <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                            <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                            <%}%>
+                            <p class="text-muted mb-0">Alumno</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=perfil">Mi
+                        Perfil</a>
+                    <a class="dropdown-item text-decoration-none"
+                       href="<%=request.getContextPath() %>/AlumnoServlet?action=cerrar_sesion">Cerrar
+                        Sesión</a>
+                </div>
             </li>
         </ul>
-    </nav>
+    </div>
 
-    <div>
-        <div class="linea"></div>
-        <!-- Tratar de colocar el botón de cerrar sesión aqui -->
-        <div class="modo-oscuro">
-            <div class="info">
-                <ion-icon name="moon-outline"></ion-icon>
-                <span>Dark Mode</span>
-            </div>
-            <div class="switch">
-                <div class="base">
-                    <div class="circulo">
+    <!-- BARRA LATERAL -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="active"><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page"><i class="bi bi-house-fill"></i>
+                        <span>Inicio</span></a></li>
+                    <li class="list-divider"></li>
 
-                    </div>
-                </div>
-            </div>
+                    <li class="menu-title mt-3"><span>PARTICIPACION</span></li>
+                    <!-- EVENTOS INSCRITOS -->
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos"><i class="bi bi-calendar-event-fill"></i><span>Mis eventos</span></a>
+                    </li>
 
-        </div>
+                    <!-- DONACION -->
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=donaciones"><i class="bi bi-heart-fill"></i><span>Donaciones</span></a>
+                    </li>
 
+                    <li class="list-divider"></li>
+                    <li class="menu-title mt-3"><span>EXPLORA</span></li>
+                    <!-- NOVEDADES - ACT FINALIZADAS -->
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=eventos_finalizados"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
+                    </li>
 
-        <div class="usuario">
-            <img src="images/usuario.jpg">
-            <div class="info-usuario">
-                <div class="nombre-email">
-                    <span class="nombre">Usuario</span>
-                    <!--<span class="email">codigo@pucp.edu.com</span>-->
-                    <%if(usuariologueado.getIdAlumno()==0) {%>
-                    <span class="email">codigo@pucp.edu.com</span>
-                    <%}else{%>
+                    <!-- CONTACTOS -->
+                    <li class="list-divider"></li>
+                    <li class="menu-title mt-3"><span>CONTACTOS</span></li>
+                    <li><a class="text-decoration-none" href="https://www.instagram.com/aitel.pucp/" target="_blank"><i class="bi bi-instagram"></i>
+                        <span>Instagram</span></a></li>
+                    <li><a class="text-decoration-none" href="mailto:aitel@pucp.pe" target="_blank"><i class="fas fa-envelope"></i>
+                        <span>Gmail</span></a></li>
 
-                    <span class="email"><%=usuariologueado.getNombre() + " " + usuariologueado.getApellido()%></span>
-                    <%}%>
-                </div>
-                <!-- Colocarle función cambiar foto de perfil -->
-                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                </ul>
             </div>
         </div>
     </div>
 
+    <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="mt-5">
+                            <h4 class="card-title float-left mt-2">Eventos</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtro por actividades -->
+            <div class="row filter mb-4">
+                <div class="col">
+                    <div class="filter-buttons" id="buttons">
+                        <i class="bi bi-arrow-left-circle-fill prev"></i>
+                        <div class="slider">
+                            <%for (DelegadoActividad dA : listaActividades){%>
+                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/AlumnoServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%></a>
+                            <%};%>
+                        </div>
+                        <i class="bi bi-arrow-right-circle-fill next"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <%for (Evento e: lista){%>
+                <div class="col-12 col-sm-6 col-lg-4" style="padding: 0 20px">
+                    <div class="card" >
+                        <img class="card-img  w-100" src="<%=request.getContextPath()%>/ImgServlet?id=<%=e.getIdEvento()%>" alt="" style="min-height: 150px;">
+                        <div class="card-body d-flex flex-column" style="padding: 15px;">
+                            <p class="card-text text-justify" style="margin: 5px 0 10px">
+                                <strong><%=e.getActividad().getTitulo()%>: <%=e.getTitulo()%></strong><br>
+                                Fecha: <%=e.getFechaIn()%></p>
+                            <a href="<%=request.getContextPath()%>/AlumnoServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="btn btn-light active">Ver evento</a>
+                        </div>
+                    </div>
+                </div>
+                <%};%>
+            </div>
+            <!-- Footer -->
+            <div class="row footer">
+                <div class="col">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<main style="background-color: #c6e2e4;">
-    <div class="container-fluid">
-        <!-- Header -->
-        <div class="row header">
-            <div class="col">
-                <!-- Busqueda eventos -->
-                <div class="row search">
-                    <div class="col">
-                        <form class="search-form" id="search-container">
-                            <input type="search" placeholder="Buscar evento..." id="search-input">
-                            <button class="btn-search">
-                                <ion-icon name="search-outline"></ion-icon>
-                            </button>
-
-                        </form>
-                    </div>
-                </div>
-                <!-- Filtro por actividades -->
-                <div class="row filter">
-                    <div class="col">
-                        <div class="filter-buttons" id="buttons">
-                            <ion-icon name="chevron-back-outline" class="prev"></ion-icon>
-                            <div class="slider">
-                                <%for (DelegadoActividad dA : listaActividades){%>
-                                <a href="<%=request.getContextPath()%>/AlumnoServlet?idAct=<%=dA.getActividad().getIdActividad()%>" class="button-value" role="button" ><%=dA.getActividad().getTitulo()%></a>
-                                <%};%>
-                            </div>
-                            <ion-icon name="chevron-forward-outline" class="next"></ion-icon>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contenido -->
-        <div class="row content">
-            <div class="col">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-4 mt-2 mb-3">
-
-                    <%for (Evento e: lista){%>
-                    <!-- Eventos -->
-                    <div class="col event">
-                        <div class="card h-100">
-                            <img src="images/valorant.avif" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title"><%=e.getActividad().getTitulo()%></h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text"><%=e.getTitulo()%></p>
-                                    <p class="card-text mr-4 text-success">Fecha: <%=e.getFechaIn()%></p>
-                                </div>
-                                <a href="<%=request.getContextPath()%>/AlumnoServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="card-link" data-toggle="modal" data-target="#modalId">Ver
-                                    evento</a>
-                            </div>
-                        </div>
-                    </div>
-                    <%};%>
-
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Footer -->
-        <div class="row footer">
-            <div class="col">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-
-    </div>
-
-
-</main>
-
-
-
-<!-- js para icons -->
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="js/mainscript.js"></script>
+<script src="assets/js/jquery-3.5.1.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="assets/js/script.js"></script>
 <!--Script de bootstrap  -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+<script src="js/filtro.js"></script>
 </body>
 
 </html>

@@ -121,7 +121,7 @@ public class AlumnoServlet extends HttpServlet {
                 String idAlumno = String.valueOf(alumno.getIdAlumno());
                 alumnoEventoDao.apoyarEvento(idAlumno, idEventoApoyar);
 
-                response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=info_eventos");
+                response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=main_page");
                 break;
 
         }

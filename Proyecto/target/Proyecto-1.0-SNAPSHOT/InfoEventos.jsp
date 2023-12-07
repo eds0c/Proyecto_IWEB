@@ -130,9 +130,8 @@
                             <!-- imagen del evento -->
                             <div class="blog-image">
                                 <div class="col-md-10 mx-auto">
-                                    <img alt="" src="assets/img/product/product-01.jpg" class="img-fluid mt-4">
+                                    <img alt="" src="<%=request.getContextPath()%>/ImgServlet?id=<%=evento.getIdEvento()%>" class="img-fluid mt-4">
                                 </div>
-                                <%-- <img src="<%=request.getContextPath()%>/ImgServlet?id=<%=evento.getIdEvento()%>" class="img-fluid mt-4">--%>
                             </div>
 
                             <div class="blog-content mt-4">

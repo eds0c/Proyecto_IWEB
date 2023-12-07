@@ -332,8 +332,8 @@ public class AlumnoDao extends DaoBase{
         Alumno alumno = null;
 
 
-        String sql = "select correo , nombre, apellido from cuenta \n" +
-                "where idCuenta= ?";
+        String sql = "select correo , nombre, apellido from alumno \n" +
+                "where idAlumno= ?";
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -186,13 +186,13 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 String id1 = request.getParameter("idAlumnoAceptado");
                 alumnoDao.actualizarEstado("1",id1);
                 request.getSession().setAttribute("info","Usuario Aceptado");
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
                 // envio de correo
                 Alumno alumno1 = alumnoDao.correo(id1);
                 String asunto = "Has sido aceptado a TeleWeek ";
                 String contenido = "Hola," + alumno1.getNombre() + " " + alumno1.getApellido() + ", has sido aceptado en TeleWeek, para que puedas participar y donar a la Aitel en esta semana de Ingeniería.";
                 String correo = alumno1.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
-                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=validar_registro");
                 envioCorreosDaos.sendEmail();
                 break;
 
@@ -201,13 +201,13 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 String id2 = request.getParameter("idAlumnoRechazado");
                 alumnoDao.actualizarEstado("4",id2);
                 request.getSession().setAttribute("info","Usuario Rechazado");
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
                 // envio de correo
                 Alumno alumno2 = alumnoDao.correo(id2);
                 asunto = "Has sido rechazdo";
                 contenido = "Hola," + alumno2.getNombre() + " " + alumno2.getApellido() + ", has sido rechazado de participar de la semana de Ingeniería.";
                 correo = alumno2.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
-                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=validar_registro");
                 envioCorreosDaos.sendEmail();
                 break;
 
@@ -215,14 +215,14 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
                 String id3 = request.getParameter("idAlumnoBaneado");
                 alumnoDao.actualizarEstado("2",id3);
-                request.getSession().setAttribute("info","Usuario Rechazado");
+                request.getSession().setAttribute("info","Usuario Baneado");
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
                 // envio de correo
                 Alumno alumno3 = alumnoDao.correo(id3);
                 asunto = "Has sido baneado";
                 contenido = "Hola," + alumno3.getNombre() + " " + alumno3.getApellido() + ", has sido baneadoo de participar de la semana de Ingeniería.";
                 correo = alumno3.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
-                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
                 envioCorreosDaos.sendEmail();
                 break;
         }

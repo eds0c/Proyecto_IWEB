@@ -356,12 +356,10 @@
 
                                         <!-- PARTICIPANTES EVENT -->
                                         <td>
-
                                             <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=e.getIdEvento()%>"
-                                               class="text-light text-decoration-none">
+                                               type="button" class=" btn btn-primary text-light text-decoration-none">
                                                 <i class="bi bi-people-fill"></i>
                                             </a>
-
                                         </td>
                                         <!-- FIN PARTICIPANTES EVENT -->
 

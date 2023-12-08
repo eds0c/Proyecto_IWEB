@@ -111,6 +111,8 @@
                             <li><a class="text-decoration-none"
                                    href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_donaciones">Verificadas</a>
                             </li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=donaciones_rechazadas">No validadas</a></li>
+
                         </ul>
                     </li>
 
@@ -190,6 +192,9 @@
                                         <th>Eliminar</th>
                                     </tr>
                                     </thead>
+                                    <%if (listaActividades.isEmpty()){%>
+                                    <p class="lead">No existen actividades aún</p>
+                                    <%}%>
                                     <tbody>
                                     <%int i = 1;%>
                                     <%for (DelegadoActividad delegadoActividad : listaActividades) {%>

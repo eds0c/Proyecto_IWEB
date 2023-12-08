@@ -21,7 +21,7 @@
 <div class="main-wrapper">
     <!-- CABECERA -->
     <div class="header">
-        <!-- CABECERA DE LA BARRA LATERAL LISTOOOOO -->
+        <!-- CABECERA DE LA BARRA LATERAL -->
         <div class="header-left">
             <a href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=main_page" class="logo text-decoration-none"> <img
                     src="assets/img/IconoBat.png" width="30" height="50" alt="logo"> <span
@@ -85,6 +85,7 @@
                         <ul class="submenu_class" style="display: none;">
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=validar_donaciones">Por verificar</a></li>
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_donaciones">Verificadas</a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=donaciones_rechazadas">No validadas</a></li>
                         </ul>
                     </li>
 

@@ -285,7 +285,7 @@
                                                         <div class="modal-body">
                                                             <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
                                                                 <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
-                                                                     alt="Imagen de muestra" id="exampleImage"
+                                                                     alt="Imagen de muestra"
                                                                      class="img-thumbnail w-50">
                                                                 <!--<label class="form-label" for="imageUpload">Subir Foto</label>
                                                                 <input type="file" class="form-control" id="imageUpload" accept="image/*"> -->
@@ -356,11 +356,10 @@
 
                                         <!-- PARTICIPANTES EVENT -->
                                         <td>
-                                        <button class="opcion btn btn-success">
-                                            <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=e.getIdEvento()%>" class="text-light text-decoration-none">
+                                            <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes&idEventoParticipantes=<%=e.getIdEvento()%>"
+                                               type="button" class=" btn btn-primary text-light text-decoration-none">
                                                 <i class="bi bi-people-fill"></i>
                                             </a>
-                                        </button>
                                         </td>
                                         <!-- FIN PARTICIPANTES EVENT -->
 
@@ -433,6 +432,10 @@
                                         </li>
                                     </ul>
                                 </nav>
+
+                                <!-- FINALIZAR ACTIVIDAD -->
+                                <a class="btn btn-dark" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Finalizar
+                                    actividad</a>
 
                                 <!-- MODAL AGREGAR EVENT -->
                                 <div class="modal fade" id="modalNuevo"

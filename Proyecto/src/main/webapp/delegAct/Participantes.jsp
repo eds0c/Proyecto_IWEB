@@ -173,7 +173,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <!-- TABLA EVENTOS -->
+                                <!-- TABLA PARTICIPANTES -->
                                 <table class="table table-hover mt-1 mb-1">
                                     <thead>
                                     <tr>

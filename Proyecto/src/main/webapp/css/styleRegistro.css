@@ -12,8 +12,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100dvh;
-    background-color: rgb(52, 107, 132);
+    background-color: #009688;
 }
 
 .container {
@@ -23,7 +22,6 @@ body {
     height: 90%;
     background-color: #f8f8f8;
     padding: 1em;
-    /* margin: 1em; */
 }
 
 .form {
@@ -110,7 +108,7 @@ form .input-field {
 }
 
 .presionar{
-    background-color: rgb(52,107,132);
+    background-color:  #009688;
     color: #fff;
     border-radius: 20px;
     border: none;

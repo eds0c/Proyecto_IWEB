@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar contraseña</title>
+    <title>Olvido de contraseña</title>
     <link rel="icon" href="images/IconoBat.png" />
     <!-- Iconos -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -19,14 +19,14 @@
 <body>
 <div class="container-form">
     <div class="header-information"></div>
-    <div class="form-information overflow-auto">
+    <div class="form-information">
         <div class="form-information-childs">
             <div class="mb-3">
                 <img src="images/candado.png" width="80px">
             </div>
 
             <h2>Recupere su contraseña</h2>
-            <p>Introduce tu correo PUCP y te enviaremos un enlace para restablecer tu contraseña.</p>
+            <p>Coloque su correo PUCP y le enviaremos un enlace para restablecer tu contraseña.</p>
 
             <!-- Recuperar Contraseña -->
             <form class="form" id="EmailForm">
@@ -53,8 +53,8 @@
     </div>
 </div>
 
-<!-- Modal de confirmación -->
-<div class="modal fade" id="confirmacionModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal de aviso  -->
+<div class="modal fade" id="confirmacionModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 

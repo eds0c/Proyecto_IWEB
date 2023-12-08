@@ -184,8 +184,13 @@
                     <td><%=d.getAlumno().getCorreo()%></td>
                     <td><%=d.getFecha()%></td>
                     <td>
+                      <%if(d.getTipoDonacion().getIdTipoDonacion()==1){%>
                       <img src="images/yape_logo.jpg" alt="Pago" width="32px"
                            style="border-radius: 25%;">
+                      <%} else if(d.getTipoDonacion().getIdTipoDonacion()==2){%>
+                      <img src="images/plin_logo.jpg" alt="Pago" width="32px"
+                           style="border-radius: 25%;">
+                      <%}%>
                     </td>
                     <!-- OBSERVAR COMPROBANTE-->
                     <td>

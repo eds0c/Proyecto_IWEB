@@ -74,6 +74,10 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getRequestDispatcher("delegGen/ListaDonaciones.jsp").forward(request,response);
                 break;
 
+            case "donaciones_rechazadas":
+                request.getRequestDispatcher("delegGen/DonacionesRechazadas.jsp").forward(request,response);
+                break;
+
             case "validar_registro":
 
                 request.setAttribute("listaAlumnosPendientes",alumnoDao.listarAlumnosSegunEstado(3));

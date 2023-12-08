@@ -1,11 +1,10 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana Teleco</title>
+    <title>TELEWEEK</title>
     <link rel="icon" href="images/IconoBat.png" />
 
     <!-- Iconos -->
@@ -19,11 +18,11 @@
 </head>
 
 <body>
-<div class="container-form">
+<div class="container-form ">
     <div class="header-information"></div>
-    <div class="form-information overflow-auto">
+    <div class="form-information">
         <div class="form-information-childs">
-            <h2>Bienvenido a la Semana de Ingeniería</h2>
+            <h2>Bienvenido a TELEWEEK</h2>
             <p>Ingrese sus datos para iniciar sesión</p>
 
             <!-- Alerta de error -->
@@ -71,7 +70,6 @@
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

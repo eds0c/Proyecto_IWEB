@@ -123,8 +123,8 @@
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <!--VER LA FOTO DE PERFIL -->
-                                <a href="#"> <img class="rounded-circle" alt="User Image"
-                                                  src="assets/img/profiles/usuario.jpg"> </a>
+                                 <img class="rounded-circle" alt="User Image"
+                                                  src="assets/img/profiles/usuario.jpg">
                             </div>
                             <div class="col ml-md-n2 profile-user-info">
                                 <%if(session.getAttribute("usuariologueado")==null) {%>
@@ -154,15 +154,17 @@
                                                 <span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form>
+                                            <!-- editar el form -->
+                                            <form method="POST" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=perfil">
                                                 <!-- CONFIGURAR PARA EDITAR UNA FOTO? -->
-                                                <div class="row form-row">
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label>Email</label>
-                                                            <input type="email" class="form-control" required>
-                                                        </div>
-                                                    </div>
+                                                <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                                                    <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
+                                                         alt="Imagen de muestra"
+                                                         class="img-thumbnail w-50">
+                                                    <label>Subir Foto</label>
+                                                    <input type="file" class="form-control"
+                                                           name="usuarioFoto" accept="image/*"
+                                                    >
                                                 </div>
                                                 <button type="submit" class="btn btn-primary btn-block">Guardar
                                                     cambios
@@ -190,7 +192,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-<script src="js/filtro.js"></script>
 </body>
 
 </html>

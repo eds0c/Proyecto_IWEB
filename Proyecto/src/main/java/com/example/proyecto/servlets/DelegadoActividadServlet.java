@@ -120,18 +120,28 @@ public class DelegadoActividadServlet extends HttpServlet {
                 break;
             case "participantes":
 
-                String offsetParticipantesPendientes =  request.getParameter("offset_pendientes") == null ? "0" : request.getParameter("offset_pendientes");
                 String idEvento3 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");
 
-                ArrayList<AlumnoEvento> listaParticipantesPendientes = eventoDao.listarAlumnosPendientesPorEvento(idEvento3,"a",5,Integer.parseInt(offsetParticipantesPendientes)*3);
                 ArrayList<AlumnoEvento> listaParticipantes = eventoDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("idE",idEvento3);
                 request.setAttribute("lista_participantes",listaParticipantes);
-                request.setAttribute("lista_participantes_pendientes",listaParticipantesPendientes);
 
                 request.getRequestDispatcher("delegAct/Participantes.jsp").forward(request, response);
+                break;
+
+            case "solicitud_participante":
+                String offsetParticipantesPendientes =  request.getParameter("offset_pendientes") == null ? "0" : request.getParameter("offset_pendientes");
+                String idEvento4 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");
+
+                ArrayList<AlumnoEvento> listaParticipantesPendientes = eventoDao.listarAlumnosPendientesPorEvento(idEvento4,"a",5,Integer.parseInt(offsetParticipantesPendientes)*3);
+
+                //mandar la lista a la vista -> /InfoEventos.jsp
+                request.setAttribute("idE",idEvento4);
+                request.setAttribute("lista_participantes_pendientes",listaParticipantesPendientes);
+
+                request.getRequestDispatcher("delegAct/SolicitudParticipante.jsp").forward(request, response);
                 break;
 
 

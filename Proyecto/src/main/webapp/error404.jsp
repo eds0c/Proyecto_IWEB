@@ -5,7 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Error 404 - SemanaTeleco</title>
+  <title>Error 404 - Teleweek</title>
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/IconoBat.png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <style>
     body {

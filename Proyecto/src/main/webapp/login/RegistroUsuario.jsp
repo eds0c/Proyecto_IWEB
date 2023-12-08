@@ -37,14 +37,11 @@
                         <div class="col-md-6">
                             <!-- foto -->
                             <li>Sube una foto de perfil para que los delegados te reconozcan:</li>
-                            <!-- <p>Sube una foto de perfil para que los delegados te reconozcan:</p> -->
                             <div class="field">
-
                                 <input class="form-control" type="file"  accept="image/*" name="foto">
                             </div>
 
-                            <li>Ingresa tus datos personales:</li>
-                            <!-- <p>Ingresa tus datos personales:</p> -->
+                            <li>Ingrese sus datos personales:</li>
                             <!-- nombre -->
                             <div class="field">
                                 <label>
@@ -84,8 +81,7 @@
                         </div>
                         <div class="col-md-6">
                             <!-- contraseña -->
-                            <li>Crea y confirma una contraseña:</li>
-                            <!-- <p>Crea y confirma una contraseña:</p> -->
+                            <li>Cree y confirme una contraseña:</li>
                             <div class="field create-password">
                                 <div class="input-field">
                                     <label>
@@ -122,7 +118,7 @@
 
                             <!-- estado -->
                             <div>
-                                <li>Marca según tu estado:</li>
+                                <li>Marque según su estado:</li>
                                 <!-- <p>Marca según tu estado:</p> -->
                                 <div class="row mt-3">
                                     <div class="col-sm text-center">
@@ -151,8 +147,8 @@
 
 
                 <!-- Modal de Confirmación -->
-                <div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                <div class="modal fade" id="confirmacionModal" data-bs-backdrop="static" data-bs-keyboard="false"  aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Registro enviado</h1>
@@ -163,7 +159,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="presionar">Entendido</button>
+                                <button type="submit" class="btn btn-success">Entendido</button>
                             </div>
                         </div>
                     </div>
@@ -245,28 +241,28 @@
             }
 
          */
-            //Mostrar el modal de confirmación después de validar el formulario
-            /*
-            form.addEventListener("submit", (e) => {
-                e.preventDefault();
-                createPass();
-                confirmPass();
+        //Mostrar el modal de confirmación después de validar el formulario
+        /*
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            createPass();
+            confirmPass();
 
-                passInput.addEventListener("keyup", createPass);
-                cPassInput.addEventListener("keyup", confirmPass);
+            passInput.addEventListener("keyup", createPass);
+            cPassInput.addEventListener("keyup", confirmPass);
 
-                if (
-                    !passField.classList.contains("invalid") &&
-                    !cPassField.classList.contains("invalid")
-                ) {
-                    confirmacionModal.show();
+            if (
+                !passField.classList.contains("invalid") &&
+                !cPassField.classList.contains("invalid")
+            ) {
+                confirmacionModal.show();
 
-                }
+            }
 
 
-            });
+        });
 
-        });*/
+    });*/
     });
 
 </script>

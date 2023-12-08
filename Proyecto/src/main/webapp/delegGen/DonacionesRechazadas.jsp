@@ -3,7 +3,6 @@
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 <%@ page import="com.example.proyecto.beans.Donacion" %>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
-<%--<jsp:useBean id="lista1" scope="request" type="ArrayList<com.example.proyecto.beans.Donacion>" />--%>
 <%@ page import="java.util.ArrayList" %>
 
 <html lang="en">
@@ -11,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Donaciones verificadas</title>
+    <title>Donaciones rechazadas</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/IconoBat.png">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
@@ -100,9 +99,9 @@
                             <li>
                                 <a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=validar_donaciones">Por verificar </a>
                             </li>
-                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_donaciones">Verificadas</a>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_donaciones">Verificadas</a>
                             </li>
-                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=donaciones_rechazadas">No validadas</a></li>
+                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=donaciones_rechazadas">No validadas</a></li>
 
                         </ul>
                     </li>
@@ -133,7 +132,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Donaciones verificadas</h4>
+                            <h4 class="card-title float-left mt-2">Donaciones no validadas</h4>
                         </div>
                     </div>
                 </div>
@@ -146,18 +145,18 @@
                     <button class="input-group-text" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
-                    <a class="input-group-text" href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=lista_donaciones">
+                    <a class="input-group-text" href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=donaciones_rechazadas">
                         <i class="bi bi-x-circle"></i>
                     </a>
                 </div>
             </form>
-            <!-- LISTA DE DONACIONES VERIFICADAS -->
+            <!-- LISTA DE DONACIONES NO VALIDADAS -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <!-- TABLA DE DONACIONES VERIFICADAS -->
+                                <!-- TABLA DE DONACIONES NO VALIDADAS -->
                                 <table class="table table-hover mt-1 mb-1">
                                     <thead>
                                     <tr>
@@ -172,28 +171,20 @@
                                     </thead>
 
                                     <tbody>
-<%--                                    <%int i=1;%>--%>
-<%--                                    <%for (Donacion d: lista1){%>--%>
+                                    <%-- FALTA IMPLEMENTAR DAO--%>
 
-<%--                                    <tr>--%>
-<%--                                        <th><%=i%></th>--%>
-<%--                                        <td><%=d.getAlumno().getNombre()+" "+d.getAlumno().getApellido()%></td>--%>
-<%--                                        <td><%=d.getAlumno().getCorreo()%></td>--%>
-<%--                                        <td><%=d.getFecha()%></td>--%>
-<%--                                        <td>--%>
-<%--                                            <%if(d.getTipoDonacion().getIdTipoDonacion()==1){%>--%>
-<%--                                                <img src="images/yape_logo.jpg" alt="Pago" width="32px"--%>
-<%--                                                     style="border-radius: 25%;">--%>
-<%--                                            <%} else if(d.getTipoDonacion().getIdTipoDonacion()==2){%>--%>
-<%--                                            <img src="images/plin_logo.jpg" alt="Pago" width="32px"--%>
-<%--                                                 style="border-radius: 25%;">--%>
-<%--                                            <%}%>--%>
-<%--                                        </td>--%>
-<%--                                        <td>S/. <%=d.getMonto()%></td>--%>
+                                    <tr>
+                                        <th>1</th>
+                                        <td>Nombre Apellido</td>
+                                        <td>nombre@pucp.edu.pe</td>
+                                        <td>dd/mm/aaaa</td>
+                                        <td>
+                                            <img src="images/yape_logo.jpg" alt="Pago" width="32px"
+                                                 style="border-radius: 25%;">
+                                        </td>
+                                        <td>S/. 100</td>
 
-<%--                                    </tr>--%>
-<%--                                    <%i++;%>--%>
-<%--                                    <%};%>--%>
+                                    </tr>
                                     </tbody>
                                 </table>
 

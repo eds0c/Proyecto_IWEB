@@ -107,6 +107,8 @@
                             <li><a class="text-decoration-none"
                                    href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_donaciones">Verificadas</a>
                             </li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=donaciones_rechazadas">No validadas</a></li>
+
                         </ul>
                     </li>
 
@@ -226,7 +228,7 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <h6>Nombre:</h6>
+                                                                <h6 class="fw-bold">Nombre:</h6>
                                                                 <p><%=alumno.getNombre() + " " + alumno.getApellido()%>
                                                                 </p>
                                                             </div>
@@ -359,6 +361,25 @@
                                     </tbody>
                                 </table>
                                 <!-- FIN LISTA DE NUEVAS SOLICITUDES -->
+
+                                <!-- PAGINACION -->
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
 
                             </div>
                         </div>

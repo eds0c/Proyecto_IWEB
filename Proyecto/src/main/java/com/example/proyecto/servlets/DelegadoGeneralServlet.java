@@ -85,9 +85,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 break;
 
             case "validar_registro":
-
                 request.setAttribute("listaAlumnosPendientes",alumnoDao.listarAlumnosSegunEstado(3));
-                //request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunEstado(1));
                 request.getRequestDispatcher("delegGen/ValidarRegistro.jsp").forward(request,response);
                 break;
 
@@ -96,6 +94,16 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getRequestDispatcher("delegGen/ListaUsuarios.jsp").forward(request,response);
                 break;
 
+            case "usuarios_rechazados":
+                request.setAttribute("listaUsuariosRechazados",alumnoDao.listarAlumnosSegunEstado(4));
+                request.getRequestDispatcher("delegGen/UsuariosRechazados.jsp").forward(request,response);
+
+                break;
+
+            case "usuarios_baneados":
+                request.setAttribute("listaUsuariosBaneados",alumnoDao.listarAlumnosSegunEstado(2));
+                request.getRequestDispatcher("delegGen/UsuariosBaneados.jsp").forward(request,response);
+                break;
 
             case "cerrar_sesion":
                 response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");

@@ -93,6 +93,9 @@
                             <li><a class="active text-decoration-none"
                                    href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_usuarios">
                                 Registrados </a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=usuarios_rechazados"> Rechazados </a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=usuarios_baneados"> Baneados </a></li>
+
                         </ul>
                     </li>
 

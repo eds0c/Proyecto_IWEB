@@ -161,6 +161,9 @@
           <div class="card">
             <div class="card-body">
               <div class="table-responsive">
+                <%if (lista2.isEmpty()){%>
+                <p class="lead"> Aún no hay donaciones pendientes </p>
+                <%}%>
                 <!-- TABLA DE NUEVAS DONACIONES -->
                 <table class="table table-hover mt-1 mb-1">
                   <thead>
@@ -195,12 +198,12 @@
                     </td>
                     <!-- OBSERVAR COMPROBANTE-->
                     <td>
-                      <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalMostrar">
+                      <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
                         <i class="bi bi-eye"></i>
                       </button>
                     </td>
                     <!-- MODAL OBSERVAR COMPROBANTE-->
-                    <div class="modal fade" id="modalMostrar" aria-hidden="true">
+                    <div class="modal fade" id="modalMostrar<%=i%>" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                           <form>

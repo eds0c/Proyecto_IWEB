@@ -2,10 +2,13 @@ package com.example.proyecto.daos;
 
 import com.example.proyecto.beans.*;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DonacionDao extends DaoBase{
@@ -68,7 +71,26 @@ public class DonacionDao extends DaoBase{
         }
     }
 
+    public void crear(InputStream donacionCaptura, String donacionTipo, int donacionMonto, String idAlumno){
 
+        String sql = "insert into donacion (captura,monto, Tipo_Donacion_idTipo_Donacion,estado,fecha,Alumno_idAlumno) values (?,?,?,?,?,?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setBlob(1,donacionCaptura);
+            pstmt.setInt(2,donacionMonto);
+            pstmt.setString(3,donacionTipo);
+            pstmt.setString(4,"pendiente");
+            pstmt.setString(5,DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now()));
+            pstmt.setString(6,idAlumno);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public ArrayList<Donacion> listarDonacionPorAlumno(String estado){
 

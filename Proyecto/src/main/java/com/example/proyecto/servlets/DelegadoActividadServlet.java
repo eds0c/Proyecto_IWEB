@@ -1,9 +1,6 @@
 package com.example.proyecto.servlets;
 
-import com.example.proyecto.beans.Alumno;
-import com.example.proyecto.beans.AlumnoEvento;
-import com.example.proyecto.beans.DelegadoActividad;
-import com.example.proyecto.beans.Evento;
+import com.example.proyecto.beans.*;
 import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -13,9 +10,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -35,6 +30,8 @@ public class DelegadoActividadServlet extends HttpServlet {
     ActividadDao actividadDao = new ActividadDao();
     EventoDao eventoDao = new EventoDao();
     DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
+    DonacionDao donacionDao = new DonacionDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -170,9 +167,7 @@ public class DelegadoActividadServlet extends HttpServlet {
         //Datos de sesión:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
 
-
-
-
+        Donacion donacion = new Donacion();
 
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
 
@@ -338,6 +333,52 @@ public class DelegadoActividadServlet extends HttpServlet {
                 alumnoEventoDao.apoyarEvento(idAlumno,idEventoApoyar);
                 response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=main_page");
                 break;
+
+            case "donar":
+
+                String donacionTipo = request.getParameter("donacionTipo");
+                String donacionMonto = request.getParameter("donacionMonto");
+
+
+                boolean isAllValid1 = true;
+
+                if (donacionMonto.isEmpty()) {
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "Coloca un monto a donar.");
+                }
+
+                int donacionMontoint = 0;
+                try {
+                    donacionMontoint = Integer.parseInt(donacionMonto);
+                } catch (NumberFormatException n) {
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "El monto tiene que ser un número.");
+                }
+
+
+                if(request.getPart("donacionFoto") == null){
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "Coloca la captura de tu donación.");
+                }
+
+                if(request.getParameter("donacionTipo") == null){
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "Selecciona la billeta electrónica que desees.");
+                }
+
+
+                if (isAllValid1) {
+                    //guardamos Donacion
+                    donacionDao.crear(request.getPart("donacionFoto").getInputStream(), donacionTipo, donacionMontoint, request.getParameter("alumnoIDdonador"));
+                    request.getSession().setAttribute("msg", "Tu donación fue enviada correctamente.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=donaciones");
+                } else {
+                    request.getRequestDispatcher("delegAct/Donaciones.jsp").forward(request, response);
+                    request.getSession().setAttribute("err", "Tu donación no fue enviada correctamente.");
+                }
+                break;
+
+
 
         }
 

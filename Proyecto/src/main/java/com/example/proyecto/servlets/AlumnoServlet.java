@@ -102,6 +102,10 @@ public class AlumnoServlet extends HttpServlet {
             case "cerrar_sesion":
                 response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
                 break;
+
+            default:
+                request.getRequestDispatcher("/error404.jsp").forward(request, response);
+                break;
         }
 
 

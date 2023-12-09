@@ -152,6 +152,10 @@ public class DelegadoActividadServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
                 break;
 
+            default:
+                request.getRequestDispatcher("/error404.jsp").forward(request, response);
+                break;
+
         }
 
     }

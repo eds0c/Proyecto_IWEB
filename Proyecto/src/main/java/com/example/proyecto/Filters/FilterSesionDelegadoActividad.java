@@ -28,7 +28,7 @@ public class FilterSesionDelegadoActividad implements Filter {
             switch (tipoUsuario){
 
                 case 1:
-                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet");
+                    response.sendRedirect(request.getContextPath() + "/AlumnoServlet");
                     break;
                 case 2:
                     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.

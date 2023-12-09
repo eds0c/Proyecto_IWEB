@@ -46,6 +46,10 @@ public class SesionServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/SesionServlet");
                 break;
 
+            default:
+                request.getRequestDispatcher("/error404.jsp").forward(request, response);
+                break;
+
 
         }
 

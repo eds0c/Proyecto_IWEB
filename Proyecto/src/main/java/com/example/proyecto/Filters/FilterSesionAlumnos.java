@@ -36,7 +36,7 @@ public class FilterSesionAlumnos implements Filter {
                     chain.doFilter(request, response);
                     break;
                 case 2:
-                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet");
                     break;
                 case 3:
                     response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet");

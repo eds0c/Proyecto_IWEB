@@ -145,14 +145,18 @@
                 </div>
             </div>
             <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <% if (request.getParameter("msg") != null) {%>
-            <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
+            <% if (session.getAttribute("msg") != null) {%>
+            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
             </div>
-            <% } %>
-            <% if (request.getParameter("err") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
+            <% session.removeAttribute("msg");} %>
+            <% if (session.getAttribute("err") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
             </div>
-            <% } %>
+            <% session.removeAttribute("err");} %>
+            <% if (session.getAttribute("errDesc") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+            </div>
+            <% session.removeAttribute("errDesc");} %>
             <!-- BUSCAR PARTICIPANTES IMPLEMENTAR EN EL SERVLET Y DAO -->
             <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=buscar">
                 <div class="input-group mb-3">
@@ -199,6 +203,36 @@
                                             </button>
                                         </td>
                                     </tr>
+
+
+                                    <!-- Guardar cambios de rol -->
+                                    <div class="modal fade" id="cambiarRolA<%=i%>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                                         tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="cambiarRolLabel">Cambio de rol</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Estás seguro que quieres cambiar el rol del participante?
+                                                </div>
+                                                <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=cambiar_rol">
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                        <input type="hidden" class="form-control" name="idAE" value=<%=aE.getIdAlumnoEvento()%>>
+
+                                                        <button type="submit" class="btn btn-primary" data-bs-target="#cambiarRolB<%=i%>"
+                                                                data-bs-toggle="modal" data-bs-dismiss="modal">Sí</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <%i++;%>
                                     <%};%>
 

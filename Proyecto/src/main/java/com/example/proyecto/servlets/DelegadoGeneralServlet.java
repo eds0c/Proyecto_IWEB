@@ -152,7 +152,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 actividad.setIdActividad(alumnoDelegadoActividadActual.getDelegadoActividad().getActividad().getIdActividad());
 
 
-                boolean isAllValid2 = actividad.getDescripcion().length() <= 45 && actividad.getTitulo().length() <= 35;
+                boolean isAllValid2 = actividad.getDescripcion().length() <= 45 && actividad.getTitulo().length() <= 35 && !actividad.getDescripcion().isEmpty() && !actividad.getTitulo().isEmpty();
 
                 if (isAllValid2) {
 

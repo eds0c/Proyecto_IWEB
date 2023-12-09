@@ -18,7 +18,8 @@ public class FilterSesionLogin implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
 
-        if(request.getParameter("action") == null || request.getParameter("action").equalsIgnoreCase("inicio_sesion")){
+        //if(request.getParameter("action") == null || request.getParameter("action").equalsIgnoreCase("inicio_sesion")){
+        if(request.getParameter("action") == null || !request.getParameter("action").equalsIgnoreCase("cerrar_sesion")){
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
             response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
             response.setDateHeader("Expires", 0);

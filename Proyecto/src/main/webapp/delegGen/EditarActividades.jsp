@@ -286,13 +286,13 @@
                                                                     la actividad:</label>
                                                                 <input type="text" class="form-control form-control-sm"
                                                                        name="tituloActividad" id="tituloActividad"
-                                                                       value="<%=delegadoActividad.getActividad().getTitulo()%>">
+                                                                       value="<%=delegadoActividad.getActividad().getTitulo()%>" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="descripcionActividad" class="fw-bold">Descripción:</label>
                                                                 <textarea class="form-control" id="descripcionActividad"
                                                                           rows="4" name="descripcionActividad"
-                                                                          placeholder="Ingrese la descripción aquí"><%=delegadoActividad.getActividad().getDescripcion()%></textarea>
+                                                                          placeholder="Ingrese la descripción aquí" required><%=delegadoActividad.getActividad().getDescripcion()%></textarea>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="idAlumnoDelegadoActividad" class="fw-bold">Delegado
@@ -426,7 +426,7 @@
                                                              class="img-thumbnail w-50">
                                                         <label class="form-label" for="imageUpload">Suba una foto</label>
                                                         <input type="file" class="form-control" id="imageUpload"
-                                                               accept="image/*" name="fotoActividad">
+                                                               accept="image/*" name="fotoActividad" required>
                                                     </div>
 
                                                     <div class="mb-3">

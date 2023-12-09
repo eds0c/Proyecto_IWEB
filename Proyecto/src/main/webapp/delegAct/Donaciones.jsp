@@ -119,14 +119,18 @@
                 </div>
             </div>
             <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <% if (request.getParameter("msg") != null) {%>
-            <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
+            <% if (session.getAttribute("msg") != null) {%>
+            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
             </div>
-            <% } %>
-            <% if (request.getParameter("err") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
+            <% session.removeAttribute("msg");} %>
+            <% if (session.getAttribute("err") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
             </div>
-            <% } %>
+            <% session.removeAttribute("err");} %>
+            <% if (session.getAttribute("errDesc") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+            </div>
+            <% session.removeAttribute("errDesc");} %>
 
             <div class="row mt-3">
                 <div class="col-md-10 mx-auto">

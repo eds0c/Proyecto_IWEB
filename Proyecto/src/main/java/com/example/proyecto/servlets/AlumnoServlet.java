@@ -61,6 +61,10 @@ public class AlumnoServlet extends HttpServlet {
                 request.getRequestDispatcher("/Perfil.jsp").forward(request, response);
                 break;
 
+            case "editar_contra":
+                request.getRequestDispatcher("/EditarContra.jsp").forward(request,response);
+                break;
+
             case "mis_eventos":
                 //saca del modelo"
 

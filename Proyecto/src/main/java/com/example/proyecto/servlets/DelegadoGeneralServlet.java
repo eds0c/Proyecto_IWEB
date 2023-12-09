@@ -53,6 +53,10 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getRequestDispatcher("delegGen/Perfil.jsp").forward(request,response);
                 break;
 
+            case "editar_contra":
+                request.getRequestDispatcher("delegGen/EditarContra.jsp").forward(request,response);
+                break;
+
             case "editar_actividades":
 
 

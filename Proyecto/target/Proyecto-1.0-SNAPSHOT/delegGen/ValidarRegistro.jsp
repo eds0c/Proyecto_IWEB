@@ -145,14 +145,18 @@
                 </div>
             </div>
             <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <% if (request.getParameter("msg") != null) {%>
-            <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
+            <% if (session.getAttribute("msg") != null) {%>
+            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
             </div>
-            <% } %>
-            <% if (request.getParameter("err") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
+            <% session.removeAttribute("msg");} %>
+            <% if (session.getAttribute("err") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
             </div>
-            <% } %>
+            <% session.removeAttribute("err");} %>
+            <% if (session.getAttribute("errDesc") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+            </div>
+            <% session.removeAttribute("errDesc");} %>
             <!-- BUSCAR ALUMNO IMPLEMENTAR EN EL SERVLET Y DAO -->
             <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
                 <div class="input-group mb-3">
@@ -268,12 +272,12 @@
                                         <td>
                                             <button type="button" class="btn btn-primary"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#aceptar">
+                                                    data-bs-target="#aceptar<%=i%>">
                                                 <i class="bi bi-person-check-fill"></i>
                                             </button>
                                         </td>
                                         <!-- MODAL ACEPTAR ALUMNO -->
-                                        <div class="modal fade" id="aceptar" aria-hidden="true">
+                                        <div class="modal fade" id="aceptar<%=i%>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -312,12 +316,12 @@
                                         <td>
                                             <button type="button" class="btn btn-danger"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#rechazar">
+                                                    data-bs-target="#rechazar<%=i%>">
                                                 <i class="bi bi-person-x-fill"></i>
                                             </button>
                                         </td>
                                         <!-- MODAL RECHAZAR ALUMNO -->
-                                        <div class="modal fade" id="rechazar" aria-hidden="true">
+                                        <div class="modal fade" id="rechazar<%=i%>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

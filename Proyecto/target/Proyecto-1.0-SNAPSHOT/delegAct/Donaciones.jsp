@@ -119,20 +119,25 @@
                 </div>
             </div>
             <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <% if (request.getParameter("msg") != null) {%>
-            <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
+            <!-- MENSAJES DE ERROR O CONFIRMACION -->
+            <% if (session.getAttribute("msg") != null) {%>
+            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
             </div>
-            <% } %>
-            <% if (request.getParameter("err") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
+            <% session.removeAttribute("msg");} %>
+            <% if (session.getAttribute("err") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
             </div>
-            <% } %>
+            <% session.removeAttribute("err");} %>
+            <% if (session.getAttribute("errDesc") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+            </div>
+            <% session.removeAttribute("errDesc");} %>
 
             <div class="row mt-3">
                 <div class="col-md-10 mx-auto">
                     <div class="blog-view">
                         <article class="blog blog-single-post">
-                            <form method="POST" action="DelegadoActividadServlet">
+                            <form method="POST" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=donar" enctype="multipart/form-data">
                                 <!-- Medio de pago -->
                                 <h3 class="blog-title">Paso 1
                                 </h3>
@@ -143,13 +148,13 @@
                                         <div class="col text-center yape mt-3 mb-3">
                                             <label for="yape"><img class="img-pago" height="300px"
                                                                    src="images/yape.jpg" /></label><br />
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input value="1" class="form-check-input" type="radio" name="donacionTipo"
                                                    id="yape" required/>
                                         </div>
                                         <div class="col text-center plin mt-3 mb-3">
                                             <label for="plin"><img class="img-pago" height="300px"
                                                                    src="images/plin.jpg" /></label><br />
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input value="2" class="form-check-input" type="radio" name="donacionTipo"
                                                    id="plin" required/>
                                         </div>
                                     </div>
@@ -165,7 +170,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label class="mb-2">Monto (S/.):</label>
-                                            <input name="monto" class="form-control" placeholder="Monto en soles"
+                                            <input name="donacionMonto" class="form-control" placeholder="Monto en soles"
                                                    required/>
                                         </div>
                                     </div>
@@ -180,11 +185,15 @@
                                     <p>Sube tu comprobante de pago.</p>
                                     <div class="row">
                                         <div class="col field">
-                                            <input class="form-control" type="file" id="comprobante" required>
+                                            <input accept="image/*" class="form-control" type="file" name="donacionFoto" required>
                                         </div>
                                     </div>
 
                                 </div>
+                                <!-- Id Alumno donador -->
+                                <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                                <input type="hidden" class="form-control"
+                                       name="alumnoIDdonador" value="<%=alumnologueado.getIdAlumno()%>">
 
                                 <!-- Botón envío -->
                                 <div class="row">

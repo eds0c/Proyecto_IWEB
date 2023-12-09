@@ -73,6 +73,10 @@ public class DelegadoActividadServlet extends HttpServlet {
                 request.getRequestDispatcher("delegAct/Perfil.jsp").forward(request, response);
                 break;
 
+            case "editar_contra":
+                request.getRequestDispatcher("delegAct/EditarContra.jsp").forward(request,response);
+                break;
+
             case "mis_eventos":
 
                 //saca del modelo

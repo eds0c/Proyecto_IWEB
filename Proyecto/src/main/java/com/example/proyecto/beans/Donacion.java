@@ -5,7 +5,7 @@ import java.io.InputStream;
 public class Donacion {
 
     private int idDonacion;
-    private String monto;
+    private double monto;
     private InputStream captura;
     private String estado;
     private String fecha;
@@ -22,11 +22,11 @@ public class Donacion {
         this.idDonacion = idDonacion;
     }
 
-    public String getMonto() {
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(String monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 

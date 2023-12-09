@@ -25,10 +25,12 @@ public class AlumnoServlet extends HttpServlet {
     ActividadDao actividadDao = new ActividadDao();
     EventoDao eventoDao = new EventoDao();
     DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+    DonacionDao donacionDao = new DonacionDao();
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
 
         //Sesion datos:
@@ -77,6 +79,7 @@ public class AlumnoServlet extends HttpServlet {
                 request.setAttribute("lista_eventos_finalizados", listaEventosFinalizados);
                 request.getRequestDispatcher("/EventosFinalizados.jsp").forward(request, response);
                 break;
+
             case "donaciones":
                 request.getRequestDispatcher("/Donaciones.jsp").forward(request, response);
                 break;
@@ -106,11 +109,10 @@ public class AlumnoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setContentType("text/html");
 
         //Sesion datos:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
-
 
         String action = request.getParameter("action") == null ? "" : request.getParameter("action");
 
@@ -121,10 +123,53 @@ public class AlumnoServlet extends HttpServlet {
                 String idAlumno = String.valueOf(alumno.getIdAlumno());
                 alumnoEventoDao.apoyarEvento(idAlumno, idEventoApoyar);
 
-                response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=main_page");
+                response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=mis_eventos");
                 break;
 
-            case "agregar-donacion":
+
+            case "donar":
+
+                String donacionTipo = request.getParameter("donacionTipo");
+                String donacionMonto = request.getParameter("donacionMonto");
+
+
+                boolean isAllValid1 = true;
+
+                if (donacionMonto.isEmpty()) {
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "Coloca un monto a donar.");
+                }
+
+                double donacionMontoDouble = 0;
+                try {
+                    donacionMontoDouble = Double.parseDouble(donacionMonto);
+                } catch (NumberFormatException n) {
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "El monto tiene que ser un número (Puede usar decimales).");
+                }
+
+
+                if(request.getPart("donacionFoto") == null){
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "Coloca la captura de tu donación.");
+                }
+
+                if(request.getParameter("donacionTipo") == null){
+                    isAllValid1 = false;
+                    request.getSession().setAttribute("errDesc", "Selecciona la billeta electrónica que desees.");
+                }
+
+
+                if (isAllValid1) {
+                    //guardamos Donacion
+                    donacionDao.crear(request.getPart("donacionFoto").getInputStream(), donacionTipo, donacionMontoDouble, request.getParameter("alumnoIDdonador"));
+                    request.getSession().setAttribute("msg", "Tu donación fue enviada correctamente.");
+                    response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=donaciones");
+                } else {
+                    request.getSession().setAttribute("err", "Tu donación no fue enviada correctamente.");
+                    response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=donaciones");
+                }
+                break;
 
 
         }

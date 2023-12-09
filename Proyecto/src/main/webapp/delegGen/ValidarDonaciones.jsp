@@ -134,14 +134,19 @@
         </div>
       </div>
       <!-- MENSAJES DE ERROR O CONFIRMACION -->
-      <% if (request.getParameter("msg") != null) {%>
-      <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
+      <!-- MENSAJES DE ERROR O CONFIRMACION -->
+      <% if (session.getAttribute("msg") != null) {%>
+      <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
       </div>
-      <% } %>
-      <% if (request.getParameter("err") != null) {%>
-      <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
+      <% session.removeAttribute("msg");} %>
+      <% if (session.getAttribute("err") != null) {%>
+      <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
       </div>
-      <% } %>
+      <% session.removeAttribute("err");} %>
+      <% if (session.getAttribute("errDesc") != null) {%>
+      <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+      </div>
+      <% session.removeAttribute("errDesc");} %>
       <!-- BUSCAR DONACION IMPLEMENTAR EN EL SERVLET Y DAO -->
       <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
         <div class="input-group mb-3">
@@ -171,6 +176,7 @@
                     <th>#</th>
                     <th>Usuario</th>
                     <th>Correo</th>
+                    <th>Egresado/Estudiante</th>
                     <th>Fecha</th>
                     <th>Medio de pago</th>
                     <th>Comprobante</th>
@@ -186,6 +192,7 @@
                     <th><%=i%></th>
                     <td><%=d.getAlumno().getNombre()+" "+d.getAlumno().getApellido()%></td>
                     <td><%=d.getAlumno().getCorreo()%></td>
+                    <td><%=d.getAlumno().getEgresado()%></td>
                     <td><%=d.getFecha()%></td>
                     <td>
                       <%if(d.getTipoDonacion().getIdTipoDonacion()==1){%>
@@ -231,13 +238,13 @@
                               <!-- BOTÓN PARA EL MODAL VALIDO -->
                               <button type="button" class="btn btn-primary"
                                       data-bs-toggle="modal"
-                                      data-bs-target="#valido">
+                                      data-bs-target="#valido<%=i%>">
                                 Validar donación
                               </button>
                               <!-- BOTÓN PARA EL MODAL NO VALIDO-->
                               <button type="button" class="btn btn-danger"
                                       data-bs-toggle="modal"
-                                      data-bs-target="#noValido">
+                                      data-bs-target="#noValido<%=i%>">
                                 No validar donación
                               </button>
                             </div>
@@ -248,7 +255,7 @@
                     </div>
                     <!-- FIN MODAL OBSERVAR COMPROBANTE-->
                     <!-- MODAL CONFIRMACION DE VALIDAR-->
-                    <div class="modal fade" id="valido" aria-hidden="true">
+                    <div class="modal fade" id="valido<%=i%>" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -266,8 +273,12 @@
                             <button type="button" class="btn btn-light active"
                                     data-bs-dismiss="modal">Cancelar
                             </button>
-                            <button type="button" class="btn btn-primary">Validar donación
-                            </button>
+                            <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=validar-donacion">
+                              <input type="hidden" name="idDonacionValida" value="<%=d.getIdDonacion()%>">
+                              <input type= "hidden" name="idAlumnoDonacionValida" value="<%=d.getAlumno().getIdAlumno()%>">
+                              <button type="submit" class="btn btn-primary">Validar donación
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </div>
@@ -275,7 +286,7 @@
                     <!-- FIN MODAL CONFIRMACION DE VALIDAR-->
 
                     <!-- MODAL CONFIRMACION DE NO VALIDAR-->
-                    <div class="modal fade" id="noValido" aria-hidden="true">
+                    <div class="modal fade" id="noValido<%=i%>" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -293,8 +304,14 @@
                             <button type="button" class="btn btn-light active"
                                     data-bs-dismiss="modal">Cancelar
                             </button>
-                            <button type="button" class="btn btn-danger">No validar donación
+                            <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazar-donacion">
+                              <input type= "hidden" name="idDonacionRechazada" value="<%=d.getIdDonacion()%>">
+                              <input type= "hidden" name="idAlumnoDonacionInvalida" value="<%=d.getAlumno().getIdAlumno()%>">
+                            <button type="submit" class="btn btn-danger">No validar donación
                             </button>
+
+                            </form>
+
                           </div>
                         </div>
                       </div>

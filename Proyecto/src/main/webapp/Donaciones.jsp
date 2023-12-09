@@ -76,11 +76,14 @@
                     <li class="active"><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=donaciones"><i class="bi bi-heart-fill"></i><span>Donaciones</span></a>
                     </li>
 
+
+                    <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
-                    <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=eventos_finalizados"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
+
+
 
                     <!-- CONTACTOS -->
                     <li class="list-divider"></li>
@@ -98,101 +101,109 @@
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
     <div class="page-wrapper">
         <div class="content mt-5">
-            <form class="form" id="Donacion" method="post" action="<%=request.getContextPath()%>/SesionServlet?action=registro_usuario" enctype="multipart/form-data">
-                <div class="row">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Donación a AITEL
+                    </h4>
+                </div>
+                <div class="row mt-2">
                     <div class="col-sm-12">
-                        <h4 class="page-title">Donación a AITEL
-                        </h4>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-12">
-                            <p style="text-align: justify;">En caso de ser egresado de la facultad de Telecomunicaciones,
-                                el monto mínimo de pago será de 100 soles, debido a la entrega de un kit teleco.</p>
-                        </div>
+                        <p style="text-align: justify;">En caso de ser egresado de la facultad de Telecomunicaciones,
+                            el monto mínimo de pago será de 100 soles, debido a la entrega de un kit teleco.</p>
                     </div>
                 </div>
-                <!-- MENSAJES DE ERROR O CONFIRMACION -->
-                <% if (request.getParameter("msg") != null) {%>
-                <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
-                </div>
-                <% } %>
-                <% if (request.getParameter("err") != null) {%>
-                <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
-                </div>
-                <% } %>
+            </div>
+            <!-- MENSAJES DE ERROR O CONFIRMACION -->
+            <!-- MENSAJES DE ERROR O CONFIRMACION -->
+            <% if (session.getAttribute("msg") != null) {%>
+            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
+            </div>
+            <% session.removeAttribute("msg");} %>
+            <% if (session.getAttribute("err") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
+            </div>
+            <% session.removeAttribute("err");} %>
+            <% if (session.getAttribute("errDesc") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+            </div>
+            <% session.removeAttribute("errDesc");} %>
 
-                <div class="row mt-3">
-                    <div class="col-md-10 mx-auto">
-                        <div class="blog-view">
-                            <article class="blog blog-single-post">
-                                <form method="POST" action="AlumnoServlet">
-                                    <!-- Medio de pago -->
-                                    <h3 class="blog-title">Paso 1
-                                    </h3>
-                                    <hr>
-                                    <div class="blog-content mt-3 mb-5">
-                                        <p>Escanea el QR según tu medio de pago.</p>
-                                        <div class="row">
-                                            <div class="col text-center yape mt-3 mb-3">
-                                                <label for="yape"><img class="img-pago" height="300px"
-                                                                       src="images/yape.jpg" /></label><br />
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                       id="yape" required/>
-                                            </div>
-                                            <div class="col text-center plin mt-3 mb-3">
-                                                <label for="plin"><img class="img-pago" height="300px"
-                                                                       src="images/plin.jpg" /></label><br />
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                       id="plin" required/>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Monto a pagar -->
-                                    <h3 class="blog-title">Paso 2
-                                    </h3>
-                                    <hr>
-                                    <div class="blog-content mt-3 mb-5">
-                                        <p>Ingrese el monto de donación.</p>
-                                        <div class="row">
-                                            <div class="col">
-                                                <label class="mb-2">Monto (S/.):</label>
-                                                <input name="monto" class="form-control" placeholder="Monto en soles"
-                                                       required/>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Comprobante de pago -->
-                                    <h3 class="blog-title">Paso 3
-                                    </h3>
-                                    <hr>
-                                    <div class="blog-content mt-3 mb-5">
-                                        <p>Sube tu comprobante de pago.</p>
-                                        <div class="row">
-                                            <div class="col field">
-                                                <input class="form-control" type="file" id="comprobante" required>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Botón envío -->
+            <div class="row mt-3">
+                <div class="col-md-10 mx-auto">
+                    <div class="blog-view">
+                        <article class="blog blog-single-post">
+                            <form method="POST" action="<%=request.getContextPath()%>/AlumnoServlet?action=donar" enctype="multipart/form-data">
+                                <!-- Medio de pago -->
+                                <h3 class="blog-title">Paso 1
+                                </h3>
+                                <hr>
+                                <div class="blog-content mt-3 mb-5">
+                                    <p>Escanea el QR según tu medio de pago.</p>
                                     <div class="row">
-                                        <div class="col text-center">
-                                            <button type="submit" class="btn btn-dark mb-3" data-bs-toggle="modal"
-                                                    data-bs-target="#confirmacionModal">
-                                                Enviar Donación
-                                            </button>
+                                        <div class="col text-center yape mt-3 mb-3">
+                                            <label for="yape"><img class="img-pago" height="300px"
+                                                                   src="images/yape.jpg" /></label><br />
+                                            <input value="1" class="form-check-input" type="radio" name="donacionTipo"
+                                                   id="yape" required/>
+                                        </div>
+                                        <div class="col text-center plin mt-3 mb-3">
+                                            <label for="plin"><img class="img-pago" height="300px"
+                                                                   src="images/plin.jpg" /></label><br />
+                                            <input value="2" class="form-check-input" type="radio" name="donacionTipo"
+                                                   id="plin" required/>
                                         </div>
                                     </div>
-                                </form>
-                            </article>
-                        </div>
+
+                                </div>
+
+                                <!-- Monto a pagar -->
+                                <h3 class="blog-title">Paso 2
+                                </h3>
+                                <hr>
+                                <div class="blog-content mt-3 mb-5">
+                                    <p>Ingrese el monto de donación.</p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="mb-2">Monto (S/.):</label>
+                                            <input name="donacionMonto" class="form-control" placeholder="Monto en soles"
+                                                   required/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Comprobante de pago -->
+                                <h3 class="blog-title">Paso 3
+                                </h3>
+                                <hr>
+                                <div class="blog-content mt-3 mb-5">
+                                    <p>Sube tu comprobante de pago.</p>
+                                    <div class="row">
+                                        <div class="col field">
+                                            <input accept="image/*" class="form-control" type="file" name="donacionFoto" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Id Alumno donador -->
+                                <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                                <input type="hidden" class="form-control"
+                                       name="alumnoIDdonador" value="<%=alumnologueado.getIdAlumno()%>">
+
+                                <!-- Botón envío -->
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button type="submit" class="btn btn-dark mb-3" data-bs-toggle="modal"
+                                                data-bs-target="#confirmacionModal">
+                                            Enviar Donación
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </article>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>

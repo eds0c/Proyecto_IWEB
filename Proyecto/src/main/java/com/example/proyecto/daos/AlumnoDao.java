@@ -332,7 +332,7 @@ public class AlumnoDao extends DaoBase{
         Alumno alumno = null;
 
 
-        String sql = "select correo , nombre, apellido from alumno \n" +
+        String sql = "select correo , nombre, apellido, egresado from alumno \n" +
                 "where idAlumno= ?";
 
         try (Connection conn = this.getConnection();
@@ -346,6 +346,7 @@ public class AlumnoDao extends DaoBase{
                     alumno.setCorreo(rs.getString(1));
                     alumno.setNombre(rs.getString(2));
                     alumno.setApellido(rs.getString(3));
+                    alumno.setEgresado(rs.getString(4));
                 }
             }
 

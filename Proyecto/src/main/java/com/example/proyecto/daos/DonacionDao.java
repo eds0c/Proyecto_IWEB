@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class DonacionDao extends DaoBase{
                     Alumno a = aDao.obtenerAlumno(rs.getString("Alumno_idAlumno"));
 
                     d.setIdDonacion(rs.getInt("d.idDonacion"));
-                    d.setMonto(rs.getString("d.monto"));
+                    d.setMonto(rs.getDouble("d.monto"));
                     d.setCaptura(rs.getBinaryStream("d.captura"));
                     d.setEstado(rs.getString("d.estado"));
                     d.setFecha(rs.getString("d.fecha"));
@@ -55,7 +56,7 @@ public class DonacionDao extends DaoBase{
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1,donacion.getMonto());
+            pstmt.setDouble(1,donacion.getMonto());
             pstmt.setBlob(2,donacion.getCaptura());
             pstmt.setString(3,donacion.getEstado());
             pstmt.setString(4,donacion.getFecha());
@@ -71,7 +72,7 @@ public class DonacionDao extends DaoBase{
         }
     }
 
-    public void crear(InputStream donacionCaptura, String donacionTipo, int donacionMonto, String idAlumno){
+    public void crear(InputStream donacionCaptura, String donacionTipo, double donacionMonto, String idAlumno){
 
         String sql = "insert into donacion (captura,monto, Tipo_Donacion_idTipo_Donacion,estado,fecha,Alumno_idAlumno) values (?,?,?,?,?,?)";
 
@@ -79,10 +80,10 @@ public class DonacionDao extends DaoBase{
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setBlob(1,donacionCaptura);
-            pstmt.setInt(2,donacionMonto);
+            pstmt.setDouble(2,donacionMonto);
             pstmt.setString(3,donacionTipo);
             pstmt.setString(4,"pendiente");
-            pstmt.setString(5,DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now()));
+            pstmt.setString(5,DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))));
             pstmt.setString(6,idAlumno);
 
             pstmt.executeUpdate();
@@ -169,7 +170,7 @@ public class DonacionDao extends DaoBase{
                     Donacion d = new Donacion();
 
                     d.setIdDonacion(rs.getInt("d.idDonacion"));
-                    d.setMonto(rs.getString("d.monto"));
+                    d.setMonto(rs.getDouble("d.monto"));
                     d.setCaptura(rs.getBinaryStream("d.captura"));
                     d.setEstado(rs.getString("d.estado"));
                     d.setFecha(rs.getString("d.fecha"));
@@ -185,6 +186,23 @@ public class DonacionDao extends DaoBase{
             throw new RuntimeException(e);
         }
         return lista;
+    }
+
+    public void actualizarEstadoDonacion(String idDonacion, String estado){
+
+        String sql = "update donacion set estado = ? where idDonacion = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,estado);
+            pstmt.setString(2,idDonacion);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

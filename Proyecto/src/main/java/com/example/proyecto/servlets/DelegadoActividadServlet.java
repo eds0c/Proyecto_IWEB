@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
@@ -192,7 +193,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                     isAllValid = false;
                     request.getSession().setAttribute("errDesc", "La descripción no es del tamaño adecuado");
                 }
-                if (LocalDate.parse(eventoFecha, formatStringToDate).isBefore(LocalDateTime.now().toLocalDate())) {
+                if (LocalDate.parse(eventoFecha, formatStringToDate).isBefore(LocalDateTime.now(ZoneId.of("America/New_York")).toLocalDate())) {
                     isAllValid = false;
                     request.getSession().setAttribute("errDesc", "La fecha del evento debe ser posterior a la fecha actual");
                 }
@@ -242,7 +243,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                     isAllValid2 = false;
                     request.getSession().setAttribute("errDesc", "La descripción, el título o el lugar no cumplen con el tamaño adecuado.");
                 }
-                if (LocalDate.parse(eventoFecha2, formatStringToDate2).isBefore(LocalDateTime.now().toLocalDate())) {
+                if (LocalDate.parse(eventoFecha2, formatStringToDate2).isBefore(LocalDateTime.now(ZoneId.of("America/New_York")).toLocalDate())) {
                     isAllValid2 = false;
                     request.getSession().setAttribute("errDesc", "La fecha del evento debe ser posterior a la fecha actual");
                 }
@@ -347,12 +348,12 @@ public class DelegadoActividadServlet extends HttpServlet {
                     request.getSession().setAttribute("errDesc", "Coloca un monto a donar.");
                 }
 
-                int donacionMontoint = 0;
+                double donacionMontoDouble = 0;
                 try {
-                    donacionMontoint = Integer.parseInt(donacionMonto);
+                    donacionMontoDouble = Double.parseDouble(donacionMonto);
                 } catch (NumberFormatException n) {
                     isAllValid1 = false;
-                    request.getSession().setAttribute("errDesc", "El monto tiene que ser un número.");
+                    request.getSession().setAttribute("errDesc", "El monto tiene que ser un número (Puede usar decimales).");
                 }
 
 
@@ -369,7 +370,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 if (isAllValid1) {
                     //guardamos Donacion
-                    donacionDao.crear(request.getPart("donacionFoto").getInputStream(), donacionTipo, donacionMontoint, request.getParameter("alumnoIDdonador"));
+                    donacionDao.crear(request.getPart("donacionFoto").getInputStream(), donacionTipo, donacionMontoDouble, request.getParameter("alumnoIDdonador"));
                     request.getSession().setAttribute("msg", "Tu donación fue enviada correctamente.");
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=donaciones");
                 } else {
@@ -379,14 +380,11 @@ public class DelegadoActividadServlet extends HttpServlet {
                 break;
 
 
-
         }
 
 
 
-
-
-        }
+    }
 
 
 

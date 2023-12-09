@@ -10,6 +10,9 @@ import jakarta.servlet.annotation.MultipartConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.SimpleTimeZone;
 @MultipartConfig
@@ -192,11 +195,12 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 String id1 = request.getParameter("idAlumnoAceptado");
                 alumnoDao.actualizarEstado("1",id1);
                 request.getSession().setAttribute("info","Usuario Aceptado");
+                request.getSession().setAttribute("msg", "Usuario Aceptado exitosamente");
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
                 // envio de correo
                 Alumno alumno1 = alumnoDao.correo(id1);
                 String asunto = "Has sido aceptado a TeleWeek ";
-                String contenido = "Hola," + alumno1.getNombre() + " " + alumno1.getApellido() + ", has sido aceptado en TeleWeek, para que puedas participar y donar a la Aitel en esta semana de Ingeniería.";
+                String contenido = "Hola, " + alumno1.getNombre() + " " + alumno1.getApellido() + ", has sido aceptado en TeleWeek, para que puedas participar y donar a la Aitel en esta semana de Ingeniería.";
                 String correo = alumno1.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
                 envioCorreosDaos.sendEmail();
@@ -207,11 +211,12 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 String id2 = request.getParameter("idAlumnoRechazado");
                 alumnoDao.actualizarEstado("4",id2);
                 request.getSession().setAttribute("info","Usuario Rechazado");
+                request.getSession().setAttribute("msg", "Usuario Rechazado exitosamente");
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
                 // envio de correo
                 Alumno alumno2 = alumnoDao.correo(id2);
                 asunto = "Has sido rechazdo";
-                contenido = "Hola," + alumno2.getNombre() + " " + alumno2.getApellido() + ", has sido rechazado de participar de la semana de Ingeniería.";
+                contenido = "Hola, " + alumno2.getNombre() + " " + alumno2.getApellido() + ", has sido rechazado de participar de la semana de Ingeniería.";
                 correo = alumno2.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
                 envioCorreosDaos.sendEmail();
@@ -226,11 +231,70 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 // envio de correo
                 Alumno alumno3 = alumnoDao.correo(id3);
                 asunto = "Has sido baneado";
-                contenido = "Hola," + alumno3.getNombre() + " " + alumno3.getApellido() + ", has sido baneadoo de participar de la semana de Ingeniería.";
+                contenido = "Hola, " + alumno3.getNombre() + " " + alumno3.getApellido() + ", has sido baneadoo de participar de la semana de Ingeniería.";
+                request.getSession().setAttribute("msg", "Usuario baneado exitosamente");
                 correo = alumno3.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
                 envioCorreosDaos.sendEmail();
                 break;
+
+            case"validar-donacion":
+
+                donacionDao.actualizarEstadoDonacion(request.getParameter("idDonacionValida"),"aprobado");
+                request.getSession().setAttribute("msg", "Donación aprobada exitosamente");
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=validar_donaciones");
+                String idAlumnoDonaValido = request.getParameter("idAlumnoDonacionValida");
+
+                // envio de correo
+                Alumno alumno4 = alumnoDao.correo(idAlumnoDonaValido);
+                if(alumno4.getEgresado().equals("Estudiante")){
+                    asunto = "Donación Validada";
+                    contenido = "Hola, " + alumno4.getNombre() + " " + alumno4.getApellido() + ", tu donación ha sido validada. Muchas gracias por donar y apoyar a tu facultad. Saludos.";
+                    correo = alumno4.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+                }
+
+                if (alumno4.getEgresado().equals("Egresado")){
+                    asunto = "Donación Validada";
+                    contenido = "Hola, " + alumno4.getNombre() + " " + alumno4.getApellido() + ", tu donación ha sido validada. Ya que usted es un egresado, se le entregará un kit teleco por parte de la Aitel. El lugar donde recogerá este kit será en el pabellón V, en el laboratorio V307. Puede ir a recogerlo desde el día de hoy " + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))) + ", recuerde que el horario de atención es de las 9 am hasta las 9 pm. Muchas gracias por donar y apoyar a tu facultad. Saludos.";
+                    correo = alumno4.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+                }
+
+
+                break;
+
+            case"rechazar-donacion":
+
+                donacionDao.actualizarEstadoDonacion(request.getParameter("idDonacionRechazada"),"rechazado");
+                request.getSession().setAttribute("msg", "Donación rechazada exitosamente");
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=validar_donaciones");
+
+                String idAlumnoDonaInvalido = request.getParameter("idAlumnoDonacionInvalida");
+                // envio de correo
+                Alumno alumno5 = alumnoDao.correo(idAlumnoDonaInvalido);
+
+                if(alumno5.getEgresado().equals("Estudiante")){
+                    asunto = "Donación invalidada";
+                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido invalidada porque no cumple con el monto requerido o ha adjuntado un comprobante inválido. Saludos. ";
+                    correo = alumno5.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+                }
+
+                if (alumno5.getEgresado().equals("Egresado")){
+                    asunto = "Donación revisada";
+                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido revisada. Muchas gracias por donar; sin embargo, ya que usted es un egresado, el monto a donar no tiene que ser menor a 100 nuevos soles. Por este motivo, no se le entregará el kit teleco. Saludos y tenga buen día.";
+                    correo = alumno5.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+                }
+                break;
+
+
+
         }
 
 

@@ -138,6 +138,19 @@
                     </div>
                 </div>
             </div>
+            <!-- MENSAJES DE ERROR O CONFIRMACION -->
+            <% if (session.getAttribute("msg") != null) {%>
+            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
+            </div>
+            <% session.removeAttribute("msg");} %>
+            <% if (session.getAttribute("err") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
+            </div>
+            <% session.removeAttribute("err");} %>
+            <% if (session.getAttribute("errDesc") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+            </div>
+            <% session.removeAttribute("errDesc");} %>
             <!-- BUSCAR DONACIONES ??? IMPLEMENTAR EN EL SERVLET Y DAO -->
             <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
                 <div class="input-group mb-3">

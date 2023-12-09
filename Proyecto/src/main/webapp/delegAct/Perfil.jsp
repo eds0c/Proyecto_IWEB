@@ -80,7 +80,13 @@
                     <!-- MI ACTIVIDAD -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>ACCIONES</span></li>
-                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad"><i class="bi bi-file-earmark-text-fill"></i><span>Mi Actividad</span></a>
+                    <li class="submenu"><a class="text-decoration-none" href="#"><i
+                            class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
+                            class="menu-arrow"></span></a>
+                        <ul class="submenu_class" style="display: none;">
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
+                        </ul>
                     </li>
 
                     <!-- NOVEDADES - ACT FINALIZADAS -->

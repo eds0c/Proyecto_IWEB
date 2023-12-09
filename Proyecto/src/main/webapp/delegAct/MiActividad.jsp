@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Mi actividad</title>
+    <title>Eventos Activos</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/IconoBat.png">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -99,9 +99,13 @@
                     <!-- MI ACTIVIDAD -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>ACCIONES</span></li>
-                    <li class="active"><a class="text-decoration-none"
-                                          href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad"><i
-                            class="bi bi-file-earmark-text-fill"></i><span>Mi Actividad</span></a>
+                    <li class="submenu"><a class="text-decoration-none" href="#"><i
+                            class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
+                            class="menu-arrow"></span></a>
+                        <ul class="submenu_class" style="display: none;">
+                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
+                        </ul>
                     </li>
 
                     <!-- NOVEDADES - ACT FINALIZADAS -->
@@ -129,7 +133,7 @@
     </div>
 
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
-    <div class="page-wrapper">
+    <div class="page-wrapper" id="actividad">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
@@ -149,15 +153,18 @@
             <% if (session.getAttribute("msg") != null) {%>
             <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
             </div>
-            <% session.removeAttribute("msg");} %>
+            <% session.removeAttribute("msg");
+            } %>
             <% if (session.getAttribute("err") != null) {%>
             <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
             </div>
-            <% session.removeAttribute("err");} %>
+            <% session.removeAttribute("err");
+            } %>
             <% if (session.getAttribute("errDesc") != null) {%>
             <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
             </div>
-            <% session.removeAttribute("errDesc");} %>
+            <% session.removeAttribute("errDesc");
+            } %>
             <!-- BUSCAR ACTIVIDAD IMPLEMENTAR EN EL SERVLET Y DAO -->
             <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=buscar">
                 <div class="input-group mb-3">
@@ -367,15 +374,15 @@
                                         </td>
                                         <!-- FIN PARTICIPANTES EVENT -->
 
-                                        <!-- ELIMINAR ACT -->
+                                        <!-- ELIMINAR EVENT -->
                                         <td>
                                             <button class="btn btn-danger" data-bs-toggle="modal"
-                                                    href="#eliminarActividad<%=i%>">
+                                                    href="#eliminarEvento<%=i%>">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </td>
-                                        <%-- MODAL ELIMINAR --%>
-                                        <div class="modal fade" id="eliminarActividad<%=i%>" aria-hidden="true">
+                                        <%-- MODAL ELIMINAR EVENT --%>
+                                        <div class="modal fade" id="eliminarEvento<%=i%>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -436,11 +443,6 @@
                                         </li>
                                     </ul>
                                 </nav>
-
-                                <!-- FINALIZAR ACTIVIDAD -->
-                                <a class="btn btn-dark" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Finalizar
-                                    actividad</a>
-
                                 <!-- MODAL AGREGAR EVENT -->
                                 <div class="modal fade" id="modalNuevo"
                                      aria-hidden="true">
@@ -512,7 +514,54 @@
                                 </div>
                                 <!-- FIN MODAL AGREGAR ACT -->
                             </div>
+
+                            <!-- FINALIZAR ACTIVIDAD: cambiar todos los eventos a finalizados -->
+                            <div class="text-center">
+                                <a class="btn btn-dark" data-bs-toggle="modal" href="#finalizarAct" role="button">Finalizar
+                                    actividad</a>
+                            </div>
+                            <!-- MODAL FINALIZAR ACT-->
+                            <div class="modal fade" id="finalizarAct" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Finalizar actividad</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro que deseas finalizar la actividad?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button type="button" class="btn btn-primary"
+                                                    onclick="finalizarActividad()">Sí
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Se eliminó la act exitosamente -->
+    <div class="page-wrapper" id="actividadFinalizada" style="display: none;">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="mt-5">
+                            <h4 class="card-title float-left mt-2">Actividad Finalizada</h4>
+                        </div>
+                        <button class="btn btn-light active float-right veiwbutton">
+                            Subir fotos de la actividad
+                        </button>
                     </div>
                 </div>
             </div>
@@ -520,15 +569,26 @@
     </div>
 </div>
 
-<script src="assets/js/jquery-3.5.1.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="assets/js/script.js"></script>
-<!--Script de bootstrap  -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <!--Script de bootstrap  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <!-- Script para ocultar la página-->
+    <script>
+        // Función para finalizar la actividad
+        function finalizarActividad() {
+            // Oculta la tabla al hacer clic en "Sí"
+            document.getElementById("actividad").style.display = "none";
+            // Muestra un mensaje
+            document.getElementById("actividadFinalizada").style.display = "block";
+
+        }
+    </script>
 </body>
 
 </html>

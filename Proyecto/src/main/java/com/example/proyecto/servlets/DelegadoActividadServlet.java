@@ -86,6 +86,8 @@ public class DelegadoActividadServlet extends HttpServlet {
                 request.setAttribute("lista_mis_eventos", list_mis_eventos);
                 request.getRequestDispatcher("delegAct/MisEventos.jsp").forward(request, response);
                 break;
+
+            // ESTE CASO SE REFIERE A LA ACTIVIDAD FINALIZADA
             case "eventos_finalizados":
 
                 //saca la lista de eventos finalizados
@@ -96,11 +98,12 @@ public class DelegadoActividadServlet extends HttpServlet {
                 request.setAttribute("lista_eventos_finalizados",listaEventosFinalizados);
                 request.getRequestDispatcher("delegAct/EventFinalizados.jsp").forward(request,response);
                 break;
+
             case "donaciones":
                 request.getRequestDispatcher("delegAct/Donaciones.jsp").forward(request, response);
                 break;
-            case "info_eventos":
 
+            case "info_eventos":
                 String idEvento = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
 
                 Evento evento = eventoDao.buscarEvento(idEvento);
@@ -113,6 +116,8 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 request.getRequestDispatcher("delegAct/InfoEvento.jsp").forward(request,response);
                 break;
+
+            //EVENTOS CON ESTADO ACTIVO
             case "mi_actividad":
                 String idEvento2 = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
 
@@ -125,6 +130,13 @@ public class DelegadoActividadServlet extends HttpServlet {
                 request.setAttribute("lista3",lista3);
                 request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
                 break;
+
+            //EVENTOS CON ESTADO FINALIZADO
+            case "estado_finalizado":
+                request.getRequestDispatcher("delegAct/EstadoFinalizado.jsp").forward(request, response);
+                break;
+
+
             case "participantes":
 
                 String idEvento3 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");

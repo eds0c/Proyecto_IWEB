@@ -281,12 +281,15 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getSession().setAttribute("msg", "Donación aprobada exitosamente");
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=validar_donaciones");
                 String idAlumnoDonaValido = request.getParameter("idAlumnoDonacionValida");
+                String idDonacionValida1 = request.getParameter("idDonacionValida1");
+                String motivoValido = request.getParameter("motivo");
 
                 // envio de correo
                 Alumno alumno4 = alumnoDao.correo(idAlumnoDonaValido);
+                donacionDao.crearMotivo(idDonacionValida1,motivoValido);
                 if(alumno4.getEgresado().equals("Estudiante")){
                     asunto = "Donación Validada";
-                    contenido = "Hola, " + alumno4.getNombre() + " " + alumno4.getApellido() + ", tu donación ha sido validada. Muchas gracias por donar y apoyar a tu facultad. Saludos.";
+                    contenido = "Hola, " + alumno4.getNombre() + " " + alumno4.getApellido() + ", tu donación ha sido validada, porque " + motivoValido + ". Muchas gracias por donar y apoyar a tu facultad. Saludos.";
                     correo = alumno4.getCorreo();
                     envioCorreosDaos.createEmail(correo,asunto,contenido);
                     envioCorreosDaos.sendEmail();
@@ -294,7 +297,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
                 if (alumno4.getEgresado().equals("Egresado")){
                     asunto = "Donación Validada";
-                    contenido = "Hola, " + alumno4.getNombre() + " " + alumno4.getApellido() + ", tu donación ha sido validada. Ya que usted es un egresado, se le entregará un kit teleco por parte de la Aitel. El lugar donde recogerá este kit será en el pabellón V, en el laboratorio V307. Puede ir a recogerlo desde el día de hoy " + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))) + ", recuerde que el horario de atención es de las 9 am hasta las 9 pm. Muchas gracias por donar y apoyar a tu facultad. Saludos.";
+                    contenido = "Hola, " + alumno4.getNombre() + " " + alumno4.getApellido() + ", tu donación ha sido validada, porque " + motivoValido + ". Ya que usted es un egresado, se le entregará un kit teleco por parte de la Aitel. El lugar donde recogerá este kit será en el pabellón V, en el laboratorio V307. Puede ir a recogerlo desde el día de hoy " + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))) + ", recuerde que el horario de atención es de las 9 am hasta las 9 pm. Muchas gracias por donar y apoyar a tu facultad. Saludos.";
                     correo = alumno4.getCorreo();
                     envioCorreosDaos.createEmail(correo,asunto,contenido);
                     envioCorreosDaos.sendEmail();
@@ -310,12 +313,16 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=validar_donaciones");
 
                 String idAlumnoDonaInvalido = request.getParameter("idAlumnoDonacionInvalida");
+                String idDonacionValida2 = request.getParameter("idDonacionValida2");
+                String motivoRechazo = request.getParameter("motivo");
+
                 // envio de correo
                 Alumno alumno5 = alumnoDao.correo(idAlumnoDonaInvalido);
+                donacionDao.crearMotivo(idDonacionValida2,motivoRechazo);
 
                 if(alumno5.getEgresado().equals("Estudiante")){
                     asunto = "Donación invalidada";
-                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido invalidada porque no cumple con el monto requerido o ha adjuntado un comprobante inválido. Saludos. ";
+                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido invalidada porque " + motivoRechazo + ". Saludos. ";
                     correo = alumno5.getCorreo();
                     envioCorreosDaos.createEmail(correo,asunto,contenido);
                     envioCorreosDaos.sendEmail();
@@ -323,7 +330,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
                 if (alumno5.getEgresado().equals("Egresado")){
                     asunto = "Donación revisada";
-                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido revisada. Muchas gracias por donar; sin embargo, ya que usted es un egresado, el monto a donar no tiene que ser menor a 100 nuevos soles. Por este motivo, no se le entregará el kit teleco. Saludos y tenga buen día.";
+                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido revisada. Muchas gracias por donar; sin embargo, ya que usted es un egresado, " + motivoRechazo + ". Por este motivo, no se le entregará el kit teleco. Saludos y tenga buen día.";
                     correo = alumno5.getCorreo();
                     envioCorreosDaos.createEmail(correo,asunto,contenido);
                     envioCorreosDaos.sendEmail();

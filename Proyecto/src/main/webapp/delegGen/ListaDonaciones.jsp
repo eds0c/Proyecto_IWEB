@@ -189,6 +189,7 @@
                                         <th>Fecha</th>
                                         <th>Medio de pago</th>
                                         <th>Monto</th>
+                                        <th>Motivo</th>
 
                                     </tr>
                                     </thead>
@@ -214,6 +215,37 @@
                                                     <%}%>
                                                 </td>
                                                 <td>S/. <%=d.getMonto()%></td>
+                                                <td>
+                                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalMostrar<%=i%>">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                </td>
+                                                <!-- MODAL OBSERVAR COMPROBANTE-->
+                                                <div class="modal fade" id="modalMostrar<%=i%>" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <form>
+                                                                <div class="modal-header">
+                                                                    <h5 class="fw-bold">Verificación</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    <div class="mb-3">
+                                                                        <h6 class="fw-bold">Montivo:</h6>
+                                                                        <!-- IMPLEMENTAR EL DAO -->
+                                                                        <p class="form-control"><%=d.getMotivo()%>
+                                                                        </p>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </tr>
                                             <%i++;%>

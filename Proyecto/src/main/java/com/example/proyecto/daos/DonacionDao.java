@@ -205,6 +205,29 @@ public class DonacionDao extends DaoBase{
         }
     }
 
+    public Donacion crearMotivo(String idDonacion, String motivo){
+
+        Donacion donacion = new Donacion();
+
+        String sql = "update donacion set motivo = ? where idDonacion = ?;" ;
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, motivo);
+            pstmt.setString(2, idDonacion);
+            pstmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return donacion;
+    }
+
+
+
 
 
 }

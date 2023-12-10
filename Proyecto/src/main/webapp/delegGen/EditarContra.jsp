@@ -116,33 +116,30 @@
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
     <div class="main-wrapper login-body login_class">
         <div class="login-wrapper">
-            <div class="text-center justify-content-center mb-5 col ">
-                <!-- MENSAJES DE ERROR O CONFIRMACION -->
-                <% if (session.getAttribute("msg") != null) {%>
-                <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
-                </div>
-                <% session.removeAttribute("msg");
-                } %>
-                <% if (session.getAttribute("err") != null) {%>
-                <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
-                </div>
-                <% session.removeAttribute("err");
-                } %>
-                <% if (session.getAttribute("errDesc") != null) {%>
-                <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
-                </div>
-                <% session.removeAttribute("errDesc");
-                } %>
-            </div>
-
             <div class="container">
-                <div class="loginbox login_pswd">
+                <div class="loginbox login_pswd" style="min-height: 650px">
                     <div class="login-right">
                         <div class="text-center login-right-wrap mb-5 mt-5">
                             <div class="mb-3">
                                 <img src="images/candado.png" width="80px">
                             </div>
                             <h2>Cambiar Contraseña</h2>
+                            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                                <% if (session.getAttribute("msg") != null) { %>
+                                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                                <% session.removeAttribute("msg"); } %>
+                                <% if (session.getAttribute("err") != null) { %>
+                                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                                <% session.removeAttribute("err"); } %>
+                                <% if (session.getAttribute("errDesc") != null) { %>
+                                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                                <% session.removeAttribute("errDesc"); } %>
+                            </div>
 
                             <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=cambiar_contra">
                                 <div class="field valid-password mt-3">
@@ -201,7 +198,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-<script src="js/passsssswordscript.js"></script>
+<script src="js/contrasena.js"></script>
 </body>
 
 </html>

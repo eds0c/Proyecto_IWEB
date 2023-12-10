@@ -124,6 +124,9 @@
                     </div>
                 </div>
             </div>
+            <%if (lista_mis_eventos.isEmpty()) {%>
+            <p class="lead">Aún no te has incrito en ningún evento.</p>
+            <%}%>
 
 
             <%--            poner aqui lo q quiera                  --%>

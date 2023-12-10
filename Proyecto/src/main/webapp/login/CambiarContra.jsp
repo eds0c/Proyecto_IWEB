@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%String casoUsuario = (String) request.getAttribute("casoC");%>
+<%String idUsuario = (String) request.getAttribute("idParaCambiar");%>
+<%String tokenEnvioPost = (String) request.getAttribute("tokenEnvio");%>
 <html lang="en">
 
 <head>
@@ -27,36 +30,51 @@
             </div>
 
             <h2>Cambie su contraseña</h2>
-
+            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                <% if (session.getAttribute("msg") != null) { %>
+                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                <% session.removeAttribute("msg"); } %>
+                <% if (session.getAttribute("err") != null) { %>
+                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                <% session.removeAttribute("err"); } %>
+                <% if (session.getAttribute("errDesc") != null) { %>
+                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                <% session.removeAttribute("errDesc"); } %>
+            </div>
             <!-- Cambiar Contraseña -->
-            <form class="form">
-                <div class="field create-password">
+            <form class="form" method="POST" action="<%=request.getContextPath()%>/SesionServlet?action=reestablecer_contra&caseC=<%=casoUsuario%>">
+                <div class="field create-password mt-3">
                     <div class="input-field">
-                        <input type="password" placeholder="Nueva contraseña" class="password"/>
+                        <input type="password" placeholder="Nueva contraseña" class="password" name="contra1" required>
                         <i class="bx bx-hide show-hide"></i>
                     </div>
                     <span class="error password-error">
-                        <i class="bx bx-error-circle error-icon"></i>
-                        <p class="error-text">
-                            Por favor, ingrese al menos 8 carácteres entre ellos un número,
-                            símbolo, letra minúscula y mayúscula.
-                        </p>
-                    </span>
+                                        <i class="bx bx-error-circle error-icon"></i>
+                                        <p class="error-text">
+                                            Por favor, ingrese al menos 8 carácteres entre ellos un número,
+                                            símbolo, letra minúscula y mayúscula.
+                                        </p>
+                                    </span>
                 </div>
                 <div class="field confirm-password">
                     <div class="input-field">
-                        <input type="password" placeholder="Confirme contraseña" class="cPassword"/>
+                        <input type="password" placeholder="Confirme contraseña" class="cPassword" name="contra2" required>
                         <i class="bx bx-hide show-hide"></i>
                     </div>
                     <span class="error cPassword-error">
-                        <i class="bx bx-error-circle error-icon"></i>
-                        <p class="error-text">Las contraseñas no coinciden</p>
-                    </span>
+                                        <i class="bx bx-error-circle error-icon"></i>
+                                        <p class="error-text">Las contraseñas no coinciden</p>
+                                    </span>
                 </div>
-
-
-                <div>
-                    <input class="presionar" type="submit" value="Cambiar contraseña"/>
+                <input type="hidden" name="idUsuarioCambiar" value="<%=idUsuario%>">
+                <input type="hidden" name="tokenPost" value="<%=tokenEnvioPost%>">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
                 </div>
 
             </form>
@@ -70,7 +88,7 @@
     </div>
 </div>
 <!-- Archivo script -->
-<script src="js/passwordscript.js"></script>
+<script src="js/contrasena.js"></script>
 </body>
 
 </html>

@@ -124,20 +124,22 @@
                     </div>
                 </div>
             </div>
-            <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <% if (session.getAttribute("msg") != null) {%>
-            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
+            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                <% if (session.getAttribute("msg") != null) { %>
+                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                <% session.removeAttribute("msg"); } %>
+                <% if (session.getAttribute("err") != null) { %>
+                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                <% session.removeAttribute("err"); } %>
+                <% if (session.getAttribute("errDesc") != null) { %>
+                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                <% session.removeAttribute("errDesc"); } %>
             </div>
-            <% session.removeAttribute("msg");} %>
-            <% if (session.getAttribute("err") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
-            </div>
-            <% session.removeAttribute("err");} %>
-            <% if (session.getAttribute("errDesc") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
-            </div>
-            <% session.removeAttribute("errDesc");} %>
 
             <div class="row mt-3">
                 <div class="col-md-10 mx-auto">

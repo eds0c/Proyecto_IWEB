@@ -32,7 +32,8 @@ public class DelegadoActividadServlet extends HttpServlet {
     EventoDao eventoDao = new EventoDao();
     DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
     CredentialsDao credentialsDao = new CredentialsDao();
-
+    AlumnoDao alumnoDao = new AlumnoDao();
+    EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
     DonacionDao donacionDao = new DonacionDao();
 
     @Override
@@ -128,6 +129,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
             //EVENTOS CON ESTADO FINALIZADO
             case "estado_finalizado":
+                request.setAttribute("lista_eventos_finalizados",eventoDao.listarEventosSegunEstadoYActividad("f",alumno.getDelegadoActividad().getActividad().getIdActividad(),100,0));
                 request.getRequestDispatcher("delegAct/EstadoFinalizado.jsp").forward(request, response);
                 break;
 
@@ -301,7 +303,17 @@ public class DelegadoActividadServlet extends HttpServlet {
                     String idAE = request.getParameter("idAE");
                     AlumnoEvento aE = alumnoEventoDao.obtenerAlumnoEvento(idAE);
                     integranteDao.cambiarRol(aE);
+                    aE = alumnoEventoDao.obtenerAlumnoEvento(idAE);
                     request.getSession().setAttribute("msg", "Rol cambiado exitosamente.");
+                    // envio de correo
+                    Alumno alumno1 = aE.getAlumno();
+                    String asunto = "Cambio de Rol";
+                    String contenido = "Hola, " + alumno1.getNombre() + " " + alumno1.getApellido() + ", se te ha asignado el nuevo rol de " + aE.getIntegrante().getDescripcion() + ", en el evento '" + aE.getEvento().getTitulo() + "', cuya fecha es " + aE.getEvento().getFechaIn()+".";
+
+                    String correo = alumno1.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ aE.getEvento().getIdEvento());
                 }
                 else{
@@ -339,12 +351,29 @@ public class DelegadoActividadServlet extends HttpServlet {
                     AlumnoEvento alumnoN = alumnoEventoDao.obtenerAlumnoEvento(idAlumnoEventoRol);
                     integranteDao.asignarRol(alumnoN,"equipo");
                     request.getSession().setAttribute("msg", "Rol asignado correctamente.");
+
+                    // envio de correo
+                    Alumno alumno1 = alumnoN.getAlumno();
+                    String asunto = "Asignación de Rol";
+                    String contenido = "Hola, " + alumno1.getNombre() + " " + alumno1.getApellido() + ", se te ha asignado el rol de " + "EQUIPO" + ", en el evento: " + alumnoN.getEvento().getTitulo() + ", cuya fecha es: " + alumnoN.getEvento().getFechaIn();
+                    String correo = alumno1.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
                 }
                 if(rolAsignar.equals("barra")){
                     AlumnoEvento alumnoN = alumnoEventoDao.obtenerAlumnoEvento(idAlumnoEventoRol);
                     integranteDao.asignarRol(alumnoN,"barra");
                     request.getSession().setAttribute("msg", "Rol asignado correctamente.");
+                    // envio de correo
+                    Alumno alumno1 = alumnoN.getAlumno();
+                    String asunto = "Asignación de Rol";
+                    String contenido = "Hola, " + alumno1.getNombre() + " " + alumno1.getApellido() + ", se te ha asignado el rol de " + "BARRA" + ", en el evento: " + alumnoN.getEvento().getTitulo() + ", cuya fecha es: " + alumnoN.getEvento().getFechaIn();
+                    String correo = alumno1.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
                 }
 

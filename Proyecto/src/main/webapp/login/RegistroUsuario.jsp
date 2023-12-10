@@ -25,6 +25,22 @@
             <h1>Crea una cuenta</h1>
         </div>
     </div>
+    <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+        <!-- MENSAJES DE ERROR O CONFIRMACION -->
+        <% if (session.getAttribute("msg") != null) { %>
+        <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+        <% session.removeAttribute("msg"); } %>
+        <% if (session.getAttribute("err") != null) { %>
+        <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+        <% session.removeAttribute("err"); } %>
+        <% if (session.getAttribute("errDesc") != null) { %>
+        <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+        <% session.removeAttribute("errDesc"); } %>
+    </div>
     <hr>
     <!-- VERIFICAR SI ESTE ORDEN DE FORM DENTRO DE COL DENTRO DE ROW ES OPTIMO -->
     <div class="row">
@@ -38,7 +54,7 @@
                             <!-- foto -->
                             <li>Sube una foto de perfil para que los delegados te reconozcan:</li>
                             <div class="field">
-                                <input class="form-control" type="file"  accept="image/*" name="foto">
+                                <input class="form-control" type="file"  accept="image/*" name="foto" required>
                             </div>
 
                             <li>Ingrese sus datos personales:</li>
@@ -86,7 +102,7 @@
                                 <div class="input-field">
                                     <label>
                                         <i class='bx bx-lock-alt'></i>
-                                        <input name="password" type="password" placeholder="Nueva contraseña" class="password" required />
+                                        <input name="password1" type="password" placeholder="Nueva contraseña" class="password" required />
                                         <i class="bx bx-hide show-hide"></i>
                                     </label>
 
@@ -104,7 +120,7 @@
                                 <div class="input-field">
                                     <label>
                                         <i class='bx bx-lock-alt'></i>
-                                        <input type="password" placeholder="Confirme contraseña"
+                                        <input type="password" name="password2" placeholder="Confirme contraseña"
                                                class="cPassword" required />
                                         <i class="bx bx-hide show-hide"></i>
                                     </label>
@@ -141,7 +157,7 @@
                 <!-- BOTON DE ENVÍO -->
                 <div class="row">
                     <div class="col text-center">
-                        <button type="button" class="presionar" data-bs-toggle="modal" data-bs-target="#confirmacionModal">Registrarse</button>
+                        <button type="submit" class="presionar">Registrarse</button>
                     </div>
                 </div>
 
@@ -155,7 +171,7 @@
                             </div>
 
                             <div class="modal-body">
-                                Se le enviará la confirmación del registro a su correo PUCP después de ser validados sus datos por el delegado general.
+                                Se le enviará la confirmación del registro a su correo PUCP después de que sus datos sean validados por un delegado general.
                             </div>
 
                             <div class="modal-footer">

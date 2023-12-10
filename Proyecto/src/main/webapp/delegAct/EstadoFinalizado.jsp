@@ -2,7 +2,7 @@
 <%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
-<jsp:useBean id="lista3" scope="request" type="ArrayList<Evento>"/>
+<jsp:useBean id="lista_eventos_finalizados" scope="request" type="ArrayList<Evento>"/>
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno"
              class="com.example.proyecto.beans.Alumno"/>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
@@ -139,7 +139,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Lista de eventos</h4>
+                            <h4 class="card-title float-left mt-2">Lista de eventos finalizados</h4>
                             <button class="btn btn-light active float-right veiwbutton"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalNuevo">
@@ -149,22 +149,22 @@
                     </div>
                 </div>
             </div>
-            <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <% if (session.getAttribute("msg") != null) {%>
-            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
+            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                <% if (session.getAttribute("msg") != null) { %>
+                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                <% session.removeAttribute("msg"); } %>
+                <% if (session.getAttribute("err") != null) { %>
+                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                <% session.removeAttribute("err"); } %>
+                <% if (session.getAttribute("errDesc") != null) { %>
+                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                <% session.removeAttribute("errDesc"); } %>
             </div>
-            <% session.removeAttribute("msg");
-            } %>
-            <% if (session.getAttribute("err") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
-            </div>
-            <% session.removeAttribute("err");
-            } %>
-            <% if (session.getAttribute("errDesc") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
-            </div>
-            <% session.removeAttribute("errDesc");
-            } %>
             <!-- BUSCAR ACTIVIDAD IMPLEMENTAR EN EL SERVLET Y DAO -->
             <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=buscar">
                 <div class="input-group mb-3">
@@ -179,7 +179,7 @@
                     </a>
                 </div>
             </form>
-            <!-- LISTA DE EVENTOS -->
+            <!-- LISTA DE EVENTOS FINALIZADOS-->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -197,9 +197,12 @@
 
                                     </tr>
                                     </thead>
+                                    <%if (lista_eventos_finalizados.isEmpty()) {%>
+                                    <p class="lead">No hay eventos finalizados en su actividad.</p>
+                                    <%}%>
                                     <tbody>
                                     <%int i = 1;%>
-                                    <%for (Evento e : lista3) {%>
+                                    <%for (Evento e : lista_eventos_finalizados) {%>
                                     <tr>
                                         <td><%=i%>
                                         </td>

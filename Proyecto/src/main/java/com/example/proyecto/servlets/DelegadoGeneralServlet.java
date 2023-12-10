@@ -151,8 +151,11 @@ public class DelegadoGeneralServlet extends HttpServlet {
                     //vinculamos al delegado_actividad(tabla) con la actividad
                     delegadoActividadDao.crearDelegadoActividad(String.valueOf(actividadDao.obtenerUltimoId()));
                     alumnoDao.actualizarIdDelegadoActividad(String.valueOf(delegadoActividadDao.obtenerUltimoId()),request.getParameter("idAlumnoDelegadoActividad"));
+                    request.getSession().setAttribute("msg", "Actividad creada exitosamente.");
                     response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                 } else {
+                    request.getSession().setAttribute("err", "Error al actualizar la actividad.");
+                    request.getSession().setAttribute("errDesc", "Asegúrese de que no ha dejado campos vacíos o haya excedido los 45 caracteres.");
                     response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                 }
                 break;
@@ -178,14 +181,19 @@ public class DelegadoGeneralServlet extends HttpServlet {
                     if (request.getParameter("idAlumnoDelegadoActividad").equalsIgnoreCase("0")) {  //Caso de mantener Delegado de Actividad
 
                         actividadDao.actualizar(actividad);
+                        request.getSession().setAttribute("msg", "Actividad actualizada exitosamente.");
                         response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                     } else {
                         actividadDao.actualizar(actividad);
                         alumnoDao.actualizarIdDelegadoActividad("eliminar",String.valueOf(alumnoDelegadoActividadActual.getIdAlumno()));
                         alumnoDao.actualizarIdDelegadoActividad(String.valueOf(alumnoDelegadoActividadActual.getDelegadoActividad().getIdDelegadoActividad()),request.getParameter("idAlumnoDelegadoActividad"));
+                        request.getSession().setAttribute("msg", "Actividad actualizada exitosamente.");
                         response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                     }
+
                 } else {
+                    request.getSession().setAttribute("err", "Error al actualizar la actividad.");
+                    request.getSession().setAttribute("errDesc", "Asegúrese de que no ha dejado campos vacíos o haya excedido los 45 caracteres.");
                     response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                 }
                 break;
@@ -203,6 +211,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 delegadoActividadDao.eliminar(idDelegadoActividadEliminar);
                 eventoDao.eliminarPorActividad(idActividadEliminar);
                 actividadDao.eliminar(idActividadEliminar);
+                request.getSession().setAttribute("msg", "Actividad eliminada exitosamente.");
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_actividades");
                 break;
 

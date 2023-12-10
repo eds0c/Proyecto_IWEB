@@ -1,5 +1,6 @@
 package com.example.proyecto.daos;
 
+import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.Alumno;
 import com.example.proyecto.beans.DelegadoGeneral;
 import com.mysql.cj.util.DataTypeUtil;
@@ -13,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CredentialsDao extends DaoBase{
     public int validarUsuarioPassword(String correo, String password){
@@ -224,6 +226,190 @@ public class CredentialsDao extends DaoBase{
     }
 
 
+    public boolean validarCorreoAlumno(String correo){
 
+        boolean isValid = false;
+
+        String sql = "select * from alumno a where a.correo = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,correo);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    isValid = true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return isValid;
+
+    }
+
+    public boolean validarCorreoDelegadoGeneral(String correo) {
+
+        boolean isValid = false;
+
+        String sql = "select * from delegado_general where correo = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, correo);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    isValid = true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return isValid;
+    }
+
+
+    public void actualizarTokenAlumno(int idAlumno, String token){
+
+        String sql = "update alumno set token = ? where idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,token);
+            pstmt.setInt(2,idAlumno);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarTokenDelegadoGeneral(int idDelegadoGeneral, String token){
+
+        String sql = "update delegado_general set token = ? where idDelegado_General = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,token);
+            pstmt.setInt(2,idDelegadoGeneral);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void borrarTokenDelegadoGeneral(String idDelegadoGeneral){
+
+        String sql = "update delegado_general set token = NULL where idDelegado_General = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,idDelegadoGeneral);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void borrarTokenAlumno(String idAlumno){
+
+        String sql = "update alumno set token = NULL where idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,idAlumno);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public String obtenerTokenDelegadoGeneral(String idDelegadoGeneral) {
+
+        String token = "";
+        String sql = "select * from delegado_general where idDelegado_General = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, idDelegadoGeneral);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    token = rs.getString("token");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return token;
+    }
+
+    public String obtenerTokenAlumno(String idAlumno) {
+
+        String token = "";
+        String sql = "select * from alumno where idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, idAlumno);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    token = rs.getString("token");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return token;
+    }
+
+
+
+
+
+
+
+
+
+    public  int numeroAleatorioEnRango(int minimo, int maximo) {
+        // nextInt regresa en rango pero con límite superior exclusivo, por eso sumamos 1
+        return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
+    }
+
+    public String cadenaAleatoria(int longitud) {
+        // El banco de caracteres
+        String banco = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        // La cadena en donde iremos agregando un carácter aleatorio
+        String cadena = "";
+        for (int x = 0; x < longitud; x++) {
+            int indiceAleatorio = numeroAleatorioEnRango(0, banco.length() - 1);
+            char caracterAleatorio = banco.charAt(indiceAleatorio);
+            cadena += caracterAleatorio;
+        }
+        return cadena;
+    }
 
 }

@@ -27,16 +27,52 @@
 
             <h2>Recupere su contraseña</h2>
             <p>Coloque su correo PUCP y le enviaremos un enlace para restablecer tu contraseña.</p>
+            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                <% if (session.getAttribute("msg") != null) { %>
+                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                <% session.removeAttribute("msg"); } %>
+                <% if (session.getAttribute("err") != null) { %>
+                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                <% session.removeAttribute("err"); } %>
+                <% if (session.getAttribute("errDesc") != null) { %>
+                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                <% session.removeAttribute("errDesc"); } %>
+            </div>
 
             <!-- Recuperar Contraseña -->
-            <form class="form" id="EmailForm">
+            <form class="form" id="EmailForm" method="POST" action="<%=request.getContextPath()%>/SesionServlet?action=generar_token">
                 <label class="mb-1">
                     <i class='bx bx-envelope'></i>
-                    <input id="email" type="email" placeholder="Correo PUCP" required>
+                    <input id="email" type="email" placeholder="Correo PUCP" name="correoOlvidoContra" required>
                 </label>
 
                 <!-- Button trigger modal -->
-                <button class="presionar" type="submit">Enviar enlace</button>
+                <button type="submit" class="presionar">Enviar enlace</button>
+                <!-- Modal de aviso  -->
+                <div class="modal fade" id="confirmacionModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title fs-5">Aviso</h5>
+                            </div>
+
+                            <div class="modal-body">
+                                <p>Revise su correo PUCP para reestablecer su contraseña.</p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="presionar">Entendido</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
             </form>
 
@@ -53,44 +89,12 @@
     </div>
 </div>
 
-<!-- Modal de aviso  -->
-<div class="modal fade" id="confirmacionModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title fs-5">Aviso</h5>
-            </div>
-
-            <div class="modal-body">
-                <p>Revise su correo PUCP para reestablecer su contraseña.</p>
-            </div>
-
-            <div class="modal-footer">
-                <a href="<%=request.getContextPath()%>/SesionServlet?action=inicio_sesion" class="btn btn-success">Entendido</a>
-            </div>
-
-        </div>
-    </div>
-</div>
 <!--Script de bootstrap  -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous">
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var formulario = document.getElementById('EmailForm');
-        var confirmacionModal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
 
-        formulario.addEventListener('submit', function (event) {
-            event.preventDefault(); // Evitar el envío del formulario
-
-            // Realizar la lógica de validación del formulario aquí
-            // Mostrar el modal de confirmación después de validar el formulario
-            confirmacionModal.show();
-        });
-    });
-</script>
 </body>
 </html>

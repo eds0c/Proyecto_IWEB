@@ -444,6 +444,52 @@ public class EventoDao extends DaoBase{
         }
     }
 
+    public ArrayList<Evento> listarEventosSegunEstadoYActividad(String estado, int idActividad, int limit, int offset){ //evento de segundo plano
+
+        ArrayList<Evento> lista = new ArrayList<>();
+        ActividadDao aDao = new ActividadDao();
+
+
+        String sql = "select * from evento e where e.estado = ? and e.Actividad_idActividad = ? limit ? offset ?";
+
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,estado); // evento principal
+            pstmt.setInt(2,idActividad); // evento principal
+            pstmt.setInt(3,limit);
+            pstmt.setInt(4,offset);
+
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+                    Actividad a = aDao.obtenerActividad(rs.getString("Actividad_idActividad"));
+
+                    Evento e = new Evento();
+                    e.setIdEvento(rs.getInt("idEvento"));
+                    e.setDescripcion(rs.getString("descripcion"));
+                    e.setFechaIn(rs.getString("fechaIn"));
+                    e.setParticipantes(rs.getString("participantes"));
+                    e.setEstado(rs.getString("estado"));
+                    e.setFoto(rs.getBinaryStream("foto"));
+                    e.setFechaFin(rs.getString("fechaFin"));
+                    e.setLugar(rs.getString("lugar"));
+                    e.setHora(rs.getString("hora"));
+                    e.setTitulo(rs.getString("titulo"));
+
+                    e.setActividad(a);
+
+                    lista.add(e);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
+
 
 
 }

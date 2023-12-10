@@ -256,15 +256,14 @@ public class EventoDao extends DaoBase{
                 "from alumno a INNER JOIN alumno_evento ae ON (a.idAlumno = ae.Alumno_idAlumno)\n" +
                 "INNER JOIN integrante i ON (ae.Integrante_idIntegrante = i.idIntegrante)\n" +
                 "INNER JOIN evento e ON (ae.Evento_idEvento = e.idEvento)\n" +
-                "WHERE e.idEvento = ? and e.estado = ? and i.idIntegrante != 3 order by a.idAlumno limit ? offset ?;";
+                "WHERE e.idEvento = ? and i.idIntegrante != 3 order by a.idAlumno limit ? offset ?;";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,idEvento);
-            pstmt.setString(2,estado);
-            pstmt.setInt(3,limit);
-            pstmt.setInt(4,offset);
+            pstmt.setInt(2,limit);
+            pstmt.setInt(3,offset);
 
             try(ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -488,6 +487,46 @@ public class EventoDao extends DaoBase{
             throw new RuntimeException(e);
         }
         return lista;
+    }
+
+
+    public void finalizarEventosPorActividad(String idActividad){
+
+        AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+        ActividadDao aDao = new ActividadDao();
+
+
+        String sql = "update evento set estado = ? where Actividad_idActividad = ? ;";
+
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,"f");
+            pstmt.setString(2,idActividad);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void finalizarEvento(String idEvento) {
+
+        String sql = "update evento set estado = ? where idEvento = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,"f");
+            pstmt.setString(2,idEvento);
+            pstmt.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

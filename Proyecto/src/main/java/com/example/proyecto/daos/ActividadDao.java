@@ -128,5 +128,23 @@ public class ActividadDao extends DaoBase {
         }
     }
 
+    public void finalizarActividad(String idActividad){
+
+
+        String sql = "update actividad set estado = ? where idActividad = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,"finalizada");
+            pstmt.setInt(2,Integer.parseInt(idActividad));
+            pstmt.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

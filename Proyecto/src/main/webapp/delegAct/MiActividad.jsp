@@ -6,6 +6,7 @@
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno"
              class="com.example.proyecto.beans.Alumno"/>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
+<%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <html lang="en">
 
 <head>
@@ -103,17 +104,22 @@
                             class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
                             class="menu-arrow"></span></a>
                         <ul class="submenu_class" style="display: none;">
+
+                            <%if(!actividadIsFinalizada){%>
                             <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
+                            <%}%>
+                            <%if(actividadIsFinalizada){%>
+                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividad_finalizada">Subir fotos</a></li>
+                            <%}%>
+
                         </ul>
                     </li>
 
                     <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
-                    <li><a class="text-decoration-none"
-                           href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados"><i
-                            class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividades_finalizadas"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
 
@@ -392,14 +398,23 @@
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        ¿Estás seguro que deseas finalizar el evento?
+                                                        ¿Estás seguro de que deseas finalizar el evento?
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                                            Cancelar
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary">Sí
-                                                        </button>
+                                                        <form method="post"
+                                                              action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=finalizar_evento">
+
+                                                            <button type="button" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Cancelar
+                                                            </button>
+                                                            <input type="hidden" class="form-control"
+                                                                   name="idEventoFinalizar" value="<%=e.getIdEvento()%>">
+                                                            <button type="submit" class="btn btn-primary"
+                                                                    data-bs-target="#eliminarConfirmado<%=i%>"
+                                                                    data-bs-toggle="modal" data-bs-dismiss="modal">Sí
+                                                            </button>
+
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -422,7 +437,7 @@
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>¿Estás seguro que deseas eliminar este evento?</p>
+                                                        <p>¿Estás seguro de que deseas eliminar este evento?</p>
                                                     </div>
 
                                                     <div class="modal-footer">
@@ -498,7 +513,7 @@
                                                         <input type="file" class="form-control" id="imageUpload" accept="image/*"> -->
                                                         <label>Subir Foto</label>
                                                         <input type="file" class="form-control" name="eventoFoto"
-                                                               accept="image/*">
+                                                               accept="image/*" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label>Título</label>
@@ -564,12 +579,20 @@
                                             ¿Estás seguro que deseas finalizar la actividad?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                                Cancelar
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                                    onclick="finalizarActividad()">Sí
-                                            </button>
+                                            <form method="post"
+                                                  action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=finalizar_actividad">
+
+                                                <button type="button" class="btn btn-danger"
+                                                        data-bs-dismiss="modal">Cancelar
+                                                </button>
+                                                <input type="hidden" class="form-control"
+                                                       name="idActividadFinalizar" value="<%=usuariologueado.getDelegadoActividad().getActividad().getIdActividad()%>">
+                                                <button type="submit" class="btn btn-primary"
+                                                        data-bs-target="#eliminarConfirmado<%=i%>"
+                                                        data-bs-toggle="modal" data-bs-dismiss="modal">Sí
+                                                </button>
+
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

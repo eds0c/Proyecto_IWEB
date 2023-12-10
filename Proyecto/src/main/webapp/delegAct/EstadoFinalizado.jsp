@@ -6,6 +6,7 @@
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno"
              class="com.example.proyecto.beans.Alumno"/>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
+<%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <html lang="en">
 
 <head>
@@ -103,17 +104,22 @@
                             class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
                             class="menu-arrow"></span></a>
                         <ul class="submenu_class" style="display: none;">
-                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
-                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
+
+                            <%if(!actividadIsFinalizada){%>
+                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
+                            <%}%>
+                            <%if(actividadIsFinalizada){%>
+                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividad_finalizada">Subir fotos</a></li>
+                            <%}%>
+
                         </ul>
                     </li>
 
                     <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
-                    <li><a class="text-decoration-none"
-                           href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados"><i
-                            class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividades_finalizadas"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
 
@@ -140,11 +146,6 @@
                     <div class="col">
                         <div class="mt-5">
                             <h4 class="card-title float-left mt-2">Lista de eventos finalizados</h4>
-                            <button class="btn btn-light active float-right veiwbutton"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalNuevo">
-                                Crear Evento
-                            </button>
                         </div>
                     </div>
                 </div>

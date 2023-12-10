@@ -35,6 +35,7 @@ public class DelegadoActividadServlet extends HttpServlet {
     AlumnoDao alumnoDao = new AlumnoDao();
     EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
     DonacionDao donacionDao = new DonacionDao();
+    FotosActividadDao fotosActividadDao = new FotosActividadDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,6 +48,14 @@ public class DelegadoActividadServlet extends HttpServlet {
 
         //Datos de sesión:
         Alumno alumno = (Alumno) request.getSession().getAttribute("usuariologueado");
+
+        boolean actividadIsFinalizada= !actividadDao.obtenerActividad(String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad())).getEstado().equalsIgnoreCase("activa");
+        if(alumno.getDelegadoActividad().getActividad().getEstado().equalsIgnoreCase("finalizada")){
+            actividadIsFinalizada = true;
+        }
+        //enviar parámetro si la actividad está finalizada
+        request.setAttribute("actividadIsFinalizada",actividadIsFinalizada);
+
 
 
         switch (action) {
@@ -84,18 +93,24 @@ public class DelegadoActividadServlet extends HttpServlet {
                 break;
 
             // ESTE CASO SE REFIERE A LA ACTIVIDAD FINALIZADA
-            case "eventos_finalizados":
+            case "actividad_finalizada":
 
-                //saca la lista de eventos finalizados
+                if(actividadIsFinalizada){
+                    //saca la lista de eventos finalizados
+                    request.getRequestDispatcher("delegAct/ActFinalizada.jsp").forward(request,response);
+                }
+                else {
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
+                }
+                break;
 
-                ArrayList<AlumnoEvento> listaEventosFinalizados = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"f",100,0); //
+            case "actividades_finalizadas":
 
-                //mandar la lista a la vista -> /MainPage.jsp
-                request.setAttribute("lista_eventos_finalizados",listaEventosFinalizados);
-                request.getRequestDispatcher("delegAct/EventFinalizados.jsp").forward(request,response);
+                request.getRequestDispatcher("delegAct/ActividadesFinalizadas.jsp").forward(request,response);
                 break;
 
             case "donaciones":
+
                 request.getRequestDispatcher("delegAct/Donaciones.jsp").forward(request, response);
                 break;
 
@@ -104,6 +119,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 Evento evento = eventoDao.buscarEvento(idEvento);
                 ArrayList<Evento> lista2 = eventoDao.listarEventos(idEvento,4,0);
+
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("evento",evento);
@@ -115,29 +131,35 @@ public class DelegadoActividadServlet extends HttpServlet {
 
             //EVENTOS CON ESTADO ACTIVO
             case "mi_actividad":
-                String idEvento2 = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
+                if(actividadIsFinalizada){
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
+                }
+                else {
+                    String idEvento2 = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
+                    Evento evento2 = eventoDao.buscarEvento(idEvento2);
+                    String idAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
+                    String estadoAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getEstado());
 
-                Evento evento2 = eventoDao.buscarEvento(idEvento2);
-                String idAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
-                String estadoAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getEstado());
-
-                if(estadoAct2.equals("finalizada")){
-                    request.getRequestDispatcher("delegAct/ActFinalizada.jsp").forward(request, response);
-                }else{
                     ArrayList<Evento> lista3 = eventoDao.listarPorActividad(idAct2,"a",100,0);
-
                     request.setAttribute("evento2",evento2);
                     request.setAttribute("lista3",lista3);
                     request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
-                }
 
+                }
 
                 break;
 
             //EVENTOS CON ESTADO FINALIZADO
             case "estado_finalizado":
-                request.setAttribute("lista_eventos_finalizados",eventoDao.listarEventosSegunEstadoYActividad("f",alumno.getDelegadoActividad().getActividad().getIdActividad(),100,0));
-                request.getRequestDispatcher("delegAct/EstadoFinalizado.jsp").forward(request, response);
+
+                if(actividadIsFinalizada){
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
+                }
+                else {
+                    request.setAttribute("lista_eventos_finalizados",eventoDao.listarEventosSegunEstadoYActividad("f",alumno.getDelegadoActividad().getActividad().getIdActividad(),100,0));
+                    request.getRequestDispatcher("delegAct/EstadoFinalizado.jsp").forward(request, response);;
+                }
+
                 break;
 
 
@@ -147,9 +169,17 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 ArrayList<AlumnoEvento> listaParticipantes = eventoDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
 
+                //enviar parámetro si el evento está finalizado
+                boolean eventoIsFinalizado = !eventoDao.buscarEvento(idEvento3).getEstado().equalsIgnoreCase("a");
+                if(eventoDao.buscarEvento(idEvento3).getEstado().equalsIgnoreCase("f")){
+                    eventoIsFinalizado = true;
+                }
+                request.setAttribute("eventoIsFinalizada",eventoIsFinalizado);
+
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("idE",idEvento3);
                 request.setAttribute("lista_participantes",listaParticipantes);
+
 
                 request.getRequestDispatcher("delegAct/Participantes.jsp").forward(request, response);
                 break;
@@ -163,6 +193,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 //mandar la lista a la vista -> /InfoEventos.jsp
                 request.setAttribute("idE",idEvento4);
                 request.setAttribute("lista_participantes_pendientes",listaParticipantesPendientes);
+
 
                 request.getRequestDispatcher("delegAct/SolicitudParticipante.jsp").forward(request, response);
                 break;
@@ -199,6 +230,7 @@ public class DelegadoActividadServlet extends HttpServlet {
         switch (action) {
             case "crear"://voy a crear un nuevo evento
 
+
                 Part part = request.getPart("eventoFoto");
                 InputStream eventoFoto = part.getInputStream();
                 String eventoDescripcion = request.getParameter("eventoDescripcion");
@@ -212,10 +244,14 @@ public class DelegadoActividadServlet extends HttpServlet {
                 DateTimeFormatter formatStringToDate = new DateTimeFormatterBuilder().append(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toFormatter();
 
                 boolean isAllValid = true;
-
-                if (eventoDescripcion.length() > 45 || eventoDescripcion.length()<5) {
+                if(request.getParameter("eventoFoto")==null){
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto.");
                     isAllValid = false;
-                    request.getSession().setAttribute("errDesc", "La descripción no es del tamaño adecuado");
+                }
+
+                if (eventoDescripcion.length() > 150 || eventoDescripcion.length()<5) {
+                    isAllValid = false;
+                    request.getSession().setAttribute("errDesc", "La descripción no es de la longitud adecuada.");
                 }
                 if (LocalDate.parse(eventoFecha, formatStringToDate).isBefore(LocalDateTime.now(ZoneId.of("America/New_York")).toLocalDate())) {
                     isAllValid = false;
@@ -239,7 +275,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                         request.getSession().setAttribute("errDesc", "El evento ya existe");
                     }
                 } else {
-                    request.getSession().setAttribute("err", "Error al crear el evento");
+                    request.getSession().setAttribute("err", "Error al crear el evento. ");
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
                 }
                 break;
@@ -299,7 +335,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                         request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
                     }
                 } else {
-                    request.getSession().setAttribute("err", "Error al actualizar el evento");
+                    request.getSession().setAttribute("err", "Error al actualizar el evento. ");
                     request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
                 }
                 break;
@@ -324,7 +360,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ aE.getEvento().getIdEvento());
                 }
                 else{
-                    request.getSession().setAttribute("err", "Error al cambiar rol.");
+                    request.getSession().setAttribute("err", "Error al cambiar rol. ");
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes");
                 }
 
@@ -372,7 +408,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 if(rolAsignar.equals("barra")){
                     AlumnoEvento alumnoN = alumnoEventoDao.obtenerAlumnoEvento(idAlumnoEventoRol);
                     integranteDao.asignarRol(alumnoN,"barra");
-                    request.getSession().setAttribute("msg", "Rol asignado correctamente.");
+                    request.getSession().setAttribute("msg", "Rol asignado correctamente. ");
                     // envio de correo
                     Alumno alumno1 = alumnoN.getAlumno();
                     String asunto = "Asignación de Rol";
@@ -434,7 +470,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=donaciones");
                 } else {
                     request.getRequestDispatcher("delegAct/Donaciones.jsp").forward(request, response);
-                    request.getSession().setAttribute("err", "Tu donación no fue enviada correctamente.");
+                    request.getSession().setAttribute("err", "Tu donación no fue enviada correctamente. ");
                 }
                 break;
 
@@ -447,7 +483,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 if(!credentialsDao.validarContrasenaAlumno(String.valueOf(alumno.getIdAlumno()), request.getParameter("contraActual"))){
                     request.getSession().setAttribute("err", "No se pudo cambiar la contraseña.");
-                    request.getSession().setAttribute("errDesc", "Las contraseña actual no es correcta");
+                    request.getSession().setAttribute("errDesc", "La contraseña actual no es correcta.");
                     isAllValid6 = false;
                 }
 
@@ -472,6 +508,42 @@ public class DelegadoActividadServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=editar_contra");
                 }
 
+                break;
+
+            case "finalizar_evento":
+
+                //Parámetros:
+                String idEventoFinalizar = request.getParameter("idEventoFinalizar");
+                eventoDao.finalizarEvento(idEventoFinalizar);
+                request.getSession().setAttribute("msg", "Evento finalizado existosamente.");
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
+                break;
+
+            case "finalizar_actividad":
+
+                //Parámetros:
+                String idActividadFinalizar = request.getParameter("idActividadFinalizar");
+                eventoDao.finalizarEventosPorActividad(idActividadFinalizar);
+                actividadDao.finalizarActividad(idActividadFinalizar);
+                request.getSession().setAttribute("msg", "Actividad finalizada existosamente.");
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
+                break;
+
+
+            case "subir_foto":
+
+                //Parámetros:
+                String idActividadFinalizadaFotos = request.getParameter("idActividadFinalizadaFotos");
+                if(request.getParameter("fotoActividadFinalizada")!=null){
+                    InputStream actividadFoto = request.getPart("fotoActividadFinalizada").getInputStream();
+                    fotosActividadDao.subirFotoDeActividadFinalizada(idActividadFinalizadaFotos,actividadFoto);
+                    request.getSession().setAttribute("msg", "Foto subida exitosamente.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
+                }
+                else{
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
+                }
 
                 break;
         }

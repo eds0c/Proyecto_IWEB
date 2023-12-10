@@ -2,7 +2,6 @@
 <%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="lista_eventos_finalizados" scope="request" type="ArrayList<AlumnoEvento>" />
 <html lang="en">
 
 <head>
@@ -25,7 +24,7 @@
     <div class="header">
         <!-- CABECERA DE LA BARRA LATERAL -->
         <div class="header-left">
-            <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page" class="logo text-decoration-none"> <img
+            <a href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page" class="logo text-decoration-none"> <img
                     src="assets/img/IconoBat.png" width="30" height="50" alt="logo"> <span
                     class="logoclass">TELEWEEK</span> </a>
         </div>
@@ -48,13 +47,13 @@
                             <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
                             <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
                             <%}%>
-                            <p class="text-muted mb-0">Delegado Actividad</p>
+                            <p class="text-muted mb-0">Alumno</p>
                         </div>
                     </div>
-                    <a class="dropdown-item text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=perfil">Mi
+                    <a class="dropdown-item text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=perfil">Mi
                         Perfil</a>
                     <a class="dropdown-item text-decoration-none"
-                       href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=cerrar_sesion">Cerrar
+                       href="<%=request.getContextPath() %>/AlumnoServlet?action=cerrar_sesion">Cerrar
                         Sesión</a>
                 </div>
             </li>
@@ -66,35 +65,23 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
-                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page"><i class="bi bi-house-fill"></i>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page"><i class="bi bi-house-fill"></i>
                         <span>Inicio</span></a></li>
                     <li class="list-divider"></li>
 
                     <li class="menu-title mt-3"><span>PARTICIPACION</span></li>
                     <!-- EVENTOS INSCRITOS -->
-                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos"><i class="bi bi-calendar-event-fill"></i><span>Mis eventos</span></a>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos"><i class="bi bi-calendar-event-fill"></i><span>Mis eventos</span></a>
                     </li>
 
                     <!-- DONACION -->
-                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=donaciones"><i class="bi bi-heart-fill"></i><span>Donaciones</span></a>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=donaciones"><i class="bi bi-heart-fill"></i><span>Donaciones</span></a>
                     </li>
 
-                    <!-- MI ACTIVIDAD -->
-                    <li class="list-divider"></li>
-                    <li class="menu-title mt-3"><span>ACCIONES</span></li>
-                    <li class="submenu"><a class="text-decoration-none" href="#"><i
-                            class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
-                            class="menu-arrow"></span></a>
-                        <ul class="submenu_class" style="display: none;">
-                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
-                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
-                        </ul>
-                    </li>
-
-                    <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
-                    <li class="active"><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
+                    <!-- NOVEDADES - ACT FINALIZADAS -->
+                    <li class="active"><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=actividades_finalizadas"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
                     <!-- CONTACTOS -->

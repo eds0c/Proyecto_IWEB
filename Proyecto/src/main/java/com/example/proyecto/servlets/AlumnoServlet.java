@@ -75,14 +75,9 @@ public class AlumnoServlet extends HttpServlet {
                 request.setAttribute("lista_mis_eventos", list_mis_eventos);
                 request.getRequestDispatcher("/MisEventos.jsp").forward(request, response);
                 break;
-            case "eventos_finalizados":
-                //saca la lista de eventos finalizados
+            case "actividades_finalizadas":
 
-                ArrayList<AlumnoEvento> listaEventosFinalizados = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()), "f", 100, 0); //
-
-                //mandar la lista a la vista -> /MainPage.jsp
-                request.setAttribute("lista_eventos_finalizados", listaEventosFinalizados);
-                request.getRequestDispatcher("/EventosFinalizados.jsp").forward(request, response);
+                request.getRequestDispatcher("ActividadesFinalizadas.jsp").forward(request,response);
                 break;
 
             case "donaciones":

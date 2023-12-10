@@ -4,6 +4,8 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno"
              class="com.example.proyecto.beans.Alumno"/>
+
+<%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <html lang="en">
 
 <head>
@@ -56,6 +58,7 @@
                             <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
                             <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
                             <%}%>
+
                             <p class="text-muted mb-0">Delegado Actividad</p>
                         </div>
                     </div>
@@ -101,8 +104,15 @@
                             class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
                             class="menu-arrow"></span></a>
                         <ul class="submenu_class" style="display: none;">
+
+                            <%if(!actividadIsFinalizada){%>
                             <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
+                            <%}%>
+                            <%if(actividadIsFinalizada){%>
+                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividad_finalizada">Subir fotos</a></li>
+                            <%}%>
+
                         </ul>
                     </li>
 
@@ -110,7 +120,7 @@
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
                     <li><a class="text-decoration-none"
-                           href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados"><i
+                           href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividades_finalizadas"><i
                             class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
@@ -131,7 +141,6 @@
     </div>
 
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
-    <!-- Se eliminó la act exitosamente -->
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
@@ -140,11 +149,76 @@
                         <div class="mt-5">
                             <h4 class="card-title float-left mt-2">Actividad Finalizada</h4>
                         </div>
-                        <button class="btn btn-info active float-right">
-                            Subir fotos de la actividad
-                        </button>
                     </div>
                 </div>
+            </div>
+            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                <% if (session.getAttribute("msg") != null) { %>
+                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                <% session.removeAttribute("msg"); } %>
+                <% if (session.getAttribute("err") != null) { %>
+                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                <% session.removeAttribute("err"); } %>
+                <% if (session.getAttribute("errDesc") != null) { %>
+                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                <% session.removeAttribute("errDesc"); } %>
+            </div>
+            <div class="row">
+                <p class="text-justify">Su actividad ha finalizado.
+                    En caso de que dispongas de imágenes correspondientes a los eventos asociados,
+                    te invitamos a contribuir compartiéndolas.
+                    Esta colaboración permitirá que otros usuarios tengan la oportunidad de apreciar visualmente los momentos significativos que transcurrieron durante la actividad finalizada.
+                    Tu participación enriquecerá la experiencia colectiva y fortalecerá la memoria de este evento para la comunidad.</p>
+                <div class="text-center mt-3">
+                    <button class="btn btn-dark" data-bs-toggle="modal"
+                            data-bs-target="#modalSubirFoto">
+                        Subir fotos de la actividad
+                    </button>
+                </div>
+
+
+
+                <!-- MODAL SUBIR FOTO -->
+                <div class="modal fade" id="modalSubirFoto"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post"
+                                  action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=subir_foto"
+                                  enctype="multipart/form-data">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold">Subir Foto</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                                        <label class="form-label" for="imageUpload">Suba una foto</label>
+                                        <input type="file" class="form-control" id="imageUpload"
+                                               accept="image/*" name="fotoActividadFinalizada" required>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="idActividadFinalizadaFotos" value="<%=usuariologueado.getDelegadoActividad().getActividad().getIdActividad()%>">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Cancelar
+                                    </button>
+
+                                    <button type="submit" class="btn btn-primary">Guardar Cambios
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN MODAL SUBIR FOTO -->
+
             </div>
         </div>
     </div>

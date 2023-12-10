@@ -1,18 +1,14 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto.beans.Evento" %>
-<%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
+<%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
-<jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
-<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
 <%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>TELEWEEK</title>
+    <title>Explora</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/IconoBat.png">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
@@ -21,7 +17,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="css/styleFiltro.css">
 </head>
 
 <body>
@@ -71,7 +66,7 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
-                    <li class="active"><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page"><i class="bi bi-house-fill"></i>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page"><i class="bi bi-house-fill"></i>
                         <span>Inicio</span></a></li>
                     <li class="list-divider"></li>
 
@@ -109,7 +104,6 @@
                     <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividades_finalizadas"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
-
                     <!-- CONTACTOS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>CONTACTOS</span></li>
@@ -124,72 +118,7 @@
     </div>
 
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
-    <div class="page-wrapper">
-        <div class="content container-fluid">
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Eventos</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Filtro por actividades -->
-            <div class="row filter mb-4">
-                <div class="col">
-                    <div class="filter-buttons" id="buttons">
-                        <i class="bi bi-arrow-left-circle-fill prev"></i>
-                        <div class="slider">
-                            <%for (DelegadoActividad dA : listaActividades){%>
-                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%></a>
-                            <%};%>
-                        </div>
-                        <i class="bi bi-arrow-right-circle-fill next"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <%for (Evento e: lista){%>
-                <div class="col-12 col-sm-6 col-lg-4" style="padding: 0 20px">
-                    <div class="card" >
-                        <img class="card-img  w-100" src="<%=request.getContextPath()%>/ImgServlet?id=<%=e.getIdEvento()%>" alt="" style="min-height: 150px;">
-                        <div class="card-body d-flex flex-column" style="padding: 15px;">
-                            <p class="card-text text-justify" style="margin: 5px 0 10px">
-                                <strong><%=e.getActividad().getTitulo()%>: <%=e.getTitulo()%></strong><br>
-                                Fecha: <%=e.getFechaIn()%></p>
-                            <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="btn btn-light active">Ver evento</a>
-                        </div>
-                    </div>
-                </div>
-                <%};%>
-            </div>
-            <!-- Footer -->
-            <div class="row footer">
-                <div class="col">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script src="assets/js/jquery-3.5.1.min.js"></script>
@@ -201,7 +130,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-<script src="js/filtro.js"></script>
 </body>
 
 </html>

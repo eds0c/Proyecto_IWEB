@@ -136,20 +136,22 @@
           </div>
         </div>
       </div>
-      <!-- MENSAJES DE ERROR O CONFIRMACION -->
-      <!-- MENSAJES DE ERROR O CONFIRMACION -->
-      <% if (session.getAttribute("msg") != null) {%>
-      <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
+      <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+        <!-- MENSAJES DE ERROR O CONFIRMACION -->
+        <% if (session.getAttribute("msg") != null) { %>
+        <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+        <% session.removeAttribute("msg"); } %>
+        <% if (session.getAttribute("err") != null) { %>
+        <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+        <% session.removeAttribute("err"); } %>
+        <% if (session.getAttribute("errDesc") != null) { %>
+        <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+        <% session.removeAttribute("errDesc"); } %>
       </div>
-      <% session.removeAttribute("msg");} %>
-      <% if (session.getAttribute("err") != null) {%>
-      <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
-      </div>
-      <% session.removeAttribute("err");} %>
-      <% if (session.getAttribute("errDesc") != null) {%>
-      <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
-      </div>
-      <% session.removeAttribute("errDesc");} %>
       <!-- BUSCAR DONACION IMPLEMENTAR EN EL SERVLET Y DAO -->
       <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
         <div class="input-group mb-3">
@@ -272,17 +274,25 @@
                             Si esta es la acción que deseas realizar, por favor confirma tu elección,
                             de lo contrario, selecciona cancelar.
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-light active"
-                                    data-bs-dismiss="modal">Cancelar
-                            </button>
-                            <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=validar-donacion">
-                              <input type="hidden" name="idDonacionValida" value="<%=d.getIdDonacion()%>">
-                              <input type= "hidden" name="idAlumnoDonacionValida" value="<%=d.getAlumno().getIdAlumno()%>">
-                              <button type="submit" class="btn btn-primary">Validar donación
+                          <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=validar-donacion">
+                            <label CLASS="modal-body text-justify" for="motivo1">
+                              <p>Motivo:</p>
+                              <input type="hidden" name="idDonacionValida1" value="<%=d.getIdDonacion()%>">
+                              <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo1" required>
+                            </label>
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-light active"
+                                      data-bs-dismiss="modal">Cancelar
                               </button>
-                            </form>
-                          </div>
+
+                                <input type="hidden" name="idDonacionValida" value="<%=d.getIdDonacion()%>">
+                                <input type= "hidden" name="idAlumnoDonacionValida" value="<%=d.getAlumno().getIdAlumno()%>">
+                                <button type="submit" class="btn btn-primary">Validar donación
+                                </button>
+
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -303,19 +313,22 @@
                             Si esta es la acción que deseas realizar, por favor confirma tu elección,
                             de lo contrario, selecciona cancelar.
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-light active"
-                                    data-bs-dismiss="modal">Cancelar
-                            </button>
-                            <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazar-donacion">
-                              <input type= "hidden" name="idDonacionRechazada" value="<%=d.getIdDonacion()%>">
-                              <input type= "hidden" name="idAlumnoDonacionInvalida" value="<%=d.getAlumno().getIdAlumno()%>">
-                            <button type="submit" class="btn btn-danger">No validar donación
-                            </button>
-
-                            </form>
-
-                          </div>
+                          <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazar-donacion">
+                            <label CLASS="modal-body text-justify" for="motivo2">
+                              <p>Motivo:</p>
+                              <input type="hidden" name="idDonacionValida2" value="<%=d.getIdDonacion()%>">
+                              <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo2" required>
+                            </label>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-light active"
+                                      data-bs-dismiss="modal">Cancelar
+                              </button>
+                                <input type= "hidden" name="idDonacionRechazada" value="<%=d.getIdDonacion()%>">
+                                <input type= "hidden" name="idAlumnoDonacionInvalida" value="<%=d.getAlumno().getIdAlumno()%>">
+                              <button type="submit" class="btn btn-danger">No validar donación
+                              </button>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>

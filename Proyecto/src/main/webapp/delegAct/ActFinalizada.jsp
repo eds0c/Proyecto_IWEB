@@ -1,19 +1,22 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
+<%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
-<jsp:useBean id="lista_mis_eventos" scope="request" type="ArrayList<AlumnoEvento>"/>
+<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno"
+             class="com.example.proyecto.beans.Alumno"/>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Mis Eventos</title>
+    <title>Eventos Activos</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/IconoBat.png">
+
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/feathericon.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    <%-- BOOTSTRAP 5--%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -23,13 +26,14 @@
 <div class="main-wrapper">
     <!-- CABECERA -->
     <div class="header">
-        <!-- CABECERA DE LA BARRA LATERAL -->
+        <!-- CABECERA DE LA BARRA LATERAL LISTOOOOO -->
         <div class="header-left">
-            <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page" class="logo text-decoration-none">
-                <img
-                        src="assets/img/IconoBat.png" width="30" height="50" alt="logo"> <span
+            <a href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page"
+               class="logo text-decoration-none"> <img
+                    src="assets/img/IconoBat.png" width="30" height="50" alt="logo"> <span
                     class="logoclass">TELEWEEK</span> </a>
         </div>
+        <!-- LAS RAYITAS Q ABREN A LA BARRA LISTOOO-->
         <a class="text-decoration-none" href="javascript:void(0);" id="toggle_btn"> <i
                 class="fe fe-text-align-left"></i> </a>
         <a class="mobile_btn text-decoration-none" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
@@ -39,7 +43,8 @@
             <li class="nav-item dropdown has-arrow">
                 <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span
                         class="user-img"><img
-                        class="rounded-circle" src="assets/img/profiles/usuario.jpg" width="50"></span> </a>
+                        class="rounded-circle" src="assets/img/profiles/usuario.jpg" width="50"></span>
+                </a>
                 <!-- MENU DESPLEGABLE DE LA FLECHITA DE LA FOTO DE PERFIL -->
                 <div class="dropdown-menu">
                     <div class="user-header">
@@ -78,8 +83,8 @@
 
                     <li class="menu-title mt-3"><span>PARTICIPACION</span></li>
                     <!-- EVENTOS INSCRITOS -->
-                    <li class="active"><a class="text-decoration-none"
-                                          href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos"><i
+                    <li><a class="text-decoration-none"
+                           href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mis_eventos"><i
                             class="bi bi-calendar-event-fill"></i><span>Mis eventos</span></a>
                     </li>
 
@@ -96,7 +101,7 @@
                             class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
                             class="menu-arrow"></span></a>
                         <ul class="submenu_class" style="display: none;">
-                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
+                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
                         </ul>
                     </li>
@@ -108,6 +113,7 @@
                            href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados"><i
                             class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
+
 
                     <!-- CONTACTOS -->
                     <li class="list-divider"></li>
@@ -125,98 +131,19 @@
     </div>
 
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
+    <!-- Se eliminó la act exitosamente -->
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
                         <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Mis eventos</h4>
+                            <h4 class="card-title float-left mt-2">Actividad Finalizada</h4>
                         </div>
+                        <button class="btn btn-info active float-right">
+                            Subir fotos de la actividad
+                        </button>
                     </div>
-                </div>
-            </div>
-            <%if (lista_mis_eventos.isEmpty()) {%>
-            <p class="lead">Aún no te has incrito en ningún evento.</p>
-            <%}%>
-
-            <%--            poner aqui lo q quiera                  --%>
-            <%for (AlumnoEvento aE : lista_mis_eventos) {%>
-            <div class="card mb-5">
-                <div class="card-header text-center" style="background-color: #dae0e5">
-                    <strong><%=aE.getEvento().getActividad().getTitulo() + ": " + aE.getEvento().getTitulo()%>
-                    </strong>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 ">
-                        <img src="images/valorant.avif" class="w-100 h-100">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text"><%=aE.getEvento().getDescripcion()%>
-                            </p>
-                            <p class="card-text">Rol asignado para el evento: <strong><%= aE.getIntegrante().getDescripcion() %></strong>
-                            </p>
-
-                            <div class="row mt-3">
-                                <!-- fecha del evento -->
-                                <div class="col md-4">
-                                    <h6>Fecha:</h6>
-                                    <div class="d-flex align-items-center ">
-                                        <i class="bi bi-calendar"></i>
-                                        <p class="mb-0 ml-2"><%=aE.getEvento().getFechaIn()%>
-                                        </p>
-                                    </div>
-
-                                </div>
-                                <!-- hora del evento -->
-                                <div class="col md-4">
-                                    <h6>Hora:</h6>
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-clock"></i>
-                                        <p class="mb-0 ml-2"><%=aE.getEvento().getHora()%>
-                                        </p>
-                                    </div>
-
-                                </div>
-
-                                <!-- lugar del evento -->
-                                <div class="col md-4">
-                                    <h6>Lugar:</h6>
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-geo-alt"></i>
-                                        <p class="mb-0 ml-2"><%=aE.getEvento().getLugar()%>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <%}%>
-
-            <!-- Paginacion -->
-            <div class="row footer">
-                <div class="col">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -232,6 +159,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+
 </body>
 
 </html>

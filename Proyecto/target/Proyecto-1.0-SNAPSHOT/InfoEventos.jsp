@@ -139,15 +139,7 @@
                                     <div class="row">
                                         <div class="col md-10 mx-auto">
                                             <!-- descripción del evento -->
-                                            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                elit,
-                                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                                ut
-                                                aliquip ex ea commodo consequat.
-                                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                                dolore
-                                                eu fugiat nulla pariatur.</p>
+                                            <p class="text-justify"><%=evento.getDescripcion()%></p>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
@@ -238,11 +230,8 @@
                                     <div class="author-img-wrap"><img class="img-fluid rounded-circle" alt=""
                                                                       src="assets/img/profiles/avatar-15.jpg"></div>
                                 </div>
-                                <div class="author-details"><span class="blog-author-name">Linda Barrett</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.</p>
+                                <div class="author-details"><span class="blog-author-name">Nombre deleg actividad</span>
+                                    <p>Descripcion deleg actividad</p>
                                 </div>
                             </div>
                         </div>

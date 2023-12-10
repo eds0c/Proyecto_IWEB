@@ -119,12 +119,19 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 Evento evento2 = eventoDao.buscarEvento(idEvento2);
                 String idAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
-                ArrayList<Evento> lista3 = eventoDao.listarPorActividad(idAct2,"a",100,0);
+                String estadoAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getEstado());
 
-                //mandar la lista a la vista -> /InfoEventos.jsp
-                request.setAttribute("evento2",evento2);
-                request.setAttribute("lista3",lista3);
-                request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
+                if(estadoAct2.equals("finalizada")){
+                    request.getRequestDispatcher("delegAct/ActFinalizada.jsp").forward(request, response);
+                }else{
+                    ArrayList<Evento> lista3 = eventoDao.listarPorActividad(idAct2,"a",100,0);
+
+                    request.setAttribute("evento2",evento2);
+                    request.setAttribute("lista3",lista3);
+                    request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
+                }
+
+
                 break;
 
             //EVENTOS CON ESTADO FINALIZADO

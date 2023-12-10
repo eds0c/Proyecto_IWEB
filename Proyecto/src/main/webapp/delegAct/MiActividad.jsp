@@ -165,7 +165,7 @@
                 <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
                 <% session.removeAttribute("errDesc"); } %>
             </div>
-            <!-- BUSCAR ACTIVIDAD IMPLEMENTAR EN EL SERVLET Y DAO -->
+            <!-- BUSCAR EVENTO IMPLEMENTAR EN EL SERVLET Y DAO -->
             <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=buscar">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Buscar por nombre" name="textoBuscar"
@@ -194,6 +194,7 @@
                                         <th>Fecha</th>
                                         <th>Observar</th>
                                         <th>Participantes</th>
+                                        <th>Finalizar</th>
                                         <th>Eliminar</th>
                                     </tr>
                                     </thead>
@@ -374,6 +375,36 @@
                                         </td>
                                         <!-- FIN PARTICIPANTES EVENT -->
 
+                                        <!-- FINALIZAR EVENTO -->
+                                        <td>
+                                            <button class="btn btn-info active" data-bs-toggle="modal"
+                                                    data-bs-target="#finalizarEvento<%=i%>">
+                                                <i class="bi bi-check2-square"></i>
+                                            </button>
+                                        </td>
+                                        <!-- MODAL FINALIZAR EVENTO -->
+                                        <div class="modal fade" id="finalizarEvento<%=i%>" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Finalizar evento</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Estás seguro que deseas finalizar el evento?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                            Cancelar
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary">Sí
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <!-- ELIMINAR EVENT -->
                                         <td>
                                             <button class="btn btn-danger" data-bs-toggle="modal"
@@ -536,7 +567,7 @@
                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                                 Cancelar
                                             </button>
-                                            <button type="button" class="btn btn-primary"
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                                     onclick="finalizarActividad()">Sí
                                             </button>
                                         </div>
@@ -559,7 +590,7 @@
                         <div class="mt-5">
                             <h4 class="card-title float-left mt-2">Actividad Finalizada</h4>
                         </div>
-                        <button class="btn btn-light active float-right veiwbutton">
+                        <button class="btn btn-info active float-right">
                             Subir fotos de la actividad
                         </button>
                     </div>

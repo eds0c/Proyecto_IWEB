@@ -26,6 +26,7 @@ public class AlumnoServlet extends HttpServlet {
     EventoDao eventoDao = new EventoDao();
     DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
     DonacionDao donacionDao = new DonacionDao();
+    CredentialsDao credentialsDao = new CredentialsDao();
 
 
     @Override
@@ -179,6 +180,42 @@ public class AlumnoServlet extends HttpServlet {
                 }
                 break;
 
+            case "cambiar_contra":
+
+                String contra1 = request.getParameter("contra1");
+                String contra2 = request.getParameter("contra2");
+
+                boolean isAllValid6 = true;
+
+                if(!credentialsDao.validarContrasenaAlumno(String.valueOf(alumno.getIdAlumno()), request.getParameter("contraActual"))){
+                    request.getSession().setAttribute("err", "No se pudo cambiar la contraseña.");
+                    request.getSession().setAttribute("errDesc", "Las contraseña actual no es correcta");
+                    isAllValid6 = false;
+                }
+
+
+                if(contra1.length() < 8 || contra2.length() < 8){
+                    isAllValid6 = false;
+                    request.getSession().setAttribute("errDesc", "Las contraseñas deben tener al menos 8 caracteres");
+                }
+
+                if(!contra1.equals(contra2)){
+                    isAllValid6 = false;
+                    request.getSession().setAttribute("errDesc", "Las contraseñas deben ser iguales");
+                }
+
+                if (isAllValid6) {
+                    credentialsDao.actualizarContrasenaAlumno(String.valueOf(alumno.getIdAlumno()),contra1);
+                    request.getSession().setAttribute("msg", "Se actualizó la contraseña correctamente");
+                    response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=editar_contra");
+
+                } else {
+                    request.getSession().setAttribute("err", "No se pudo cambiar la contraseña.");
+                    response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=editar_contra");
+                }
+
+
+                break;
 
         }
 

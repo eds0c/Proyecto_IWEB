@@ -357,5 +357,33 @@ public class AlumnoDao extends DaoBase{
         return alumno;
     }
 
+    public boolean alumnoEsDelegadoActividad(String idAlumno){
+
+
+        boolean esDelegadoDeActividad = false;
+
+        String sql = "select * from alumno a where a.idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,idAlumno);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+
+                    if(!rs.getString("Delegado_Actividad_idDelegado_Actividad").equals("null")){
+                        esDelegadoDeActividad = true;
+                    }
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return esDelegadoDeActividad;
+    }
+
+
 
 }

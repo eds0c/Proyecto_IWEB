@@ -140,10 +140,9 @@
                     <div class="col">
                         <div class="mt-5">
                             <h4 class="card-title float-left mt-2">Lista de participantes</h4>
-                            <button class="btn btn-danger active float-right veiwbutton">
-                                <%--                                <a href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=solicitud_participante&idEventoParticipantes=<%=e.getIdEvento()%>"></a>--%>
+                            <a class="btn btn-danger active float-right veiwbutton" role="button" href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=solicitud_participante&idEventoParticipantes=<%=idEvento%>">
                                 Ver solicitudes
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -192,6 +191,9 @@
                                         <th>Cambiar</th>
                                     </tr>
                                     </thead>
+                                    <%if (lista_participantes.isEmpty()){%>
+                                    <p class="lead">No existen nuevas solicitudes</p>
+                                    <%}%>
                                     <tbody>
                                     <%int i = 1;%>
                                     <%for (AlumnoEvento aE : lista_participantes){%>

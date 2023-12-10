@@ -29,6 +29,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
     DonacionDao donacionDao = new DonacionDao();
     EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
     AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
+    CredentialsDao credentialsDao = new CredentialsDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -241,17 +242,28 @@ public class DelegadoGeneralServlet extends HttpServlet {
             case "baneo_alumno":
 
                 String id3 = request.getParameter("idAlumnoBaneado");
-                alumnoDao.actualizarEstado("2",id3);
-                request.getSession().setAttribute("info","Usuario Baneado");
-                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
-                // envio de correo
-                Alumno alumno3 = alumnoDao.correo(id3);
-                asunto = "Has sido baneado";
-                contenido = "Hola, " + alumno3.getNombre() + " " + alumno3.getApellido() + ", has sido baneadoo de participar de la semana de Ingeniería.";
-                request.getSession().setAttribute("msg", "Usuario baneado exitosamente");
-                correo = alumno3.getCorreo();
-                envioCorreosDaos.createEmail(correo,asunto,contenido);
-                envioCorreosDaos.sendEmail();
+
+                if(alumnoDao.obtenerAlumno(id3).getDelegadoActividad().getActividad() != null){
+                    Alumno preBan = alumnoDao.obtenerAlumno(id3);
+                    request.getSession().setAttribute("err", "No se pudo banear al usuario.");
+                    request.getSession().setAttribute("errDesc", "El usuario es un delegado de actividad. Primero asegúrese de seleccionar a un nuevo delegado de la actividad: " + preBan.getDelegadoActividad().getActividad().getTitulo()+".");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
+                }
+                else{
+                    alumnoDao.actualizarEstado("2",id3);
+                    request.getSession().setAttribute("info","Usuario Baneado");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
+                    // envio de correo
+                    Alumno alumno3 = alumnoDao.correo(id3);
+                    asunto = "Has sido baneado";
+                    contenido = "Hola, " + alumno3.getNombre() + " " + alumno3.getApellido() + ", has sido baneadoo de participar de la semana de Ingeniería.";
+                    request.getSession().setAttribute("msg", "Usuario baneado exitosamente");
+                    correo = alumno3.getCorreo();
+                    envioCorreosDaos.createEmail(correo,asunto,contenido);
+                    envioCorreosDaos.sendEmail();
+
+                }
+
                 break;
 
             case"validar-donacion":
@@ -309,7 +321,42 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 }
                 break;
 
+            case "cambiar_contra":
 
+                String contra1 = request.getParameter("contra1");
+                String contra2 = request.getParameter("contra2");
+
+                boolean isAllValid6 = true;
+
+                if(!credentialsDao.validarContrasenaDelegadoGeneral(String.valueOf(delegadoGeneral.getIdDelegadoGeneral()), request.getParameter("contraActual"))){
+                    request.getSession().setAttribute("err", "No se pudo cambiar la contraseña.");
+                    request.getSession().setAttribute("errDesc", "Las contraseña actual no es correcta");
+                    isAllValid6 = false;
+                }
+
+
+                if(contra1.length() < 8 || contra2.length() < 8){
+                    isAllValid6 = false;
+                    request.getSession().setAttribute("errDesc", "Las contraseñas deben tener al menos 8 caracteres");
+                }
+
+                if(!contra1.equals(contra2)){
+                    isAllValid6 = false;
+                    request.getSession().setAttribute("errDesc", "Las contraseñas deben ser iguales");
+                }
+
+                if (isAllValid6) {
+                    credentialsDao.actualizarContrasenaDelegadoGeneral(String.valueOf(delegadoGeneral.getIdDelegadoGeneral()),contra1);
+                    request.getSession().setAttribute("msg", "Se actualizó la contraseña correctamente");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_contra");
+
+                } else {
+                    request.getSession().setAttribute("err", "No se pudo cambiar la contraseña.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=editar_contra");
+                }
+
+
+                break;
 
         }
 

@@ -78,6 +78,7 @@ public class DelegadoActividadDao extends DaoBase {
                     delegadoActividad.setFechaAprobacion(rs.getString("fecha_aprob"));
 
                 }
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

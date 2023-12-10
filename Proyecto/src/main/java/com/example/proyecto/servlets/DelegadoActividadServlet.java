@@ -31,17 +31,12 @@ public class DelegadoActividadServlet extends HttpServlet {
     ActividadDao actividadDao = new ActividadDao();
     EventoDao eventoDao = new EventoDao();
     DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+    CredentialsDao credentialsDao = new CredentialsDao();
 
     DonacionDao donacionDao = new DonacionDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //VALIDAR SESIÓN
-        if (request.getSession().getAttribute("tipoUsuario")==null || (Integer) request.getSession().getAttribute("tipoUsuario")!=2){
-            response.sendRedirect(request.getContextPath() + "/SesionServlet?action=cerrar_sesion");
-        }
-
 
 
         response.setContentType("text/html");
@@ -152,7 +147,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
             case "solicitud_participante":
                 String offsetParticipantesPendientes =  request.getParameter("offset_pendientes") == null ? "0" : request.getParameter("offset_pendientes");
-                String idEvento4 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");
+                String idEvento4 = request.getParameter("idEventoParticipantes");
 
                 ArrayList<AlumnoEvento> listaParticipantesPendientes = eventoDao.listarAlumnosPendientesPorEvento(idEvento4,"a",5,Integer.parseInt(offsetParticipantesPendientes)*3);
 
@@ -335,24 +330,32 @@ public class DelegadoActividadServlet extends HttpServlet {
 
             case "asignar_rol":
 
-                String idEvento = request.getParameter("idE") == null ? "1" : request.getParameter("idE");
-                int cantidadAlumnosPendientes = Integer.parseInt(request.getParameter("cantidad"));
+                String idEvento = request.getParameter("idEvento");
+                String rolAsignar = request.getParameter("rolAsignar");
+                String idAlumnoAsignarRol = request.getParameter("idAlumnoAsignarRol");
+                String idAlumnoEventoRol = request.getParameter("idAlumnoEvento");
 
-                for(int i = 1; i<=cantidadAlumnosPendientes;i++){
-
-                    String idPendienteN = request.getParameter("idPendiente"+ i) == null ? "0" : request.getParameter("idPendiente"+i);
-                    String rolAsignarN = request.getParameter("rolAsignar"+i);
-                    AlumnoEvento alumnoN = alumnoEventoDao.obtenerAlumnoEvento(idPendienteN);
-                    integranteDao.asignarRol(alumnoN,rolAsignarN);
+                if(rolAsignar.equals("equipo")){
+                    AlumnoEvento alumnoN = alumnoEventoDao.obtenerAlumnoEvento(idAlumnoEventoRol);
+                    integranteDao.asignarRol(alumnoN,"equipo");
+                    request.getSession().setAttribute("msg", "Rol asignado correctamente.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
                 }
-                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
+                if(rolAsignar.equals("barra")){
+                    AlumnoEvento alumnoN = alumnoEventoDao.obtenerAlumnoEvento(idAlumnoEventoRol);
+                    integranteDao.asignarRol(alumnoN,"barra");
+                    request.getSession().setAttribute("msg", "Rol asignado correctamente.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=participantes&idEventoParticipantes="+ idEvento);
+                }
+
+
                 break;
             case "apoyar_evento":
                 //saca el id del evento a apoyar
                 String idEventoApoyar = request.getParameter("idEventoApoyar") == null ? "" : request.getParameter("idEventoApoyar");
                 String idAlumno = String.valueOf(alumno.getIdAlumno());
                 alumnoEventoDao.apoyarEvento(idAlumno,idEventoApoyar);
-                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=main_page");
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mis_eventos");
                 break;
 
             case "donar":
@@ -399,7 +402,42 @@ public class DelegadoActividadServlet extends HttpServlet {
                 }
                 break;
 
+            case "cambiar_contra":
 
+                String contra1 = request.getParameter("contra1");
+                String contra2 = request.getParameter("contra2");
+
+                boolean isAllValid6 = true;
+
+                if(!credentialsDao.validarContrasenaAlumno(String.valueOf(alumno.getIdAlumno()), request.getParameter("contraActual"))){
+                    request.getSession().setAttribute("err", "No se pudo cambiar la contraseña.");
+                    request.getSession().setAttribute("errDesc", "Las contraseña actual no es correcta");
+                    isAllValid6 = false;
+                }
+
+
+                if(contra1.length() < 8 || contra2.length() < 8){
+                    isAllValid6 = false;
+                    request.getSession().setAttribute("errDesc", "Las contraseñas deben tener al menos 8 caracteres");
+                }
+
+                if(!contra1.equals(contra2)){
+                    isAllValid6 = false;
+                    request.getSession().setAttribute("errDesc", "Las contraseñas deben ser iguales");
+                }
+
+                if (isAllValid6) {
+                    credentialsDao.actualizarContrasenaAlumno(String.valueOf(alumno.getIdAlumno()),contra1);
+                    request.getSession().setAttribute("msg", "Se actualizó la contraseña correctamente");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=editar_contra");
+
+                } else {
+                    request.getSession().setAttribute("err", "No se pudo cambiar la contraseña.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=editar_contra");
+                }
+
+
+                break;
         }
 
 

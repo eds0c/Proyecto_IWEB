@@ -146,14 +146,18 @@
                 </div>
             </div>
             <!-- MENSAJES DE ERROR O CONFIRMACION -->
-            <% if (request.getParameter("msg") != null) {%>
-            <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
+            <% if (session.getAttribute("msg") != null) {%>
+            <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
             </div>
-            <% } %>
-            <% if (request.getParameter("err") != null) {%>
-            <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
+            <% session.removeAttribute("msg");} %>
+            <% if (session.getAttribute("err") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("err")%>
             </div>
-            <% } %>
+            <% session.removeAttribute("err");} %>
+            <% if (session.getAttribute("errDesc") != null) {%>
+            <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
+            </div>
+            <% session.removeAttribute("errDesc");} %>
             <!-- BUSCAR PARTICIPANTES IMPLEMENTAR EN EL SERVLET Y DAO -->
             <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=buscar">
                 <div class="input-group mb-3">
@@ -185,6 +189,9 @@
                                         <th>Barra</th>
                                     </tr>
                                     </thead>
+                                    <%if (lista_participantes_pendientes.isEmpty()){%>
+                                    <p class="lead">No existen nuevas solicitudes</p>
+                                    <%}%>
                                     <tbody>
                                     <%int p = 1;%>
                                     <%for (AlumnoEvento aE: lista_participantes_pendientes){%>
@@ -208,6 +215,79 @@
                                                 <i class="bi bi-emoji-laughing"></i>
                                             </button>
                                         </td>
+                                        <!-- MODAL EQUIPO -->
+                                        <form method="post"
+                                              action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=asignar_rol">
+                                        <div class="modal fade" id="equipo<%=p%>" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Equipo
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-justify">
+                                                        Has seleccionado "Equipo". <br>
+                                                        Si esta es la acción que deseas realizar, por favor confirma tu
+                                                        elección,
+                                                        de lo contrario, selecciona cancelar.
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light active"
+                                                                data-bs-dismiss="modal">Cancelar
+                                                        </button>
+                                                            <input type="hidden" class="form-control" name="idAlumnoAsignarRol" value=<%=aE.getAlumno().getIdAlumno()%>>
+                                                            <input type="hidden" class="form-control" name="rolAsignar" value="equipo">
+                                                            <input type="hidden" class="form-control" name="idEvento" value="<%=aE.getEvento().getIdEvento()%>">
+                                                            <input type="hidden" class="form-control" name="idAlumnoEvento" value="<%=aE.getIdAlumnoEvento()%>">
+                                                            <button type="submit" class="btn btn-primary" id="Equipo">Asignar Rol
+                                                            </button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </form>
+                                        <!-- FIN MODAL EQUIPO -->
+
+
+                                        <!-- MODAL BARRA -->
+                                        <form method="post"
+                                              action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=asignar_rol">
+                                        <div class="modal fade" id="barra<%=p%>" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Barra
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-justify">
+                                                        Has seleccionado "Barra". <br>
+                                                        Si esta es la acción que deseas realizar, por favor confirma tu
+                                                        elección,
+                                                        de lo contrario, selecciona cancelar.
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light active"
+                                                                data-bs-dismiss="modal">Cancelar
+                                                        </button>
+                                                            <input type="hidden" class="form-control" name="idAlumnoAsignarRol" value=<%=aE.getAlumno().getIdAlumno()%>>
+                                                            <input type="hidden" class="form-control" name="rolAsignar" value="barra">
+                                                            <input type="hidden" class="form-control" name="idEvento" value="<%=aE.getEvento().getIdEvento()%>">
+                                                            <input type="hidden" class="form-control" name="idAlumnoEvento" value="<%=aE.getIdAlumnoEvento()%>">
+                                                            <button type="submit" class="btn btn-primary" id="Barra">Asignar Rol
+                                                            </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </form>
+                                        <!-- FIN MODAL BARRA -->
+
+
 
 
 

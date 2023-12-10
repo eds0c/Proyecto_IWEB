@@ -2,7 +2,13 @@ package com.example.proyecto.daos;
 
 import com.example.proyecto.beans.Alumno;
 import com.example.proyecto.beans.DelegadoGeneral;
+import com.mysql.cj.util.DataTypeUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 
+import javax.xml.datatype.DatatypeConstants;
+import java.nio.charset.StandardCharsets;
+import java.security.DigestException;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -128,5 +134,96 @@ public class CredentialsDao extends DaoBase{
         }
         return delegadoGeneral;
     }
+
+    public void actualizarContrasenaAlumno(String idAlumno, String nuevaContrasena){ //para actualizar la contraseña
+
+        String sql = "update alumno set contrasena = SHA2(?,256) where idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,nuevaContrasena);
+            pstmt.setInt(2, Integer.parseInt(idAlumno));
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actualizarContrasenaDelegadoGeneral(String idDelegadoGeneral, String nuevaContrasena){ //para actualizar la contraseña
+
+        String sql = "update delegado_general set contrasena = SHA2(?,256) where idDelegado_General = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,nuevaContrasena);
+            pstmt.setInt(2, Integer.parseInt(idDelegadoGeneral));
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean validarContrasenaDelegadoGeneral(String idDelegadoGeneral, String nuevaContrasena){ //para actualizar la contraseña
+
+        boolean isValid = false;
+
+        String sql = "select * from delegado_general where idDelegado_General = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, idDelegadoGeneral);
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+
+                    String sha256NuevaContrasena = DigestUtils.sha256Hex(nuevaContrasena);
+
+                    if(rs.getString("contrasena").equalsIgnoreCase(sha256NuevaContrasena)){
+                        isValid = true;
+                    }
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return isValid;
+    }
+
+    public boolean validarContrasenaAlumno(String idAlumno, String nuevaContrasena){ //para actualizar la contraseña
+
+        boolean isValid = false;
+
+        String sql = "select * from alumno where idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, idAlumno);
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+
+                    String sha256NuevaContrasena = DigestUtils.sha256Hex(nuevaContrasena);
+
+                    if(rs.getString("contrasena").equalsIgnoreCase(sha256NuevaContrasena)){
+                        isValid = true;
+                    }
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return isValid;
+    }
+
+
+
 
 }

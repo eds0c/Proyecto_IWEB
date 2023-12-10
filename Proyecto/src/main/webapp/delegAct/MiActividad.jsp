@@ -133,7 +133,7 @@
     </div>
 
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
-    <div class="page-wrapper" id="actividad">
+    <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
@@ -581,23 +581,6 @@
             </div>
         </div>
     </div>
-    <!-- Se eliminó la act exitosamente -->
-    <div class="page-wrapper" id="actividadFinalizada" style="display: none;">
-        <div class="content container-fluid">
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Actividad Finalizada</h4>
-                        </div>
-                        <button class="btn btn-info active float-right">
-                            Subir fotos de la actividad
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
     <script src="assets/js/jquery-3.5.1.min.js"></script>
@@ -609,17 +592,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
-    <!-- Script para ocultar la página-->
-    <script>
-        // Función para finalizar la actividad
-        function finalizarActividad() {
-            // Oculta la tabla al hacer clic en "Sí"
-            document.getElementById("actividad").style.display = "none";
-            // Muestra un mensaje
-            document.getElementById("actividadFinalizada").style.display = "block";
-
-        }
-    </script>
 </body>
 
 </html>

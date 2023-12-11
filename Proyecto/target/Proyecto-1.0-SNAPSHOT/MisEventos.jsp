@@ -92,9 +92,9 @@
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
                     <!-- NOVEDADES - ACT FINALIZADAS -->
-                    <li><a class="text-decoration-none"
-                           href="<%=request.getContextPath() %>/AlumnoServlet?action=eventos_finalizados"><i
-                            class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
+                    <li class="list-divider"></li>
+                    <li class="menu-title mt-3"><span>EXPLORA</span></li>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=actividades_finalizadas"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
                     <!-- CONTACTOS -->

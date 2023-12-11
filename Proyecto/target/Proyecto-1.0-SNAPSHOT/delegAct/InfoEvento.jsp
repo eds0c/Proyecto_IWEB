@@ -5,6 +5,7 @@
 <jsp:useBean id="evento" scope="request" type="Evento"/>
 <jsp:useBean id="lista2" scope="request" type="ArrayList<Evento>" />
 <%boolean participando = (Boolean) request.getAttribute("participando");%>
+<%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <html lang="en">
 
 <head>
@@ -98,17 +99,22 @@
                             class="bi bi-file-earmark-text-fill"></i> <span>Mi Actividad</span> <span
                             class="menu-arrow"></span></a>
                         <ul class="submenu_class" style="display: none;">
+
+                            <%if(!actividadIsFinalizada){%>
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
+                            <%}%>
+                            <%if(actividadIsFinalizada){%>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividad_finalizada">Subir fotos</a></li>
+                            <%}%>
+
                         </ul>
                     </li>
 
                     <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
-                    <li><a class="text-decoration-none"
-                           href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=eventos_finalizados"><i
-                            class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
+                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividades_finalizadas"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
                     <!-- CONTACTOS -->

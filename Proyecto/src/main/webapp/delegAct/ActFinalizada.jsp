@@ -106,11 +106,11 @@
                         <ul class="submenu_class" style="display: none;">
 
                             <%if(!actividadIsFinalizada){%>
-                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=mi_actividad">Eventos activos</a></li>
                             <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=estado_finalizado">Eventos finalizados </a></li>
                             <%}%>
                             <%if(actividadIsFinalizada){%>
-                            <li><a class="active text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividad_finalizada">Subir fotos</a></li>
+                            <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=actividad_finalizada">Subir fotos</a></li>
                             <%}%>
 
                         </ul>
@@ -201,7 +201,7 @@
                                     <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
                                         <label class="form-label" for="imageUpload">Suba una foto</label>
                                         <input type="file" class="form-control" id="imageUpload"
-                                               accept="image/*" name="fotoActividadFinalizada" required>
+                                               accept="image/*" name="fotoActividadFinalizada" multiple required>
                                     </div>
                                 </div>
                                 <input type="hidden" name="idActividadFinalizadaFotos" value="<%=usuariologueado.getDelegadoActividad().getActividad().getIdActividad()%>">

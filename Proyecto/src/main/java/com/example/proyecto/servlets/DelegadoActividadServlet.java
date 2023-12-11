@@ -105,7 +105,16 @@ public class DelegadoActividadServlet extends HttpServlet {
                 break;
 
             case "actividades_finalizadas":
+                //saca la lista de eventos según actividad
+                String idAct1 = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
+                ArrayList<Evento> list1 = eventoDao.listarPorActividad(idAct1, "f",100,0);
 
+                //saca la lista de actividades
+                ArrayList<DelegadoActividad> listDelegadoActividad1 = delegadoActividadDao.listarActividades(100,0);
+
+                //mandar la lista a la vista -> /MainPage.jsp
+                request.setAttribute("lista", list1);
+                request.setAttribute("listaActividades", listDelegadoActividad1);
                 request.getRequestDispatcher("delegAct/ActividadesFinalizadas.jsp").forward(request,response);
                 break;
 

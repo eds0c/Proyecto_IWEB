@@ -3,6 +3,7 @@ package com.example.proyecto.daos;
 import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.DelegadoGeneral;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +39,22 @@ public class DelegadoGeneralDao extends DaoBase {
             throw new RuntimeException(e);
         }
         return delegadoGeneral;
+    }
+
+    public void actualizarFotoDePerfil(InputStream fotoPerfil, String idDelegadoGeneral){
+
+        String sql = "update delegado_general set foto = ? where idDelegado_General = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBlob(1,fotoPerfil);
+            pstmt.setInt(2, Integer.parseInt(idDelegadoGeneral));
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

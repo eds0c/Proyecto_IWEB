@@ -30,6 +30,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
     EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
     AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
     CredentialsDao credentialsDao = new CredentialsDao();
+    DelegadoGeneralDao delegadoGeneralDao = new DelegadoGeneralDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -374,6 +375,30 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
                 break;
 
+
+            case "editar_perfil":
+
+                //String emailEditado = request.getParameter("emailEditado");
+                String usuarioIdStr = request.getParameter("usuarioId");
+
+                boolean isAllValidEditarPerfil = true;
+
+                if(request.getPart("usuarioFoto") == null){
+                    isAllValidEditarPerfil = false;
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto. ");
+                }
+
+                if(isAllValidEditarPerfil){
+                    InputStream usuarioFoto = request.getPart("usuarioFoto").getInputStream();
+                    delegadoGeneralDao.actualizarFotoDePerfil(usuarioFoto,usuarioIdStr);
+                    request.getSession().setAttribute("msg", "Foto de perfil actualizada exitosamente.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=perfil");
+                }
+                else{
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=perfil");
+                }
+                break;
         }
 
 

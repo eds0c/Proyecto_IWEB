@@ -48,6 +48,7 @@
                             <h6><%=delegadoGenerallogueado.getNombre() + " " + delegadoGenerallogueado.getApellido()%>
                             </h6>
                             <%}%>
+                            <%DelegadoGeneral delegadoGenerallogueado = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
                             <p class="text-muted mb-0">Delegado General</p>
                         </div>
                     </div>
@@ -124,6 +125,22 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                <% if (session.getAttribute("msg") != null) { %>
+                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                <% session.removeAttribute("msg"); } %>
+                <% if (session.getAttribute("err") != null) { %>
+                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                <% session.removeAttribute("err"); } %>
+                <% if (session.getAttribute("errDesc") != null) { %>
+                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                <% session.removeAttribute("errDesc"); } %>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="profile-header">
@@ -137,7 +154,6 @@
                                 <%if (session.getAttribute("usuariologueado") == null) {%>
                                 <span class="email">codigo@pucp.edu.com</span>
                                 <%} else {%>
-                                <%DelegadoGeneral delegadoGenerallogueado = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
                                 <h4 class="user-name mb-3"><%=delegadoGenerallogueado.getNombre() + " " + delegadoGenerallogueado.getApellido()%></h4>
                                 <%}%>
                                 <h6 class="text-muted mt-1">Delegado General</h6>
@@ -162,7 +178,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- editar el form -->
-                                            <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=perfil">
+                                            <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=editar_perfil" enctype="multipart/form-data">
                                                 <!-- CONFIGURAR PARA EDITAR UNA FOTO? -->
                                                 <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
                                                     <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
@@ -170,8 +186,8 @@
                                                          class="img-thumbnail w-50">
                                                     <label>Subir Foto</label>
                                                     <input type="file" class="form-control"
-                                                           name="usuarioFoto" accept="image/*"
-                                                    >
+                                                           name="usuarioFoto" accept="image/*" required>
+                                                    <input type="hidden" class="form-control" name="usuarioId" value="<%=delegadoGenerallogueado.getIdDelegadoGeneral()%>">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary btn-block">Guardar
                                                     cambios

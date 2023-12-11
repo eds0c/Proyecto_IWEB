@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.*;
 import jakarta.servlet.annotation.MultipartConfig;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 @MultipartConfig
@@ -27,6 +28,7 @@ public class AlumnoServlet extends HttpServlet {
     DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
     DonacionDao donacionDao = new DonacionDao();
     CredentialsDao credentialsDao = new CredentialsDao();
+    AlumnoDao alumnoDao = new AlumnoDao();
 
 
     @Override
@@ -212,6 +214,29 @@ public class AlumnoServlet extends HttpServlet {
 
                 break;
 
+            case "editar_perfil":
+
+                //String emailEditado = request.getParameter("emailEditado");
+                String usuarioIdStr = request.getParameter("usuarioId");
+
+                boolean isAllValidEditarPerfil = true;
+
+                if(request.getPart("usuarioFoto") == null){
+                    isAllValidEditarPerfil = false;
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto. ");
+                }
+
+                if(isAllValidEditarPerfil){
+                    InputStream usuarioFoto = request.getPart("usuarioFoto").getInputStream();
+                    alumnoDao.actualizarFotoDePerfil(usuarioFoto,usuarioIdStr);
+                    request.getSession().setAttribute("msg", "Foto de perfil actualizada exitosamente.");
+                    response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=perfil");
+                }
+                else{
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto.");
+                    response.sendRedirect(request.getContextPath() + "/AlumnoServlet?action=perfil");
+                }
+                break;
         }
 
 

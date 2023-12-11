@@ -131,6 +131,22 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center justify-content-center mb-3 col" style="font-size: 14px">
+                <!-- MENSAJES DE ERROR O CONFIRMACION -->
+                <% if (session.getAttribute("msg") != null) { %>
+                <span class="alert-message success" style="color:green">
+                                    <i class="bi bi-check-circle"></i>
+                                    <%= session.getAttribute("msg") %></span>
+                <% session.removeAttribute("msg"); } %>
+                <% if (session.getAttribute("err") != null) { %>
+                <span class="alert-message danger" style="color:red">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <%= session.getAttribute("err") %></span>
+                <% session.removeAttribute("err"); } %>
+                <% if (session.getAttribute("errDesc") != null) { %>
+                <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
+                <% session.removeAttribute("errDesc"); } %>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="profile-header">
@@ -147,6 +163,7 @@
                                 <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
                                 <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
                                 <%}%>
+                                <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
                                 <h6 class="text-muted mt-1">Delegado Actividad</h6>
                                 <!-- COLOCAR LO Q HACE EL ALUMNO -->
                                 <div class="about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -167,24 +184,28 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span></button>
                                         </div>
+                                        <form method="POST" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=editar_perfil"
+                                              enctype="multipart/form-data">
                                         <div class="modal-body">
                                             <!-- editar el form -->
-                                            <form method="POST" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=perfil">
+
                                                 <!-- CONFIGURAR PARA EDITAR UNA FOTO? -->
-                                                <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                                    <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
-                                                         alt="Imagen de muestra"
-                                                         class="img-thumbnail w-50">
-                                                    <label>Subir Foto</label>
-                                                    <input type="file" class="form-control"
-                                                           name="usuarioFoto" accept="image/*"
-                                                    >
+                                            <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                                                <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
+                                                     alt="Imagen de muestra" id="exampleImage"
+                                                     class="img-thumbnail w-50">
+                                                <label class="form-label" for="imageUpload">Suba una foto</label>
+                                                <input type="file" class="form-control" id="imageUpload"
+                                                       accept="image/*" name="usuarioFoto" required>
+                                            </div>
+                                                <div class="mb-3">
+                                                    <input type="hidden" class="form-control" name="usuarioId" value="<%=alumnologueado.getIdAlumno()%>">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary btn-block">Guardar
                                                     cambios
                                                 </button>
-                                            </form>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

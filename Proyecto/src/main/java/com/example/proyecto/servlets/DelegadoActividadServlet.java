@@ -253,9 +253,10 @@ public class DelegadoActividadServlet extends HttpServlet {
                 DateTimeFormatter formatStringToDate = new DateTimeFormatterBuilder().append(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toFormatter();
 
                 boolean isAllValid = true;
-                if(request.getParameter("eventoFoto")==null){
-                    request.getSession().setAttribute("errDesc", "Debe subir una foto.");
+
+                if(request.getPart("usuarioFoto") == null){
                     isAllValid = false;
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto. ");
                 }
 
                 if (eventoDescripcion.length() > 150 || eventoDescripcion.length()<5) {
@@ -517,6 +518,30 @@ public class DelegadoActividadServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=editar_contra");
                 }
 
+                break;
+
+            case "editar_perfil":
+
+                //String emailEditado = request.getParameter("emailEditado");
+                String usuarioIdStr = request.getParameter("usuarioId");
+
+                boolean isAllValidEditarPerfil = true;
+
+                if(request.getPart("usuarioFoto") == null){
+                    isAllValidEditarPerfil = false;
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto. ");
+                }
+
+                if(isAllValidEditarPerfil){
+                    InputStream usuarioFoto = request.getPart("usuarioFoto").getInputStream();
+                    alumnoDao.actualizarFotoDePerfil(usuarioFoto,usuarioIdStr);
+                    request.getSession().setAttribute("msg", "Foto de perfil actualizada exitosamente.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=perfil");
+                }
+                else{
+                    request.getSession().setAttribute("errDesc", "Debe subir una foto.");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=perfil");
+                }
                 break;
 
             case "finalizar_evento":

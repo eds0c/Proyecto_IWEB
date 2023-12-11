@@ -4,6 +4,7 @@ import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.Alumno;
 import com.example.proyecto.beans.Evento;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -382,6 +383,23 @@ public class AlumnoDao extends DaoBase{
             throw new RuntimeException(e);
         }
         return esDelegadoDeActividad;
+    }
+
+
+    public void actualizarFotoDePerfil(InputStream fotoPerfil, String idAlumno){ //para banear, rechazar o aceptar registro
+
+        String sql = "update alumno set foto = ? where idAlumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setBlob(1,fotoPerfil);
+            pstmt.setInt(2, Integer.parseInt(idAlumno));
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

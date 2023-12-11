@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/styleFiltro.css">
 </head>
 
 <body>
@@ -98,7 +99,50 @@
     </div>
 
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <!-- FILTRO POR ACTIVIDADES -->
+            <div class="row filter mt-5">
+                <div class="col">
+                    <div class="filter-buttons" id="buttons">
+                        <i class="bi bi-arrow-left-circle-fill prev"></i>
+                        <div class="slider">
+<%--                            <%for (DelegadoActividad dA : listaActividades){%>--%>
+<%--                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%></a>--%>
+<%--                            <%};%>--%>
+                        </div>
+                        <i class="bi bi-arrow-right-circle-fill next"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- GALERÍA -->
+            <section class="container mt-4">
+                <h1 class="my-4 mt-4 text-sm-center text-lg-left image_title">Image Gallery</h1>
+                <div class="row gallery">
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a href="assets/img/product/product-01.jpg">
+                            <figure><img class="img-fluid img-thumbnail" src="assets/img/product/product-01.jpg"
+                                         alt="Random Image"></figure>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a href="assets/img/product/product-02.jpg">
+                            <figure><img class="img-fluid img-thumbnail" src="assets/img/product/product-02.jpg"
+                                         alt="Random Image"></figure>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a href="assets/img/product/product-03.jpg">
+                            <figure><img class="img-fluid img-thumbnail" src="assets/img/product/product-03.jpg"
+                                         alt="Random Image"></figure>
+                        </a>
+                    </div>
 
+
+                </div>
+            </section>
+        </div>
+    </div>
 </div>
 
 <script src="assets/js/jquery-3.5.1.min.js"></script>

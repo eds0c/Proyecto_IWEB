@@ -39,8 +39,9 @@
         <ul class="nav user-menu">
             <!-- FOTO DE PERFIL CON LAS OPCIONES DE EDITAR PERFIL Y DEMAS -->
             <li class="nav-item dropdown has-arrow">
-                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><img
-                        class="rounded-circle" src="assets/img/profiles/usuario.jpg" width="50"></span> </a>
+                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                    <img
+                            class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumnologueado.getIdAlumno()%>" width="50" height="50"></span> </a>
                 <!-- MENU DESPLEGABLE DE LA FLECHITA DE LA FOTO DE PERFIL -->
                 <div class="dropdown-menu">
                     <div class="user-header">
@@ -49,8 +50,8 @@
                             <%if(session.getAttribute("usuariologueado")==null) {%>
                             <span class="email">codigo@pucp.edu.com</span>
                             <%}else{%>
-                            <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
-                            <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                            <%Alumno alumnologueado1 = (Alumno) session.getAttribute("usuariologueado");%>
+                            <span class="email"><%=alumnologueado1.getNombre() + " " + alumnologueado1.getApellido()%></span>
                             <%}%>
                             <p class="text-muted mb-0">Alumno</p>
                         </div>
@@ -134,7 +135,7 @@
                 <%for (Evento e: lista){%>
                 <div class="col-12 col-sm-6 col-lg-4" style="padding: 0 20px">
                     <div class="card" >
-                        <img class="card-img  w-100" src="<%=request.getContextPath()%>/ImgServlet?id=<%=e.getIdEvento()%>" alt="" style="min-height: 150px;">
+                        <img class="card-img  w-100" src="<%=request.getContextPath()%>/ImgServlet?action=fotoEvento&id=<%=e.getIdEvento()%>" alt="" style="min-height: 150px;">
                         <div class="card-body d-flex flex-column" style="padding: 15px;">
                             <p class="card-text text-justify" style="margin: 5px 0 10px">
                                 <strong><%=e.getActividad().getTitulo()%>: <%=e.getTitulo()%></strong><br>

@@ -34,8 +34,9 @@
         <ul class="nav user-menu">
             <!-- FOTO DE PERFIL CON LAS OPCIONES DE EDITAR PERFIL Y DEMAS -->
             <li class="nav-item dropdown has-arrow">
-                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><img
-                        class="rounded-circle" src="assets/img/profiles/usuario.jpg" width="50"></span> </a>
+                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><%DelegadoGeneral delegadoGenerallogueado = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
+                    <img
+                            class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleGen&idDeleGen=<%=delegadoGenerallogueado.getIdDelegadoGeneral()%>" width="50" height="50"></span> </a>
                 <!-- MENU DESPLEGABLE DE LA FLECHITA DE LA FOTO DE PERFIL -->
                 <div class="dropdown-menu">
                     <div class="user-header">
@@ -44,11 +45,11 @@
                             <%if (session.getAttribute("usuariologueado") == null) {%>
                             <span class="email">codigo@pucp.edu.com</span>
                             <%} else {%>
-                            <%DelegadoGeneral delegadoGenerallogueado = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
-                            <h6><%=delegadoGenerallogueado.getNombre() + " " + delegadoGenerallogueado.getApellido()%>
+                            <%DelegadoGeneral delegadoGenerallogueado1 = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
+                            <h6><%=delegadoGenerallogueado1.getNombre() + " " + delegadoGenerallogueado1.getApellido()%>
                             </h6>
                             <%}%>
-                            <%DelegadoGeneral delegadoGenerallogueado = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
+                            <%DelegadoGeneral delegadoGenerallogueado2 = (DelegadoGeneral) session.getAttribute("usuariologueado");%>
                             <p class="text-muted mb-0">Delegado General</p>
                         </div>
                     </div>
@@ -147,8 +148,8 @@
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <!--VER LA FOTO DE PERFIL -->
-                                <img class="rounded-circle" alt="User Image"
-                                     src="assets/img/profiles/usuario.jpg">
+                                <img
+                                        class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleGen&idDeleGen=<%=delegadoGenerallogueado.getIdDelegadoGeneral()%>" width="50" height="50">
                             </div>
                             <div class="col ml-md-n2 profile-user-info">
                                 <%if (session.getAttribute("usuariologueado") == null) {%>

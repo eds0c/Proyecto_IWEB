@@ -32,8 +32,9 @@
         <ul class="nav user-menu">
             <!-- FOTO DE PERFIL CON LAS OPCIONES DE EDITAR PERFIL Y DEMAS -->
             <li class="nav-item dropdown has-arrow">
-                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><img
-                        class="rounded-circle" src="assets/img/profiles/usuario.jpg" width="50"></span> </a>
+                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                    <img
+                            class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumnologueado.getIdAlumno()%>" width="50" height="50"></span> </a>
                 <!-- MENU DESPLEGABLE DE LA FLECHITA DE LA FOTO DE PERFIL -->
                 <div class="dropdown-menu">
                     <div class="user-header">
@@ -42,10 +43,10 @@
                             <%if(session.getAttribute("usuariologueado")==null) {%>
                             <span class="email">codigo@pucp.edu.com</span>
                             <%}else{%>
-                            <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
-                            <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                            <%Alumno alumnologueado1 = (Alumno) session.getAttribute("usuariologueado");%>
+                            <span class="email"><%=alumnologueado1.getNombre() + " " + alumnologueado1.getApellido()%></span>
                             <%}%>
-                            <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                            <%Alumno alumnologueado2 = (Alumno) session.getAttribute("usuariologueado");%>
                             <p class="text-muted mb-0">Alumno</p>
                         </div>
                     </div>
@@ -134,8 +135,8 @@
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <!--VER LA FOTO DE PERFIL -->
-                                <a href="#"> <img class="rounded-circle" alt="User Image"
-                                                  src="assets/img/profiles/usuario.jpg"> </a>
+                                <a href="#"> <img
+                                        class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumnologueado.getIdAlumno()%>" width="50" height="50"> </a>
                             </div>
                             <div class="col ml-md-n2 profile-user-info">
                                 <%if(session.getAttribute("usuariologueado")==null) {%>

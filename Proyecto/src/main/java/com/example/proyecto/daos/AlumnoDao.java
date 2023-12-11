@@ -3,8 +3,12 @@ package com.example.proyecto.daos;
 import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.Alumno;
 import com.example.proyecto.beans.Evento;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -399,6 +403,36 @@ public class AlumnoDao extends DaoBase{
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void fotoPerfil(int idAlumno, HttpServletResponse response){
+        String sql = "Select * from alumno where idAlumno=?";
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            outputStream = response.getOutputStream();
+            pstmt.setInt(1,idAlumno);
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    inputStream = rs.getBinaryStream("foto");
+                }
+                bufferedInputStream = new BufferedInputStream(inputStream);
+                bufferedOutputStream = new BufferedOutputStream(outputStream);
+                int i = 0;
+                while ((i=bufferedInputStream.read())!=-1){
+                    bufferedOutputStream.write(i);
+                }
+            }
+
+
+        }catch (Exception e){
+
         }
     }
 

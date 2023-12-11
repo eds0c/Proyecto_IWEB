@@ -33,8 +33,9 @@
         <ul class="nav user-menu">
             <!-- FOTO DE PERFIL CON LAS OPCIONES DE EDITAR PERFIL Y DEMAS -->
             <li class="nav-item dropdown has-arrow">
-                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><img
-                        class="rounded-circle" src="assets/img/profiles/usuario.jpg" width="50"></span> </a>
+                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                    <img
+                            class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleAct&idd=<%=alumnologueado.getIdAlumno()%>" width="50" height="50"></span> </a>
                 <!-- MENU DESPLEGABLE DE LA FLECHITA DE LA FOTO DE PERFIL -->
                 <div class="dropdown-menu">
                     <div class="user-header">
@@ -43,8 +44,8 @@
                             <%if(session.getAttribute("usuariologueado")==null) {%>
                             <span class="email">codigo@pucp.edu.com</span>
                             <%}else{%>
-                            <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
-                            <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
+                            <%Alumno alumnologueado1 = (Alumno) session.getAttribute("usuariologueado");%>
+                            <span class="email"><%=alumnologueado1.getNombre() + " " + alumnologueado1.getApellido()%></span>
                             <%}%>
                             <p class="text-muted mb-0">Delegado Actividad</p>
                         </div>
@@ -209,9 +210,9 @@
 
                                 </div>
                                 <!-- Id Alumno donador -->
-                                <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                                <%Alumno alumnologueado2 = (Alumno) session.getAttribute("usuariologueado");%>
                                 <input type="hidden" class="form-control"
-                                       name="alumnoIDdonador" value="<%=alumnologueado.getIdAlumno()%>">
+                                       name="alumnoIDdonador" value="<%=alumnologueado2.getIdAlumno()%>">
 
                                 <!-- Botón envío -->
                                 <div class="row">

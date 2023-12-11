@@ -141,7 +141,6 @@
                                 <%if(session.getAttribute("usuariologueado")==null) {%>
                                 <span class="email">codigo@pucp.edu.com</span>
                                 <%}else{%>
-                                <%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
                                 <span class="email"><%=alumnologueado.getNombre() + " " + alumnologueado.getApellido()%></span>
                                 <%}%>
                                 <h6 class="text-muted mt-1">Alumno</h6>

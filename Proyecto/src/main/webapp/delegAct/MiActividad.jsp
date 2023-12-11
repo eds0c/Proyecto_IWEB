@@ -239,7 +239,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                                                <img src="<%=request.getContextPath()%>/ImgServlet?id=<%=e.getIdEvento()%>"
+                                                                <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoEvento&id=<%=e.getIdEvento()%>"
                                                                      alt="Imagen de evento"
                                                                      class="img-thumbnail w-70">
                                                             </div>

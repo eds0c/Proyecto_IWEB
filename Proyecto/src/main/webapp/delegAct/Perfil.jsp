@@ -155,7 +155,7 @@
                             <div class="col-auto profile-image">
                                 <!--VER LA FOTO DE PERFIL -->
                                 <img class="rounded-circle" alt="User Image"
-                                     src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleAct&idd=<%=alumnologueado.getIdAlumno()%>" width="50" height="50">
+                                     src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleAct&idd=<%=alumnologueado.getIdAlumno()%>" style="width: 100px; height: 100px;">
                             </div>
                             <div class="col ml-md-n2 profile-user-info">
                                 <%if(session.getAttribute("usuariologueado")==null) {%>
@@ -167,8 +167,10 @@
                                 <%Alumno alumnologueado2 = (Alumno) session.getAttribute("usuariologueado");%>
                                 <h6 class="text-muted mt-1">Delegado Actividad</h6>
                                 <!-- COLOCAR LO Q HACE EL ALUMNO -->
-                                <div class="about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <div class="about-text text-justify">
+                                    El delegado de actividad tiene la capacidad de explorar y respaldar eventos de la semana de ingeniería como cualquier alumno.
+                                    Sin embargo, se le asignan funciones adicionales, permitiéndole crear, editar y borrar eventos. Además, podrá gestionar los registros
+                                    de los usuarios interesados.
                                 </div>
                                 <!-- VER SI COLOCAMOS MAS INFORMACION -->
                             </div>

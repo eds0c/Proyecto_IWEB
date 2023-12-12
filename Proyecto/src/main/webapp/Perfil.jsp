@@ -134,7 +134,7 @@
                             <div class="col-auto profile-image">
                                 <!--VER LA FOTO DE PERFIL -->
                                 <a href="#"> <img
-                                        class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumnologueado.getIdAlumno()%>" width="50" height="50"> </a>
+                                        class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumnologueado.getIdAlumno()%>" style="width: 100px; height: 100px;"> </a>
                             </div>
                             <div class="col ml-md-n2 profile-user-info">
                                 <%if(session.getAttribute("usuariologueado")==null) {%>
@@ -144,8 +144,9 @@
                                 <%}%>
                                 <h6 class="text-muted mt-1">Alumno</h6>
                                 <!-- COLOCAR LO Q HACE EL ALUMNO -->
-                                <div class="about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <div class="about-text text-justify">
+                                    Los alumnos tendrán acceso a una lista de eventos programados para la Semana de
+                                    Ingeniería y se podrán inscribir a estos.
                                 </div>
                                 <!-- VER SI COLOCAMOS MAS INFORMACION -->
                             </div>

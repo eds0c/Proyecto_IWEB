@@ -147,8 +147,9 @@
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <!--VER LA FOTO DE PERFIL -->
-                                <img
-                                        class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleGen&idDeleGen=<%=delegadoGenerallogueado.getIdDelegadoGeneral()%>" width="50" height="50">
+                                <img class="rounded-circle"
+                                     src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleGen&idDeleGen=<%=delegadoGenerallogueado.getIdDelegadoGeneral()%>"
+                                     style="width: 100px; height: 100px;">
                             </div>
                             <div class="col ml-md-n2 profile-user-info">
                                 <%if (session.getAttribute("usuariologueado") == null) {%>

@@ -191,6 +191,7 @@
                                         <th>#</th>
                                         <th>Nombre</th>
                                         <th>Correo</th>
+                                        <th>Egresado/Estudiante</th>
                                         <!-- IMPLEMENTAR BOTONES -->
                                         <th>Observar</th>
                                         <th>Banear</th>
@@ -211,6 +212,7 @@
                                         </td>
                                         <td><%=alumno.getCorreo()%>
                                         </td>
+                                        <td><%=alumno.getEgresado()%></td>
                                         <!-- OBSERVAR INFO DEL ALUMNO REGISTRADO -->
                                         <td>
                                             <button class="btn btn-secondary" data-bs-toggle="modal"

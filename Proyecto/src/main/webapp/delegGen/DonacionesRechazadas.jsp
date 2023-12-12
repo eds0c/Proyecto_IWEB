@@ -184,6 +184,7 @@
                                         <th>#</th>
                                         <th>Usuario</th>
                                         <th>Correo</th>
+                                        <th>Egresado/Estudiante</th>
                                         <th>Fecha</th>
                                         <th>Medio de pago</th>
                                         <th>Monto</th>
@@ -201,6 +202,7 @@
                                         <th><%=i%></th>
                                         <td><%=d.getAlumno().getNombre()+" "+d.getAlumno().getApellido()%></td>
                                         <td><%=d.getAlumno().getCorreo()%></td>
+                                        <td><%=d.getAlumno().getEgresado()%></td>
                                         <td><%=d.getFecha()%></td>
                                         <td>
                                             <%if(d.getTipoDonacion().getIdTipoDonacion()==1){%>

@@ -142,7 +142,7 @@
                                         <p class="text-justify">Esta representación ofrece un análisis porcentual detallado que compara la participación de nuestros alumnos y egresados
                                             de la carrera de Telecomunicaciones.
                                             Para obtener información más específica sobre los participantes, te invitamos a explorar la sección de usuarios registrados.</p>
-                                        <a class="btn btn-block active" href="#">Usuarios registrados</a>
+                                        <a class="btn btn-block active" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_usuarios">Usuarios registrados</a>
                                     </div>
                                 </div>
 
@@ -158,8 +158,14 @@
                         <div class="card-header">
                             <h4 class="card-title">DONACIONES</h4></div>
                         <div class="card-body">
+                            <p>La siguiente gráfica ilustra las recaudaciones
+                                resultantes de las donaciones realizadas por los usuarios de Teleweek hacia
+                                la AITEL durante la semana de Ingeniería.</p>
                             <!-- grafica lineal de donaciones por fechas -->
-                            <canvas id="donaciones" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                            <div style="min-height: 350px">
+                                <canvas id="donaciones" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -172,7 +178,13 @@
                             <h4 class="card-title">APOYO ACTIVIDADES</h4>
                         </div>
                         <div class="card-body">
-                            <canvas id="apoyoAct" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                            <p>La siguiente gráfica estadística detalla la distribución de apoyos
+                                según diversas actividades dentro de nuestra organización, este apoyo se divide entre
+                                equipo y barra.</p>
+                            <div style="min-height: 350px">
+                                <canvas id="apoyoAct" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                            </div>
+
                         </div>
                     </div>
 
@@ -205,7 +217,7 @@
                 data: [300, 100],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
+                    'rgba(75, 192, 192, 1)',
                 ],
                 hoverOffset: 4
             }]

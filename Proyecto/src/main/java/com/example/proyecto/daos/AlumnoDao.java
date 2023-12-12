@@ -234,7 +234,7 @@ public class AlumnoDao extends DaoBase{
         }
     }
 
-    public ArrayList<Alumno> listarAlumnosSegunEstado(int estado){   //Para validar registros
+    public ArrayList<Alumno> listarAlumnosSegunEstado(int estado, int limit, int offset){   //Para validar registros
 
         ArrayList<Alumno> lista = new ArrayList<>();
         EstadoAlumnoDao estadoAlumnoDao = new EstadoAlumnoDao();
@@ -243,12 +243,14 @@ public class AlumnoDao extends DaoBase{
 
 
 
-        String sql = "select * from alumno a where a.Estado_Alumno_idEstado_Alumno = ?;";
+        String sql = "select * from alumno a where a.Estado_Alumno_idEstado_Alumno = ? limit ? offset ?;";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1,estado);
+            pstmt.setInt(2,limit);
+            pstmt.setInt(3,offset);
             try(ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Alumno a = new Alumno();

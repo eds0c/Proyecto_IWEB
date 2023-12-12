@@ -44,6 +44,9 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
+        int currentPage=Integer.parseInt(request.getParameter("currentPage")==null?"1":request.getParameter("currentPage"));
+        int cantidadPaginas;
+        int limit;
 
 
         switch (action){
@@ -60,10 +63,12 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 break;
 
             case "editar_actividades":
-
-
-                ArrayList<DelegadoActividad> list = delegadoActividadDao.listarActividades(100,0);
+                limit = 10;
+                ArrayList<DelegadoActividad> list = delegadoActividadDao.listarActividades(limit,(currentPage-1)*limit);
+                ArrayList<DelegadoActividad> list2 = delegadoActividadDao.listarActividades(1000,0);
                 ArrayList<Alumno> listaAlumnosCandidatos = alumnoDao.listarAlumnosQueNoSonDelegadosDeActividad();
+                cantidadPaginas=(list2.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
                 //mandar las lista a la vista -> /MainPage.jsp
                 request.setAttribute("listaAlumnos_DelegadosActividad",alumnoDao.listarDelegadosDeActividad());
                 request.setAttribute("listaActividades",list);
@@ -71,39 +76,72 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getRequestDispatcher("delegGen/EditarActividades.jsp").forward(request,response);
                 break;
             case "validar_donaciones":
-
-                request.setAttribute("lista2",donacionDao.listarDonacionesporEstado("pendiente") );
+                limit = 10;
+                ArrayList<Donacion> lista1 = donacionDao.listarDonacionesporEstado("pendiente", limit, (currentPage-1)*limit);
+                ArrayList<Donacion> lista2 = donacionDao.listarDonacionesporEstado("pendiente", 1000, 0);
+                cantidadPaginas=(lista2.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("lista1",lista1);
                 request.getRequestDispatcher("delegGen/ValidarDonaciones.jsp").forward(request,response);
                 break;
 
             case "lista_donaciones":
-                request.setAttribute("lista1",donacionDao.listarDonacionesporEstado("aprobado"));
+                limit = 10;
+                ArrayList<Donacion> lista3 = donacionDao.listarDonacionesporEstado("aprobado", limit, (currentPage-1)*limit);
+                ArrayList<Donacion> lista4 = donacionDao.listarDonacionesporEstado("aprobado", 1000, 0);
+                cantidadPaginas=(lista4.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("lista3",lista3);
                 request.getRequestDispatcher("delegGen/ListaDonaciones.jsp").forward(request,response);
                 break;
 
             case "donaciones_rechazadas":
-                request.setAttribute("lista3",donacionDao.listarDonacionesporEstado("rechazado"));
+                limit = 10;
+                ArrayList<Donacion> lista5 = donacionDao.listarDonacionesporEstado("rechazado", limit, (currentPage-1)*limit);
+                ArrayList<Donacion> lista6 = donacionDao.listarDonacionesporEstado("rechazado", 1000, 0);
+                cantidadPaginas=(lista6.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("lista5",lista5);
                 request.getRequestDispatcher("delegGen/DonacionesRechazadas.jsp").forward(request,response);
                 break;
 
             case "validar_registro":
-                request.setAttribute("listaAlumnosPendientes",alumnoDao.listarAlumnosSegunEstado(3));
+                limit = 10;
+                ArrayList<Alumno> listaAlumnosPendientes = alumnoDao.listarAlumnosSegunEstado(3,limit,(currentPage-1)*limit);
+                ArrayList<Alumno> listaAlumnosPendientes1 = alumnoDao.listarAlumnosSegunEstado(3,1000,0);
+                cantidadPaginas=(listaAlumnosPendientes1.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("listaAlumnosPendientes",listaAlumnosPendientes);
                 request.getRequestDispatcher("delegGen/ValidarRegistro.jsp").forward(request,response);
                 break;
 
             case "lista_usuarios":
-                request.setAttribute("listaAlumnosActivos",alumnoDao.listarAlumnosSegunEstado(1));
+                limit = 10;
+                ArrayList<Alumno> listaAlumnosActivos = alumnoDao.listarAlumnosSegunEstado(1,limit,(currentPage-1)*limit);
+                ArrayList<Alumno> listaAlumnosActivos1 = alumnoDao.listarAlumnosSegunEstado(1,1000,0);
+                cantidadPaginas=(listaAlumnosActivos1.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("listaAlumnosActivos",listaAlumnosActivos);
                 request.getRequestDispatcher("delegGen/ListaUsuarios.jsp").forward(request,response);
                 break;
 
             case "usuarios_rechazados":
-                request.setAttribute("listaUsuariosRechazados",alumnoDao.listarAlumnosSegunEstado(4));
+                limit = 10;
+                ArrayList<Alumno> listaUsuariosRechazados = alumnoDao.listarAlumnosSegunEstado(4,limit,(currentPage-1)*limit);
+                ArrayList<Alumno> listaUsuariosRechazados1 = alumnoDao.listarAlumnosSegunEstado(4,1000,0);
+                cantidadPaginas=(listaUsuariosRechazados1.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("listaUsuariosRechazados",listaUsuariosRechazados);
                 request.getRequestDispatcher("delegGen/UsuariosRechazados.jsp").forward(request,response);
-
                 break;
 
             case "usuarios_baneados":
-                request.setAttribute("listaUsuariosBaneados",alumnoDao.listarAlumnosSegunEstado(2));
+                limit = 10;
+                ArrayList<Alumno> listaUsuariosBaneados = alumnoDao.listarAlumnosSegunEstado(2,limit,(currentPage-1)*limit);
+                ArrayList<Alumno> listaUsuariosBaneados1 = alumnoDao.listarAlumnosSegunEstado(2,1000,0);
+                cantidadPaginas=(listaUsuariosBaneados1.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("listaUsuariosBaneados",listaUsuariosBaneados);
                 request.getRequestDispatcher("delegGen/UsuariosBaneados.jsp").forward(request,response);
                 break;
 

@@ -3,6 +3,7 @@
 <%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
 <jsp:useBean id="lista" scope="request" type="ArrayList<Evento>"/>
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>"/>
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno"
@@ -137,23 +138,24 @@
             <!-- Filtro por actividades -->
             <div class="row filter mb-4">
                 <div class="col">
-                    <%for (DelegadoActividad dA : listaActividades) {%>
+
                     <div class="filter-buttons" id="buttons">
                         <i class="bi bi-arrow-left-circle-fill prev"></i>
                         <div class="slider">
+                            <%for (DelegadoActividad dA : listaActividades) {%>
                             <a class="button-value text-decoration-none" role="button"
                                href="<%=request.getContextPath()%>/AlumnoServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%>
                             </a>
+                            <%
+                                };
+                            %>
                         </div>
                         <i class="bi bi-arrow-right-circle-fill next"></i>
                     </div>
                     <div>
-                        <h6><%=dA.getActividad().getTitulo()%></h6>
+
                     </div>
-                    <%
-                        }
-                        ;
-                    %>
+
                 </div>
             </div>
 
@@ -184,7 +186,7 @@
                     ;
                 %>
             </div>
-            <!-- Footer -->
+            <!-- Paginacion -->
             <div class="row footer">
                 <div class="col">
                     <nav aria-label="Page navigation example">
@@ -194,9 +196,9 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <%for (int j=1;j<=cantidadPaginas;j++){%>
+                            <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page&currentPage=<%=j%>"><%=j%></a></li>
+                            <%}%>
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

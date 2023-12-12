@@ -2,8 +2,9 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 <%@ page import="com.example.proyecto.beans.Donacion" %>
+<%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
-<jsp:useBean id="lista3" scope="request" type="ArrayList<com.example.proyecto.beans.Donacion>" />
+<jsp:useBean id="lista5" scope="request" type="ArrayList<com.example.proyecto.beans.Donacion>" />
 <%@ page import="java.util.ArrayList" %>
 
 <html lang="en">
@@ -174,7 +175,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <%if (lista3.isEmpty()){%>
+                                <%if (lista5.isEmpty()){%>
                                 <p class="lead"> Aún no hay donaciones rechazadas </p>
                                 <%}%>
                                 <!-- TABLA DE DONACIONES NO VALIDADAS -->
@@ -196,7 +197,7 @@
                                     <tbody>
                                     <%-- FALTA IMPLEMENTAR DAO--%>
                                     <%int i=1;%>
-                                    <%for (Donacion d: lista3){%>
+                                    <%for (Donacion d: lista5){%>
 
                                     <tr>
                                         <th><%=i%></th>
@@ -254,24 +255,28 @@
                                     </tbody>
                                 </table>
 
-                                <!-- PAGINACION -->
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                <!-- Paginacion -->
+                                <div class="row footer">
+                                    <div class="col">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <%for (int j=1;j<=cantidadPaginas;j++){%>
+                                                <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=donaciones_rechazadas&currentPage=<%=j%>"><%=j%></a></li>
+                                                <%}%>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

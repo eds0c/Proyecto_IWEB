@@ -153,7 +153,7 @@ public class DonacionDao extends DaoBase{
         return lista;
     }
 
-    public ArrayList<Donacion> listarDonacionesporEstado(String estado){
+    public ArrayList<Donacion> listarDonacionesporEstado(String estado, int limit, int offset){
 
 
         ArrayList<Donacion> lista = new ArrayList<>();
@@ -162,12 +162,14 @@ public class DonacionDao extends DaoBase{
         DelegadoGeneralDao delegadoGeneralDao = new DelegadoGeneralDao();
 
 
-        String sql = "select * from donacion d where d.estado = ?;";
+        String sql = "select * from donacion d where d.estado = ? limit ? offset ?;";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1,estado);
+            pstmt.setInt(2,limit);
+            pstmt.setInt(3,offset);
 
             try(ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {

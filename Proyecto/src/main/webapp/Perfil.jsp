@@ -78,8 +78,6 @@
                     <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=donaciones"><i class="bi bi-heart-fill"></i><span>Donaciones</span></a>
                     </li>
 
-                    <li class="list-divider"></li>
-                    <li class="menu-title mt-3"><span>EXPLORA</span></li>
                     <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>

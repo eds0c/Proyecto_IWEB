@@ -15,6 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -110,7 +111,77 @@
     </div>
 
     <!-- TODO LO Q ESTA EN LA PAGINA SIN BARRA LATERAL -->
+    <div class="page-wrapper" style="min-height: 755px;">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12 mt-5">
+                        <h3 class="page-title mt-3">¡Bienvenido! Tu centro de comando está listo</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h4 class="card-title">PARTICIPANTES</h4></div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- grafica pastel para participantes (alumnos y egresados) -->
+                                <div class="col-lg-5 d-flex justify-content-center">
+                                    <div style="width: 350px">
+                                        <canvas id="participantes" width="350" height="350" style="display: block; box-sizing: border-box; height: 350px; width: 350px;"></canvas>
+                                    </div>
 
+                                </div>
+                                <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                                    <div>
+                                        <p class="text-justify">Esta representación ofrece un análisis porcentual detallado que compara la participación de nuestros alumnos y egresados
+                                            de la carrera de Telecomunicaciones.
+                                            Para obtener información más específica sobre los participantes, te invitamos a explorar la sección de usuarios registrados.</p>
+                                        <a class="btn btn-block active" href="#">Usuarios registrados</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h4 class="card-title">DONACIONES</h4></div>
+                        <div class="card-body">
+                            <!-- grafica lineal de donaciones por fechas -->
+                            <canvas id="donaciones" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h4 class="card-title">APOYO ACTIVIDADES</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="apoyoAct" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </div>
 
 <script src="assets/js/jquery-3.5.1.min.js"></script>
@@ -122,6 +193,80 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+<!-- participantes -->
+<script>
+    let participantes = document.getElementById("participantes").getContext("2d");
+    var chart = new Chart(participantes, {
+        type: "doughnut",
+        data: {
+            labels: ["Estudiante", "Egresado"],
+            datasets: [{
+                label: 'Inscritos a Teleweek',
+                data: [300, 100],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                ],
+                hoverOffset: 4
+            }]
+        }
+    })
+</script>
+<!-- donaciones -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let donaciones = document.getElementById("donaciones").getContext("2d");
+        var chart = new Chart(donaciones, {
+            type: "line",
+            data: {
+                labels: ["fecha1", "fecha2", "fecha3", "fecha4", "fecha5", "fecha6", "fecha7", "fecha8", "fecha9"],
+                datasets: [
+                    {
+                        label: "Donaciones",
+                        borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
+                        borderWidth: 1,
+                        data: [30, 50, 70, 40, 20, 10, 40, 50, 10], // Valores para cada categoría
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true
+            }
+        });
+    });
+</script>
+<!-- apoyo actividad -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let apoyoAct = document.getElementById("apoyoAct").getContext("2d");
+        var chart = new Chart(apoyoAct, {
+            type: "bar",
+            data: {
+                labels: ["act1", "act2", "act3", "act4", "act5", "act6", "act7", "act8", "act9"],
+                datasets: [
+                    {
+                        label: "Equipo",
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de fondo
+                        borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
+                        borderWidth: 1,
+                        data: [30, 50, 70, 40, 20, 10, 40, 50, 10], // Valores para cada categoría
+                    }, {
+                        label: 'Barra',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        data: [40, 60, 80, 40, 60, 80, 40, 60, 80],
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

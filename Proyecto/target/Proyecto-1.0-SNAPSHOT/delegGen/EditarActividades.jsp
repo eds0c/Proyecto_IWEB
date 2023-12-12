@@ -237,7 +237,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                                                <img src="images/deportes.jpg" alt="Imagen de evento"
+                                                                <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoActividad&idActividadMostrarFoto=<%=delegadoActividad.getActividad().getIdActividad()%>" alt="Imagen de evento"
                                                                      class="img-thumbnail w-70">
                                                             </div>
                                                             <div class="mb-3">
@@ -286,9 +286,13 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                                                <img src="images/deportes.jpg" alt="Imagen de evento"
+                                                                <label class="form-label" for="imageUpload">Suba una foto</label>
+                                                                <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoActividad&idActividadMostrarFoto=<%=delegadoActividad.getActividad().getIdActividad()%>" alt="Imagen de evento"
                                                                      class="img-thumbnail w-70">
+                                                                <input type="file" class="form-control"
+                                                                       accept="image/*" name="fotoActividadEditada" required>
                                                             </div>
+
                                                             <div class="mb-3">
                                                                 <label for="tituloActividad" class="fw-bold">Nombre de
                                                                     la actividad:</label>

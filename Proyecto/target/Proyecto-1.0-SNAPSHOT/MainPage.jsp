@@ -3,9 +3,10 @@
 <%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
-<jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
-<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
+<jsp:useBean id="lista" scope="request" type="ArrayList<Evento>"/>
+<jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>"/>
+<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno"
+             class="com.example.proyecto.beans.Alumno"/>
 <html lang="en">
 
 <head>
@@ -29,34 +30,40 @@
     <div class="header">
         <!-- CABECERA DE LA BARRA LATERAL -->
         <div class="header-left">
-            <a href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page" class="logo text-decoration-none"> <img
-                    src="assets/img/IconoBat.png" width="30" height="50" alt="logo"> <span
+            <a href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page" class="logo text-decoration-none">
+                <img
+                        src="assets/img/IconoBat.png" width="30" height="50" alt="logo"> <span
                     class="logoclass">TELEWEEK</span> </a>
         </div>
-        <a class="text-decoration-none" href="javascript:void(0);" id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
+        <a class="text-decoration-none" href="javascript:void(0);" id="toggle_btn"> <i
+                class="fe fe-text-align-left"></i> </a>
         <a class="mobile_btn text-decoration-none" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
         <!-- NAVBAR -->
         <ul class="nav user-menu">
             <!-- FOTO DE PERFIL CON LAS OPCIONES DE EDITAR PERFIL Y DEMAS -->
             <li class="nav-item dropdown has-arrow">
-                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span class="user-img"><%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
+                <a href="#" class="dropdown-toggle nav-link text-decoration-none" data-bs-toggle="dropdown"> <span
+                        class="user-img"><%Alumno alumnologueado = (Alumno) session.getAttribute("usuariologueado");%>
                     <img
-                            class="rounded-circle" src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumnologueado.getIdAlumno()%>" width="50" height="50"></span> </a>
+                            class="rounded-circle"
+                            src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumnologueado.getIdAlumno()%>"
+                            width="50" height="50"></span> </a>
                 <!-- MENU DESPLEGABLE DE LA FLECHITA DE LA FOTO DE PERFIL -->
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <!-- nombre y rol del usuario -->
                         <div class="user-text">
-                            <%if(session.getAttribute("usuariologueado")==null) {%>
+                            <%if (session.getAttribute("usuariologueado") == null) {%>
                             <span class="email">codigo@pucp.edu.com</span>
-                            <%}else{%>
+                            <%} else {%>
                             <%Alumno alumnologueado1 = (Alumno) session.getAttribute("usuariologueado");%>
                             <span class="email"><%=alumnologueado1.getNombre() + " " + alumnologueado1.getApellido()%></span>
                             <%}%>
                             <p class="text-muted mb-0">Alumno</p>
                         </div>
                     </div>
-                    <a class="dropdown-item text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=perfil">Mi
+                    <a class="dropdown-item text-decoration-none"
+                       href="<%=request.getContextPath() %>/AlumnoServlet?action=perfil">Mi
                         Perfil</a>
                     <a class="dropdown-item text-decoration-none"
                        href="<%=request.getContextPath() %>/AlumnoServlet?action=cerrar_sesion">Cerrar
@@ -71,31 +78,41 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
-                    <li class="active"><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page"><i class="bi bi-house-fill"></i>
+                    <li class="active"><a class="text-decoration-none"
+                                          href="<%=request.getContextPath() %>/AlumnoServlet?action=main_page"><i
+                            class="bi bi-house-fill"></i>
                         <span>Inicio</span></a></li>
                     <li class="list-divider"></li>
 
                     <li class="menu-title mt-3"><span>PARTICIPACION</span></li>
                     <!-- EVENTOS INSCRITOS -->
-                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos"><i class="bi bi-calendar-event-fill"></i><span>Mis eventos</span></a>
+                    <li><a class="text-decoration-none"
+                           href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos"><i
+                            class="bi bi-calendar-event-fill"></i><span>Mis eventos</span></a>
                     </li>
 
                     <!-- DONACION -->
-                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=donaciones"><i class="bi bi-heart-fill"></i><span>Donaciones</span></a>
+                    <li><a class="text-decoration-none"
+                           href="<%=request.getContextPath() %>/AlumnoServlet?action=donaciones"><i
+                            class="bi bi-heart-fill"></i><span>Donaciones</span></a>
                     </li>
 
                     <!-- NOVEDADES - ACT FINALIZADAS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>EXPLORA</span></li>
-                    <li><a class="text-decoration-none" href="<%=request.getContextPath() %>/AlumnoServlet?action=actividades_finalizadas"><i class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
+                    <li><a class="text-decoration-none"
+                           href="<%=request.getContextPath() %>/AlumnoServlet?action=actividades_finalizadas"><i
+                            class="bi bi-calendar2-check-fill"></i><span>Act finalizadas</span></a>
                     </li>
 
                     <!-- CONTACTOS -->
                     <li class="list-divider"></li>
                     <li class="menu-title mt-3"><span>CONTACTOS</span></li>
-                    <li><a class="text-decoration-none" href="https://www.instagram.com/aitel.pucp/" target="_blank"><i class="bi bi-instagram"></i>
+                    <li><a class="text-decoration-none" href="https://www.instagram.com/aitel.pucp/" target="_blank"><i
+                            class="bi bi-instagram"></i>
                         <span>Instagram</span></a></li>
-                    <li><a class="text-decoration-none" href="mailto:aitel@pucp.pe" target="_blank"><i class="fas fa-envelope"></i>
+                    <li><a class="text-decoration-none" href="mailto:aitel@pucp.pe" target="_blank"><i
+                            class="fas fa-envelope"></i>
                         <span>Gmail</span></a></li>
 
                 </ul>
@@ -110,7 +127,8 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Eventos</h4>
+                            <h4 class="card-title float-left mt-2">¡Bienvenido! Explora los distintos eventos por
+                                actividad</h4>
                         </div>
                     </div>
                 </div>
@@ -119,32 +137,52 @@
             <!-- Filtro por actividades -->
             <div class="row filter mb-4">
                 <div class="col">
+                    <%for (DelegadoActividad dA : listaActividades) {%>
                     <div class="filter-buttons" id="buttons">
                         <i class="bi bi-arrow-left-circle-fill prev"></i>
                         <div class="slider">
-                            <%for (DelegadoActividad dA : listaActividades){%>
-                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/AlumnoServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%></a>
-                            <%};%>
+                            <a class="button-value text-decoration-none" role="button"
+                               href="<%=request.getContextPath()%>/AlumnoServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%>
+                            </a>
                         </div>
                         <i class="bi bi-arrow-right-circle-fill next"></i>
                     </div>
+                    <div>
+                        <h6><%=dA.getActividad().getTitulo()%></h6>
+                    </div>
+                    <%
+                        }
+                        ;
+                    %>
                 </div>
             </div>
 
+            <%if (lista.isEmpty()) {%>
+            <p class="lead">Aún no existen eventos en esta actividad.</p>
+            <%}%>
+
             <div class="row">
-                <%for (Evento e: lista){%>
+                <%for (Evento e : lista) {%>
                 <div class="col-12 col-sm-6 col-lg-4" style="padding: 0 20px">
-                    <div class="card" >
-                        <img class="card-img  w-100" src="<%=request.getContextPath()%>/ImgServlet?action=fotoEvento&id=<%=e.getIdEvento()%>" alt="" style="min-height: 150px;">
+                    <div class="card">
+                        <img class="card-img  w-100"
+                             src="<%=request.getContextPath()%>/ImgServlet?action=fotoEvento&id=<%=e.getIdEvento()%>"
+                             alt="" style="min-height: 150px;">
                         <div class="card-body d-flex flex-column" style="padding: 15px;">
                             <p class="card-text text-justify" style="margin: 5px 0 10px">
-                                <strong><%=e.getActividad().getTitulo()%>: <%=e.getTitulo()%></strong><br>
-                                Fecha: <%=e.getFechaIn()%></p>
-                            <a href="<%=request.getContextPath()%>/AlumnoServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>" class="btn btn-light active">Ver evento</a>
+                                <strong><%=e.getActividad().getTitulo()%>: <%=e.getTitulo()%>
+                                </strong><br>
+                                Fecha: <%=e.getFechaIn()%>
+                            </p>
+                            <a href="<%=request.getContextPath()%>/AlumnoServlet?action=info_eventos&idEvento=<%=e.getIdEvento()%>"
+                               class="btn btn-light active">Ver evento</a>
                         </div>
                     </div>
                 </div>
-                <%};%>
+                <%
+                    }
+                    ;
+                %>
             </div>
             <!-- Footer -->
             <div class="row footer">

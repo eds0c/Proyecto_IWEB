@@ -311,13 +311,13 @@
                                                                 <label>Subir Foto</label>
                                                                 <input type="file" class="form-control"
                                                                        name="eventoFoto" accept="image/*"
-                                                                       value="<%=e.getFoto()%>">
+                                                                       value="<%=e.getFoto()%>" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label>Título</label>
                                                                 <input type="text" class="form-control" name="titulo"
                                                                        value="<%=e.getTitulo()%>"
-                                                                       placeholder="Ingrese el título del evento">
+                                                                       placeholder="Ingrese el título del evento" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <!--<label for="exampleDescription" class="form-label">Descripción</label>
@@ -327,7 +327,7 @@
 
                                                                 <textarea class="form-control" name="eventoDescripcion"
                                                                           rows="4"
-                                                                          placeholder="Ingrese la descripción aquí"><%=e.getDescripcion()%></textarea>
+                                                                          placeholder="Ingrese la descripción aquí" required><%=e.getDescripcion()%></textarea>
                                                             </div>
                                                             <div class="row mb-3">
                                                                 <div class="col">
@@ -335,7 +335,7 @@
                                                                     <label>Fecha</label>
                                                                     <input type="date" class="form-control"
                                                                            name="eventoFecha"
-                                                                           value="<%=e.getFechaIn()%>">
+                                                                           value="<%=e.getFechaIn()%>" required>
                                                                     <input type="hidden" class="form-control"
                                                                            name="eventoID" value="<%=e.getIdEvento()%>">
                                                                 </div>
@@ -343,7 +343,7 @@
                                                                     <!--  <label for="exampleTime" class="form-label">Hora</label> -->
                                                                     <label>Hora</label>
                                                                     <input type="time" class="form-control"
-                                                                           name="eventoHora" value="<%=e.getHora()%>">
+                                                                           name="eventoHora" value="<%=e.getHora()%>" required>
                                                                     <!-- <input type="time" class="form-control" id="exampleTime"> -->
                                                                 </div>
                                                             </div>
@@ -351,7 +351,7 @@
                                                                 <label>Lugar</label>
                                                                 <input type="text" class="form-control"
                                                                        name="eventoLugar" value="<%=e.getLugar()%>"
-                                                                       placeholder="Ingrese el lugar">
+                                                                       placeholder="Ingrese el lugar" required>
                                                             </div>
 
                                                         </div>
@@ -519,30 +519,30 @@
                                                     <div class="mb-3">
                                                         <label>Título</label>
                                                         <input type="text" class="form-control" name="titulo"
-                                                               placeholder="Ingrese el título del evento">
+                                                               placeholder="Ingrese el título del evento" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label>Descripción</label>
                                                         <textarea class="form-control" name="eventoDescripcion" rows="4"
-                                                                  placeholder="Ingrese la descripción aquí"></textarea>
+                                                                  placeholder="Ingrese la descripción aquí" required></textarea>
                                                     </div>
                                                     <div class="row mb-3">
                                                         <div class="col">
                                                             <!-- <label for="exampleDate" class="form-label">Fecha</label> -->
                                                             <label>Fecha</label>
-                                                            <input type="date" class="form-control" name="eventoFecha">
+                                                            <input type="date" class="form-control" name="eventoFecha" required>
                                                         </div>
                                                         <div class="col">
                                                             <!--  <label for="exampleTime" class="form-label">Hora</label> -->
                                                             <label>Hora</label>
-                                                            <input type="time" class="form-control" name="eventoHora">
+                                                            <input type="time" class="form-control" name="eventoHora" required>
                                                             <!-- <input type="time" class="form-control" id="exampleTime"> -->
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label>Lugar</label>
                                                         <input type="text" class="form-control" name="eventoLugar"
-                                                               placeholder="Ingrese el lugar">
+                                                               placeholder="Ingrese el lugar" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

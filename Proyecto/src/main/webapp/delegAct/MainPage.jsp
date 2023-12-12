@@ -3,6 +3,7 @@
 <%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
 <jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
@@ -167,7 +168,7 @@
                 </div>
                 <%};%>
             </div>
-            <!-- Footer -->
+            <!-- Paginacion -->
             <div class="row footer">
                 <div class="col">
                     <nav aria-label="Page navigation example">
@@ -177,9 +178,9 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <%for (int j=1;j<=cantidadPaginas;j++){%>
+                            <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page&currentPage=<%=j%>"><%=j%></a></li>
+                            <%}%>
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

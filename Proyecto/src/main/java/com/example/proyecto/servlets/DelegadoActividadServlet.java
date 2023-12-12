@@ -43,7 +43,9 @@ public class DelegadoActividadServlet extends HttpServlet {
 
         response.setContentType("text/html");
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
-
+        int currentPage=Integer.parseInt(request.getParameter("currentPage")==null?"1":request.getParameter("currentPage"));
+        int cantidadPaginas;
+        int limit;
 
 
         //Datos de sesión:
@@ -60,9 +62,13 @@ public class DelegadoActividadServlet extends HttpServlet {
 
         switch (action) {
             case "main_page":
+                limit = 6;
                 //saca la lista de eventos según actividad
                 String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
-                ArrayList<Evento> list = eventoDao.listarPorActividad(idAct, "a",100,0);
+                ArrayList<Evento> list = eventoDao.listarPorActividad(idAct, "a",limit,(currentPage-1)*limit);
+                ArrayList<Evento> list_aux = eventoDao.listarPorActividad(idAct, "a", 1000, 0);
+                cantidadPaginas=(list_aux.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
 
                 //saca la lista de actividades
                 ArrayList<DelegadoActividad> listDelegadoActividad = delegadoActividadDao.listarActividades(100,0);
@@ -83,10 +89,12 @@ public class DelegadoActividadServlet extends HttpServlet {
                 break;
 
             case "mis_eventos":
-
+                limit = 3;
                 //saca del modelo
-                ArrayList<AlumnoEvento> list_mis_eventos = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"a",100,0); //
-
+                ArrayList<AlumnoEvento> list_mis_eventos = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"a",limit,(currentPage-1)*limit); //
+                ArrayList<AlumnoEvento> list_mis_eventos2 = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()),"a",1000,0);
+                cantidadPaginas=(list_mis_eventos2.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
                 //mandar la lista a la vista -> /MisEventos.jsp
                 request.setAttribute("lista_mis_eventos", list_mis_eventos);
                 request.getRequestDispatcher("delegAct/MisEventos.jsp").forward(request, response);
@@ -146,12 +154,16 @@ public class DelegadoActividadServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
                 }
                 else {
+                    limit = 10;
                     String idEvento2 = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
                     Evento evento2 = eventoDao.buscarEvento(idEvento2);
                     String idAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
                     String estadoAct2 = String.valueOf(alumno.getDelegadoActividad().getActividad().getEstado());
 
-                    ArrayList<Evento> lista3 = eventoDao.listarPorActividad(idAct2,"a",100,0);
+                    ArrayList<Evento> lista3 = eventoDao.listarPorActividad(idAct2,"a",limit,(currentPage-1)*limit);
+                    ArrayList<Evento> lista4 = eventoDao.listarPorActividad(idAct2,"a",1000,0);
+                    cantidadPaginas=(lista4.size()/limit) +1;
+                    request.setAttribute("cantidadPaginas", cantidadPaginas);
                     request.setAttribute("evento2",evento2);
                     request.setAttribute("lista3",lista3);
                     request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
@@ -167,8 +179,13 @@ public class DelegadoActividadServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
                 }
                 else {
-                    request.setAttribute("lista_eventos_finalizados",eventoDao.listarEventosSegunEstadoYActividad("f",alumno.getDelegadoActividad().getActividad().getIdActividad(),100,0));
-                    request.getRequestDispatcher("delegAct/EstadoFinalizado.jsp").forward(request, response);;
+                    limit = 10;
+                    ArrayList<Evento> lista_eventos_finalizados = eventoDao.listarEventosSegunEstadoYActividad("f",alumno.getDelegadoActividad().getActividad().getIdActividad(),limit,(currentPage-1)*limit);
+                    ArrayList<Evento> list_event_aux = eventoDao.listarEventosSegunEstadoYActividad("f",alumno.getDelegadoActividad().getActividad().getIdActividad(),1000,0);
+                    cantidadPaginas=(list_event_aux.size()/limit) +1;
+                    request.setAttribute("cantidadPaginas", cantidadPaginas);
+                    request.setAttribute("lista_eventos_finalizados", lista_eventos_finalizados);
+                    request.getRequestDispatcher("delegAct/EstadoFinalizado.jsp").forward(request, response);
                 }
 
                 break;

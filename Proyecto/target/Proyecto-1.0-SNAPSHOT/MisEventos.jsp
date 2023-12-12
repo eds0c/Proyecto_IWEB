@@ -2,6 +2,7 @@
 <%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
+<%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
 <jsp:useBean id="lista_mis_eventos" scope="request" type="ArrayList<AlumnoEvento>"/>
 <html lang="en">
 
@@ -195,9 +196,9 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <%for (int j=1;j<=cantidadPaginas;j++){%>
+                            <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos&currentPage=<%=j%>"><%=j%></a></li>
+                            <%}%>
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

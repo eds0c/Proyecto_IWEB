@@ -40,12 +40,19 @@ public class AlumnoServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
+        int currentPage=Integer.parseInt(request.getParameter("currentPage")==null?"1":request.getParameter("currentPage"));
+        int cantidadPaginas;
+        int limit;
 
         switch (action) {
             case "main_page":
+                limit = 6;
                 //saca la lista de eventos según actividad
                 String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
-                ArrayList<Evento> list = eventoDao.listarPorActividad(idAct, "a", 100, 0);
+                ArrayList<Evento> list = eventoDao.listarPorActividad(idAct, "a", limit, (currentPage-1)*limit);
+                ArrayList<Evento> list_aux = eventoDao.listarPorActividad(idAct, "a", 1000, 0);
+                cantidadPaginas=(list_aux.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
                 //saca la lista de actividades
                 ArrayList<DelegadoActividad> listDelegadoActividad = delegadoActividadDao.listarActividades(100, 0);
 
@@ -67,9 +74,12 @@ public class AlumnoServlet extends HttpServlet {
 
             case "mis_eventos":
                 //saca del modelo"
+                limit =3;
 
-                ArrayList<AlumnoEvento> list_mis_eventos = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()), "a", 100, 0); //
-
+                ArrayList<AlumnoEvento> list_mis_eventos = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()), "a", limit, (currentPage-1)*limit);
+                ArrayList<AlumnoEvento> lista_aux = eventoDao.listarPorAlumno(String.valueOf(alumno.getIdAlumno()), "a", 1000, 0);//
+                cantidadPaginas=(lista_aux.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
                 //mandar la lista a la vista -> /MisEventos.jsp
                 request.setAttribute("lista_mis_eventos", list_mis_eventos);
                 request.getRequestDispatcher("/MisEventos.jsp").forward(request, response);

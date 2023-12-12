@@ -1,8 +1,12 @@
 package com.example.proyecto.daos;
 
 import com.example.proyecto.beans.*;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -224,6 +228,36 @@ public class DonacionDao extends DaoBase{
         }
 
         return donacion;
+    }
+
+    public void fotoComprobante(int idDonacion, HttpServletResponse response){
+        String sql = "Select * from donacion where idDonacion =?";
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            outputStream = response.getOutputStream();
+            pstmt.setInt(1,idDonacion);
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    inputStream = rs.getBinaryStream("captura");
+                }
+                bufferedInputStream = new BufferedInputStream(inputStream);
+                bufferedOutputStream = new BufferedOutputStream(outputStream);
+                int i = 0;
+                while ((i=bufferedInputStream.read())!=-1){
+                    bufferedOutputStream.write(i);
+                }
+            }
+
+
+        }catch (Exception e){
+
+        }
     }
 
 

@@ -228,8 +228,9 @@
                             </div>
                             <div class="modal-body">
                               <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                <img src="images/comprobante.png" alt="comprobante de pago"
+                                <img src="<%=request.getContextPath()%>/ImgServlet?action=donacion&idDonacion=<%=d.getIdDonacion()%>" width="1000" height="1000" alt="comprobante de pago"
                                      class="img-thumbnail w-70">
+
                               </div>
 
                               <div class="mb-3">

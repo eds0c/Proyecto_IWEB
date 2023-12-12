@@ -2,6 +2,7 @@ package com.example.proyecto.servlets;
 
 import com.example.proyecto.daos.AlumnoDao;
 import com.example.proyecto.daos.DelegadoGeneralDao;
+import com.example.proyecto.daos.DonacionDao;
 import com.example.proyecto.daos.EventoDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -39,6 +40,10 @@ public class ImgServlet extends HttpServlet {
                 System.out.println(idDeleGen);
                 delegadoGeneralDao.fotoPerfil(idDeleGen, response);
                 break;
+            case "donacion":
+                DonacionDao donacionDao = new DonacionDao();
+                int idDonacion = Integer.parseInt(request.getParameter("idDonacion"));
+                donacionDao.fotoComprobante(idDonacion, response);
         }
     }
 

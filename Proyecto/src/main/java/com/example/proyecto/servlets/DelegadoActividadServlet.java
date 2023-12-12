@@ -249,12 +249,14 @@ public class DelegadoActividadServlet extends HttpServlet {
                 String eventoLugar = request.getParameter("eventoLugar");
 
 
+
+
                 //Formatea String a Date
                 DateTimeFormatter formatStringToDate = new DateTimeFormatterBuilder().append(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toFormatter();
 
                 boolean isAllValid = true;
 
-                if(request.getPart("usuarioFoto") == null){
+                if(request.getPart("eventoFoto") == null){
                     isAllValid = false;
                     request.getSession().setAttribute("errDesc", "Debe subir una foto. ");
                 }
@@ -267,15 +269,16 @@ public class DelegadoActividadServlet extends HttpServlet {
                     isAllValid = false;
                     request.getSession().setAttribute("errDesc", "La fecha del evento debe ser posterior a la fecha actual");
                 }
-
+                System.out.println("Estamos?");
                 if (isAllValid) {
-
+                    System.out.println("Se entró");
                     Evento evento = delecActiDao.buscarPorDescripcion(eventoDescripcion); //Busca si hay un evento con el mismo nombre
                     //Creamos Evento
                     if (evento == null) {  //Se verifica que no se repita el evento
 
                         // Parsear la Foto a Byte
-
+                        System.out.println("La foto es: " + eventoFoto);
+                        System.out.println("llegamos");
                         int IdActividad = alumno.getDelegadoActividad().getActividad().getIdActividad();
                         delecActiDao.crear(eventoFoto, eventoDescripcion, eventoFecha, eventoHora, eventoLugar, eventoTitulo, IdActividad);
                         request.getSession().setAttribute("msg", "Evento creado exitosamente");
@@ -444,6 +447,8 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 String donacionTipo = request.getParameter("donacionTipo");
                 String donacionMonto = request.getParameter("donacionMonto");
+                Part part2 = request.getPart("donacionFoto");
+                InputStream donacionFoto = part2.getInputStream();
 
 
                 boolean isAllValid1 = true;
@@ -475,7 +480,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 if (isAllValid1) {
                     //guardamos Donacion
-                    donacionDao.crear(request.getPart("donacionFoto").getInputStream(), donacionTipo, donacionMontoDouble, request.getParameter("alumnoIDdonador"));
+                    donacionDao.crear(donacionFoto, donacionTipo, donacionMontoDouble, request.getParameter("alumnoIDdonador"));
                     request.getSession().setAttribute("msg", "Tu donación fue enviada correctamente.");
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=donaciones");
                 } else {

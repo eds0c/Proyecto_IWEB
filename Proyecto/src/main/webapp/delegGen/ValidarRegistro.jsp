@@ -297,19 +297,23 @@
                                                         Has seleccionado "aceptar al alumno". <br>
                                                         Si esta es la acción que deseas realizar, por favor confirma tu
                                                         elección,
-                                                        de lo contrario, selecciona cancelar.
+                                                        de lo contrario, selecciona cancelar. Tambien escribir un motivo de la aceptación.
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light active"
-                                                                data-bs-dismiss="modal">Cancelar
-                                                        </button>
-                                                        <form method="post"
-                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=acepto_registro">
-                                                            <input type="hidden" class="form-control" name="idAlumnoAceptado" value=<%=alumno.getIdAlumno()%>>
-                                                        <button type="submit" class="btn btn-primary" id="Aceptado">Aceptar alumno
-                                                        </button>
-                                                        </form>
-                                                    </div>
+                                                    <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=acepto_registro">
+                                                        <label CLASS="modal-body text-justify" for="motivo1">
+                                                            <p>Motivo:</p>
+                                                            <input type="hidden" name="idAlumnoAceptado" value="<%=alumno.getIdAlumno()%>">
+                                                            <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo1" required>
+                                                        </label>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light active"
+                                                                    data-bs-dismiss="modal">Cancelar
+                                                            </button>
+                                                                <input type="hidden" class="form-control" name="idAlumnoAceptado" value=<%=alumno.getIdAlumno()%>>
+                                                            <button type="submit" class="btn btn-primary" id="Aceptado">Aceptar alumno
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -341,19 +345,24 @@
                                                         Has seleccionado "rechazar alumno". <br>
                                                         Si esta es la acción que deseas realizar, por favor confirma tu
                                                         elección,
-                                                        de lo contrario, selecciona cancelar.
+                                                        de lo contrario, selecciona cancelar. Tambien escribir un motivo del rechazo.
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light active"
-                                                                data-bs-dismiss="modal">Cancelar
-                                                        </button>
-                                                        <form method="post"
-                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazo_registro">
-                                                        <input type="hidden" class="form-control" name="idAlumnoRechazado" value=<%=alumno.getIdAlumno()%>>
-                                                        <button type="submit" class="btn btn-danger" id="Denegado">Rechazar alumno
-                                                        </button>
-                                                        </form>
-                                                    </div>
+                                                    <form method="post"
+                                                          action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazo_registro">
+                                                        <label CLASS="modal-body text-justify" for="motivo2">
+                                                            <p>Motivo:</p>
+                                                            <input type="hidden" name="idAlumnoRechazado" value="<%=alumno.getIdAlumno()%>">
+                                                            <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo2" required>
+                                                        </label>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light active"
+                                                                    data-bs-dismiss="modal">Cancelar
+                                                            </button>
+                                                            <input type="hidden" class="form-control" name="idAlumnoRechazado" value=<%=alumno.getIdAlumno()%>>
+                                                            <button type="submit" class="btn btn-danger" id="Denegado">Rechazar alumno
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

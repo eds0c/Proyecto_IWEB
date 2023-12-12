@@ -200,7 +200,7 @@
                                         <th>Nombre</th>
                                         <th>Correo</th>
                                         <th>Observar</th>
-                                        <th>Aceptar</th>
+                                        <th>Revocar rechazo</th>
                                     </tr>
                                     </thead>
 
@@ -279,6 +279,12 @@
                                                                 </p>
                                                             </div>
 
+                                                            <div class="mb-3">
+                                                                <h6 class="fw-bold">Motivo:</h6>
+                                                                <p class="form-control"><%=alumno.getMotivo()%>
+                                                                </p>
+                                                            </div>
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger"
@@ -300,36 +306,38 @@
                                                 <i class="bi bi-person-check-fill"></i>
                                             </button>
                                         </td>
-                                        <!-- MODAL ACEPTAR ALUMNO -->
+                                        <!-- MODAL REVOCAR RECHAZO ALUMNO -->
                                         <div class="modal fade" id="aceptar<%=i%>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Alumno aceptado
+                                                        <h5 class="modal-title">Revocar rechazo del alumno
                                                         </h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-justify">
-                                                        Has seleccionado "aceptar al alumno". <br>
+                                                        Has seleccionado "recovar rechazo". <br>
                                                         Si esta es la acción que deseas realizar, por favor confirma tu
                                                         elección,
-                                                        de lo contrario, selecciona cancelar.
+                                                        de lo contrario, selecciona cancelar. Tambien escribir un motivo de la revocación.
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light active"
-                                                                data-bs-dismiss="modal">Cancelar
-                                                        </button>
-                                                        <form method="post"
-                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=acepto_registro">
-                                                            <input type="hidden" class="form-control"
-                                                                   name="idAlumnoAceptado"
-                                                                   value=<%=alumno.getIdAlumno()%>>
-                                                            <button type="submit" class="btn btn-primary" id="Aceptado">
-                                                                Aceptar alumno
+                                                    <form method="post"
+                                                          action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=revocar_rechazo">
+                                                        <label CLASS="modal-body text-justify" for="motivo2">
+                                                            <p>Motivo:</p>
+                                                            <input type="hidden" name="idAlumnoRevocado" value="<%=alumno.getIdAlumno()%>">
+                                                            <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo2" required>
+                                                        </label>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light active"
+                                                                    data-bs-dismiss="modal">Cancelar
                                                             </button>
-                                                        </form>
-                                                    </div>
+                                                                <button type="submit" class="btn btn-primary" id="Aceptado">
+                                                                    Revocar rechazo alumno
+                                                                </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

@@ -2,6 +2,7 @@ package com.example.proyecto.daos;
 
 import com.example.proyecto.beans.Actividad;
 import com.example.proyecto.beans.Alumno;
+import com.example.proyecto.beans.Donacion;
 import com.example.proyecto.beans.Evento;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -434,6 +435,27 @@ public class AlumnoDao extends DaoBase{
         }catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    public Alumno actualizarMotivo(String idAlumno, String motivo){
+
+        Alumno alumno = new Alumno();
+
+        String sql = "update alumno set motivo = ? where idAlumno = ?;" ;
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, motivo);
+            pstmt.setString(2, idAlumno);
+            pstmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return alumno;
     }
 
 

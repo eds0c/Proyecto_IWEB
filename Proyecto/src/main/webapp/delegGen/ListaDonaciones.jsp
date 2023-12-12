@@ -235,7 +235,7 @@
                                                                 <div class="modal-body">
 
                                                                     <div class="mb-3">
-                                                                        <h6 class="fw-bold">Montivo:</h6>
+                                                                        <h6 class="fw-bold">Motivo:</h6>
                                                                         <!-- IMPLEMENTAR EL DAO -->
                                                                         <p class="form-control"><%=d.getMotivo()%>
                                                                         </p>

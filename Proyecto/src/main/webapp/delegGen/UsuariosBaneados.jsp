@@ -279,6 +279,12 @@
                                                                 </p>
                                                             </div>
 
+                                                            <div class="mb-3">
+                                                                <h6 class="fw-bold">Motivo:</h6>
+                                                                <p class="form-control"><%=alumno.getMotivo()%>
+                                                                </p>
+                                                            </div>
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger"
@@ -314,22 +320,25 @@
                                                         Has seleccionado "Desbanear alumno". <br>
                                                         Si esta es la acción que deseas realizar, por favor confirma tu
                                                         elección,
-                                                        de lo contrario, selecciona cancelar.
+                                                        de lo contrario, selecciona cancelar. Tambien escribir un motivo del desbaneo.
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light active"
-                                                                data-bs-dismiss="modal">Cancelar
-                                                        </button>
-                                                        <form method="post"
-                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=acepto_registro">
-                                                            <input type="hidden" class="form-control"
-                                                                   name="idAlumnoAceptado"
-                                                                   value=<%=alumno.getIdAlumno()%>>
-                                                            <button type="submit" class="btn btn-primary" id="Aceptado">
-                                                                Desbanear alumno
+                                                    <form method="post"
+                                                          action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=desbaneo_alumno">
+                                                        <label CLASS="modal-body text-justify" for="motivo2">
+                                                            <p>Motivo:</p>
+                                                            <input type="hidden" name="idAlumnoDesbaneado" value="<%=alumno.getIdAlumno()%>">
+                                                            <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo2" required>
+                                                        </label>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light active"
+                                                                    data-bs-dismiss="modal">Cancelar
                                                             </button>
-                                                        </form>
-                                                    </div>
+
+                                                                <button type="submit" class="btn btn-primary" id="Aceptado">
+                                                                    Desbanear alumno
+                                                                </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

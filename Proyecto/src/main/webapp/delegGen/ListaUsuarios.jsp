@@ -272,6 +272,12 @@
                                                                 </p>
                                                             </div>
 
+                                                            <div class="mb-3">
+                                                                <h6 class="fw-bold">Motivo:</h6>
+                                                                <p class="form-control"><%=alumno.getMotivo()%>
+                                                                </p>
+                                                            </div>
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger"
@@ -301,22 +307,28 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        ¿Estás seguro que deseas eliminar a este alumno?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger"
-                                                                data-bs-dismiss="modal">Cancelar
-                                                        </button>
+                                                    <form method="post"
+                                                          action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=baneo_alumno">
+                                                        <div class="modal-body">
+                                                            ¿Estás seguro que deseas eliminar a este alumno?
+                                                            Por favor, colocar tambien el motivo de la eliminación.
+                                                        </div>
+                                                        <label CLASS="modal-body text-justify" for="motivo3">
+                                                            <p>Motivo:</p>
+                                                            <input type="hidden" name="idAlumnoBaneado" value="<%=alumno.getIdAlumno()%>">
+                                                            <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo3" required>
+                                                        </label>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Cancelar
+                                                            </button>
 
 
-                                                        <form method="post"
-                                                              action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=baneo_alumno">
-                                                        <input type="hidden" class="form-control" name="idAlumnoBaneado" value=<%=alumno.getIdAlumno()%>>
-                                                        <button type="submit" class="btn btn-primary">Sí
-                                                        </button>
-                                                        </form>
-                                                    </div>
+                                                            <input type="hidden" class="form-control" name="idAlumnoBaneado" value=<%=alumno.getIdAlumno()%>>
+                                                            <button type="submit" class="btn btn-primary">Sí
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

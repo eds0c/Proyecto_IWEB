@@ -44,6 +44,7 @@ public class ImgServlet extends HttpServlet {
             case "donacion":
                 int idDonacion = Integer.parseInt(request.getParameter("idDonacion"));
                 donacionDao.fotoComprobante(idDonacion, response);
+                break;
             case "fotoActividad":
                 int idActividad = Integer.parseInt(request.getParameter("idActividadMostrarFoto"));
                 //System.out.println(idActividad);

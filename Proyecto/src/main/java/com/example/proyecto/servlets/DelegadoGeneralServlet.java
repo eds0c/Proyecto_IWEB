@@ -229,10 +229,12 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getSession().setAttribute("info","Usuario Aceptado");
                 request.getSession().setAttribute("msg", "Usuario Aceptado exitosamente");
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
+                String motivoAcepto = request.getParameter("motivo");
                 // envio de correo
                 Alumno alumno1 = alumnoDao.correo(id1);
+                alumnoDao.actualizarMotivo(id1,motivoAcepto);
                 String asunto = "Has sido aceptado a TeleWeek ";
-                String contenido = "Hola, " + alumno1.getNombre() + " " + alumno1.getApellido() + ", has sido aceptado en TeleWeek, para que puedas participar y donar a la Aitel en esta semana de Ingeniería.";
+                String contenido = "Hola, " + alumno1.getNombre() + " " + alumno1.getApellido() + ", has sido aceptado en TeleWeek porque " + motivoAcepto + ", para que puedas participar y donar a la Aitel en esta semana de Ingeniería.";
                 String correo = alumno1.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
                 envioCorreosDaos.sendEmail();
@@ -245,11 +247,31 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.getSession().setAttribute("info","Usuario Rechazado");
                 request.getSession().setAttribute("msg", "Usuario Rechazado exitosamente");
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
+                String motivoRechazo1 = request.getParameter("motivo");
                 // envio de correo
                 Alumno alumno2 = alumnoDao.correo(id2);
+                alumnoDao.actualizarMotivo(id2,motivoRechazo1);
                 asunto = "Has sido rechazdo";
-                contenido = "Hola, " + alumno2.getNombre() + " " + alumno2.getApellido() + ", has sido rechazado de participar de la semana de Ingeniería.";
+                contenido = "Hola, " + alumno2.getNombre() + " " + alumno2.getApellido() + ", has sido rechazado de participar de la semana de Ingeniería porque " + motivoRechazo1 + ".";
                 correo = alumno2.getCorreo();
+                envioCorreosDaos.createEmail(correo,asunto,contenido);
+                envioCorreosDaos.sendEmail();
+                break;
+
+            case "revocar_rechazo":
+
+                String id7 = request.getParameter("idAlumnoRevocado");
+                alumnoDao.actualizarEstado("1",id7);
+                request.getSession().setAttribute("info","Usuario Revocado de Rechazo");
+                request.getSession().setAttribute("msg", "Usuario revocado exitosamente");
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
+                String motivoRechazo7 = request.getParameter("motivo");
+                // envio de correo
+                Alumno alumno7 = alumnoDao.correo(id7);
+                alumnoDao.actualizarMotivo(id7,motivoRechazo7);
+                asunto = "Has sido revocado";
+                contenido = "Hola, " + alumno7.getNombre() + " " + alumno7.getApellido() + ", se te ha revocado el rechazo de participar de la semana de Ingeniería porque " + motivoRechazo7 + ". Podras participar nuevamente...";
+                correo = alumno7.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
                 envioCorreosDaos.sendEmail();
                 break;
@@ -268,16 +290,37 @@ public class DelegadoGeneralServlet extends HttpServlet {
                     alumnoDao.actualizarEstado("2",id3);
                     request.getSession().setAttribute("info","Usuario Baneado");
                     response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
+                    String motivoBaneo = request.getParameter("motivo");
                     // envio de correo
                     Alumno alumno3 = alumnoDao.correo(id3);
+                    alumnoDao.actualizarMotivo(id3,motivoBaneo);
                     asunto = "Has sido baneado";
-                    contenido = "Hola, " + alumno3.getNombre() + " " + alumno3.getApellido() + ", has sido baneadoo de participar de la semana de Ingeniería.";
+                    contenido = "Hola, " + alumno3.getNombre() + " " + alumno3.getApellido() + ", has sido baneadoo de participar de la semana de Ingeniería porque " + motivoBaneo + ".";
                     request.getSession().setAttribute("msg", "Usuario baneado exitosamente");
                     correo = alumno3.getCorreo();
                     envioCorreosDaos.createEmail(correo,asunto,contenido);
                     envioCorreosDaos.sendEmail();
 
                 }
+
+                break;
+
+            case "desbaneo_alumno":
+
+                String id10 = request.getParameter("idAlumnoDesbaneado");
+                alumnoDao.actualizarEstado("1",id10);
+                request.getSession().setAttribute("info","Usuario Desbaneado");
+                response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=lista_usuarios");
+                String motivoDesbaneo = request.getParameter("motivo");
+                // envio de correo
+                Alumno alumno10 = alumnoDao.correo(id10);
+                alumnoDao.actualizarMotivo(id10,motivoDesbaneo);
+                asunto = "Has sido desbaneado";
+                contenido = "Hola, " + alumno10.getNombre() + " " + alumno10.getApellido() + ", has sido desbaneado de participar de la semana de Ingeniería porque " + motivoDesbaneo + ".";
+                request.getSession().setAttribute("msg", "Usuario desbaneado exitosamente");
+                correo = alumno10.getCorreo();
+                envioCorreosDaos.createEmail(correo,asunto,contenido);
+                envioCorreosDaos.sendEmail();
 
                 break;
 

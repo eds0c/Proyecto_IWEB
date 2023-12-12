@@ -158,7 +158,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 ">
-                        <img src="images/valorant.avif" class="w-100 h-100">
+                        <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoEvento&id=<%=aE.getEvento().getIdEvento()%>" class="w-100 h-100">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">

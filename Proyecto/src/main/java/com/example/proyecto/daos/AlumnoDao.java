@@ -183,6 +183,49 @@ public class AlumnoDao extends DaoBase{
         }
         return lista;
     }
+    public ArrayList<Alumno> listarAlumnoEstado(String egresado, int limit, int offset){
+
+
+        ArrayList<Alumno> lista = new ArrayList<>();
+        EstadoAlumnoDao estadoAlumnoDao = new EstadoAlumnoDao();
+        DelegadoGeneralDao delegadoGeneralDao = new DelegadoGeneralDao();
+        DelegadoActividadDao delegadoActividadDao = new DelegadoActividadDao();
+
+
+        String sql = "select * from alumno a where a.egresado = ? limit ? offset ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,egresado);
+            pstmt.setInt(2,limit);
+            pstmt.setInt(3,offset);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Alumno a = new Alumno();
+                    a.setIdAlumno(rs.getInt("a.idAlumno"));
+                    a.setNombre(rs.getString("a.nombre"));
+                    a.setApellido(rs.getString("a.apellido"));
+                    a.setCodigo(rs.getString("a.codigo"));
+                    a.setCorreo(rs.getString("a.correo"));
+                    a.setContrasena(rs.getString("a.contrasena"));
+                    a.setEgresado(rs.getString("a.egresado"));
+                    a.setFoto(rs.getBinaryStream("a.foto"));
+                    a.setMotivo(rs.getString("a.motivo"));
+                    a.setFechaAprobacion(rs.getString("a.fecha_aprob"));
+                    a.setDelegadoGeneral(delegadoGeneralDao.obtenerDelegadoGeneral(rs.getString("a.Delegado_General_idDelegado_General")));
+                    a.setEstadoAlumno(estadoAlumnoDao.obtenerEstadoAlumno(rs.getString("a.Estado_Alumno_idEstado_Alumno")));
+                    a.setDelegadoActividad(delegadoActividadDao.obtenerDelegadoActividad(rs.getString("a.Delegado_Actividad_idDelegado_Actividad")));
+
+                    lista.add(a);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
 
     public void actualizarIdDelegadoActividad(String idDelegadoActividad, String idAlumno){ //para convertirlo en un delegado de actividad
 

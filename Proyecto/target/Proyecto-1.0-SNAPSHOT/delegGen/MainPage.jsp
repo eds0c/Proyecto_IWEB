@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
+<%int cantidadEgresados = (int) request.getAttribute("cantidadEgresados");%>
+<%int cantidadEstudiantes = (int) request.getAttribute("cantidadEstudiantes");%>
 <html lang="en">
 
 <head>
@@ -214,7 +216,7 @@
             labels: ["Estudiante", "Egresado"],
             datasets: [{
                 label: 'Inscritos a Teleweek',
-                data: [300, 100],
+                data: [<%=cantidadEstudiantes%>, <%=cantidadEgresados%>],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgba(75, 192, 192, 1)',

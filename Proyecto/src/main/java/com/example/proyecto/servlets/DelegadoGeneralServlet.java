@@ -47,10 +47,18 @@ public class DelegadoGeneralServlet extends HttpServlet {
         int currentPage=Integer.parseInt(request.getParameter("currentPage")==null?"1":request.getParameter("currentPage"));
         int cantidadPaginas;
         int limit;
+        int cantidadEgresados;
+        int cantidadEstudiantes;
 
 
         switch (action){
             case "main_page":
+                ArrayList<Alumno> list10 = alumnoDao.listarAlumnoEstado("Egresado", 10000, 0);
+                cantidadEgresados=list10.size();
+                ArrayList<Alumno> list20 = alumnoDao.listarAlumnoEstado("Estudiante", 10000, 0);
+                cantidadEstudiantes=list20.size();
+                request.setAttribute("cantidadEgresados", cantidadEgresados);
+                request.setAttribute("cantidadEstudiantes", cantidadEstudiantes);
                 request.getRequestDispatcher("delegGen/MainPage.jsp").forward(request,response);
                 break;
 

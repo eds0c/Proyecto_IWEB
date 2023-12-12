@@ -44,6 +44,7 @@ public class DelegadoActividadServlet extends HttpServlet {
         response.setContentType("text/html");
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
         int currentPage=Integer.parseInt(request.getParameter("currentPage")==null?"1":request.getParameter("currentPage"));
+        request.setAttribute("currentPageJsp",currentPage);
         int cantidadPaginas;
         int limit;
 
@@ -69,6 +70,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 ArrayList<Evento> list_aux = eventoDao.listarPorActividad(idAct, "a", 1000, 0);
                 cantidadPaginas=(list_aux.size()/limit) +1;
                 request.setAttribute("cantidadPaginas", cantidadPaginas);
+                request.setAttribute("idActJsp",Integer.parseInt(idAct));
 
                 //saca la lista de actividades
                 ArrayList<DelegadoActividad> listDelegadoActividad = delegadoActividadDao.listarActividades(100,0);
@@ -192,10 +194,15 @@ public class DelegadoActividadServlet extends HttpServlet {
 
 
             case "participantes":
+                limit = 10;
 
                 String idEvento3 = request.getParameter("idEventoParticipantes") == null ? "1" : request.getParameter("idEventoParticipantes");
+                request.setAttribute("idEventoParticipantesJsp",Integer.parseInt(idEvento3));
 
                 ArrayList<AlumnoEvento> listaParticipantes = eventoDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
+                ArrayList<AlumnoEvento> listaParticipantesAux = eventoDao.listarAlumnosPorEvento(idEvento3,"a",100,0);
+                cantidadPaginas=(listaParticipantesAux.size()/limit) +1;
+                request.setAttribute("cantidadPaginas", cantidadPaginas);
 
                 //enviar parámetro si el evento está finalizado
                 boolean eventoIsFinalizado = !eventoDao.buscarEvento(idEvento3).getEstado().equalsIgnoreCase("a");

@@ -41,6 +41,7 @@ public class AlumnoServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "main_page" : request.getParameter("action");
 
         int currentPage=Integer.parseInt(request.getParameter("currentPage")==null?"1":request.getParameter("currentPage"));
+        request.setAttribute("currentPageJsp",currentPage);
         int cantidadPaginas;
         int limit;
 
@@ -49,6 +50,7 @@ public class AlumnoServlet extends HttpServlet {
                 limit = 6;
                 //saca la lista de eventos según actividad
                 String idAct = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
+                request.setAttribute("idActJsp",Integer.parseInt(idAct));
                 ArrayList<Evento> list = eventoDao.listarPorActividad(idAct, "a", limit, (currentPage-1)*limit);
                 ArrayList<Evento> list_aux = eventoDao.listarPorActividad(idAct, "a", 1000, 0);
                 cantidadPaginas=(list_aux.size()/limit) +1;

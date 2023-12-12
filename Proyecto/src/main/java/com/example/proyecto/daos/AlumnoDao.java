@@ -504,5 +504,28 @@ public class AlumnoDao extends DaoBase{
     }
 
 
+    public int cantidadAlumnosPorEstado(int estado){
+
+
+        ArrayList<Donacion> lista = new ArrayList<>();
+        int cantidad=0;
+
+        String sql = "select count(idAlumno) from alumno where Estado_Alumno_idEstado_Alumno = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,estado);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()){
+                    cantidad = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cantidad;
+    }
+
 
 }

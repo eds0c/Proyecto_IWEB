@@ -9,6 +9,11 @@
 <%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <%boolean eventoIsFinalizado = (Boolean) request.getAttribute("eventoIsFinalizada");%>
 
+<%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
+<%int currentPageJsp = (int) request.getAttribute("currentPageJsp");%>
+<%int idEventoParticipantesJsp = (int) request.getAttribute("idEventoParticipantesJsp");%>
+
+
 <html lang="en">
 
 <head>
@@ -262,24 +267,41 @@
                                     </tbody>
                                 </table>
 
-                                <!-- PAGINACION -->
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                <!-- Paginacion -->
+                                <div class="row footer">
+                                    <div class="col">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                <%int auxStart, auxEnd;%>
+                                                <%if(currentPageJsp == 1){%>
+                                                <%auxStart=1;} else {%>
+                                                <%auxStart=currentPageJsp-1;}%>
+
+                                                <%if(currentPageJsp == cantidadPaginas){%>
+                                                <%auxEnd=cantidadPaginas;} else {%>
+                                                <%auxEnd=currentPageJsp+1;}%>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=auxStart%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <%for (int j=1;j<=cantidadPaginas;j++){%>
+                                                <%if(currentPageJsp == j){%>
+                                                <li class="page-item active"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=j%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>"><%=j%></a></li>
+                                                <%} else {%>
+                                                <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=j%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>"><%=j%></a></li>
+                                                <%}%>
+
+                                                <%}%>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=auxEnd%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

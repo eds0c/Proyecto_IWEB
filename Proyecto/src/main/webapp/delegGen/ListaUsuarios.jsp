@@ -3,6 +3,7 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
 <%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
+<%int currentPageJsp = (int) request.getAttribute("currentPageJsp");%>
 <jsp:useBean id="listaAlumnosActivos" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>"/>
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
 <html lang="en">
@@ -351,16 +352,28 @@
                                     <div class="col">
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-center">
+                                                <%int auxStart, auxEnd;%>
+                                                <%if(currentPageJsp == 1){%>
+                                                <%auxStart=1;} else {%>
+                                                <%auxStart=currentPageJsp-1;}%>
+
+                                                <%if(currentPageJsp == cantidadPaginas){%>
+                                                <%auxEnd=cantidadPaginas;} else {%>
+                                                <%auxEnd=currentPageJsp+1;}%>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="#" aria-label="Previous">
+                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_usuarios&currentPage=<%=auxStart%>" aria-label="Previous">
                                                         <span aria-hidden="true">&laquo;</span>
                                                     </a>
                                                 </li>
                                                 <%for (int j=1;j<=cantidadPaginas;j++){%>
+                                                <%if(currentPageJsp == j){%>
+                                                <li class="page-item"><a class="page-link active" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_usuarios&currentPage=<%=j%>"><%=j%></a></li>
+                                                <%} else {%>
                                                 <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_usuarios&currentPage=<%=j%>"><%=j%></a></li>
                                                 <%}%>
+                                                <%}%>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="#" aria-label="Next">
+                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=lista_usuarios&currentPage=<%=auxEnd%>" aria-label="Next">
                                                         <span aria-hidden="true">&raquo;</span>
                                                     </a>
                                                 </li>

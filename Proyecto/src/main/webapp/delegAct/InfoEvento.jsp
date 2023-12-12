@@ -249,11 +249,12 @@
                             <div class="about-author">
                                 <div class="about-author-img">
                                     <div class="author-img-wrap"><img class="img-fluid rounded-circle" alt=""
-                                                                      src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=delegadoEvento.getIdAlumno()%>"></div>
+                                                                      src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=delegadoEvento.getIdAlumno()%>" style="width: 100px; height: 100px;"></div>
                                 </div>
                                 <div class="author-details"><span class="blog-author-name"><%=delegadoEvento.getNombre() + " " + delegadoEvento.getApellido()%></span>
-                                    <p>Delegado de la actividad: <%=delegadoEvento.getDelegadoActividad().getActividad().getTitulo()%></p>
-                                </div>
+                                    <p>Si tienes alguna consulta sobre el evento puedes comunicarte con el delegado de la actividad.
+                                        <br>
+                                        Correo: <%=delegadoEvento.getCorreo()%></p>                                </div>
                             </div>
                         </div>
                     </div>

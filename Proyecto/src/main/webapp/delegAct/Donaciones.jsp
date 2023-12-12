@@ -130,8 +130,11 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-sm-12">
-                        <p style="text-align: justify;">En caso de ser egresado de la facultad de Telecomunicaciones,
-                            el monto mínimo de pago será de 100 soles, debido a la entrega de un kit teleco.</p>
+                        <p style="text-align: justify;">En el caso de que el usuario sea un egresado de la facultad de Telecomunicaciones, se establece un monto mínimo de donación de 100 soles.
+                            Esta determinación se fundamenta en la inclusión de un kit teleco que se entregará como parte de los beneficios para los egresados.
+                            Esta contribución mínima tiene como objetivo respaldar y fortalecer las iniciativas de la AITEL.
+                            Agradecemos de antemano el apoyo y compromiso continuo de nuestros egresados para con nuestra comunidad académica y
+                            las actividades promovidas por la institución.</p>
                     </div>
                 </div>
             </div>

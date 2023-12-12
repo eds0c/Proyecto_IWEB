@@ -53,7 +53,6 @@
                             <p class="text-muted mb-0">Delegado General</p>
                         </div>
                     </div>
-                    <!-- CHEQUEAR LAS REFERENCIAS Y VISTAS -->
                     <a class="dropdown-item text-decoration-none" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=perfil">Mi
                         Perfil</a>
                     <a class="dropdown-item text-decoration-none"
@@ -159,10 +158,13 @@
                                 <%}%>
                                 <h6 class="text-muted mt-1">Delegado General</h6>
                                 <!-- COLOCAR LO Q HACE EL DELEGADO GENERAL -->
-                                <div class="about-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <div class="about-text text-justify">
+                                    El delegado general tienen la capacidad de crear,
+                                    editar y borrar actividades para la Semana de Ingeniería, y asignarle un
+                                    delegado de actividad.
+                                    Además, contarán con el poder de revisar, aceptar y rechazar
+                                    solicitudes de registro de alumnos e incluso banearlos.
                                 </div>
-                                <!-- VER SI COLOCAMOS MAS INFORMACION -->
                             </div>
                             <div class="col-auto profile-btn">
                                 <a class="edit-link text-decoration-none" data-toggle="modal" href="#edit_personal_details"><i

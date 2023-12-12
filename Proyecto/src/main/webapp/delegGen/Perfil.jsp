@@ -182,7 +182,7 @@
                                             <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=editar_perfil" enctype="multipart/form-data">
                                                 <!-- CONFIGURAR PARA EDITAR UNA FOTO? -->
                                                 <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                                    <img src="https://yaktribe.games/community/media/placeholder-jpg.84782/full"
+                                                    <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilDeleGen&idDeleGen=<%=delegadoGenerallogueado.getIdDelegadoGeneral()%>"
                                                          alt="Imagen de muestra"
                                                          class="img-thumbnail w-50">
                                                     <label>Subir Foto</label>

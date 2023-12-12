@@ -137,6 +137,42 @@ public class DelegadoActividadDao extends DaoBase {
 
     }
 
+    public DelegadoActividad obtenerDelegadoActividadPorIdActividad(String idActividad){ //devuelve el Delegado Actividad
+
+        DelegadoActividad delegadoActividad = new DelegadoActividad();
+        ActividadDao aDao = new ActividadDao();
+        DelegadoGeneralDao delGenDao = new DelegadoGeneralDao();
+
+        String sql = "select * from delegado_actividad where Actividad_idActividad = ? ;";
+
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,idActividad);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    Actividad a = aDao.obtenerActividad(rs.getString("Actividad_idActividad"));
+                    DelegadoGeneral dG = delGenDao.obtenerDelegadoGeneral(rs.getString("Delegado_General_idDelegado_General"));
+
+                    delegadoActividad.setActividad(a);
+                    delegadoActividad.setDelegadoGeneral(dG);
+                    delegadoActividad.setIdDelegadoActividad(rs.getInt("idDelegado_Actividad"));
+                    delegadoActividad.setDescripcion(rs.getString("descripcion"));
+                    delegadoActividad.setFechaAprobacion(rs.getString("fecha_aprob"));
+
+                }
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return delegadoActividad;
+    }
+
 
 
 

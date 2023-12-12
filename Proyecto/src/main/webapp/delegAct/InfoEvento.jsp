@@ -4,6 +4,7 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="evento" scope="request" type="Evento"/>
 <jsp:useBean id="lista2" scope="request" type="ArrayList<Evento>" />
+<jsp:useBean id="delegadoEvento" scope="request" type="com.example.proyecto.beans.Alumno" />
 <%boolean participando = (Boolean) request.getAttribute("participando");%>
 <%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <html lang="en">
@@ -248,13 +249,10 @@
                             <div class="about-author">
                                 <div class="about-author-img">
                                     <div class="author-img-wrap"><img class="img-fluid rounded-circle" alt=""
-                                                                      src="assets/img/profiles/avatar-15.jpg"></div>
+                                                                      src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=delegadoEvento.getIdAlumno()%>"></div>
                                 </div>
-                                <div class="author-details"><span class="blog-author-name">Linda Barrett</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.</p>
+                                <div class="author-details"><span class="blog-author-name"><%=delegadoEvento.getNombre() + " " + delegadoEvento.getApellido()%></span>
+                                    <p>Delegado de la actividad: <%=delegadoEvento.getDelegadoActividad().getActividad().getTitulo()%></p>
                                 </div>
                             </div>
                         </div>

@@ -1,9 +1,6 @@
 package com.example.proyecto.servlets;
 
-import com.example.proyecto.beans.Alumno;
-import com.example.proyecto.beans.AlumnoEvento;
-import com.example.proyecto.beans.DelegadoActividad;
-import com.example.proyecto.beans.Evento;
+import com.example.proyecto.beans.*;
 import com.example.proyecto.daos.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -91,9 +88,11 @@ public class AlumnoServlet extends HttpServlet {
                 String idEvento = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
 
                 Evento evento = eventoDao.buscarEvento(idEvento);
+                Alumno delegadoDelEvento = alumnoDao.obtenerDelegadoDeActividad(String.valueOf(delegadoActividadDao.obtenerDelegadoActividadPorIdActividad(String.valueOf(evento.getActividad().getIdActividad())).getIdDelegadoActividad()));
                 ArrayList<Evento> lista2 = eventoDao.listarEventos(idEvento, 4, 0);
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
+                request.setAttribute("delegadoEvento",delegadoDelEvento);
                 request.setAttribute("evento", evento);
                 request.setAttribute("lista2", lista2);
                 request.setAttribute("participando", alumnoEventoDao.comprobarParticipacionEvento(String.valueOf(alumno.getIdAlumno()), idEvento));

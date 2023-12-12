@@ -144,8 +144,11 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 if(request.getPart("fotoActividad")!=null){
                     actividad.setFoto(request.getPart("fotoActividad").getInputStream());
                 }
+                if(actividad.getTitulo().isEmpty() || actividad.getTitulo().length() > 100){
+                    request.getSession().setAttribute("errDesc", "El título no cumple con la longitud adecuada. ");
+                }
 
-                boolean isAllValid = actividad.getDescripcion().length() <= 45 && actividad.getTitulo().length() <= 35;
+                boolean isAllValid = actividad.getDescripcion().length() <= 200 && actividad.getTitulo().length() <= 100;
 
                 if (isAllValid) {
                     actividadDao.crearActividad(actividad);
@@ -167,6 +170,8 @@ public class DelegadoGeneralServlet extends HttpServlet {
 
                 actividad.setTitulo(request.getParameter("tituloActividad"));
                 actividad.setDescripcion(request.getParameter("descripcionActividad"));
+                InputStream fotoActividadEditada = request.getPart("fotoActividadEditada").getInputStream();
+                actividad.setFoto(fotoActividadEditada);
                 if(request.getPart("fotoActividad")!=null){
                     actividad.setFoto(request.getPart("fotoActividad").getInputStream());
                 }
@@ -175,7 +180,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 actividad.setIdActividad(alumnoDelegadoActividadActual.getDelegadoActividad().getActividad().getIdActividad());
 
 
-                boolean isAllValid2 = actividad.getDescripcion().length() <= 45 && actividad.getTitulo().length() <= 35 && !actividad.getDescripcion().isEmpty() && !actividad.getTitulo().isEmpty();
+                boolean isAllValid2 = actividad.getDescripcion().length() <= 200 && actividad.getTitulo().length() <= 100 && !actividad.getDescripcion().isEmpty() && !actividad.getTitulo().isEmpty();
 
                 if (isAllValid2) {
 

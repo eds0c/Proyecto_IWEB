@@ -127,10 +127,12 @@ public class DelegadoActividadServlet extends HttpServlet {
                 String idEvento = request.getParameter("idEvento") == null ? "1" : request.getParameter("idEvento");
 
                 Evento evento = eventoDao.buscarEvento(idEvento);
+                Alumno delegadoDelEvento = alumnoDao.obtenerDelegadoDeActividad(String.valueOf(delegadoActividadDao.obtenerDelegadoActividadPorIdActividad(String.valueOf(evento.getActividad().getIdActividad())).getIdDelegadoActividad()));
                 ArrayList<Evento> lista2 = eventoDao.listarEventos(idEvento,4,0);
 
 
                 //mandar la lista a la vista -> /InfoEventos.jsp
+                request.setAttribute("delegadoEvento",delegadoDelEvento);
                 request.setAttribute("evento",evento);
                 request.setAttribute("lista2",lista2);
                 request.setAttribute("participando",alumnoEventoDao.comprobarParticipacionEvento(String.valueOf(alumno.getIdAlumno()),idEvento));
@@ -261,9 +263,13 @@ public class DelegadoActividadServlet extends HttpServlet {
                     request.getSession().setAttribute("errDesc", "Debe subir una foto. ");
                 }
 
-                if (eventoDescripcion.length() > 150 || eventoDescripcion.length()<5) {
+                if (eventoDescripcion.length() > 200 || eventoDescripcion.length()<2) {
                     isAllValid = false;
                     request.getSession().setAttribute("errDesc", "La descripción no es de la longitud adecuada.");
+                }
+                if (eventoLugar.isEmpty() || eventoLugar.length() > 30 || eventoTitulo.isEmpty() || eventoTitulo.length() > 50) {
+                    isAllValid = false;
+                    request.getSession().setAttribute("errDesc", "El título o el lugar no cumplen con el tamaño adecuado.");
                 }
                 if (LocalDate.parse(eventoFecha, formatStringToDate).isBefore(LocalDateTime.now(ZoneId.of("America/New_York")).toLocalDate())) {
                     isAllValid = false;
@@ -271,22 +277,13 @@ public class DelegadoActividadServlet extends HttpServlet {
                 }
                 System.out.println("Estamos?");
                 if (isAllValid) {
-                    System.out.println("Se entró");
-                    Evento evento = delecActiDao.buscarPorDescripcion(eventoDescripcion); //Busca si hay un evento con el mismo nombre
-                    //Creamos Evento
-                    if (evento == null) {  //Se verifica que no se repita el evento
-
-                        // Parsear la Foto a Byte
-                        System.out.println("La foto es: " + eventoFoto);
-                        System.out.println("llegamos");
-                        int IdActividad = alumno.getDelegadoActividad().getActividad().getIdActividad();
-                        delecActiDao.crear(eventoFoto, eventoDescripcion, eventoFecha, eventoHora, eventoLugar, eventoTitulo, IdActividad);
-                        request.getSession().setAttribute("msg", "Evento creado exitosamente");
-                        response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad"); //Una vez creado y dado click a submit se devuelve a la página donde está la lista
-                    } else {
-                        request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
-                        request.getSession().setAttribute("errDesc", "El evento ya existe");
-                    }
+                    // Parsear la Foto a Byte
+                    System.out.println("La foto es: " + eventoFoto);
+                    System.out.println("llegamos");
+                    int IdActividad = alumno.getDelegadoActividad().getActividad().getIdActividad();
+                    delecActiDao.crear(eventoFoto, eventoDescripcion, eventoFecha, eventoHora, eventoLugar, eventoTitulo, IdActividad);
+                    request.getSession().setAttribute("msg", "Evento creado exitosamente");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad"); //Una vez creado y dado click a submit se devuelve a la página donde está la lista
                 } else {
                     request.getSession().setAttribute("err", "Error al crear el evento. ");
                     response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
@@ -312,7 +309,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 boolean isAllValid2 = true;
 
-                if (eventoDescripcion2.length() > 45 || eventoDescripcion2.length()<5 || eventoLugar2.isEmpty() || eventoLugar2.length() > 20 || eventoTitulo2.isEmpty() || eventoTitulo2.length() > 20) {
+                if (eventoDescripcion2.length() > 200 || eventoDescripcion2.length()<2 || eventoLugar2.isEmpty() || eventoLugar2.length() > 30 || eventoTitulo2.isEmpty() || eventoTitulo2.length() > 50) {
                     isAllValid2 = false;
                     request.getSession().setAttribute("errDesc", "La descripción, el título o el lugar no cumplen con el tamaño adecuado.");
                 }
@@ -323,33 +320,24 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 if (isAllValid2) {
 
-                    Evento evento = delecActiDao.buscarPorDescripcion(eventoDescripcion2); //Busca si hay un evento con el mismo nombre
-                    //Creamos Trabajador
-                    if (evento == null) {  //Se verifica que no se repita el evento
+                    String IdActividad = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
 
-                        // Parsear la Foto a Byte
+                    Evento e2 = new Evento();
+                    e2.setFoto(eventoFoto2);
+                    e2.setActividad(actividadDao.obtenerActividad(IdActividad));
+                    e2.setDescripcion(eventoDescripcion2);
+                    e2.setLugar(eventoLugar2);
+                    e2.setFechaIn(eventoFecha2);
+                    e2.setHora(eventoHora2);
+                    e2.setIdEvento(Integer.parseInt(eventoID2));
 
-                        String IdActividad = String.valueOf(alumno.getDelegadoActividad().getActividad().getIdActividad());
+                    delecActiDao.actualizar(e2);
+                    request.getSession().setAttribute("msg", "Evento actualizado exitosamente");
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
 
-                        Evento e2 = new Evento();
-                        e2.setFoto(eventoFoto2);
-                        e2.setActividad(actividadDao.obtenerActividad(IdActividad));
-                        e2.setDescripcion(eventoDescripcion2);
-                        e2.setLugar(eventoLugar2);
-                        e2.setFechaIn(eventoFecha2);
-                        e2.setHora(eventoHora2);
-                        e2.setIdEvento(Integer.parseInt(eventoID2));
-
-                        delecActiDao.actualizar(e2);
-                        request.getSession().setAttribute("msg", "Evento actualizado exitosamente");
-                        response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad"); //Una vez actualizado y dado click a submit se devuelve a la página donde está la lista
-                    } else {
-                        request.getSession().setAttribute("err", "Error al actualizar el evento");
-                        request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
-                    }
                 } else {
                     request.getSession().setAttribute("err", "Error al actualizar el evento. ");
-                    request.getRequestDispatcher("delegAct/MiActividad.jsp").forward(request, response);
+                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mi_actividad");
                 }
                 break;
 

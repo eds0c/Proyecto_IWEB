@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <jsp:useBean id="evento" scope="request" type="Evento"/>
+<jsp:useBean id="delegadoEvento" scope="request" type="com.example.proyecto.beans.Alumno" />
 <%boolean participando = (Boolean) request.getAttribute("participando");%>
 <html lang="en">
 
@@ -228,10 +229,10 @@
                             <div class="about-author">
                                 <div class="about-author-img">
                                     <div class="author-img-wrap"><img class="img-fluid rounded-circle" alt=""
-                                                                      src="assets/img/profiles/avatar-15.jpg"></div>
+                                                                      src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=delegadoEvento.getIdAlumno()%>"></div>
                                 </div>
-                                <div class="author-details"><span class="blog-author-name">Nombre deleg actividad</span>
-                                    <p>Descripcion deleg actividad</p>
+                                <div class="author-details"><span class="blog-author-name"><%=delegadoEvento.getNombre() + " " + delegadoEvento.getApellido()%></span>
+                                    <p>Delegado de la actividad: <%=delegadoEvento.getDelegadoActividad().getActividad().getTitulo()%></p>
                                 </div>
                             </div>
                         </div>

@@ -76,12 +76,10 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 break;
 
             case "editar_actividades":
-                limit = 10;
-                ArrayList<DelegadoActividad> list = delegadoActividadDao.listarActividades(limit,(currentPage-1)*limit);
-                ArrayList<DelegadoActividad> list2 = delegadoActividadDao.listarActividades(1000,0);
+
+                ArrayList<DelegadoActividad> list = delegadoActividadDao.listarActividades(1000,0);
                 ArrayList<Alumno> listaAlumnosCandidatos = alumnoDao.listarAlumnosQueNoSonDelegadosDeActividad();
-                cantidadPaginas=(list2.size()/limit) +1;
-                request.setAttribute("cantidadPaginas", cantidadPaginas);
+
                 //mandar las lista a la vista -> /MainPage.jsp
                 request.setAttribute("listaAlumnos_DelegadosActividad",alumnoDao.listarDelegadosDeActividad());
                 request.setAttribute("listaActividades",list);

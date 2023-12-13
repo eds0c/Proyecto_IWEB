@@ -73,11 +73,11 @@ public class DelegadoActividadServlet extends HttpServlet {
                 request.setAttribute("idActJsp",Integer.parseInt(idAct));
 
                 //saca la lista de actividades
-                ArrayList<DelegadoActividad> listDelegadoActividad = delegadoActividadDao.listarActividades(100,0);
+                ArrayList<Actividad> listActividadesActivas = actividadDao.listarActividadesSegunEstado("activa");
 
                 //mandar la lista a la vista -> /MainPage.jsp
                 request.setAttribute("lista", list);
-                request.setAttribute("listaActividades", listDelegadoActividad);
+                request.setAttribute("listActividadesActivas", listActividadesActivas);
                 RequestDispatcher rd = request.getRequestDispatcher("delegAct/MainPage.jsp");
                 rd.forward(request, response);
                 break;

@@ -3,8 +3,6 @@
 <%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
-<%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
-<%int currentPageJsp = (int) request.getAttribute("currentPageJsp");%>
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>"/>
 <jsp:useBean id="listaAlumnos_DelegadosActividad" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>"/>
 <jsp:useBean id="listaAlumnosCandidatos" scope="request" type="ArrayList<com.example.proyecto.beans.Alumno>"/>
@@ -399,42 +397,9 @@
                                     </tbody>
                                 </table>
 
-                                <!-- Paginacion -->
-                                <div class="row footer">
-                                    <div class="col">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-center">
-                                                <%int auxStart, auxEnd;%>
-                                                <%if(currentPageJsp == 1){%>
-                                                <%auxStart=1;} else {%>
-                                                <%auxStart=currentPageJsp-1;}%>
 
-                                                <%if(currentPageJsp == cantidadPaginas){%>
-                                                <%auxEnd=cantidadPaginas;} else {%>
-                                                <%auxEnd=currentPageJsp+1;}%>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=editar_actividades&currentPage=<%=auxStart%>" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <%for (int j=1;j<=cantidadPaginas;j++){%>
-                                                <%if(currentPageJsp == j){%>
-                                                <li class="page-item"><a class="page-link active" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=editar_actividades&currentPage=<%=j%>"><%=j%></a></li>
-                                                <%} else {%>
-                                                <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=editar_actividades&currentPage=<%=j%>"><%=j%></a></li>
-                                                <%}%>
-                                                <%}%>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoGeneralServlet?action=editar_actividades&currentPage=<%=auxEnd%>" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
 
-                                <!-- MODAL AGREGAR ACT -->
+                                 MODAL AGREGAR ACT -->
                                 <div class="modal fade" id="modalNuevo"
                                      aria-hidden="true">
                                     <div class="modal-dialog">

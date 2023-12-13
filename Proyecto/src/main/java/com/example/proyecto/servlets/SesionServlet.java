@@ -28,7 +28,7 @@ public class SesionServlet extends HttpServlet {
     AlumnoDao alumnoDao = new AlumnoDao();
     EnvioCorreosDaos envioCorreosDaos = new EnvioCorreosDaos();
 
-    String urlProyecto = "http://localhost:8080";
+    String urlProyecto = "http://35.209.249.189:8080";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

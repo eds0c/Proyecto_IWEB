@@ -13,6 +13,14 @@ public abstract class DaoBase {
             throw new RuntimeException(e);
         }
 
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto", "root", "root");
+        String username = "root";
+        String password = "root";
+        String database = "proyecto";
+        String url = "jdbc:mysql://localhost:3306/" + database;
+
+        //return DriverManager.getConnection(url, username, password);
+        return DriverManager.getConnection("jdbc:mysql://35.193.202.145/"+database,"root","Dsu~j\"2I^GZO>]HU");
+
+
     }
 }

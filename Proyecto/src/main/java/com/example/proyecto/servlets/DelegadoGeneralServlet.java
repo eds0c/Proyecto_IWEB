@@ -63,6 +63,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.setAttribute("cantidadEstudiantes", cantidadEstudiantes);
                 request.setAttribute("integrantesPorActividadLista", dtosDao.estadisticasIntegrantesPorActividad());
                 request.setAttribute("donacionesPorFechaLista", dtosDao.estadisticasDonacionesPorFecha(DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))),10));
+                request.setAttribute("sumaDonacionesPorFechaLista", dtosDao.estadisticasDonacionesPorFechaSuma(DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))),10));
                 request.getRequestDispatcher("delegGen/MainPage.jsp").forward(request,response);
                 break;
 

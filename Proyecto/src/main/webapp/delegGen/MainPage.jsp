@@ -8,6 +8,7 @@
 <%int cantidadEstudiantes = (int) request.getAttribute("cantidadEstudiantes");%>
 <jsp:useBean id="integrantesPorActividadLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.IntegrantesPorActividad>"/>
 <jsp:useBean id="donacionesPorFechaLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.DonacionesPorFecha>"/>
+<jsp:useBean id="sumaDonacionesPorFechaLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.DonacionesPorFecha>"/>
 
 <html lang="en">
 
@@ -183,6 +184,25 @@
                 <div class="col-md-12 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
+                            <h4 class="card-title">DONACIONES</h4></div>
+                        <div class="card-body">
+                            <p>La siguiente gráfica ilustra las recaudaciones
+                                resultantes de las donaciones realizadas por los usuarios de Teleweek hacia
+                                la AITEL durante la semana de Ingeniería.</p>
+                            <!-- grafica lineal de la suma de las donaciones por fechas -->
+                            <div style="min-height: 350px">
+                                <canvas id="donacionesSuma" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
                             <h4 class="card-title">APOYO ACTIVIDADES</h4>
                         </div>
                         <div class="card-body">
@@ -246,6 +266,30 @@
                         borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
                         borderWidth: 1,
                         data: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%=d.getSumaDonaciones() + ","%><%}%>], // Valores para cada categoría
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true
+            }
+        });
+    });
+</script>
+<!-- donaciones suma-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let donaciones = document.getElementById("donacionesSuma").getContext("2d");
+        var chart = new Chart(donaciones, {
+            type: "line",
+            data: {
+                labels: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%="'" + d.getFecha() + "',"%><%}%>],
+                datasets: [
+                    {
+                        label: "Donaciones",
+                        borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
+                        borderWidth: 1,
+                        data: [<%for(DonacionesPorFecha d: sumaDonacionesPorFechaLista){%><%=d.getSumaDonaciones() + ","%><%}%>], // Valores para cada categoría
                     }
                 ]
             },

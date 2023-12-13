@@ -204,7 +204,7 @@
                                     <p class="lead">No existen actividades aún</p>
                                     <%}%>
                                     <tbody>
-                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
+                                    <%int i = 1;%>
                                     <%for (DelegadoActividad delegadoActividad : listaActividades) {%>
                                     <tr>
                                         <td><%=i%>
@@ -399,7 +399,7 @@
 
 
 
-                                 MODAL AGREGAR ACT -->
+                                <!-- MODAL AGREGAR ACT -->
                                 <div class="modal fade" id="modalNuevo"
                                      aria-hidden="true">
                                     <div class="modal-dialog">

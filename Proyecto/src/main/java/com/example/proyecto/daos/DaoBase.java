@@ -18,8 +18,8 @@ public abstract class DaoBase {
         String database = "proyecto";
         String url = "jdbc:mysql://localhost:3306/" + database;
 
-        //return DriverManager.getConnection(url, username, password);
-        return DriverManager.getConnection("jdbc:mysql://35.193.202.145/"+database,"root","Dsu~j\"2I^GZO>]HU");
+        return DriverManager.getConnection(url, username, password);
+       // return DriverManager.getConnection("jdbc:mysql://35.193.202.145/"+database,"root","Dsu~j\"2I^GZO>]HU");
 
 
     }

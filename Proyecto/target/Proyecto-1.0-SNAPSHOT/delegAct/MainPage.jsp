@@ -4,6 +4,8 @@
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
+<%int currentPageJsp = (int) request.getAttribute("currentPageJsp");%>
+<%int idActividadJsp = (int) request.getAttribute("idActJsp");%>
 <jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
 <jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
@@ -173,16 +175,28 @@
                 <div class="col">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
+                            <%int auxStart, auxEnd;%>
+                            <%if(currentPageJsp == 1){%>
+                            <%auxStart=1;} else {%>
+                            <%auxStart=currentPageJsp-1;}%>
+
+                            <%if(currentPageJsp == cantidadPaginas){%>
+                            <%auxEnd=cantidadPaginas;} else {%>
+                            <%auxEnd=currentPageJsp+1;}%>
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                                <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page&currentPage=<%=auxStart%>&idAct=<%=idActividadJsp%>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             <%for (int j=1;j<=cantidadPaginas;j++){%>
-                            <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page&currentPage=<%=j%>"><%=j%></a></li>
+                            <%if(currentPageJsp == j){%>
+                            <li class="page-item"><a class="page-link active" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page&currentPage=<%=j%>&idAct=<%=idActividadJsp%>"><%=j%></a></li>
+                            <%} else {%>
+                            <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page&currentPage=<%=j%>&idAct=<%=idActividadJsp%>"><%=j%></a></li>
+                            <%}%>
                             <%}%>
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                                <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=main_page&currentPage=<%=auxEnd%>&idAct=<%=idActividadJsp%>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

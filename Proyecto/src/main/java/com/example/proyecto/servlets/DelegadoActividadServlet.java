@@ -452,7 +452,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                 String idEventoApoyar = request.getParameter("idEventoApoyar") == null ? "" : request.getParameter("idEventoApoyar");
                 String idAlumno = String.valueOf(alumno.getIdAlumno());
                 alumnoEventoDao.apoyarEvento(idAlumno,idEventoApoyar);
-                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=mis_eventos");
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=main_page");
                 break;
 
             case "donar":

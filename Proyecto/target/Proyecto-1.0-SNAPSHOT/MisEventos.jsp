@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
 <%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
+<%int currentPageJsp = (int) request.getAttribute("currentPageJsp");%>
 <jsp:useBean id="lista_mis_eventos" scope="request" type="ArrayList<AlumnoEvento>"/>
 <html lang="en">
 
@@ -138,7 +139,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 ">
-                        <img src="images/valorant.avif" class="w-100 h-100">
+                        <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoEvento&id=<%=aE.getEvento().getIdEvento()%>" class="w-100 h-100">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -191,16 +192,29 @@
                 <div class="col">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
+                            <%int auxStart, auxEnd;%>
+                            <%if(currentPageJsp == 1){%>
+                            <%auxStart=1;} else {%>
+                            <%auxStart=currentPageJsp-1;}%>
+
+                            <%if(currentPageJsp == cantidadPaginas){%>
+                            <%auxEnd=cantidadPaginas;} else {%>
+                            <%auxEnd=currentPageJsp+1;}%>
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                                <a class="page-link" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos&currentPage=<%=auxStart%>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             <%for (int j=1;j<=cantidadPaginas;j++){%>
+                            <%if(currentPageJsp == j){%>
+                            <li class="page-item active"><a class="page-link" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos&currentPage=<%=j%>"><%=j%></a></li>
+                            <%} else {%>
                             <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos&currentPage=<%=j%>"><%=j%></a></li>
                             <%}%>
+
+                            <%}%>
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                                <a class="page-link" href="<%=request.getContextPath() %>/AlumnoServlet?action=mis_eventos&currentPage=<%=auxEnd%>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

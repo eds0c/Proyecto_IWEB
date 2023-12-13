@@ -8,8 +8,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class EnvioCorreosDaos extends DaoBase{
-    private static final String emailFrom = "teleweek0@gmail.com";
-    private static final String passwordFrom = "pwmvogowswkhbqlx";
+    private static final String emailFrom = "teleweek1@gmail.com";
+    private static final String passwordFrom = "pnqcacmqoxtevwjg";
     private static  String emailTo;
     private static  String subject;
     private static  String content;

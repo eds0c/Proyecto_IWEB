@@ -63,6 +63,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 request.setAttribute("cantidadEstudiantes", cantidadEstudiantes);
                 request.setAttribute("integrantesPorActividadLista", dtosDao.estadisticasIntegrantesPorActividad());
                 request.setAttribute("donacionesPorFechaLista", dtosDao.estadisticasDonacionesPorFecha(DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))),10));
+                request.setAttribute("sumaDonacionesPorFechaLista", dtosDao.estadisticasDonacionesPorFechaSuma(DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))),10));
                 request.getRequestDispatcher("delegGen/MainPage.jsp").forward(request,response);
                 break;
 
@@ -191,7 +192,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                     request.getSession().setAttribute("errDesc", "El título no cumple con la longitud adecuada. ");
                 }
 
-                boolean isAllValid = actividad.getDescripcion().length() <= 200 && actividad.getTitulo().length() <= 100;
+                boolean isAllValid = actividad.getDescripcion().length() <= 300 && actividad.getTitulo().length() <= 100;
 
                 if (isAllValid) {
                     actividadDao.crearActividad(actividad);
@@ -223,7 +224,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 actividad.setIdActividad(alumnoDelegadoActividadActual.getDelegadoActividad().getActividad().getIdActividad());
 
 
-                boolean isAllValid2 = actividad.getDescripcion().length() <= 200 && actividad.getTitulo().length() <= 100 && !actividad.getDescripcion().isEmpty() && !actividad.getTitulo().isEmpty();
+                boolean isAllValid2 = actividad.getDescripcion().length() <= 300 && actividad.getTitulo().length() <= 100 && !actividad.getDescripcion().isEmpty() && !actividad.getTitulo().isEmpty();
 
                 if (isAllValid2) {
 

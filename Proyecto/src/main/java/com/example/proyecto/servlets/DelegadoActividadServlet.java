@@ -286,7 +286,7 @@ public class DelegadoActividadServlet extends HttpServlet {
                     request.getSession().setAttribute("errDesc", "Debe subir una foto. ");
                 }
 
-                if (eventoDescripcion.length() > 200 || eventoDescripcion.length()<2) {
+                if (eventoDescripcion.length() > 300 || eventoDescripcion.length()<2) {
                     isAllValid = false;
                     request.getSession().setAttribute("errDesc", "La descripción no es de la longitud adecuada.");
                 }
@@ -332,7 +332,7 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 boolean isAllValid2 = true;
 
-                if (eventoDescripcion2.length() > 200 || eventoDescripcion2.length()<2 || eventoLugar2.isEmpty() || eventoLugar2.length() > 30 || eventoTitulo2.isEmpty() || eventoTitulo2.length() > 50) {
+                if (eventoDescripcion2.length() > 300 || eventoDescripcion2.length()<2 || eventoLugar2.isEmpty() || eventoLugar2.length() > 30 || eventoTitulo2.isEmpty() || eventoTitulo2.length() > 50) {
                     isAllValid2 = false;
                     request.getSession().setAttribute("errDesc", "La descripción, el título o el lugar no cumplen con el tamaño adecuado.");
                 }

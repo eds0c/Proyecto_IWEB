@@ -72,6 +72,27 @@ public class DtosDao extends DaoBase{
             DonacionesPorFecha donacionesPorFecha = new DonacionesPorFecha();
             String fechaAux = formatter.format(localDateAux);
             donacionesPorFecha.setFecha(fechaAux);
+            donacionesPorFecha.setSumaDonaciones(donacionDao.cantidadDeDonacion(fechaAux));
+            lista.add(donacionesPorFecha);
+        }
+        Collections.reverse(lista);
+        return lista;
+    }
+
+
+    public ArrayList<DonacionesPorFecha> estadisticasDonacionesPorFechaSuma(String fechaActual, int cantidadDias){
+
+        ArrayList<DonacionesPorFecha> lista = new ArrayList<>();
+        DonacionDao donacionDao = new DonacionDao();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate fechaActualLocalDate = LocalDate.parse(fechaActual, formatter);
+
+        for(int i=0;i<cantidadDias;i++){
+            LocalDate localDateAux = fechaActualLocalDate.minusDays(i);
+            DonacionesPorFecha donacionesPorFecha = new DonacionesPorFecha();
+            String fechaAux = formatter.format(localDateAux);
+            donacionesPorFecha.setFecha(fechaAux);
             donacionesPorFecha.setSumaDonaciones(donacionDao.sumaDeDonacion(fechaAux));
             lista.add(donacionesPorFecha);
         }

@@ -178,20 +178,7 @@
                 <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
                 <% session.removeAttribute("errDesc"); } %>
             </div>
-            <!-- BUSCAR PARTICIPANTES IMPLEMENTAR EN EL SERVLET Y DAO -->
-            <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=buscar">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar por nombre" name="textoBuscar"
-                           value="<%=textoBusqueda%>"/>
-                    <button class="input-group-text" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                    <a class="input-group-text"
-                       href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=participantes">
-                        <i class="bi bi-x-circle"></i>
-                    </a>
-                </div>
-            </form>
+
             <!-- LISTA DE PARTICIPANTES -->
             <div class="row">
                 <div class="col-sm-12">
@@ -215,7 +202,7 @@
                                     <p class="lead">No existen participantes en este evento.</p>
                                     <%}%>
                                     <tbody>
-                                    <%int i = 1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                     <%for (AlumnoEvento aE : lista_participantes){%>
                                     <tr>
                                         <th scope="row"><%=i%></th>

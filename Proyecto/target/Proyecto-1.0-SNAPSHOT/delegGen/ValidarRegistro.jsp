@@ -166,20 +166,7 @@
                 <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
                 <% session.removeAttribute("errDesc"); } %>
             </div>
-            <!-- BUSCAR ALUMNO IMPLEMENTAR EN EL SERVLET Y DAO -->
-            <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar por nombre" name="textoBuscar"
-                           value="<%=textoBusqueda%>"/>
-                    <button class="input-group-text" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                    <a class="input-group-text"
-                       href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=validar_registro">
-                        <i class="bi bi-x-circle"></i>
-                    </a>
-                </div>
-            </form>
+
             <!-- LISTA DE NUEVAS SOLICITUDES -->
             <div class="row">
                 <div class="col-sm-12">
@@ -205,7 +192,7 @@
                                     <%}%>
 
                                     <tbody>
-                                    <%int i = 1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                     <%for (Alumno alumno : listaAlumnosPendientes) {%>
                                     <tr>
                                         <td><%=i%>
@@ -303,7 +290,7 @@
                                                     </div>
                                                     <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=acepto_registro">
                                                         <label CLASS="modal-body text-justify" for="motivo1">
-                                                            <p>Motivo:</p>
+                                                            <p>Motivo de la aceptación:</p>
                                                             <input type="hidden" name="idAlumnoAceptado" value="<%=alumno.getIdAlumno()%>">
                                                             <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo1" required>
                                                         </label>
@@ -352,7 +339,7 @@
                                                     <form method="post"
                                                           action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazo_registro">
                                                         <label CLASS="modal-body text-justify" for="motivo2">
-                                                            <p>Motivo:</p>
+                                                            <p>Motivo del rechazo:</p>
                                                             <input type="hidden" name="idAlumnoRechazado" value="<%=alumno.getIdAlumno()%>">
                                                             <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo2" required>
                                                         </label>

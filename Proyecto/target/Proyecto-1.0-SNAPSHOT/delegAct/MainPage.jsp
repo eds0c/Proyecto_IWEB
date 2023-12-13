@@ -2,12 +2,13 @@
 <%@ page import="com.example.proyecto.beans.Evento" %>
 <%@ page import="com.example.proyecto.beans.DelegadoActividad" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
+<%@ page import="com.example.proyecto.beans.Actividad" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%int cantidadPaginas = (int) request.getAttribute("cantidadPaginas");%>
 <%int currentPageJsp = (int) request.getAttribute("currentPageJsp");%>
 <%int idActividadJsp = (int) request.getAttribute("idActJsp");%>
 <jsp:useBean id="lista" scope="request" type="ArrayList<Evento>" />
-<jsp:useBean id="listaActividades" scope="request" type="ArrayList<com.example.proyecto.beans.DelegadoActividad>" />
+<jsp:useBean id="listActividadesActivas" scope="request" type="ArrayList<com.example.proyecto.beans.Actividad>"/>
 <jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
 <%boolean actividadIsFinalizada = (Boolean) request.getAttribute("actividadIsFinalizada");%>
 <html lang="en">
@@ -147,8 +148,8 @@
                     <div class="filter-buttons" id="buttons">
                         <i class="bi bi-arrow-left-circle-fill prev"></i>
                         <div class="slider">
-                            <%for (DelegadoActividad dA : listaActividades){%>
-                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%></a>
+                            <%for (Actividad a: listActividadesActivas){%>
+                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=<%=a.getIdActividad()%>"><%=a.getTitulo()%></a>
                             <%};%>
                         </div>
                         <i class="bi bi-arrow-right-circle-fill next"></i>

@@ -155,19 +155,7 @@
         <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
         <% session.removeAttribute("errDesc"); } %>
       </div>
-      <!-- BUSCAR DONACION IMPLEMENTAR EN EL SERVLET Y DAO -->
-      <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Buscar por nombre" name="textoBuscar"
-                 value="<%=textoBusqueda%>"/>
-          <button class="input-group-text" type="submit">
-            <i class="bi bi-search"></i>
-          </button>
-          <a class="input-group-text" href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=validar_donaciones">
-            <i class="bi bi-x-circle"></i>
-          </a>
-        </div>
-      </form>
+
       <!-- LISTA DE NUEVAS DONACIONES -->
       <div class="row">
         <div class="col-sm-12">
@@ -193,7 +181,7 @@
 
                   <tbody>
 
-                  <%int i=1;%>
+                  <%int i = (currentPageJsp - 1) * (10) + 1;%>
                   <%for (Donacion d: lista1){%>
 
                   <tr>
@@ -280,7 +268,8 @@
                           </div>
                           <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=validar-donacion">
                             <label CLASS="modal-body text-justify" for="motivo1">
-                              <p>Motivo:</p>
+                              <p>Motivo (coloca el motivo de la validación y recuerda que antes va un "porque"):</p>
+                              <p>Ejem: porque "el monto es el adecuado..."</p>
                               <input type="hidden" name="idDonacionValida1" value="<%=d.getIdDonacion()%>">
                               <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo1" required>
                             </label>
@@ -319,15 +308,15 @@
                           </div>
                           <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazar-donacion">
                             <label CLASS="modal-body text-justify" for="motivo2">
-                              <p>Motivo:</p>
-                              <input type="hidden" name="idDonacionValida2" value="<%=d.getIdDonacion()%>">
+                              <p>Motivo (coloca el motivo de la no validación y recuerda que antes va un "porque"):</p>
+                              <p>Ejem: porque "no cumple con los requisitos"</p>
+                              <input type="hidden" name="idDonacionRechazada" value="<%=d.getIdDonacion()%>">
                               <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo2" required>
                             </label>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-light active"
                                       data-bs-dismiss="modal">Cancelar
                               </button>
-                                <input type= "hidden" name="idDonacionRechazada" value="<%=d.getIdDonacion()%>">
                                 <input type= "hidden" name="idAlumnoDonacionInvalida" value="<%=d.getAlumno().getIdAlumno()%>">
                               <button type="submit" class="btn btn-danger">No validar donación
                               </button>

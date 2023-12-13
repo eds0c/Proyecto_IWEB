@@ -170,19 +170,7 @@
             <div class="alert alert-danger" role="alert"><%=session.getAttribute("errDesc")%>
             </div>
             <% session.removeAttribute("errDesc");} %>
-            <!-- BUSCAR ACTIVIDAD IMPLEMENTAR EN EL SERVLET Y DAO -->
-            <form method="post" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=buscar">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar por nombre" name="textoBuscar"
-                           value="<%=textoBusqueda%>"/>
-                    <button class="input-group-text" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                    <a class="input-group-text" href="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=editar_actividades">
-                        <i class="bi bi-x-circle"></i>
-                    </a>
-                </div>
-            </form>
+
             <!-- LISTA DE ACTIVIDADES -->
             <div class="row">
                 <div class="col-sm-12">
@@ -242,7 +230,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <h6 class="fw-bold">Descripción:</h6>
-                                                                <p class="form-control"><%=delegadoActividad.getActividad().getDescripcion()%>
+                                                                <p class="form-control" style="height: auto" ><%=delegadoActividad.getActividad().getDescripcion()%>
                                                                 </p>
                                                             </div>
 

@@ -174,20 +174,7 @@
                 <span class="alert-message danger" style="color:red"><%= session.getAttribute("errDesc") %></span>
                 <% session.removeAttribute("errDesc"); } %>
             </div>
-            <!-- BUSCAR EVENTO IMPLEMENTAR EN EL SERVLET Y DAO -->
-            <form method="post" action="<%=request.getContextPath()%>/DelegadoActividadServlet?action=buscar">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar por nombre" name="textoBuscar"
-                           value="<%=textoBusqueda%>"/>
-                    <button class="input-group-text" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                    <a class="input-group-text"
-                       href="<%=request.getContextPath()%>/DelegadoActividadServlet?action=editar_actividades">
-                        <i class="bi bi-x-circle"></i>
-                    </a>
-                </div>
-            </form>
+
             <!-- LISTA DE EVENTOS -->
             <div class="row">
                 <div class="col-sm-12">
@@ -247,7 +234,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <h6 class="fw-bold">Descripción:</h6>
-                                                                <p class="form-control"><%=e.getDescripcion()%>
+                                                                <p class="form-control" style="height: auto" ><%=e.getDescripcion()%>
                                                                 </p>
                                                             </div>
 

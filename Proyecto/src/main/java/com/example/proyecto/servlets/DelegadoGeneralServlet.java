@@ -314,7 +314,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 Alumno alumno7 = alumnoDao.correo(id7);
                 alumnoDao.actualizarMotivo(id7,motivoRechazo7);
                 asunto = "Has sido revocado";
-                contenido = "Hola, " + alumno7.getNombre() + " " + alumno7.getApellido() + ", se te ha revocado el rechazo de participar de la semana de Ingeniería porque " + motivoRechazo7 + ". Podras participar nuevamente...";
+                contenido = "Hola, " + alumno7.getNombre() + " " + alumno7.getApellido() + ", se te ha revocado el rechazo de participar de la semana de Ingeniería porque " + motivoRechazo7 + ". Podrás participar nuevamente para que puedas apoyar a tu facultad en esta semana tan importante.";
                 correo = alumno7.getCorreo();
                 envioCorreosDaos.createEmail(correo,asunto,contenido);
                 envioCorreosDaos.sendEmail();
@@ -406,16 +406,16 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/DelegadoGeneralServlet?action=validar_donaciones");
 
                 String idAlumnoDonaInvalido = request.getParameter("idAlumnoDonacionInvalida");
-                String idDonacionValida2 = request.getParameter("idDonacionValida2");
+                String idDonacionRechazada = request.getParameter("idDonacionRechazada");
                 String motivoRechazo = request.getParameter("motivo");
 
                 // envio de correo
                 Alumno alumno5 = alumnoDao.correo(idAlumnoDonaInvalido);
-                donacionDao.crearMotivo(idDonacionValida2,motivoRechazo);
+                donacionDao.crearMotivo(idDonacionRechazada,motivoRechazo);
 
                 if(alumno5.getEgresado().equals("Estudiante")){
-                    asunto = "Donación invalidada";
-                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido invalidada porque " + motivoRechazo + ". Saludos. ";
+                    asunto = "Donación revisada";
+                    contenido = "Hola, " + alumno5.getNombre() + " " + alumno5.getApellido() + ", tu donación ha sido revisada.  Muchas gracias por donar; sin embargo," + motivoRechazo + ". Saludos. ";
                     correo = alumno5.getCorreo();
                     envioCorreosDaos.createEmail(correo,asunto,contenido);
                     envioCorreosDaos.sendEmail();

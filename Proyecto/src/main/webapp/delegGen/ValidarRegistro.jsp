@@ -303,7 +303,7 @@
                                                     </div>
                                                     <form method="POST" action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=acepto_registro">
                                                         <label CLASS="modal-body text-justify" for="motivo1">
-                                                            <p>Motivo:</p>
+                                                            <p>Motivo de la aceptación:</p>
                                                             <input type="hidden" name="idAlumnoAceptado" value="<%=alumno.getIdAlumno()%>">
                                                             <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo1" required>
                                                         </label>
@@ -352,7 +352,7 @@
                                                     <form method="post"
                                                           action="<%=request.getContextPath()%>/DelegadoGeneralServlet?action=rechazo_registro">
                                                         <label CLASS="modal-body text-justify" for="motivo2">
-                                                            <p>Motivo:</p>
+                                                            <p>Motivo del rechazo:</p>
                                                             <input type="hidden" name="idAlumnoRechazado" value="<%=alumno.getIdAlumno()%>">
                                                             <input type="text" name="motivo" class="form-control" placeholder="Coloca el motivo" id="motivo2" required>
                                                         </label>

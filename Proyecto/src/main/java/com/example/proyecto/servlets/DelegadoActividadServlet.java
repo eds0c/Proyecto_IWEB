@@ -116,15 +116,14 @@ public class DelegadoActividadServlet extends HttpServlet {
 
             case "actividades_finalizadas":
                 //saca la lista de eventos según actividad
-                String idAct1 = request.getParameter("idAct") == null ? "1" : request.getParameter("idAct"); //click
-                ArrayList<Evento> list1 = eventoDao.listarPorActividad(idAct1, "f",100,0);
+                ArrayList<Actividad> listaActividadesFinalizadas = actividadDao.listarActividadesSegunEstado("finalizada");
+                String idAct1 = request.getParameter("idActividadFinalizada") == null ? String.valueOf(listaActividadesFinalizadas.get(0).getIdActividad()) : request.getParameter("idActividadFinalizada"); //click
+                ArrayList<FotosActividad> list1 = fotosActividadDao.listaFotosDeActividadFinalizada(idAct1);
 
-                //saca la lista de actividades
-                ArrayList<DelegadoActividad> listDelegadoActividad1 = delegadoActividadDao.listarActividades(100,0);
 
                 //mandar la lista a la vista -> /MainPage.jsp
-                request.setAttribute("lista", list1);
-                request.setAttribute("listaActividades", listDelegadoActividad1);
+                request.setAttribute("listaFotosIds", list1);
+                request.setAttribute("listaActividadesFinalizadas", listaActividadesFinalizadas);
                 request.getRequestDispatcher("delegAct/ActividadesFinalizadas.jsp").forward(request,response);
                 break;
 
@@ -585,16 +584,10 @@ public class DelegadoActividadServlet extends HttpServlet {
 
                 //Parámetros:
                 String idActividadFinalizadaFotos = request.getParameter("idActividadFinalizadaFotos");
-                if(request.getParameter("fotoActividadFinalizada")!=null){
-                    InputStream actividadFoto = request.getPart("fotoActividadFinalizada").getInputStream();
-                    fotosActividadDao.subirFotoDeActividadFinalizada(idActividadFinalizadaFotos,actividadFoto);
-                    request.getSession().setAttribute("msg", "Foto subida exitosamente.");
-                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
-                }
-                else{
-                    request.getSession().setAttribute("errDesc", "Debe subir una foto.");
-                    response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
-                }
+                InputStream actividadFoto = request.getPart("fotoActividadFinalizada").getInputStream();
+                fotosActividadDao.subirFotoDeActividadFinalizada(idActividadFinalizadaFotos,actividadFoto);
+                request.getSession().setAttribute("msg", "Foto subida exitosamente.");
+                response.sendRedirect(request.getContextPath() + "/DelegadoActividadServlet?action=actividad_finalizada");
 
                 break;
         }

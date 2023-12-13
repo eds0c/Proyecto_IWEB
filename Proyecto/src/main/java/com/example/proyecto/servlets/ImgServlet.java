@@ -50,6 +50,11 @@ public class ImgServlet extends HttpServlet {
                 //System.out.println(idActividad);
                 actividadDao.fotoActividad(idActividad, response);
                 break;
+
+            case "fotoGaleriaFotosActividadFinalizada":
+                int idFotosActividad = Integer.parseInt(request.getParameter("idFotoGaleriaFotosActividadFinalizada"));
+                fotosActividadDao.fotoActividadFinalizada(idFotosActividad, response);
+                break;
         }
     }
 

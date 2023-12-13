@@ -1,7 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.AlumnoEvento" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
+<%@ page import="com.example.proyecto.beans.FotosActividad" %>
+<%@ page import="com.example.proyecto.beans.Actividad" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="listaFotosIds" scope="request" type="ArrayList<com.example.proyecto.beans.FotosActividad>" />
+<jsp:useBean id="listaActividadesFinalizadas" scope="request" type="ArrayList<com.example.proyecto.beans.Actividad>" />
+<jsp:useBean id="usuariologueado" scope="session" type="com.example.proyecto.beans.Alumno" class="com.example.proyecto.beans.Alumno" />
 <html lang="en">
 
 <head>
@@ -108,9 +113,9 @@
                     <div class="filter-buttons" id="buttons">
                         <i class="bi bi-arrow-left-circle-fill prev"></i>
                         <div class="slider">
-<%--                            <%for (DelegadoActividad dA : listaActividades){%>--%>
-<%--                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/DelegadoActividadServlet?idAct=<%=dA.getActividad().getIdActividad()%>"><%=dA.getActividad().getTitulo()%></a>--%>
-<%--                            <%};%>--%>
+                            <%for (Actividad a : listaActividadesFinalizadas){%>
+                            <a class="button-value text-decoration-none" role="button" href="<%=request.getContextPath()%>/AlumnoServlet?action=actividades_finalizadas&idActividadFinalizada=<%=a.getIdActividad()%>"><%=a.getTitulo()%></a>
+                            <%};%>
                         </div>
                         <i class="bi bi-arrow-right-circle-fill next"></i>
                     </div>
@@ -119,26 +124,17 @@
             <!-- GALERÍA -->
             <section class="container mt-4">
                 <h1 class="my-4 mt-4 text-sm-center text-lg-left image_title">Image Gallery</h1>
+                <%if (listaFotosIds.isEmpty()){%>
+                <h3 class="my-4 mt-4 text-sm-center text-lg-left image_title text-secondary">Aún no se han subido fotos relacionadas a esta actividad. </h3>
+                <%}%>
                 <div class="row gallery">
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a href="assets/img/product/product-01.jpg">
-                            <figure><img class="img-fluid img-thumbnail" src="assets/img/product/product-01.jpg"
-                                         alt="Random Image"></figure>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a href="assets/img/product/product-02.jpg">
-                            <figure><img class="img-fluid img-thumbnail" src="assets/img/product/product-02.jpg"
-                                         alt="Random Image"></figure>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a href="assets/img/product/product-03.jpg">
-                            <figure><img class="img-fluid img-thumbnail" src="assets/img/product/product-03.jpg"
-                                         alt="Random Image"></figure>
-                        </a>
-                    </div>
 
+                    <%for(FotosActividad fotosActividad: listaFotosIds){%>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <figure><img class="img-fluid img-thumbnail" src="<%=request.getContextPath()%>/ImgServlet?action=fotoGaleriaFotosActividadFinalizada&idFotoGaleriaFotosActividadFinalizada=<%=fotosActividad.getIdFotosActividad()%>"
+                                     alt="Random Image"></figure>
+                    </div>
+                    <%}%>
 
                 </div>
             </section>

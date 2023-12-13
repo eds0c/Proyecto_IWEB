@@ -180,5 +180,36 @@ public class ActividadDao extends DaoBase {
         }
     }
 
+    public ArrayList<Actividad> listarActividadesSegunEstado(String estado) {
+
+
+        ArrayList<Actividad> lista = new ArrayList<>();
+
+        String sql = "select * from actividad where estado = ?;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, estado);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+                    Actividad actividad = new Actividad();
+                    actividad.setIdActividad(rs.getInt("idActividad"));
+                    actividad.setDescripcion(rs.getString("descripcion"));
+                    actividad.setFoto(rs.getBinaryStream("foto"));
+                    actividad.setEstado(rs.getString("estado"));
+                    actividad.setTitulo(rs.getString("titulo"));
+                    lista.add(actividad);
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
+
 
 }

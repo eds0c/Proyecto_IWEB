@@ -134,7 +134,8 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Eventos</h4>
+                            <h4 class="card-title float-left mt-2">¡Bienvenido! Explora los distintos eventos por
+                                actividad</h4>
                         </div>
                     </div>
                 </div>

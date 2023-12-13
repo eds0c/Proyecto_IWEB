@@ -165,11 +165,10 @@
                 <div class="col-md-12 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
-                            <h4 class="card-title">DONACIONES</h4></div>
+                            <h4 class="card-title">CANTIDAD DONACIONES</h4></div>
                         <div class="card-body">
-                            <p>La siguiente gráfica ilustra las recaudaciones
-                                resultantes de las donaciones realizadas por los usuarios de Teleweek hacia
-                                la AITEL durante la semana de Ingeniería.</p>
+                            <p>La siguiente gráfica ilustra la cantidad de donaciones realizadas en los distintos
+                                días por parte de los usuarios tanto alumnos como egresados.</p>
                             <!-- grafica lineal de donaciones por fechas -->
                             <div style="min-height: 350px">
                                 <canvas id="donaciones" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
@@ -184,7 +183,7 @@
                 <div class="col-md-12 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
-                            <h4 class="card-title">DONACIONES</h4></div>
+                            <h4 class="card-title">MONTO DONACIONES</h4></div>
                         <div class="card-body">
                             <p>La siguiente gráfica ilustra las recaudaciones
                                 resultantes de las donaciones realizadas por los usuarios de Teleweek hacia
@@ -262,7 +261,7 @@
                 labels: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%="'" + d.getFecha() + "',"%><%}%>],
                 datasets: [
                     {
-                        label: "Donaciones",
+                        label: "Cant. Donaciones",
                         borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
                         borderWidth: 1,
                         data: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%=d.getSumaDonaciones() + ","%><%}%>], // Valores para cada categoría
@@ -271,7 +270,21 @@
             },
             options: {
                 maintainAspectRatio: false,
-                responsive: true
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fechas' // Etiqueta para el eje X
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Cantidad de Donaciones' // Etiqueta para el eje Y
+                        }
+                    }
+                }
             }
         });
     });
@@ -286,7 +299,7 @@
                 labels: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%="'" + d.getFecha() + "',"%><%}%>],
                 datasets: [
                     {
-                        label: "Donaciones",
+                        label: "Donaciones (S/.)",
                         borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
                         borderWidth: 1,
                         data: [<%for(DonacionesPorFecha d: sumaDonacionesPorFechaLista){%><%=d.getSumaDonaciones() + ","%><%}%>], // Valores para cada categoría
@@ -295,7 +308,21 @@
             },
             options: {
                 maintainAspectRatio: false,
-                responsive: true
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fechas' // Etiqueta para el eje X
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Total de donaciones (S/.)' // Etiqueta para el eje Y
+                        }
+                    }
+                }
             }
         });
     });
@@ -326,7 +353,21 @@
             },
             options: {
                 maintainAspectRatio: false,
-                responsive: true
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Actividades' // Etiqueta para el eje X
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Usuarios inscritos' // Etiqueta para el eje Y
+                        }
+                    }
+                }
             }
         });
     });

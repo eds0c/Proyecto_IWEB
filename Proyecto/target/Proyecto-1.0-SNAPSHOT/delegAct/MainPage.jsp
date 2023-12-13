@@ -134,7 +134,8 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Eventos</h4>
+                            <h4 class="card-title float-left mt-2">¡Bienvenido! Explora los distintos eventos por
+                                actividad</h4>
                         </div>
                     </div>
                 </div>
@@ -154,6 +155,9 @@
                     </div>
                 </div>
             </div>
+            <%if (lista.isEmpty()) {%>
+            <h3 class="my-4 mt-4 text-sm-center text-lg-left image_title text-secondary">Aún no existen eventos para esta actividad. </h3>
+            <%}%>
 
             <div class="row">
                 <%for (Evento e: lista){%>

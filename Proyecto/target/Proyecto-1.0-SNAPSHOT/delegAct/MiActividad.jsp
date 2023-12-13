@@ -148,7 +148,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Lista de eventos</h4>
+                            <h4 class="card-title float-left mt-2">Lista de eventos de <%=usuariologueado.getDelegadoActividad().getActividad().getTitulo()%></h4>
                             <button class="btn btn-light active float-right veiwbutton"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalNuevo">

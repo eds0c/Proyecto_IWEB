@@ -1,8 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
+<%@ page import="com.example.proyecto.Dtos.IntegrantesPorActividad" %>
+<%@ page import="com.example.proyecto.Dtos.DonacionesPorFecha" %>
 <%int cantidadEgresados = (int) request.getAttribute("cantidadEgresados");%>
 <%int cantidadEstudiantes = (int) request.getAttribute("cantidadEstudiantes");%>
+<jsp:useBean id="integrantesPorActividadLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.IntegrantesPorActividad>"/>
+<jsp:useBean id="donacionesPorFechaLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.DonacionesPorFecha>"/>
+<jsp:useBean id="sumaDonacionesPorFechaLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.DonacionesPorFecha>"/>
+
 <html lang="en">
 
 <head>
@@ -158,14 +165,32 @@
                 <div class="col-md-12 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
-                            <h4 class="card-title">DONACIONES</h4></div>
+                            <h4 class="card-title">CANTIDAD DONACIONES</h4></div>
+                        <div class="card-body">
+                            <p>La siguiente gráfica ilustra la cantidad de donaciones realizadas en los distintos
+                                días por parte de los usuarios tanto alumnos como egresados.</p>
+                            <!-- grafica lineal de donaciones por fechas -->
+                            <div style="min-height: 350px">
+                                <canvas id="donaciones" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h4 class="card-title">MONTO DONACIONES</h4></div>
                         <div class="card-body">
                             <p>La siguiente gráfica ilustra las recaudaciones
                                 resultantes de las donaciones realizadas por los usuarios de Teleweek hacia
                                 la AITEL durante la semana de Ingeniería.</p>
-                            <!-- grafica lineal de donaciones por fechas -->
+                            <!-- grafica lineal de la suma de las donaciones por fechas -->
                             <div style="min-height: 350px">
-                                <canvas id="donaciones" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
+                                <canvas id="donacionesSuma" width="1184" height="300" style="display: block; box-sizing: border-box; height: 150px; width: 592px;"></canvas>
                             </div>
 
                         </div>
@@ -233,19 +258,71 @@
         var chart = new Chart(donaciones, {
             type: "line",
             data: {
-                labels: ["fecha1", "fecha2", "fecha3", "fecha4", "fecha5", "fecha6", "fecha7", "fecha8", "fecha9"],
+                labels: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%="'" + d.getFecha() + "',"%><%}%>],
                 datasets: [
                     {
-                        label: "Donaciones",
+                        label: "Cant. Donaciones",
                         borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
                         borderWidth: 1,
-                        data: [30, 50, 70, 40, 20, 10, 40, 50, 10], // Valores para cada categoría
+                        data: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%=d.getSumaDonaciones() + ","%><%}%>], // Valores para cada categoría
                     }
                 ]
             },
             options: {
                 maintainAspectRatio: false,
-                responsive: true
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fechas' // Etiqueta para el eje X
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Cantidad de Donaciones' // Etiqueta para el eje Y
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+<!-- donaciones suma-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let donaciones = document.getElementById("donacionesSuma").getContext("2d");
+        var chart = new Chart(donaciones, {
+            type: "line",
+            data: {
+                labels: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%="'" + d.getFecha() + "',"%><%}%>],
+                datasets: [
+                    {
+                        label: "Donaciones (S/.)",
+                        borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
+                        borderWidth: 1,
+                        data: [<%for(DonacionesPorFecha d: sumaDonacionesPorFechaLista){%><%=d.getSumaDonaciones() + ","%><%}%>], // Valores para cada categoría
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fechas' // Etiqueta para el eje X
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Total de donaciones (S/.)' // Etiqueta para el eje Y
+                        }
+                    }
+                }
             }
         });
     });
@@ -257,26 +334,40 @@
         var chart = new Chart(apoyoAct, {
             type: "bar",
             data: {
-                labels: ["act1", "act2", "act3", "act4", "act5", "act6", "act7", "act8", "act9"],
+                labels: [<%for(IntegrantesPorActividad i: integrantesPorActividadLista){%><%="'" + i.getActividad().getTitulo() + "',"%><%}%>],
                 datasets: [
                     {
                         label: "Equipo",
                         backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de fondo
                         borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
                         borderWidth: 1,
-                        data: [30, 50, 70, 40, 20, 10, 40, 50, 10], // Valores para cada categoría
+                        data: [<%for(IntegrantesPorActividad i: integrantesPorActividadLista){%><%=i.getCantidadIntegrantesEquipo() + ","%><%}%>], // Valores para cada categoría
                     }, {
                         label: 'Barra',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1,
-                        data: [40, 60, 80, 40, 60, 80, 40, 60, 80],
+                        data: [<%for(IntegrantesPorActividad i: integrantesPorActividadLista){%><%=i.getCantidadIntegrantesBarra() + ","%><%}%>],
                     }
                 ]
             },
             options: {
                 maintainAspectRatio: false,
-                responsive: true
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Actividades' // Etiqueta para el eje X
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Usuarios inscritos' // Etiqueta para el eje Y
+                        }
+                    }
+                }
             }
         });
     });

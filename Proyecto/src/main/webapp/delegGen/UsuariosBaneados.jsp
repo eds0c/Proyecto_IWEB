@@ -228,7 +228,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                                                <img src="images/usuario.jpg" alt="Imagen del usuario"
+                                                                <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumno.getIdAlumno()%>" alt="Imagen del usuario"
                                                                      class="img-thumbnail w-50">
                                                             </div>
 
@@ -269,7 +269,7 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <h6 class="fw-bold">Motivo:</h6>
+                                                                <h6 class="fw-bold">Motivo de baneo:</h6>
                                                                 <p class="form-control"><%=alumno.getMotivo()%>
                                                                 </p>
                                                             </div>

@@ -222,7 +222,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
-                                                                <img src="images/usuario.jpg" alt="Imagen del usuario"
+                                                                <img src="<%=request.getContextPath()%>/ImgServlet?action=fotoPerfilAlumno&idAlumno=<%=alumno.getIdAlumno()%>" alt="Imagen del usuario"
                                                                      id="userImage"
                                                                      class="img-thumbnail w-50">
                                                             </div>

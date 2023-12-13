@@ -268,20 +268,20 @@
                                                 <%auxEnd=cantidadPaginas;} else {%>
                                                 <%auxEnd=currentPageJsp+1;}%>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=auxStart%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>" aria-label="Previous">
+                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=participantes&currentPage=<%=auxStart%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>" aria-label="Previous">
                                                         <span aria-hidden="true">&laquo;</span>
                                                     </a>
                                                 </li>
                                                 <%for (int j=1;j<=cantidadPaginas;j++){%>
                                                 <%if(currentPageJsp == j){%>
-                                                <li class="page-item active"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=j%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>"><%=j%></a></li>
+                                                <li class="page-item active"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=participantes&currentPage=<%=j%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>"><%=j%></a></li>
                                                 <%} else {%>
-                                                <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=j%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>"><%=j%></a></li>
+                                                <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=participantes&currentPage=<%=j%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>"><%=j%></a></li>
                                                 <%}%>
 
                                                 <%}%>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=partipantes&currentPage=<%=auxEnd%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>" aria-label="Next">
+                                                    <a class="page-link" href="<%=request.getContextPath() %>/DelegadoActividadServlet?action=participantes&currentPage=<%=auxEnd%>&idEventoParticipantes=<%=idEventoParticipantesJsp%>" aria-label="Next">
                                                         <span aria-hidden="true">&raquo;</span>
                                                     </a>
                                                 </li>

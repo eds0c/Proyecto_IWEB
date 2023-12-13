@@ -197,7 +197,7 @@
 
                                     <tbody>
                                     <%-- FALTA IMPLEMENTAR DAO--%>
-                                    <%int i=1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                     <%for (Donacion d: lista5){%>
 
                                     <tr>

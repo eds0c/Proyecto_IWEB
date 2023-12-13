@@ -201,7 +201,7 @@
 
 
                                     <tbody>
-                                        <%int i=1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                         <%for (Donacion d: lista3){%>
 
                                             <tr>

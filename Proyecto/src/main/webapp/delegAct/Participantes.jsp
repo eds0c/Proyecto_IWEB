@@ -215,7 +215,7 @@
                                     <p class="lead">No existen participantes en este evento.</p>
                                     <%}%>
                                     <tbody>
-                                    <%int i = 1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                     <%for (AlumnoEvento aE : lista_participantes){%>
                                     <tr>
                                         <th scope="row"><%=i%></th>

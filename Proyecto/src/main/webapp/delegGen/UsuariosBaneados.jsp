@@ -211,7 +211,7 @@
                                     <%}%>
 
                                     <tbody>
-                                    <%int i = 1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                     <%for (Alumno alumno : listaUsuariosBaneados) {%>
                                     <tr>
                                         <td><%=i%>

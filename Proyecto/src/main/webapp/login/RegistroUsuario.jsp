@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-6">
                             <!-- contraseña -->
-                            <li>Cree y confirme una contraseña:</li>
+                            <li>Cree y confirme una contraseña (como mínimo de 8 caracteres):</li>
                             <div class="field create-password">
                                 <div class="input-field">
                                     <label>

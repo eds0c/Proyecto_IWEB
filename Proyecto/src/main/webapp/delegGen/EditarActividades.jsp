@@ -204,7 +204,7 @@
                                     <p class="lead">No existen actividades aún</p>
                                     <%}%>
                                     <tbody>
-                                    <%int i = 1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                     <%for (DelegadoActividad delegadoActividad : listaActividades) {%>
                                     <tr>
                                         <td><%=i%>

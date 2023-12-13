@@ -205,7 +205,7 @@
                                     <p class="lead">No hay eventos finalizados en su actividad.</p>
                                     <%}%>
                                     <tbody>
-                                    <%int i = 1;%>
+                                    <%int i = (currentPageJsp - 1) * (10) + 1;%>
                                     <%for (Evento e : lista_eventos_finalizados) {%>
                                     <tr>
                                         <td><%=i%>

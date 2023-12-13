@@ -154,6 +154,9 @@
                     </div>
                 </div>
             </div>
+            <%if (lista.isEmpty()) {%>
+            <h3 class="my-4 mt-4 text-sm-center text-lg-left image_title text-secondary">Aún no existen eventos para esta actividad. </h3>
+            <%}%>
 
             <div class="row">
                 <%for (Evento e: lista){%>

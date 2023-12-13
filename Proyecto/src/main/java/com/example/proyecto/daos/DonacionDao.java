@@ -285,6 +285,28 @@ public class DonacionDao extends DaoBase{
         return cantidad;
     }
 
+    public int sumaDeDonacion(String fecha){
+
+        ArrayList<Donacion> lista = new ArrayList<>();
+        int suma=0;
+
+        String sql = "select count(monto), fecha from donacion where fecha = ? and estado = 'aprobado' group by fecha;";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,fecha);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()){
+                    suma = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return suma;
+    }
+
 
 
 

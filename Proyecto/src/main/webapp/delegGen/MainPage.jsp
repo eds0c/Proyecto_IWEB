@@ -1,8 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.proyecto.beans.Alumno" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.proyecto.beans.DelegadoGeneral" %>
+<%@ page import="com.example.proyecto.Dtos.IntegrantesPorActividad" %>
+<%@ page import="com.example.proyecto.Dtos.DonacionesPorFecha" %>
 <%int cantidadEgresados = (int) request.getAttribute("cantidadEgresados");%>
 <%int cantidadEstudiantes = (int) request.getAttribute("cantidadEstudiantes");%>
+<jsp:useBean id="integrantesPorActividadLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.IntegrantesPorActividad>"/>
+<jsp:useBean id="donacionesPorFechaLista" scope="request" type="ArrayList<com.example.proyecto.Dtos.DonacionesPorFecha>"/>
+
 <html lang="en">
 
 <head>
@@ -233,13 +239,13 @@
         var chart = new Chart(donaciones, {
             type: "line",
             data: {
-                labels: ["fecha1", "fecha2", "fecha3", "fecha4", "fecha5", "fecha6", "fecha7", "fecha8", "fecha9"],
+                labels: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%="'" + d.getFecha() + "',"%><%}%>],
                 datasets: [
                     {
                         label: "Donaciones",
                         borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
                         borderWidth: 1,
-                        data: [30, 50, 70, 40, 20, 10, 40, 50, 10], // Valores para cada categoría
+                        data: [<%for(DonacionesPorFecha d: donacionesPorFechaLista){%><%=d.getSumaDonaciones() + ","%><%}%>], // Valores para cada categoría
                     }
                 ]
             },
@@ -257,20 +263,20 @@
         var chart = new Chart(apoyoAct, {
             type: "bar",
             data: {
-                labels: ["act1", "act2", "act3", "act4", "act5", "act6", "act7", "act8", "act9"],
+                labels: [<%for(IntegrantesPorActividad i: integrantesPorActividadLista){%><%="'" + i.getActividad().getTitulo() + "',"%><%}%>],
                 datasets: [
                     {
                         label: "Equipo",
                         backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de fondo
                         borderColor: 'rgba(75, 192, 192, 1)', // Color del borde
                         borderWidth: 1,
-                        data: [30, 50, 70, 40, 20, 10, 40, 50, 10], // Valores para cada categoría
+                        data: [<%for(IntegrantesPorActividad i: integrantesPorActividadLista){%><%=i.getCantidadIntegrantesEquipo() + ","%><%}%>], // Valores para cada categoría
                     }, {
                         label: 'Barra',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1,
-                        data: [40, 60, 80, 40, 60, 80, 40, 60, 80],
+                        data: [<%for(IntegrantesPorActividad i: integrantesPorActividadLista){%><%=i.getCantidadIntegrantesBarra() + ","%><%}%>],
                     }
                 ]
             },

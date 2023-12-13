@@ -26,6 +26,7 @@ public class AlumnoServlet extends HttpServlet {
     DonacionDao donacionDao = new DonacionDao();
     CredentialsDao credentialsDao = new CredentialsDao();
     AlumnoDao alumnoDao = new AlumnoDao();
+    FotosActividadDao fotosActividadDao = new FotosActividadDao();
 
 
     @Override
@@ -88,6 +89,15 @@ public class AlumnoServlet extends HttpServlet {
                 break;
             case "actividades_finalizadas":
 
+                //saca la lista de eventos según actividad
+                ArrayList<Actividad> listaActividadesFinalizadas = actividadDao.listarActividadesSegunEstado("finalizada");
+                String idAct1 = request.getParameter("idActividadFinalizada") == null ? String.valueOf(listaActividadesFinalizadas.get(0).getIdActividad()) : request.getParameter("idActividadFinalizada"); //click
+                ArrayList<FotosActividad> list1 = fotosActividadDao.listaFotosDeActividadFinalizada(idAct1);
+
+
+                //mandar la lista a la vista -> /MainPage.jsp
+                request.setAttribute("listaFotosIds", list1);
+                request.setAttribute("listaActividadesFinalizadas", listaActividadesFinalizadas);
                 request.getRequestDispatcher("ActividadesFinalizadas.jsp").forward(request,response);
                 break;
 

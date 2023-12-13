@@ -529,6 +529,33 @@ public class EventoDao extends DaoBase{
         }
     }
 
+    public ArrayList<Integer> listarIdsPorActividad(String idActividad){
+
+        ArrayList<Integer> lista = new ArrayList<>();
+        ActividadDao aDao = new ActividadDao();
+
+
+        String sql = "select idEvento from evento e where Actividad_idActividad = ?;";
+
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,idActividad);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                while (rs.next()) {
+
+                    lista.add(rs.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
+
 
 
 }

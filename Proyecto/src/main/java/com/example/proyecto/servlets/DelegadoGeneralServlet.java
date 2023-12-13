@@ -31,6 +31,7 @@ public class DelegadoGeneralServlet extends HttpServlet {
     AlumnoEventoDao alumnoEventoDao = new AlumnoEventoDao();
     CredentialsDao credentialsDao = new CredentialsDao();
     DelegadoGeneralDao delegadoGeneralDao = new DelegadoGeneralDao();
+    DtosDao dtosDao = new DtosDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,6 +61,8 @@ public class DelegadoGeneralServlet extends HttpServlet {
                 cantidadEstudiantes=list20.size();
                 request.setAttribute("cantidadEgresados", cantidadEgresados);
                 request.setAttribute("cantidadEstudiantes", cantidadEstudiantes);
+                request.setAttribute("integrantesPorActividadLista", dtosDao.estadisticasIntegrantesPorActividad());
+                request.setAttribute("donacionesPorFechaLista", dtosDao.estadisticasDonacionesPorFecha(DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now(ZoneId.of("America/New_York"))),10));
                 request.getRequestDispatcher("delegGen/MainPage.jsp").forward(request,response);
                 break;
 

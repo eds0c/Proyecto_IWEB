@@ -103,4 +103,32 @@ public class AlumnoEventoDao extends DaoBase{
         }
     }
 
+    public int obtenerCantidadDeIntegrantesPorEvento(int idEvento, int tipoIntegrante){
+
+
+        int cantidad = 0;
+
+        String sql = "SELECT count(alumno_idAlumno) FROM proyecto.alumno_evento where Integrante_idIntegrante = ? and Evento_idEvento = ? group by Evento_idEvento;";
+        IntegranteDao iDao = new IntegranteDao();
+        EventoDao eDao = new EventoDao();
+        AlumnoDao alumnoDao = new AlumnoDao();
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1,tipoIntegrante);
+            pstmt.setInt(2,idEvento);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    cantidad = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cantidad;
+    }
+
 }
